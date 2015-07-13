@@ -1,0 +1,271 @@
+@CHARSET "ISO-8859-1";
+
+html {
+	font-size: 13px;
+	box-sizing: border-box;
+	min-width: 320px
+}
+
+body {
+	margin: 0;
+	color: #404040;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	line-height: 1.5em;
+	background: white;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: none;
+	min-width: 320px;
+}
+/* css for header*/
+.header {
+	height: 40px;
+	width: 98%;
+	display: inline-flex;
+	background: #0e74af;
+	box-shadow: 0 0 3px rgba(78, 24, 237, 0.7);
+	padding: 0px 1%;
+}
+
+/* .footer {
+	font-weight: bold;
+	padding-top: 10px;
+	height: 25px;
+	width: 100%;
+	text-align: center;
+	background-color: #0e74af;
+	color: white;
+} */
+.left_header {
+	width: 10%;
+	padding-top: 15px;
+	padding-left: 10px;
+}
+
+.right_header {
+	width: 85%;
+	border-radius: 10px;
+	height: 22px;
+	background-color: white;
+	box-shadow: 0 0 3px rgba(252, 250, 250, 0.7);
+	margin-top: 8px;
+	display: flex;
+}
+
+input.inputsearch {
+	background-color: white;
+	border: none;
+	margin-left: 10px;
+	width: 90%;
+}
+
+.btsearch {
+	margin-top: 3px;
+	margin-right: 10px;
+}
+
+.main-title {
+	font-size: 1.3em;
+	line-height: 1.6em;
+	text-align: center;
+	padding-top: 8px;
+	color: white;
+}
+
+#main {
+	padding-top: 20px;
+	min-height: 300px;
+}
+
+#content {
+	margin: 0px 4px;
+}
+
+h1 {
+	font-size: 1.8rem;
+	line-height: 1.8rem;
+	display: inline-block;
+	margin: 0 10px 0 0;
+}
+
+.list-mean {
+	padding-left: 10px;
+}
+
+#menu {
+	display: none;
+}
+
+#menu ul {
+	left: 0;
+	font-size: 20px;
+	background-color: rgb(137, 167, 195);
+	position: absolute;
+	right: -10px;
+	top: 40px;
+	list-style-type: none;
+	z-index: 6;
+	padding: 0;
+	margin: 0;
+	box-shadow: 0 12px 12px -4px gray;
+}
+
+a {
+	text-decoration: none;
+}
+
+#menu ul li a {
+	width: 100%;
+	padding: 0px 160px 0px 00px;
+	margin: 0px 10px;
+	color: white;
+}
+
+#menu ul li img {
+	width: 30px;
+}
+
+.m_menu_home,.m_menu_login {
+	border-bottom: solid 1px gray;
+}
+
+#menu li {
+	height: 40px;
+	line-height: 40px;
+	padding: 0px 20px 0px 10px;
+}
+/* css for home*/
+.header_table {
+	position: relative;
+	font-size: 22px;
+	font-weight: 700;
+	text-align: center;
+}
+
+.skill-table {
+	margin: 20px auto 0px;
+	padding: 0;
+}
+
+.skill-table tr {
+	width: 100%;
+}
+
+.table-cell {
+	height: 50px;
+	text-align: center;
+	width: 130px;
+	background: #0e74af;
+	cursor: pointer;
+	border-radius: 3px;
+	color: white;
+	padding: 10px 5px;
+	display: inline-block;
+	white-space: normal;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.table-cell:hover {
+	background: #0066c
+}
+
+/*mobile overides*/
+@media ( max-width : 319px) {
+	.table-cell {
+		width: 120px;
+	}
+}
+
+@media ( min-width : 320px) and (max-width: 420px) {
+	.left_header {
+		width: 8%;
+		margin-left: -0.15em;
+	}
+	.right_header {
+		width: 88%;
+	}
+	.btsearch {
+		margin-top: 3px;
+		font-size: 1.2em;
+		margin-left: 10px;
+	}
+}
+
+@media ( min-width : 421px) and (max-width: 520px) {
+	.left_header {
+		width: 7%;
+		font-size: 1.2em;
+		margin-left: -0.15em;
+	}
+	.right_header {
+		width: 90%;
+	}
+	.btsearch {
+		margin-top: 3px;
+		font-size: 1.2em;
+		margin-left: 10px;
+	}
+	.table-cell {
+		width: 140px;
+	}
+	.skill-table {
+		border-spacing: 30px 20px;
+	}
+}
+
+@media ( min-width : 521px) and (max-width: 600px) {
+	.left_header {
+		width: 7%;
+		font-size: 1.2em;
+		margin-left: -0.15em;
+	}
+	.right_header {
+		width: 90%;
+	}
+	.btsearch {
+		margin-top: 3px;
+		font-size: 1.2em;
+		margin-left: 6px;
+	}
+	.table-cell {
+		width: 150px;
+		font-size: 16px;
+		height: 60px;
+	}
+	.skill-table {
+		border-spacing: 30px 10px;
+	}
+}
+
+@media ( min-width : 601px) and (max-width: 767px) {
+	.left_header {
+		width: 5%;
+		font-size: 1.2em;
+		margin-left: -0.15em;
+	}
+	.right_header {
+		width: 93%;
+	}
+	.btsearch {
+		margin-top: 3px;
+		font-size: 1.2em;
+		margin-left: 10px;
+	}
+	input.inputsearch {
+		width: 92%;
+	}
+	.table-cell {
+		height: 70px;
+		width: 200px;
+		font-size: 17px;
+	}
+	.skill-table {
+		border-spacing: 40px 20px;
+	}
+}
+
+@media ( max-width : 767px) {
+}
+
+@media ( min-width : 768px) {
+}
