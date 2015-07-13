@@ -173,7 +173,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<!-- <runTarget></runTarget> -->
+					<runTarget>/</runTarget>
 					<modules>
 						<module>com.born2go.lazzybee.LazzyBee</module>
 					</modules>

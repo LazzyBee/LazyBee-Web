@@ -12,11 +12,11 @@
 	</welcome-file-list>
 
 	<!-- Register objectify entity -->
-	<!-- <servlet>
+	<servlet>
 		<servlet-name>register</servlet-name>
-		<servlet-class>com.born2go.server.DataRegister</servlet-class>
+		<servlet-class>com.born2go.lazzybee.gdatabase.server.DataRegister</servlet-class>
 		<load-on-startup>0</load-on-startup>
-	</servlet> -->
+	</servlet>
 	
 	<!-- Objectify Filter -->
 	<filter>
@@ -29,6 +29,14 @@
 	</filter-mapping>
 
 	<!-- DataStore service -->
+	<servlet>
+		<servlet-name>data_service</servlet-name>
+		<servlet-class>com.born2go.lazzybee.gdatabase.server.DataServiceApi</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>data_service</servlet-name>
+		<url-pattern>/lazzybee/dataservice</url-pattern>
+	</servlet-mapping>
 	
 	<!-- JSP Servlet -->
 

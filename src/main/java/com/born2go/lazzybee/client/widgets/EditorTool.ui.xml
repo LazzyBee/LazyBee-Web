@@ -1,0 +1,51 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.EditorTool_Obj1 {
+		float: left;
+		width: 26%;
+		background: #0e74af;
+		text-align: center;
+	}
+	
+	.EditorTool_Obj2 {
+		float: left;
+		padding: 30px;
+	}
+	
+	.EditorTool_Obj3 {
+		overflow: hidden;
+	}
+	
+	.EditorTool_Obj4 {
+		color: white !important;
+		cursor: pointer;
+		margin-top: 40px;
+	}
+	
+	.EditorTool_Obj4:hover {
+		color: silver !important;
+		text-decoration: none;
+	}
+	
+	.EditorTool_Obj5 {
+		color: silver !important;
+	}
+	
+	.EditorTool_Obj6 {
+		color: white;
+		line-height: 1.5;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.EditorTool_Obj3}">
+		<g:HTMLPanel ui:field="tabPanel" styleName="{style.EditorTool_Obj1}">
+			<br/> <br/>
+			<g:Anchor ui:field="vocaTab" styleName="{style.EditorTool_Obj4} {style.EditorTool_Obj5}">Soạn thảo từ vựng</g:Anchor>
+			<br/> <br/> <br/>
+			<g:Anchor ui:field="articleTab" styleName="{style.EditorTool_Obj4}">Soạn thảo bài viết</g:Anchor>
+			<g:Label ui:field="trademarkLb" styleName="{style.EditorTool_Obj6}">Born2Go © 2015 All Rights Reserved | Privacy policy</g:Label>
+		</g:HTMLPanel>
+		<g:HTMLPanel ui:field="tabContent" styleName="{style.EditorTool_Obj2}"></g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
