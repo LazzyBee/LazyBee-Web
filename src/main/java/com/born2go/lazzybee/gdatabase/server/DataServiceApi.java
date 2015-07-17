@@ -17,16 +17,16 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public class DataServiceApi {
 	
 	/** Get a vocabulary by id */
-    @ApiMethod(name = "getVocaById")
-    public Voca getVoca(@Named("id") Long id) {
+    @ApiMethod(name = "getVocaById", path="get_voca_byId")
+    public Voca getVocaById(@Named("id") Long id) {
         Voca voca = ofy().load().type(Voca.class).id(id).now();
 
         return voca;
     }
     
     /** Get a vocabulary by question */
-    @ApiMethod(name = "getVocaByQ")
-    public Voca getVoca(@Named("q") String q) {
+    @ApiMethod(name = "getVocaByQ", path="get_voca_byQ")
+    public Voca getVocaByQ(@Named("q") String q) {
         Voca voca = ofy().load().type(Voca.class).filter("q", q).first().now();
 
         return voca;
