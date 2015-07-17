@@ -4,7 +4,7 @@
 	<ui:style>
 	.EditorTool_Obj1 {
 		float: left;
-		width: 26%;
+		width: 40%;
 		background: #0e74af;
 		text-align: center;
 	}
@@ -12,10 +12,15 @@
 	.EditorTool_Obj2 {
 		float: left;
 		padding: 30px;
+		width: 100%;
 	}
 	
 	.EditorTool_Obj3 {
 		overflow: hidden;
+		display: inline-flex;
+		display: -webkit-inline-flex;
+		display: -ms-inline-flexbox;
+		width: 100%;
 	}
 	
 	.EditorTool_Obj4 {
@@ -36,6 +41,7 @@
 	.EditorTool_Obj6 {
 		color: white;
 		line-height: 1.5;
+		padding: 5px;
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.EditorTool_Obj3}">
@@ -46,6 +52,6 @@
 			<g:Anchor ui:field="articleTab" styleName="{style.EditorTool_Obj4}">Soạn thảo bài viết</g:Anchor>
 			<g:Label ui:field="trademarkLb" styleName="{style.EditorTool_Obj6}">Born2Go © 2015 All Rights Reserved | Privacy policy</g:Label>
 		</g:HTMLPanel>
-		<g:HTMLPanel ui:field="tabContent" styleName="{style.EditorTool_Obj2}"></g:HTMLPanel>
+		<g:ScrollPanel ui:field="tabContent" styleName="{style.EditorTool_Obj2}"></g:ScrollPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -1,58 +1,32 @@
 package com.born2go.lazzybee.gdatabase.shared;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
-@Entity(name = "voca")
+@Entity(name = "vocabulary")
 @Cache
-public class Voca implements Serializable{
-	
+public class Voca implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	class VocaDefi {
-		String type;
-		String defi;
-		String figure;
-		
-		public String getType() {
-			return type;
-		}
-		public void setType(String type) {
-			this.type = type;
-		}
-		public String getDefi() {
-			return defi;
-		}
-		public void setDefi(String defi) {
-			this.defi = defi;
-		}
-		public String getFigure() {
-			return figure;
-		}
-		public void setFigure(String figure) {
-			this.figure = figure;
-		}
-	}
-	
 	@Id
 	Long gid;
-	
-	String voca;
-	String spelling;
-	String pronounce;
-	List<VocaDefi> definations = new ArrayList<VocaDefi>();
-	
+
+	@Index
+	String q;
+	String a;
+	String level;
+	String packages;
+
 	public Voca() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getGid() {
@@ -63,36 +37,36 @@ public class Voca implements Serializable{
 		this.gid = gid;
 	}
 
-	public String getVoca() {
-		return voca;
+	public String getQ() {
+		return q;
 	}
 
-	public void setVoca(String voca) {
-		this.voca = voca;
+	public void setQ(String q) {
+		this.q = q;
 	}
 
-	public String getSpelling() {
-		return spelling;
+	public String getA() {
+		return a;
 	}
 
-	public void setSpelling(String spelling) {
-		this.spelling = spelling;
+	public void setA(String a) {
+		this.a = a;
 	}
 
-	public String getPronounce() {
-		return pronounce;
+	public String getLevel() {
+		return level;
 	}
 
-	public void setPronounce(String pronounce) {
-		this.pronounce = pronounce;
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
-	public List<VocaDefi> getDefinations() {
-		return definations;
+	public String getPackages() {
+		return packages;
 	}
 
-	public void setDefinations(List<VocaDefi> definations) {
-		this.definations = definations;
+	public void setPackages(String packages) {
+		this.packages = packages;
 	}
-	
+
 }

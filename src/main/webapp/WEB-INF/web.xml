@@ -6,6 +6,7 @@
 	
 	<!-- Default page to serve -->
 	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
 		<welcome-file>flashcards.html</welcome-file>
 		<welcome-file>dictionary.html</welcome-file>
 		<welcome-file>editor.html</welcome-file>
@@ -31,12 +32,26 @@
 	<!-- DataStore service -->
 	<servlet>
 		<servlet-name>data_service</servlet-name>
-		<servlet-class>com.born2go.lazzybee.gdatabase.server.DataServiceApi</servlet-class>
+		<servlet-class>com.born2go.lazzybee.gdatabase.server.DataServiceImpl</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>data_service</servlet-name>
 		<url-pattern>/lazzybee/dataservice</url-pattern>
 	</servlet-mapping>
+	
+	<!-- DataStore service -->
+	<servlet>
+        <servlet-name>ApiServiceServlet</servlet-name>
+        <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+        <init-param>
+            <param-name>services</param-name>
+            <param-value>com.born2go.lazzybee.gdatabase.server.DataServiceApi</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ApiServiceServlet</servlet-name>
+        <url-pattern>/_ah/spi/*</url-pattern>
+    </servlet-mapping>
 	
 	<!-- JSP Servlet -->
 

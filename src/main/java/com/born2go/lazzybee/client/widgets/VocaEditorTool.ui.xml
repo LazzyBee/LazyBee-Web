@@ -23,7 +23,7 @@
  	 	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   		font-size: 13px;
   		margin-right: 20px;
-  		width: 120px;
+  		width: 150px;
 	}
 	
 	.VocaEditorTool_Obj3 {
@@ -32,8 +32,10 @@
 	
 	.VocaEditorTool_Obj4 {
 		width: 400px;
-		height: 22px;
+		height: 26px;
 		padding-left: 5px;
+		border: 1px solid #b6b6b6;
+		box-shadow: 0 0 3px rgba(0,0,0,.15);
 	}
 	
 	.VocaEditorTool_Obj5 {
@@ -45,7 +47,7 @@
 	}
 	
 	.VocaEditorTool_Obj6:hover {
-		color: silver;
+		color: silver !important;
 		text-decoration: none;
 		cursor: pointer;
 	}
@@ -60,54 +62,64 @@
 	<g:HTMLPanel>
 		<g:HTMLPanel>
 			<g:Anchor ui:field="btnSave" title="Save" styleName="{style.VocaEditorTool_Obj1}"><i class="fa fa-floppy-o fa-lg"></i></g:Anchor>
-			<g:Anchor title="Clear All" styleName="{style.VocaEditorTool_Obj1}"><i class="fa fa-eraser fa-lg"></i></g:Anchor>
+			<g:Anchor ui:field="btnClear" title="Clear All" styleName="{style.VocaEditorTool_Obj1}"><i class="fa fa-refresh fa-lg"></i></g:Anchor>
 		</g:HTMLPanel>
 		<!--  -->
 		<br/> <br/>
-		<g:Label styleName="{style.VocaEditorTool_Obj7}">* Phần định nghĩa</g:Label>
+		<!-- <g:Label styleName="{style.VocaEditorTool_Obj7}">* Phần định nghĩa</g:Label> -->
 		<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
-			<g:Label styleName="{style.VocaEditorTool_Obj2}">Định nghĩa từ</g:Label>
+			<g:Label styleName="{style.VocaEditorTool_Obj2}">Định nghĩa từ, cụm từ</g:Label>
 			<g:TextBox styleName="{style.VocaEditorTool_Obj4}" ui:field="txbVocaDefi"></g:TextBox>
 		</g:HorizontalPanel>
 		<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
+				<g:Label styleName="{style.VocaEditorTool_Obj2}">Cấp độ</g:Label>
+				<g:ListBox ui:field="lsbLevel" width="407px" height="30px" styleName="{style.VocaEditorTool_Obj4}"></g:ListBox>
+		</g:HorizontalPanel>
+		<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
 			<g:Label styleName="{style.VocaEditorTool_Obj2}">Phiên âm</g:Label>
-			<g:TextBox styleName="{style.VocaEditorTool_Obj4}"></g:TextBox>
+			<g:TextBox styleName="{style.VocaEditorTool_Obj4}" ui:field="txbPronoun"></g:TextBox>
 		</g:HorizontalPanel>
 		<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
 			<g:Label styleName="{style.VocaEditorTool_Obj2}">Phát âm</g:Label>
-			<g:Anchor title="Record" styleName="{style.VocaEditorTool_Obj6}"><i class="fa fa-microphone fa-lg"></i></g:Anchor>
+			<g:Anchor title="Record" styleName="{style.VocaEditorTool_Obj6}"><i class="fa fa-microphone fa-lg" style="color:silver"></i></g:Anchor>
 		</g:HorizontalPanel>
 		<!--  -->
 		<br/>
-		<div style="border-top: 1px solid silver; margin-bottom: 25px;"></div>
+		<div style="border-top: 1px solid silver; margin-bottom: 25px; width: 575px;"></div>
 		<g:HTMLPanel>
-			<g:Label styleName="{style.VocaEditorTool_Obj7}">* Giải nghĩa phổ thông</g:Label>
+			<!-- <g:Label styleName="{style.VocaEditorTool_Obj7}">* Phần giải nghĩa</g:Label> -->
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
 				<g:Label styleName="{style.VocaEditorTool_Obj2}">Phân loại</g:Label>
-				<g:ListBox width="409px" height="28px" styleName="{style.VocaEditorTool_Obj4}"></g:ListBox>
+				<g:ListBox ui:field="lsbType" width="407px" height="30px" styleName="{style.VocaEditorTool_Obj4}"></g:ListBox>
 			</g:HorizontalPanel>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
-				<g:Label styleName="{style.VocaEditorTool_Obj2}">Giải nghĩa</g:Label>
-				<g:TextBox styleName="{style.VocaEditorTool_Obj4}"></g:TextBox>
+				<g:Label styleName="{style.VocaEditorTool_Obj2}">Ý nghĩa</g:Label>
+				<g:TextArea ui:field="txbMeaning" styleName="{style.VocaEditorTool_Obj4}"></g:TextArea>
+			</g:HorizontalPanel>
+			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
+				<g:Label styleName="{style.VocaEditorTool_Obj2}">Giải thích</g:Label>
+				<g:TextArea ui:field="txbExplain" styleName="{style.VocaEditorTool_Obj4}"></g:TextArea>
 			</g:HorizontalPanel>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
 				<g:Label styleName="{style.VocaEditorTool_Obj2}">Ví dụ</g:Label>
-				<g:TextBox styleName="{style.VocaEditorTool_Obj4}"></g:TextBox>
+				<g:TextArea ui:field="txbExam" styleName="{style.VocaEditorTool_Obj4}"></g:TextArea>
 			</g:HorizontalPanel>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
 				<g:Label styleName="{style.VocaEditorTool_Obj2}">Hình ảnh minh họa</g:Label>
-				<g:Anchor title="Upload" styleName="{style.VocaEditorTool_Obj6}"><i class="fa fa-upload fa-lg"></i></g:Anchor>
+				<g:Anchor title="Upload" styleName="{style.VocaEditorTool_Obj6}"><i class="fa fa-upload fa-lg" style="color:silver"></i></g:Anchor>
 			</g:HorizontalPanel>
 			<!-- <g:Anchor styleName="{style.VocaEditorTool_Obj5} {style.VocaEditorTool_Obj6}">Xóa giải nghĩa này</g:Anchor> -->
 		</g:HTMLPanel>
 		<!--  -->
 		<g:HTMLPanel ui:field="defiTable"></g:HTMLPanel>
 		<!--  -->
-		<br/> <br/> <br/>
+		<br/> <br/>
 		<g:HorizontalPanel>
 			<g:Anchor ui:field="btnAddDefi" styleName="{style.VocaEditorTool_Obj6}">Thêm giải nghĩa</g:Anchor>
 			<g:AbsolutePanel width="15px"></g:AbsolutePanel>
 			<g:Anchor ui:field="btnGoTop" styleName="{style.VocaEditorTool_Obj6}">Lên đầu trang <i class="fa fa-level-up fa-lg"></i></g:Anchor>
+			<g:AbsolutePanel width="15px"></g:AbsolutePanel>
+			<g:Anchor ui:field="btnSaveB" styleName="{style.VocaEditorTool_Obj6}">Lưu <i class="fa fa-floppy-o fa-lg"></i></g:Anchor>
 		</g:HorizontalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

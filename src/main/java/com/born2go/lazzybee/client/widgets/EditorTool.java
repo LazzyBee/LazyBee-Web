@@ -7,6 +7,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class EditorTool extends Composite {
@@ -19,17 +20,19 @@ public class EditorTool extends Composite {
 	
 	@UiField HTMLPanel tabPanel;
 	@UiField Label trademarkLb;
-	@UiField HTMLPanel tabContent;
+	@UiField ScrollPanel tabContent;
 	
 	VocaEditorTool vocaTool = new VocaEditorTool();
 
 	public EditorTool() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
-		tabContent.add(vocaTool);
-		
 		tabPanel.getElement().setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
-		trademarkLb.getElement().setAttribute("style", "position: relative; top:"+ (Window.getClientHeight()-190)+ "px");
+		tabContent.getElement().setAttribute("style", "height:"+ (Window.getClientHeight()-100)+ "px; overflow: auto;");
+		trademarkLb.getElement().setAttribute("style", "position: relative; top:"+ (Window.getClientHeight()-200)+ "px");
+		
+		tabContent.add(vocaTool);
+		vocaTool.getScrollTabContent(tabContent);
 	}
 
 }
