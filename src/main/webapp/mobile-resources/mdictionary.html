@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" language="javascript"
+	src="../lazzybee/lazzybee.nocache.js"></script>
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
 <link type="text/css" rel="stylesheet" href="mobile.css">
@@ -12,6 +14,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../mobile-resources/menu.js"></script>
+
 </head>
 <body>
 	<!-- OPTIONAL: include this if you want history support -->
@@ -25,6 +28,7 @@
 			Your web browser must have JavaScript enabled in order for this
 			application to display correctly.</div>
 	</noscript>
+	<div id="version_mobile"></div>
 	<div class="header">
 		<div class="left_header">
 			<i class="fa fa-bars fa-lg" style="color: white;" id="menuBtn"></i>
@@ -47,18 +51,21 @@
 			</ul>
 			</nav>
 		</div>
+		<div id="gwt_header_mdic"></div>
 		<div class="right_header">
-			<input class="inputsearch" type="text" value="people"
-				placeholder="Search...">
-			<div class="btsearch">
-				<i class="fa fa-search"></i>
-			</div>
+			<div id="inputsearch" class="inputsearch"></div>
+			<div class="btsearch" id="btsearch"></div>
+			<!-- <input class="inputsearch" type="text" value="people"
+				placeholder="Search..."> -->
+			<!-- <div class="btsearch">
+				  <i class="fa fa-search"></i>  
+			</div> -->
 		</div>
 	</div>
 	<div id="main">
 		<div id="content">
 			<div>
-				<h1>people</h1>
+				<h1 id="voca"></h1>
 				<audio id="audiotag1"
 					src="http://img2.tfd.com/pron/mp3/en/UK/df/dfskdssjsgskdrh7.mp3"
 					preload="auto"></audio>
@@ -80,6 +87,6 @@
 				meet his people.</div>
 		</div>
 	</div>
-	 
+
 </body>
 </html>

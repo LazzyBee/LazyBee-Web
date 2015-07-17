@@ -18,6 +18,7 @@
 	<!-- Other module inherits -->
 	<!-- <inherits name="com.google.gwt.logging.Logging"/> -->
 	<inherits name='com.born2go.lazzybee.gdatabase.GDatabase' />
+	<inherits name='com.born2go.lazzybeemobile.LazzyBeeMobile' />
 
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.born2go.lazzybee.client.LazzyBee' />

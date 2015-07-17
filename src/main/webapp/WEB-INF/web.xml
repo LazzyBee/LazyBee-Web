@@ -9,6 +9,7 @@
 		<welcome-file>flashcards.html</welcome-file>
 		<welcome-file>dictionary.html</welcome-file>
 		<welcome-file>editor.html</welcome-file>
+		<welcome-file>mdictionary.html</welcome-file>
 	</welcome-file-list>
 
 	<!-- Register objectify entity -->
