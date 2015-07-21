@@ -29,6 +29,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 //		    }
 //		});
 //		return v;
+		
+		voca.setQ(voca.getQ().toLowerCase());
 		if(verifyVoca(voca.getQ())) {
     		Key<Voca> key = ofy().save().entity(voca).now();
     		Voca v = ofy().load().key(key).now();
