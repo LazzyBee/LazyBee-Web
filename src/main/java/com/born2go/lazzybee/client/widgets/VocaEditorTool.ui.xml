@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	@external .VocaEditorTool_Obj2, .VocaEditorTool_Obj3, .VocaEditorTool_Obj4, .VocaEditorTool_Obj5, .VocaEditorTool_Obj6;
+	@external .VocaEditorTool_Obj2, .VocaEditorTool_Obj3, .VocaEditorTool_Obj4, .VocaEditorTool_Obj5, .VocaEditorTool_Obj6, .VocaEditorTool_Obj11;
 	.VocaEditorTool_Obj1 {
 		background: #0e74af;
 		padding: 7px 15px;
@@ -58,6 +58,34 @@
   		font-size: 15px;
   		margin-bottom: 24px;
 	}
+	
+	.VocaEditorTool_Obj8 {
+		width: 400px;
+		margin-left: -5px;
+	}
+	
+	.VocaEditorTool_Obj9 {
+		margin-top: 20px;
+	}
+	
+	.VocaEditorTool_Obj10 {
+		color: gray;
+	}
+	
+	.VocaEditorTool_Obj11 {
+		width: 130px;
+		text-align: center;
+		padding: 5px;
+  		background: silver;
+  		margin-top: 5px;
+  		margin-bottom: 5px;
+	}
+	
+	.VocaEditorTool_Obj11:hover {
+		background: tomato;
+		color: white;
+		cursor: pointer;
+	}
 	</ui:style>
 	<g:HTMLPanel>
 		<g:HTMLPanel>
@@ -83,14 +111,39 @@
 			<g:Label styleName="{style.VocaEditorTool_Obj2}">Phát âm</g:Label>
 			<g:Anchor title="Record" styleName="{style.VocaEditorTool_Obj6}"><i class="fa fa-microphone fa-lg" style="color:silver"></i></g:Anchor>
 		</g:HorizontalPanel>
+		<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
+			<g:Label styleName="{style.VocaEditorTool_Obj2} {style.VocaEditorTool_Obj9}">Phân loại</g:Label>
+			<g:HTMLPanel styleName="{style.VocaEditorTool_Obj8}">
+				<g:HorizontalPanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeCommon">common</g:CheckBox></g:AbsolutePanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbType850Basic">850basic</g:CheckBox></g:AbsolutePanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeVoaEnglish">voaenglish</g:CheckBox></g:AbsolutePanel>
+				</g:HorizontalPanel>
+				<g:HorizontalPanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeIelts">ielts</g:CheckBox></g:AbsolutePanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeToefl">toefl</g:CheckBox></g:AbsolutePanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeEconomic">economic</g:CheckBox></g:AbsolutePanel>
+				</g:HorizontalPanel>
+				<g:HorizontalPanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeIt">it</g:CheckBox></g:AbsolutePanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeScience">science</g:CheckBox></g:AbsolutePanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeMedicine">medicine</g:CheckBox></g:AbsolutePanel>
+				</g:HorizontalPanel>
+				<g:HorizontalPanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeOther">other</g:CheckBox></g:AbsolutePanel>
+				</g:HorizontalPanel>
+			</g:HTMLPanel>
+		</g:HorizontalPanel>
 		<!--  -->
 		<br/>
 		<div style="border-top: 1px solid silver; margin-bottom: 25px; width: 575px;"></div>
 		<g:HTMLPanel>
 			<!-- <g:Label styleName="{style.VocaEditorTool_Obj7}">* Phần giải nghĩa</g:Label> -->
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
-				<g:Label styleName="{style.VocaEditorTool_Obj2}">Phân loại</g:Label>
-				<g:ListBox ui:field="lsbType" width="407px" height="30px" styleName="{style.VocaEditorTool_Obj4}"></g:ListBox>
+				<g:Label styleName="{style.VocaEditorTool_Obj2}">Giải nghĩa cho</g:Label>
+				<g:HTMLPanel ui:field="htmlType" width="400px">
+					<g:ListBox ui:field="lsbType" width="140px" height="30px" styleName="{style.VocaEditorTool_Obj4} {style.VocaEditorTool_Obj10}"></g:ListBox>
+				</g:HTMLPanel>
 			</g:HorizontalPanel>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
 				<g:Label styleName="{style.VocaEditorTool_Obj2}">Ý nghĩa</g:Label>
@@ -115,7 +168,7 @@
 		<!--  -->
 		<br/> <br/>
 		<g:HorizontalPanel>
-			<g:Anchor ui:field="btnAddDefi" styleName="{style.VocaEditorTool_Obj6}">Thêm giải nghĩa</g:Anchor>
+			<g:Anchor ui:field="btnAddDefi" styleName="{style.VocaEditorTool_Obj6}"><span style="color:silver;">Thêm giải nghĩa</span></g:Anchor>
 			<g:AbsolutePanel width="15px"></g:AbsolutePanel>
 			<g:Anchor ui:field="btnGoTop" styleName="{style.VocaEditorTool_Obj6}">Lên đầu trang <i class="fa fa-level-up fa-lg"></i></g:Anchor>
 			<g:AbsolutePanel width="15px"></g:AbsolutePanel>

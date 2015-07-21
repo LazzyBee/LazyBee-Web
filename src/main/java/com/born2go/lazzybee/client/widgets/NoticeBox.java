@@ -16,17 +16,21 @@ public class NoticeBox extends DialogBox {
 
 	interface NoticeBoxUiBinder extends UiBinder<Widget, NoticeBox> {
 	}
-	
-	@UiField Label lbNotice;
+
+	@UiField
+	Label lbNotice;
 
 	public NoticeBox(String notice) {
 		setWidget(uiBinder.createAndBindUi(this));
 		this.setStyleName("NoticeBox_clean");
-		
+
 		lbNotice.setText(notice);
-		setPopupPosition((Window.getClientWidth()-this.getOffsetWidth())/2, 40);
+		setPopupPosition((Window.getClientWidth() - this.getOffsetWidth()) / 2,
+				40);
 		show();
-		
+	}
+
+	public void setAutoHide() {
 		Timer t = new Timer() {
 			@Override
 			public void run() {
