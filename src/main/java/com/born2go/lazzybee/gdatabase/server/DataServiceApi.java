@@ -25,11 +25,11 @@ public class DataServiceApi {
     }
     
     /** Get a vocabulary by question */
-    @ApiMethod(name = "getVocaByQ")
+/*    @ApiMethod(name = "getVocaByQ")
     public Voca getVoca(@Named("q") String q) {
         Voca voca = ofy().load().type(Voca.class).filter("q", q).first().now();
 
         return voca;
     }
-
+*/
 }
