@@ -41,20 +41,20 @@ public class MDictionaryView extends Widget {
 			@Override
 			public void onClick(ClickEvent event) {
 				String value = txtSeach.getText();
-				dataService.findVoca(value, new AsyncCallback<Voca>() {
-					
-					@Override
-					public void onSuccess(Voca result) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
+//				dataService.findVoca(value, new AsyncCallback<Voca>() {
+//					
+//					@Override
+//					public void onSuccess(Voca result) {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//					
+//					@Override
+//					public void onFailure(Throwable caught) {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//				});
 
 			}
 		});
