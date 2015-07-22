@@ -7,8 +7,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("dataservice")
 public interface DataService extends RemoteService {
 
-	public void insertVoca(Voca voca);
+	public boolean verifyVoca(String voca_q);
 
-	public Voca findVoca(String value);
+	public Voca insertVoca(Voca voca);
 
 }

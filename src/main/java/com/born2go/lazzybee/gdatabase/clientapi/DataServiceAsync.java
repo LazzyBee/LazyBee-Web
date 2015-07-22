@@ -5,8 +5,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface DataServiceAsync {
 
-	void insertVoca(Voca voca, AsyncCallback<Void> callback);
+	void verifyVoca(String voca_q, AsyncCallback<Boolean> callback);
 
-	void findVoca(String value, AsyncCallback<Voca> callback);
+	void insertVoca(Voca voca, AsyncCallback<Voca> callback);
 
 }

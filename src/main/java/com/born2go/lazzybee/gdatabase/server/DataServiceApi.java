@@ -1,33 +1,37 @@
 package com.born2go.lazzybee.gdatabase.server;
 
+import com.born2go.lazzybee.gdatabase.shared.Voca;
+import com.google.api.server.spi.config.Api;
+import com.google.api.server.spi.config.ApiMethod;
+import com.google.api.server.spi.config.ApiNamespace;
+import com.google.api.server.spi.config.Named;
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.born2go.lazzybee.gdatabase.clientapi.DataService;
-import com.born2go.lazzybee.gdatabase.shared.Voca;
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+ 
+/** An endpoint class we are exposing */
+@Api(name = "dataServiceApi",
+     version = "v1",
+     namespace = @ApiNamespace(ownerDomain = "server.gdatabase.lazzybee.born2go.com",
+                                ownerName = "server.gdatabase.lazzybee.born2go.com",
+                                packagePath=""))
+public class DataServiceApi {
+	
+	/** Get a vocabulary by id */
+    @ApiMethod(name = "getVocaById", path="get_voca_byId")
+    public Voca getVocaById(@Named("id") Long id) {
+        Voca voca = ofy().load().type(Voca.class).id(id).now();
 
-@SuppressWarnings("serial")
-public class DataServiceApi extends RemoteServiceServlet implements DataService {
+        return voca;
+    }
+    
+    /** Get a vocabulary by question */
+    @ApiMethod(name = "getVocaByQ", path="get_voca_byQ")
+    public Voca getVocaByQ(@Named("q") String q) {
+        Voca voca = ofy().load().type(Voca.class).filter("q", q).first().now();
 
-	@Override
-	public void insertVoca(Voca voca) {
-		ofy().save().entity(voca);
-	}
-
-	@Override
-	public Voca findVoca(String value) {
-		List<Voca> list = ofy().load().type(Voca.class)
-				.filter("voca >=", value).filter("voca <=", value + "\uFFFD").list();
-		List<Voca> result = new ArrayList<Voca>();
-		result.addAll(list);
-		if (result != null && !result.isEmpty()) {
-			for (Voca voca : result) {
-				System.out.println("voca: " + voca.getVoca());
-			}
-		}
-		return null;
-	}
+        return voca;
+    }
+ 
 
 }
