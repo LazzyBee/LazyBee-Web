@@ -20,6 +20,7 @@ import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -31,7 +32,6 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -44,6 +44,7 @@ public class VocaEditorTool extends Composite {
 	interface VocaEditorToolUiBinder extends UiBinder<Widget, VocaEditorTool> {
 	}
 	
+	@UiField HTMLPanel vocaEditorTool;
 	@UiField TextBox txbVocaDefi;
 	@UiField TextBox txbPronoun;
 	@UiField HTMLPanel defiTable;
@@ -82,12 +83,6 @@ public class VocaEditorTool extends Composite {
 	private List<DefiContainer> list_defi = new ArrayList<DefiContainer>();
 	private List<DefiContainer> list_defitranforms = new ArrayList<DefiContainer>();
 	private List<ListBox> listLbType = new ArrayList<ListBox>();
-	
-	ScrollPanel tabContentScp;
-
-	public void getScrollTabContent(ScrollPanel scp) {
-		tabContentScp = scp;
-	}
 	
 	public void replaceEditor() {
 		Timer t = new Timer() {
@@ -557,7 +552,7 @@ public class VocaEditorTool extends Composite {
 		Timer t2 = new Timer() {
 			@Override
 			public void run() {
-				tabContentScp.scrollToBottom();
+				DOM.getElementById("editor_content").setScrollTop(vocaEditorTool.getOffsetHeight());
 			}
 		};
 		t2.schedule(150);
@@ -759,7 +754,7 @@ public class VocaEditorTool extends Composite {
 				public void onSuccess(Voca result) {
 					formClean();
 					loadingNotice.hide();
-					tabContentScp.scrollToTop();
+					DOM.getElementById("editor_content").setScrollTop(0);
 					new NoticeBox("- "+ v.getQ()+ " - đã được thêm vào từ điển").setAutoHide();
 				}
 				
@@ -786,7 +781,7 @@ public class VocaEditorTool extends Composite {
 				public void onSuccess(Voca result) {
 					formClean();
 					loadingNotice.hide();
-					tabContentScp.scrollToTop();
+					DOM.getElementById("editor_content").setScrollTop(0);
 					new NoticeBox("- "+ v.getQ()+ " - đã được cập nhật").setAutoHide();
 				}
 				
@@ -863,7 +858,7 @@ public class VocaEditorTool extends Composite {
 	
 	@UiHandler("btnGoTop")
 	void onBtnGoTopClick(ClickEvent e) {
-		tabContentScp.scrollToTop();
+		DOM.getElementById("editor_content").setScrollTop(0);
 	}
 	
 	@UiHandler("btnClear")
@@ -876,12 +871,12 @@ public class VocaEditorTool extends Composite {
 		if(txbVocaDefi.getText().equals("")) {
 			verify = false;
 			txbVocaDefi.getElement().setAttribute("style", "border: 1px solid red;");
-			tabContentScp.scrollToTop();
+			DOM.getElementById("editor_content").setScrollTop(0);
 		}
 		if(txbPronoun.getText().equals("")) {
 			verify = false;
 			txbPronoun.getElement().setAttribute("style", "border: 1px solid red;");
-			tabContentScp.scrollToTop();
+			DOM.getElementById("editor_content").setScrollTop(0);
 		}
 		return verify;
 	}

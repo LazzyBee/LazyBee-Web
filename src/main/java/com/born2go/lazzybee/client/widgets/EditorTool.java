@@ -13,7 +13,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class EditorTool extends Composite {
@@ -26,7 +26,6 @@ public class EditorTool extends Composite {
 	
 	@UiField HTMLPanel tabPanel;
 	@UiField Label trademarkLb;
-	@UiField ScrollPanel tabContent;
 	
 	VocaEditorTool vocaTool = new VocaEditorTool();
 
@@ -34,7 +33,6 @@ public class EditorTool extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		tabPanel.getElement().setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
-		tabContent.getElement().setAttribute("style", "height:"+ (Window.getClientHeight()-100)+ "px; overflow: auto;");
 		trademarkLb.getElement().setAttribute("style", "position: relative; top:"+ (Window.getClientHeight()-200)+ "px");
 		
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
@@ -50,22 +48,19 @@ public class EditorTool extends Composite {
 		if(history_token.isEmpty()) {
 			String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
 			Window.Location.replace(newURL);
-			tabContent.add(vocaTool);
+			RootPanel.get("editor_tool").add(vocaTool);
 			vocaTool.replaceEditor();
-			vocaTool.getScrollTabContent(tabContent);
 		}
 		else if (history_token.contains("vocabulary")) {
 			if(!history_token.contains("/")) {
-				tabContent.add(vocaTool);
+				RootPanel.get("editor_tool").add(vocaTool);
 				vocaTool.replaceEditor();
-				vocaTool.getScrollTabContent(tabContent);
 			}
 			else {
 				final String[] sub_token = history_token.split("/");
 				if(sub_token[1] == null || sub_token[1].isEmpty()) {
-					tabContent.add(vocaTool);
+					RootPanel.get("editor_tool").add(vocaTool);
 					vocaTool.replaceEditor();
-					vocaTool.getScrollTabContent(tabContent);
 				}
 				else {
 					final NoticeBox ntc = new NoticeBox("Đang tải...");
@@ -75,16 +70,14 @@ public class EditorTool extends Composite {
 							if(result == null) {
 								ntc.changeNotice("Không tìm thấy từ - " + sub_token[1]);
 								ntc.setAutoHide();
-								tabContent.add(vocaTool);
+								RootPanel.get("editor_tool").add(vocaTool);
 								vocaTool.replaceEditor();
-								vocaTool.getScrollTabContent(tabContent);
 							}
 							else {
 								ntc.hide();
-								tabContent.add(vocaTool);
+								RootPanel.get("editor_tool").add(vocaTool);
 								vocaTool.replaceEditor();
 								vocaTool.setVoca(result);
-								vocaTool.getScrollTabContent(tabContent);
 							}
 						}
 						
@@ -92,9 +85,7 @@ public class EditorTool extends Composite {
 						public void onFailure(Throwable caught) {
 							ntc.changeNotice("! Đã có lỗi xảy ra trong quá trình tải");
 							ntc.setAutoHide();
-							tabContent.add(vocaTool);
-							vocaTool.replaceEditor();
-							vocaTool.getScrollTabContent(tabContent);
+							RootPanel.get("editor_tool").add(vocaTool);
 						}
 					});
 				}

@@ -86,8 +86,12 @@
 		color: white;
 		cursor: pointer;
 	}
+	
+	.VocaEditorTool_Obj12 {
+		padding-bottom: 30px;
+	}
 	</ui:style>
-	<g:HTMLPanel>
+	<g:HTMLPanel ui:field="vocaEditorTool" styleName="{style.VocaEditorTool_Obj12}">
 		<g:HTMLPanel>
 			<g:Anchor ui:field="btnSave" title="Save" styleName="{style.VocaEditorTool_Obj1}"><i class="fa fa-floppy-o fa-lg"></i></g:Anchor>
 			<g:Anchor ui:field="btnClear" title="Clear All" styleName="{style.VocaEditorTool_Obj1}"><i class="fa fa-refresh fa-lg"></i></g:Anchor>
