@@ -9,5 +9,7 @@ public interface DataService extends RemoteService{
 	
 	public boolean verifyVoca(String voca_q);
 	public Voca insertVoca(Voca voca);
+	public Voca findVoca(String voca_q);
+	public Voca updateVoca(Voca voca);
 	
 }

@@ -7,5 +7,7 @@ public interface DataServiceAsync {
 	
 	void verifyVoca(String voca_q, AsyncCallback<Boolean> callback);
 	void insertVoca(Voca voca, AsyncCallback<Voca> callback);
+	void findVoca(String voca_q, AsyncCallback<Voca> callback);
+	void updateVoca(Voca voca, AsyncCallback<Voca> callback);
 
 }

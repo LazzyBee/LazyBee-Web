@@ -54,4 +54,28 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 			return false;
 	}
 
+	/**
+	 * Find a vocabulary by question
+	 * @return the vocabulary match the question
+	 */
+	@Override
+	public Voca findVoca(String voca_q) {
+		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q).first().now();
+		return voca;
+	}
+
+	/**
+	 * Update an exist vocabulary
+	 * @return updated vocabulary, null if update fail
+	 */
+	@Override
+	public Voca updateVoca(Voca voca) {
+		Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
+		if(v != null) {
+			ofy().save().entity(voca);
+			return voca;
+		}
+		return null;
+	}
+
 }
