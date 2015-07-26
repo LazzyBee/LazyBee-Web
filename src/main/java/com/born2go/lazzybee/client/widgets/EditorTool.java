@@ -3,11 +3,15 @@ package com.born2go.lazzybee.client.widgets;
 import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -32,8 +36,24 @@ public class EditorTool extends Composite {
 	public EditorTool() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
+		Window.addResizeHandler(new ResizeHandler() {
+			  Timer resizeTimer = new Timer() {  
+				  @Override
+				  public void run() {
+					  tabPanel.getElement().setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
+					  DOM.getElementById("editor_content").setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
+				  }
+			  };
+
+			  @Override
+			  public void onResize(ResizeEvent event) {
+				  resizeTimer.cancel();
+				  resizeTimer.schedule(250);
+			  }
+		});
+		
 		tabPanel.getElement().setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
-		trademarkLb.getElement().setAttribute("style", "position: relative; top:"+ (Window.getClientHeight()-200)+ "px");
+		trademarkLb.getElement().setAttribute("style", "position: absolute; bottom: 20px");
 		
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			

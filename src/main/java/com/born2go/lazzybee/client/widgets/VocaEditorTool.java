@@ -276,6 +276,8 @@ public class VocaEditorTool extends Composite {
 		if(packages.length > 1) {
 			for(int i = 1; i < packages.length; i++) {
 				if(i == 1) {
+					if(pac.isObject().get(packages[i]) == null)
+						break;
 					DefiContainer dc = new DefiContainer();
 					dc.types.add(packages[i]);
 					JSONValue defi = pac.isObject().get(packages[i]);
@@ -285,6 +287,8 @@ public class VocaEditorTool extends Composite {
 					list_defitranforms.add(dc);
 				}
 				else {
+					if(pac.isObject().get(packages[i]) == null)
+						break;
 					boolean isNewDc = true;
 					for(int j = i-1; j > 0; j--) {
 						if(pac.isObject().get(packages[i]).toString().equals(pac.isObject().get(packages[j]).toString())) {
@@ -376,7 +380,7 @@ public class VocaEditorTool extends Composite {
 	 	var noteId = txbNoteId;
 	  	var editor = $wnd.CKEDITOR.replace( noteId, {
 	  		width: '405px',
-	  		height: '28px',
+	  		height: '30px',
 	  		contentsCss : 'body {overflow:hidden;}',
 	  		autoGrow_minHeight: 10,
 	  		toolbarStartupExpanded : false,

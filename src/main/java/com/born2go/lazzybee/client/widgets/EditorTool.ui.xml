@@ -7,6 +7,7 @@
 		width: 100%;
 		background: #0e74af;
 		text-align: center;
+		position: relative;
 	}
 	
 	.EditorTool_Obj2 {

@@ -25,6 +25,7 @@ body {
 	margin-right: 70px;
 	margin-top: 20px;
 	width: 300px;
+	min-width: 300px;
 }
 
 .content {
