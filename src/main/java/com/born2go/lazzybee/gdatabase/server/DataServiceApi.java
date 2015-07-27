@@ -1,5 +1,7 @@
 package com.born2go.lazzybee.gdatabase.server;
 
+import java.util.List;
+
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -11,6 +13,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 /** An endpoint class we are exposing */
 @Api(name = "dataServiceApi",
      version = "v1",
+     title = "LazzyBee Backend Api",
      namespace = @ApiNamespace(ownerDomain = "server.gdatabase.lazzybee.born2go.com",
                                 ownerName = "server.gdatabase.lazzybee.born2go.com",
                                 packagePath=""))
@@ -30,6 +33,14 @@ public class DataServiceApi {
         Voca voca = ofy().load().type(Voca.class).filter("q", q).first().now();
 
         return voca;
+    }
+    
+    /** Get list all of vocabulary */
+    @ApiMethod(name = "listVoca")
+    public List<Voca> listVoca() {
+        List<Voca> list_voca = ofy().load().type(Voca.class).list();
+
+        return list_voca;
     }
 
 }

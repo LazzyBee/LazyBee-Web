@@ -6,7 +6,6 @@ import com.born2go.lazzybee.gdatabase.clientapi.DataService;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.Work;
 
 @SuppressWarnings("serial")
 public class DataServiceImpl extends RemoteServiceServlet implements DataService{
@@ -17,19 +16,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 	 */
 	@Override
 	public Voca insertVoca(final Voca voca) {
-//		Voca v = ofy().transact(new Work<Voca>() {
-//		    public Voca run() {
-//		    	if(verifyVoca(voca.getQ())) {
-//		    		Key<Voca> key = ofy().save().entity(voca).now();
-//		    		Voca v = ofy().load().key(key).now();
-//		    		return v;
-//		    	}
-//		    	else 
-//		    		return null;
-//		    }
-//		});
-//		return v;
-		
 		voca.setQ(voca.getQ().toLowerCase());
 		if(verifyVoca(voca.getQ())) {
     		Key<Voca> key = ofy().save().entity(voca).now();
