@@ -9,4 +9,6 @@ public interface DataServiceAsync {
 
 	void insertVoca(Voca voca, AsyncCallback<Voca> callback);
 
+	void getVoca(String voca_q, AsyncCallback<Voca> callback);
+
 }

@@ -7,7 +7,6 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -25,41 +24,52 @@ public class MDictionaryView extends Widget {
 		setValue(null);
 	}
 
+	/**
+	 * add button gwt search for mdictionary.html add textbox gwt input search
+	 * for mdictionary.htlm
+	 */
 	private void designView() {
+
+		// add textbox input search by element id
 		txtSeach = new TextBox();
 		txtSeach.getElement().setId("txt_valueSearch");
 		RootPanel.get("inputsearch").add(txtSeach);
 
-		// add button search
+		// add button search by element id
 
 		btSearch = new Button();
 		btSearch.getElement().setClassName("fa fa-search");
 		RootPanel.get("btsearch").add(btSearch);
 
+		// when click button search call method to server and return value for
+		// client
 		btSearch.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				String value = txtSeach.getText();
-//				dataService.findVoca(value, new AsyncCallback<Voca>() {
-//					
-//					@Override
-//					public void onSuccess(Voca result) {
-//						// TODO Auto-generated method stub
-//						
-//					}
-//					
-//					@Override
-//					public void onFailure(Throwable caught) {
-//						// TODO Auto-generated method stub
-//						
-//					}
-//				});
+				String voca_q = txtSeach.getText();
+				dataService.getVoca(voca_q, new AsyncCallback<Voca>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(Voca result) {
+						// TODO Auto-generated method stub
+
+					}
+				});
 
 			}
 		});
 	}
 
+	/*
+	 * show data to view
+	 */
 	private void setValue(Voca voca) {
 		// set text for name vocabulary
 		DOM.getElementById("voca").setInnerHTML("People");
