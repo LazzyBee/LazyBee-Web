@@ -4,9 +4,10 @@
 	<ui:style>
 	.EditorTool_Obj1 {
 		float: left;
-		width: 40%;
+		width: 100%;
 		background: #0e74af;
 		text-align: center;
+		position: relative;
 	}
 	
 	.EditorTool_Obj2 {
@@ -52,6 +53,6 @@
 			<g:Anchor ui:field="articleTab" styleName="{style.EditorTool_Obj4}">Soạn thảo bài viết</g:Anchor>
 			<g:Label ui:field="trademarkLb" styleName="{style.EditorTool_Obj6}">Born2Go © 2015 All Rights Reserved | Privacy policy</g:Label>
 		</g:HTMLPanel>
-		<g:ScrollPanel ui:field="tabContent" styleName="{style.EditorTool_Obj2}"></g:ScrollPanel>
+		<!-- <g:ScrollPanel ui:field="tabContent" styleName="{style.EditorTool_Obj2}"></g:ScrollPanel> -->
 	</g:HTMLPanel>
 </ui:UiBinder> 

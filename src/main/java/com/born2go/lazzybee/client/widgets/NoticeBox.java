@@ -29,6 +29,10 @@ public class NoticeBox extends DialogBox {
 				40);
 		show();
 	}
+	
+	public void changeNotice(String notice) {
+		lbNotice.setText(notice);
+	}
 
 	public void setAutoHide() {
 		Timer t = new Timer() {

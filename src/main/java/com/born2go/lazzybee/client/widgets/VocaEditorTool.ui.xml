@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	@external .VocaEditorTool_Obj2, .VocaEditorTool_Obj3, .VocaEditorTool_Obj4, .VocaEditorTool_Obj5, .VocaEditorTool_Obj6, .VocaEditorTool_Obj11;
+	@external .VocaEditorTool_Obj2, .VocaEditorTool_Obj3, .VocaEditorTool_Obj4, .VocaEditorTool_Obj5, .VocaEditorTool_Obj6, .VocaEditorTool_Obj10, .VocaEditorTool_Obj11;
 	.VocaEditorTool_Obj1 {
 		background: #0e74af;
 		padding: 7px 15px;
@@ -86,8 +86,12 @@
 		color: white;
 		cursor: pointer;
 	}
+	
+	.VocaEditorTool_Obj12 {
+		padding-bottom: 30px;
+	}
 	</ui:style>
-	<g:HTMLPanel>
+	<g:HTMLPanel ui:field="vocaEditorTool" styleName="{style.VocaEditorTool_Obj12}">
 		<g:HTMLPanel>
 			<g:Anchor ui:field="btnSave" title="Save" styleName="{style.VocaEditorTool_Obj1}"><i class="fa fa-floppy-o fa-lg"></i></g:Anchor>
 			<g:Anchor ui:field="btnClear" title="Clear All" styleName="{style.VocaEditorTool_Obj1}"><i class="fa fa-refresh fa-lg"></i></g:Anchor>
@@ -168,7 +172,7 @@
 		<!--  -->
 		<br/> <br/>
 		<g:HorizontalPanel>
-			<g:Anchor ui:field="btnAddDefi" styleName="{style.VocaEditorTool_Obj6}"><span style="color:silver;">Thêm giải nghĩa</span></g:Anchor>
+			<g:Anchor ui:field="btnAddDefi" styleName="{style.VocaEditorTool_Obj6}">Thêm giải nghĩa</g:Anchor>
 			<g:AbsolutePanel width="15px"></g:AbsolutePanel>
 			<g:Anchor ui:field="btnGoTop" styleName="{style.VocaEditorTool_Obj6}">Lên đầu trang <i class="fa fa-level-up fa-lg"></i></g:Anchor>
 			<g:AbsolutePanel width="15px"></g:AbsolutePanel>

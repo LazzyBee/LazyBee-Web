@@ -22,14 +22,17 @@ body {
 #right_panel {
 	float: right;
 	margin-left: 40px;
-	margin-right: 100px;
+	margin-right: 70px;
 	margin-top: 20px;
 	width: 300px;
+	min-width: 300px;
 }
 
 .content {
 	float: left;
-	width: 100%;
+	width: 30%;
+	min-width: 270px;
+	max-width: 280px;
 }
 
 .header_logo {
@@ -87,4 +90,11 @@ body {
 .header_accPro_item:hover {
 	background: silver;
 	cursor: pointer;
+}
+
+.editor_content{
+	float: left;
+	width: 100%;
+	overflow: auto;
+	display: flex;
 }

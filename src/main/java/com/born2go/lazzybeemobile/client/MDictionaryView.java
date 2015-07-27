@@ -48,7 +48,7 @@ public class MDictionaryView extends Widget {
 			@Override
 			public void onClick(ClickEvent event) {
 				String voca_q = txtSeach.getText();
-				dataService.getVoca(voca_q, new AsyncCallback<Voca>() {
+				dataService.findVoca(voca_q, new AsyncCallback<Voca>() {
 
 					@Override
 					public void onFailure(Throwable caught) {

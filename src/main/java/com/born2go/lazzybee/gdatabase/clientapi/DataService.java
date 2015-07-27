@@ -11,6 +11,7 @@ public interface DataService extends RemoteService {
 
 	public Voca insertVoca(Voca voca);
 
-	public Voca getVoca(String voca_q);
-
+	public Voca findVoca(String voca_q);
+	public Voca updateVoca(Voca voca);
+	
 }
