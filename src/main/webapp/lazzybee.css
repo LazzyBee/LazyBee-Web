@@ -58,11 +58,12 @@ body {
 	padding-left: 8px;
 	padding-right: 8px;
 	margin-right: 5px;
-	color: white;
+	color: white !important;
 }
 
 .header_menu_item:hover {
-	color: silver;
+	color: silver !important;
+	text-decoration: none;
 	cursor: pointer;
 }
 
@@ -76,8 +77,10 @@ body {
 }
 
 .header_accPro_item {
-	color: white;
-	padding: 6px 10px;
+	position: relative;
+	top: 12px;
+	color: white !important;
+	padding: 8px 10px;
 	margin: 5px 0px;
 	border-radius: 3px;
 	background: rgba(255, 255, 255, .3);
@@ -88,7 +91,8 @@ body {
 }
 
 .header_accPro_item:hover {
-	background: silver;
+	background: silver !important;
+	text-decoration: none;
 	cursor: pointer;
 }
 

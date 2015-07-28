@@ -46,7 +46,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 	 */
 	@Override
 	public Voca findVoca(String voca_q) {
-		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q).first().now();
+		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q.toLowerCase()).first().now();
 		return voca;
 	}
 
@@ -58,8 +58,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 	public Voca updateVoca(Voca voca) {
 		Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
 		if(v != null) {
-			ofy().save().entity(voca);
-			return voca;
+			if(voca.getQ().equals(v.getQ())) {
+				ofy().save().entity(voca);
+				return voca;
+			}
+			else {
+				voca.setGid(null);
+				return insertVoca(voca);
+			}
 		}
 		return null;
 	}

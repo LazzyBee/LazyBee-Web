@@ -7,6 +7,8 @@ import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.gdatabase.shared.Category;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -30,6 +32,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
@@ -46,6 +49,7 @@ public class VocaEditorTool extends Composite {
 	
 	@UiField HTMLPanel vocaEditorTool;
 	@UiField TextBox txbVocaDefi;
+	@UiField Image checkVocaImg;
 	@UiField TextBox txbPronoun;
 	@UiField HTMLPanel defiTable;
 	@UiField ListBox lsbLevel;
@@ -216,6 +220,32 @@ public class VocaEditorTool extends Composite {
 				}
 			}
 		});		
+		
+		txbVocaDefi.addBlurHandler(new BlurHandler() {
+			@Override
+			public void onBlur(BlurEvent event) {
+				checkVocaImg.setVisible(true);
+				LazzyBee.data_service.verifyVoca(txbVocaDefi.getText(), new AsyncCallback<Boolean>() {
+					@Override
+					public void onSuccess(Boolean result) {
+						checkVocaImg.setVisible(false);
+						if(!result) {
+							txbVocaDefi.getElement().setAttribute("style", "border: 1px solid red;");
+							new NoticeBox("- " + txbVocaDefi.getText() + " - Đã có trong từ điển").setAutoHide();
+						}
+						else
+							txbVocaDefi.getElement().setAttribute("style", "border: 1px solid #b6b6b6;");
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						checkVocaImg.setVisible(false);
+						txbVocaDefi.getElement().setAttribute("style", "border: 1px solid red;");
+						new NoticeBox("! Đã có lỗi xảy ra khi kiểm tra - " + txbVocaDefi.getText()).setAutoHide();
+					}
+				});
+			}
+		});
 	}
 	
 	public void setVoca(Voca voca) {
@@ -336,7 +366,7 @@ public class VocaEditorTool extends Composite {
 				setDataCustomEditor(dc.txbExam_id, firstDefi.txbExam_id.replaceAll("\"", ""));
 			}
 		};
-		t.schedule(500);
+		t.schedule(800);
 		for(String pac: firstDefi.types) {
 			final String p = pac;
 			final Label type = new Label(p);
@@ -419,11 +449,12 @@ public class VocaEditorTool extends Composite {
 		}
 	}-*/;
 	
-	public static native void cleanCustomEditor(String editorId) /*-{
+	public static native void destroyCustomEditor(String editorId) /*-{
 		var eid = editorId;
 		var editor = $wnd.document.getElementById("cke_"+ eid);
 		if(editor != null) {
 			$wnd.CKEDITOR.instances[eid].setData("");
+			$wnd.CKEDITOR.instances[eid].destroy();
 		}
 	}-*/;
 	
@@ -711,7 +742,7 @@ public class VocaEditorTool extends Composite {
 				setDataCustomEditor(dc.txbExam_id, defiTranforms.txbExam_id.replaceAll("\"", ""));
 			}
 		};
-		t2.schedule(500);
+		t2.schedule(800);
 	}
 	
 	private String getJsonData() {
@@ -756,10 +787,16 @@ public class VocaEditorTool extends Composite {
 			LazzyBee.data_service.insertVoca(v, new AsyncCallback<Voca>() {
 				@Override
 				public void onSuccess(Voca result) {
-					formClean();
-					loadingNotice.hide();
-					DOM.getElementById("editor_content").setScrollTop(0);
-					new NoticeBox("- "+ v.getQ()+ " - đã được thêm vào từ điển").setAutoHide();
+					if(result != null) {
+						formClean();
+						loadingNotice.hide();
+						DOM.getElementById("editor_content").setScrollTop(0);
+						new NoticeBox("- "+ v.getQ()+ " - đã được thêm vào từ điển").setAutoHide();
+					} 
+					else {
+						loadingNotice.hide();
+						new NoticeBox("- "+ v.getQ()+ " - đã có trong từ điển").setAutoHide();
+					}
 				}
 				
 				@Override
@@ -783,10 +820,16 @@ public class VocaEditorTool extends Composite {
 			LazzyBee.data_service.updateVoca(v, new AsyncCallback<Voca>() {
 				@Override
 				public void onSuccess(Voca result) {
-					formClean();
-					loadingNotice.hide();
-					DOM.getElementById("editor_content").setScrollTop(0);
-					new NoticeBox("- "+ v.getQ()+ " - đã được cập nhật").setAutoHide();
+					if(result != null) {
+						formClean();
+						loadingNotice.hide();
+						DOM.getElementById("editor_content").setScrollTop(0);
+						new NoticeBox("- "+ v.getQ()+ " - đã được cập nhật").setAutoHide();
+					}
+					else {
+						loadingNotice.hide();
+						new NoticeBox("- "+ v.getQ()+ " - lỗi cập nhật").setAutoHide();
+					}
 				}
 				
 				@Override
@@ -806,9 +849,9 @@ public class VocaEditorTool extends Composite {
 		txbPronoun.setText("");
 		txbPronoun.getElement().setAttribute("style", "");
 		lsbType.setSelectedIndex(0);
-		cleanCustomEditor(DEFI_TXBMEANING + "1");
-		cleanCustomEditor(DEFI_TXBEXPLAIN + "1");
-		cleanCustomEditor(DEFI_TXBEXAM + "1");
+		destroyCustomEditor(DEFI_TXBMEANING + "1");
+		destroyCustomEditor(DEFI_TXBEXPLAIN + "1");
+		destroyCustomEditor(DEFI_TXBEXAM + "1");
 		cbTypeCommon.setValue(false);
 		cbType850Basic.setValue(false);
 		cbTypeVoaEnglish.setValue(false);
@@ -830,6 +873,9 @@ public class VocaEditorTool extends Composite {
 		//-----startup over-----
 		lsbType.addItem("- Chọn phân loại -");
 		htmlType.add(lsbType);
+		replaceTxbNote(DEFI_TXBMEANING + 1);
+		replaceTxbNote(DEFI_TXBEXPLAIN + 1);
+		replaceTxbNote(DEFI_TXBEXAM + 1);
 		defi_count = 1;
 		DefiContainer dc = new DefiContainer();
 		dc.txbMeaning_id = DEFI_TXBMEANING + defi_count;

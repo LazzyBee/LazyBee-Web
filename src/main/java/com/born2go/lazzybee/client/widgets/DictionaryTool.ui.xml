@@ -1,0 +1,59 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.DictionaryTool_Obj1 {
+		float: left;
+		width: 100%;
+		background: #0e74af;
+		text-align: center;
+		position: relative;
+	}
+	
+	.DictionaryTool_Obj2 {
+		float: left;
+		padding: 30px;
+		width: 100%;
+	}
+	
+	.DictionaryTool_Obj3 {
+		overflow: hidden;
+		display: inline-flex;
+		display: -webkit-inline-flex;
+		display: -ms-inline-flexbox;
+		width: 100%;
+	}
+	
+	.DictionaryTool_Obj4 {
+		color: white !important;
+		cursor: pointer;
+		margin-top: 40px;
+	}
+	
+	.DictionaryTool_Obj4:hover {
+		color: silver !important;
+		text-decoration: none;
+	}
+	
+	.DictionaryTool_Obj5 {
+		color: silver !important;
+	}
+	
+	.DictionaryTool_Obj6 {
+		color: white;
+		line-height: 1.5;
+		padding: 5px;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.DictionaryTool_Obj3}">
+		<g:HTMLPanel ui:field="tabPanel" styleName="{style.DictionaryTool_Obj1}">
+			<br/> <br/>
+			<g:Anchor ui:field="a" styleName="{style.DictionaryTool_Obj4}">Từ điển Anh-Việt</g:Anchor>
+			<br/> <br/> <br/>
+			<g:Anchor ui:field="b" styleName="{style.DictionaryTool_Obj4}">Từ điển Việt-Anh</g:Anchor>
+			<br/> <br/> <br/>
+			<g:Anchor ui:field="c" styleName="{style.DictionaryTool_Obj4} {style.DictionaryTool_Obj5}">Từ mới</g:Anchor>
+			<g:Label ui:field="trademarkLb" styleName="{style.DictionaryTool_Obj6}">Born2Go © 2015 All Rights Reserved | Privacy policy</g:Label>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
