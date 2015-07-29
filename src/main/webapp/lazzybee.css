@@ -102,3 +102,12 @@ body {
 	overflow: auto;
 	display: flex;
 }
+
+.header_accPro_img {
+	border-radius: 20px;
+    width: 32px;
+    /* border: 1px silver solid; */
+    float: left;
+    margin-right: 8px;
+    margin-top: 3px;
+}

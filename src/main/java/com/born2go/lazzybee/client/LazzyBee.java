@@ -2,7 +2,7 @@ package com.born2go.lazzybee.client;
 
 import com.born2go.lazzybee.client.widgets.DictionaryTool;
 import com.born2go.lazzybee.client.widgets.EditorTool;
-import com.born2go.lazzybee.client.widgets.LoginDialog;
+import com.born2go.lazzybee.client.widgets.LoginControl;
 import com.born2go.lazzybee.gdatabase.clientapi.DataService;
 import com.born2go.lazzybee.gdatabase.clientapi.DataServiceAsync;
 import com.google.gwt.core.client.EntryPoint;
@@ -16,9 +16,13 @@ public class LazzyBee implements EntryPoint {
 	
 	public static DataServiceAsync data_service = GWT.create(DataService.class);
 	
-	public static String gClientId = "49467574161-3qq96mv46vpc09671o3cjsbe56vv3455.apps.googleusercontent.com";
-	public static String gApiKey = "AIzaSyAFS8HlWEeLQ54lK1ZlOyPnumJly34mg78";
+	public static String gClientId = "1090254847247-hhq28qf96obdjm7c7pgr2qo2mt2o842l.apps.googleusercontent.com";
+	public static String gApiKey = "AIzaSyAnZGXaYK8p0nGTSO6GF9BxoIIFfLKKONc";
 	public static String gScopes = "https://www.googleapis.com/auth/plus.me";
+	
+	public static String fCLientId = "754889904633367";
+	
+	LoginControl loginControl = new LoginControl();
 	
 	Anchor menuLogin = new Anchor("Đăng nhập");
 
@@ -28,7 +32,7 @@ public class LazzyBee implements EntryPoint {
 		menuLogin.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				new LoginDialog().center();
+				loginControl.center();
 			}
 		});
 		RootPanel.get("menu_login").add(menuLogin);
