@@ -3,15 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" language="javascript"
+	src="../lazzybee/lazzybee.nocache.js"></script>
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
-<link type="text/css" rel="stylesheet" href="mobile.css">
+<link type="text/css" rel="stylesheet"
+	href="../mobile-resources/mobile.css">
 <link rel="stylesheet"
 	href="../resources/font-awesome-4.2.0/css/font-awesome.min.css">
 <title>LazzyBee</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../mobile-resources/menu.js"></script>
+
 </head>
 <body>
 	<!-- OPTIONAL: include this if you want history support -->
@@ -25,6 +29,8 @@
 			Your web browser must have JavaScript enabled in order for this
 			application to display correctly.</div>
 	</noscript>
+	<!-- id = version_mobile , show view mobile for client -->
+	<div id="version_mobile"></div>
 	<div class="header">
 		<div class="left_header">
 			<i class="fa fa-bars fa-lg" style="color: white;" id="menuBtn"></i>
@@ -32,7 +38,8 @@
 			<ul>
 				<li>
 					<div class="m_menu_home">
-						<i class="fa fa-home fa-lg" style="color: white;"></i> <a href="/">Home</a>
+						<i class="fa fa-home fa-lg" style="color: white;"></i> <a
+							href="/mhome/">Home</a>
 					</div>
 				</li>
 				<li><div class="m_menu_login">
@@ -47,34 +54,36 @@
 			</ul>
 			</nav>
 		</div>
-		<div class="toppest">
-			<div class="main-title">Lazzy's Dictionary</div>
+		<div id="gwt_header_mdic"></div>
+		<div class="right_header">
+			<div id="inputsearch" class="inputsearch"></div>
+			<div class="btsearch" id="btsearch"></div>
+			<!-- <input class="inputsearch" type="text" value="people"
+				placeholder="Search..."> -->
+			<!-- <div class="btsearch">
+				  <i class="fa fa-search"></i>  
+			</div> -->
 		</div>
-
 	</div>
 	<div id="main">
 		<div id="content">
-			<div class="header_table">Option Card</div>
-			<table class="skill-table" cellspacing="10">
-				<tr>
-					<td>
-						<div class="table-cell">English for IT</div>
-					</td>
-					<td>
-						<div class="table-cell">English for Marketing</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="table-cell">English for Doctor</div>
-					</td>
-					<td>
-						<div class="table-cell">English for baby</div>
-					</td>
-				</tr>
-			</table>
-		</div>
+			<div>
+				<h1 id="voca"></h1>
+				<audio id="audiotag1"
+					src="http://img2.tfd.com/pron/mp3/en/UK/df/dfskdssjsgskdrh7.mp3"
+					preload="auto"></audio>
+				<i class="fa fa-volume-up fa-lg"
+					onclick="play_single_sound('audiotag1')"></i>
+				<script type="text/javascript">
+					function play_single_sound(idaudio) {
+						document.getElementById(idaudio).play();
+					}
+				</script>
+			</div>
+			<span id="pronoun">/ˈpiːpəl/</span>
+			<div id="list_meaning"></div>
 
+		</div>
 	</div>
 
 </body>

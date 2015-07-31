@@ -11,7 +11,7 @@
 		<welcome-file>dictionary.html</welcome-file>
 		<welcome-file>editor.html</welcome-file>
 		<welcome-file>mdictionary.html</welcome-file>
-		<!-- <welcome-file>mhome.html</welcome-file> -->
+		<welcome-file>mhome.html</welcome-file>
 	</welcome-file-list>
 
 	<!-- Register objectify entity -->
