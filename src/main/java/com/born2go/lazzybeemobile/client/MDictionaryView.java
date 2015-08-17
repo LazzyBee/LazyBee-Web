@@ -1,12 +1,14 @@
 package com.born2go.lazzybeemobile.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.born2go.lazzybee.gdatabase.clientapi.DataService;
 import com.born2go.lazzybee.gdatabase.clientapi.DataServiceAsync;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -17,11 +19,19 @@ public class MDictionaryView extends Widget {
 
 	private TextBox txtSeach;
 	private Button btSearch;
+
 	public final DataServiceAsync dataService = GWT.create(DataService.class);
+
+	public static class DefiContainer {
+		List<String> types = new ArrayList<String>();
+		String txbMeaning_id;
+		String txbExplain_id;
+		String txbExam_id;
+	}
 
 	public MDictionaryView() {
 		designView();
-		setValue(null);
+		
 	}
 
 	/**
@@ -58,7 +68,9 @@ public class MDictionaryView extends Widget {
 
 					@Override
 					public void onSuccess(Voca result) {
-						// TODO Auto-generated method stub
+						if (result != null)
+							RootPanel.get("gwt_contentMdic").add(
+									new MVocaView().setVoca(result));
 
 					}
 				});
@@ -67,12 +79,5 @@ public class MDictionaryView extends Widget {
 		});
 	}
 
-	/*
-	 * show data to view
-	 */
-	private void setValue(Voca voca) {
-		// set text for name vocabulary
-		DOM.getElementById("voca").setInnerHTML("People");
-
-	}
+	
 }
