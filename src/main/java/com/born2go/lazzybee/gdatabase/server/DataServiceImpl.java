@@ -2,6 +2,9 @@ package com.born2go.lazzybee.gdatabase.server;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.born2go.lazzybee.gdatabase.clientapi.DataService;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -50,7 +53,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public Voca findVoca(String voca_q) {
-		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q).first().now();
+		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q.toLowerCase()).first().now();
 		return voca;
 	}
 
@@ -62,11 +65,27 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	public Voca updateVoca(Voca voca) {
 		Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
 		if(v != null) {
-			ofy().save().entity(voca);
-			return voca;
+			if(voca.getQ().equals(v.getQ())) {
+				ofy().save().entity(voca);
+				return voca;
+			}
+			else {
+				voca.setGid(null);
+				return insertVoca(voca);
+			}
 		}
 		return null;
 	}
 
- 
+	/**
+	 * Get all vocabulary
+	 */
+	@Override
+	public List<Voca> getListVoca() {
+		List<Voca> list_voca = ofy().load().type(Voca.class).list();
+		List<Voca> result = new ArrayList<Voca>();
+		result.addAll(list_voca);
+		return result;
+	}
+
 }

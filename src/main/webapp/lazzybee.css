@@ -28,13 +28,6 @@ body {
 	min-width: 300px;
 }
 
-.content {
-	float: left;
-	width: 30%;
-	min-width: 270px;
-	max-width: 280px;
-}
-
 .header_logo {
 	float: left;
 	margin: 11px 10px;
@@ -58,11 +51,12 @@ body {
 	padding-left: 8px;
 	padding-right: 8px;
 	margin-right: 5px;
-	color: white;
+	color: white !important;
 }
 
 .header_menu_item:hover {
-	color: silver;
+	color: silver !important;
+	text-decoration: none;
 	cursor: pointer;
 }
 
@@ -76,8 +70,10 @@ body {
 }
 
 .header_accPro_item {
-	color: white;
-	padding: 6px 10px;
+	position: relative;
+	top: 12px;
+	color: white !important;
+	padding: 8px 10px;
 	margin: 5px 0px;
 	border-radius: 3px;
 	background: rgba(255, 255, 255, .3);
@@ -88,13 +84,31 @@ body {
 }
 
 .header_accPro_item:hover {
-	background: silver;
+	background: silver !important;
+	text-decoration: none;
 	cursor: pointer;
 }
 
-.editor_content{
+.header_accPro_img {
+	border-radius: 20px;
+    width: 32px;
+    /* border: 1px silver solid; */
+    float: left;
+    margin-right: 8px;
+    margin-top: 3px;
+}
+
+.slidebar {
+	float: left;
+	width: 30%;
+	min-width: 270px;
+	max-width: 280px;
+}
+
+.content{
 	float: left;
 	width: 100%;
 	overflow: auto;
 	display: flex;
 }
+

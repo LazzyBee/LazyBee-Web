@@ -1,5 +1,7 @@
 package com.born2go.lazzybee.gdatabase.clientapi;
 
+import java.util.List;
+
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -13,5 +15,6 @@ public interface DataService extends RemoteService {
 
 	public Voca findVoca(String voca_q);
 	public Voca updateVoca(Voca voca);
+	public List<Voca> getListVoca();
 	
 }

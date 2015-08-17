@@ -90,6 +90,11 @@
 	.VocaEditorTool_Obj12 {
 		padding-bottom: 30px;
 	}
+	
+	.VocaEditorTool_Obj13 {
+		margin-left: 5px;
+		margin-top: 5px;
+	}
 	</ui:style>
 	<g:HTMLPanel ui:field="vocaEditorTool" styleName="{style.VocaEditorTool_Obj12}">
 		<g:HTMLPanel>
@@ -102,6 +107,7 @@
 		<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
 			<g:Label styleName="{style.VocaEditorTool_Obj2}">Định nghĩa từ, cụm từ</g:Label>
 			<g:TextBox styleName="{style.VocaEditorTool_Obj4}" ui:field="txbVocaDefi"></g:TextBox>
+			<g:Image ui:field="checkVocaImg" visible="false" url="../resources/loading.gif" styleName="{style.VocaEditorTool_Obj13}"></g:Image>
 		</g:HorizontalPanel>
 		<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
 				<g:Label styleName="{style.VocaEditorTool_Obj2}">Cấp độ</g:Label>
@@ -150,11 +156,17 @@
 				</g:HTMLPanel>
 			</g:HorizontalPanel>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
-				<g:Label styleName="{style.VocaEditorTool_Obj2}">Ý nghĩa</g:Label>
+				<g:HTMLPanel styleName="{style.VocaEditorTool_Obj2}">
+					<g:Label styleName="{style.VocaEditorTool_Obj2}">Nghĩa</g:Label>
+					<span style="font-weight: 500; position: relative; top: 6px;">(Tiếng Việt)</span>
+				</g:HTMLPanel>
 				<g:TextArea ui:field="txbMeaning" styleName="{style.VocaEditorTool_Obj4}"></g:TextArea>
 			</g:HorizontalPanel>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
-				<g:Label styleName="{style.VocaEditorTool_Obj2}">Giải thích</g:Label>
+				<g:HTMLPanel styleName="{style.VocaEditorTool_Obj2}">
+					<g:Label styleName="{style.VocaEditorTool_Obj2}">Giải thích</g:Label>
+					<span style="font-weight: 500; position: relative; top: 6px;">(Tiếng Anh)</span>
+				</g:HTMLPanel>
 				<g:TextArea ui:field="txbExplain" styleName="{style.VocaEditorTool_Obj4}"></g:TextArea>
 			</g:HorizontalPanel>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">

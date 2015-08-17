@@ -5,11 +5,11 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
-public class NoticeBox extends DialogBox {
+public class NoticeBox extends Composite {
 
 	private static NoticeBoxUiBinder uiBinder = GWT
 			.create(NoticeBoxUiBinder.class);
@@ -18,20 +18,20 @@ public class NoticeBox extends DialogBox {
 	}
 
 	@UiField
-	Label lbNotice;
+	HTML lbNotice;
 
 	public NoticeBox(String notice) {
-		setWidget(uiBinder.createAndBindUi(this));
-		this.setStyleName("NoticeBox_clean");
+		initWidget(uiBinder.createAndBindUi(this));
 
 		lbNotice.setText(notice);
-		setPopupPosition((Window.getClientWidth() - this.getOffsetWidth()) / 2,
-				40);
-		show();
+		int left = (Window.getClientWidth() / 2) - (this.getOffsetWidth() / 2);
+		this.getElement().setAttribute("style", "left: " + left + "px");
 	}
 	
-	public void changeNotice(String notice) {
+	public void setNotice(String notice) {
 		lbNotice.setText(notice);
+		int left = (Window.getClientWidth() / 2) - (this.getOffsetWidth() / 2);
+		this.getElement().setAttribute("style", "left: " + left + "px; display:");
 	}
 
 	public void setAutoHide() {
@@ -42,6 +42,10 @@ public class NoticeBox extends DialogBox {
 			}
 		};
 		t.schedule(1500);
+	}
+	
+	public void hide() {
+		this.getElement().setAttribute("style", "display: none");
 	}
 
 }

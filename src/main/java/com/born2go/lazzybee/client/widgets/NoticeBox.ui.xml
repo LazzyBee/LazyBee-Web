@@ -9,9 +9,12 @@
 	.NoticeBox_Obj1 {
 		padding: 10px;
 		background: lemonchiffon;
+		position: absolute;
+		z-index: 1;
+		top: 40px;
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.NoticeBox_Obj1}">
-		<g:Label ui:field="lbNotice"></g:Label>
+		<g:HTML ui:field="lbNotice"></g:HTML>
 	</g:HTMLPanel>
 </ui:UiBinder> 
