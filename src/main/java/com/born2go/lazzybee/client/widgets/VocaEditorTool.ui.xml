@@ -156,11 +156,17 @@
 				</g:HTMLPanel>
 			</g:HorizontalPanel>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
-				<g:Label styleName="{style.VocaEditorTool_Obj2}">Ý nghĩa</g:Label>
+				<g:HTMLPanel styleName="{style.VocaEditorTool_Obj2}">
+					<g:Label styleName="{style.VocaEditorTool_Obj2}">Nghĩa</g:Label>
+					<span style="font-weight: 500; position: relative; top: 6px;">(Tiếng Việt)</span>
+				</g:HTMLPanel>
 				<g:TextArea ui:field="txbMeaning" styleName="{style.VocaEditorTool_Obj4}"></g:TextArea>
 			</g:HorizontalPanel>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
-				<g:Label styleName="{style.VocaEditorTool_Obj2}">Giải thích</g:Label>
+				<g:HTMLPanel styleName="{style.VocaEditorTool_Obj2}">
+					<g:Label styleName="{style.VocaEditorTool_Obj2}">Giải thích</g:Label>
+					<span style="font-weight: 500; position: relative; top: 6px;">(Tiếng Anh)</span>
+				</g:HTMLPanel>
 				<g:TextArea ui:field="txbExplain" styleName="{style.VocaEditorTool_Obj4}"></g:TextArea>
 			</g:HorizontalPanel>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">

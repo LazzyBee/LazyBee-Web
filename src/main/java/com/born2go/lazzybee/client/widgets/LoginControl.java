@@ -3,12 +3,15 @@ package com.born2go.lazzybee.client.widgets;
 import com.born2go.lazzybee.client.LazzyBee;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 public class LoginControl extends DialogBox {
@@ -25,12 +28,16 @@ public class LoginControl extends DialogBox {
 		setGlassEnabled(true);
 		setStyleName("LoginControl_clean");
 		
-		googleInit(LazzyBee.gApiKey);
-		facebookInit(LazzyBee.fCLientId);
+		facebookInit(LazzyBee.fCLientId, this);
 	}
 	
 	public void hideDialog() {
 		hide();
+	}
+	
+	public void onGoogleJSLoad() {
+		if(!LazzyBee.isGoogleInit)
+			LazzyBee.isGoogleInit = googleInit(LazzyBee.gApiKey, LazzyBee.gClientId, LazzyBee.gScopes, this);
 	}
 	
 	@Override
@@ -55,39 +62,35 @@ public class LoginControl extends DialogBox {
 		facebookLogin(this);
 	}
 	
-	public static native void checkGoogleLoginStatus(String gClientId, String gScopes) /*-{
-		var clientId = gClientId;
-		var scopes = gScopes;
-        
-        function checkAuth() {
-        	$wnd.gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
-      	}
-      	
-      	function handleAuthResult(authResult) {
-      	}
-	}-*/;
-	
-	public static native void checkFacebookLoginStatus() /*-{
-		$wnd.FB.getLoginStatus(function(response) {
-			if (response.status === 'connected') {
-				var userId = response.authResponse.userID;
-			    var accessToken = response.authResponse.accessToken;
-			} 
-			else if (response.status === 'not_authorized') {} 
-			else {}
-		}, true);
-	}-*/;
-	
-	native void googleInit(String gApiKey) /*-{
-		var apiKey = gApiKey;
-		$wnd.gapi.client.setApiKey(apiKey);
+	native boolean googleInit(String gApiKey, String gClientId, String gScopes, LoginControl c) /*-{
+		if(typeof $wnd.gapi.client != 'undefined') {
+			var apiKey = gApiKey;
+			var clientId = gClientId;
+			var scopes = gScopes;
+			
+			$wnd.gapi.client.setApiKey(apiKey);
+			$wnd.window.setTimeout(checkAuth,1);
+			
+			function checkAuth() {
+	  			$wnd.gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true, cookie_policy: 'single_host_origin'}, handleAuthResult);
+			}
+			
+			 function handleAuthResult(authResult) {
+	        	if (authResult && !authResult.error) {
+	          		c.@com.born2go.lazzybee.client.widgets.LoginControl::googleApiCall()();
+	        	} else {}
+	      	}
+	      	return true;
+	     }
+	     else
+	     	return false;
 	}-*/;
 	
 	native void googleLogin(String gClientId, String gScopes, LoginControl c) /*-{
 		var clientId = gClientId;	
 		var scopes = gScopes;		
 		
-		$wnd.gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+		$wnd.gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false, cookie_policy: 'single_host_origin'}, handleAuthResult);
         return false;
         
         function handleAuthResult(authResult) {
@@ -115,12 +118,21 @@ public class LoginControl extends DialogBox {
 	            heading.appendChild(image);
 	            heading.appendChild(span);
 	            $wnd.document.getElementById('menu_login').appendChild(heading);
+	            
+	            span.onclick = function() {
+	            	@com.born2go.lazzybee.client.widgets.LoginControl::addUserPorfile()();
+	            }
           	});
        	});
 	}-*/;
 	
-	native void facebookInit(String fClientId) /*-{
+	native static void googleLogout() /*-{
+	   	$wnd.gapi.auth.signOut();
+	}-*/;
+	
+	native void facebookInit(String fClientId, LoginControl c) /*-{
 		var clientId = fClientId;
+		$wnd.FB._https = true;
 	 	$wnd.FB.init({
 	      	appId      : clientId,
 	      	cookie	 : true,
@@ -135,6 +147,21 @@ public class LoginControl extends DialogBox {
 		    js.src = "//connect.facebook.net/en_US/sdk.js";
 		    fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
+		
+		$wnd.window.setTimeout(checkAuth,1);
+		
+		function checkAuth() {
+  			$wnd.FB.getLoginStatus(function(response) {
+				if (response.status === 'connected') {
+					var userId = response.authResponse.userID;
+				    var accessToken = response.authResponse.accessToken;
+				    
+				    c.@com.born2go.lazzybee.client.widgets.LoginControl::facebookApiCall()();
+				} 
+				else if (response.status === 'not_authorized') {} 
+				else {}
+			}, true);
+		}
 	}-*/;
 	
 	native void facebookLogin(LoginControl c) /*-{
@@ -162,7 +189,36 @@ public class LoginControl extends DialogBox {
             heading.appendChild(image);
             heading.appendChild(span);
             $wnd.document.getElementById('menu_login').appendChild(heading);
+            
+            span.onclick = function() {
+	            @com.born2go.lazzybee.client.widgets.LoginControl::addUserPorfile()();
+	        }
 		});
 	}-*/;
 	
+	native static void facebookLogout() /*-{
+		$wnd.FB.logout(function(response) {
+  			// user is now logged out
+		});
+	}-*/;
+	
+	static void addUserPorfile() {
+		DialogBox d = new DialogBox();
+		Label logout = new Label("Đăng xuất");
+		logout.setStyleName("LoginControl_Obj3");
+		d.add(logout);
+		d.setAutoHideEnabled(true);
+		d.setPopupPosition(Window.getClientWidth() - 200, 40);
+		d.setStyleName("LoginControl_clean LoginControl_Obj2");
+		d.show();
+		
+		logout.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				googleLogout();
+				facebookLogout();
+				Window.Location.reload();
+			}
+		});
+	}
 }

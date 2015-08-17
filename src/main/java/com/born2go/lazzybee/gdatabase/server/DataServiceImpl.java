@@ -2,6 +2,9 @@ package com.born2go.lazzybee.gdatabase.server;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.born2go.lazzybee.gdatabase.clientapi.DataService;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -68,6 +71,17 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Get all vocabulary
+	 */
+	@Override
+	public List<Voca> getListVoca() {
+		List<Voca> list_voca = ofy().load().type(Voca.class).list();
+		List<Voca> result = new ArrayList<Voca>();
+		result.addAll(list_voca);
+		return result;
 	}
 
 }

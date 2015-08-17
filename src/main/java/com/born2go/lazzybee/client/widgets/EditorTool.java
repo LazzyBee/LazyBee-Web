@@ -32,6 +32,8 @@ public class EditorTool extends Composite {
 	@UiField Label trademarkLb;
 	
 	VocaEditorTool vocaTool = new VocaEditorTool();
+	
+	String history_token;
 
 	public EditorTool() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -41,7 +43,7 @@ public class EditorTool extends Composite {
 				  @Override
 				  public void run() {
 					  tabPanel.getElement().setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
-					  DOM.getElementById("editor_content").setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
+					  DOM.getElementById("content").setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
 				  }
 			  };
 
@@ -55,47 +57,39 @@ public class EditorTool extends Composite {
 		tabPanel.getElement().setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
 		trademarkLb.getElement().setAttribute("style", "position: absolute; bottom: 20px");
 		
-		History.addValueChangeHandler(new ValueChangeHandler<String>() {
-			
-			@Override
-			public void onValueChange(ValueChangeEvent<String> event) {
-				Window.Location.reload();
-			}
-		});
-		
-		String history_token = History.getToken();
+		history_token = History.getToken();
 		
 		if(history_token.isEmpty()) {
 			String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
 			Window.Location.replace(newURL);
-			RootPanel.get("editor_tool").add(vocaTool);
+			RootPanel.get("wt_editor").add(vocaTool);
 			vocaTool.replaceEditor();
 		}
 		else if (history_token.contains("vocabulary")) {
 			if(!history_token.contains("/")) {
-				RootPanel.get("editor_tool").add(vocaTool);
+				RootPanel.get("wt_editor").add(vocaTool);
 				vocaTool.replaceEditor();
 			}
 			else {
 				final String[] sub_token = history_token.split("/");
 				if(sub_token[1] == null || sub_token[1].isEmpty()) {
-					RootPanel.get("editor_tool").add(vocaTool);
+					RootPanel.get("wt_editor").add(vocaTool);
 					vocaTool.replaceEditor();
 				}
 				else {
-					final NoticeBox ntc = new NoticeBox("Đang tải...");
+					LazzyBee.noticeBox.setNotice("Đang tải...");
 					LazzyBee.data_service.findVoca(sub_token[1], new AsyncCallback<Voca>() {					
 						@Override
 						public void onSuccess(Voca result) {
 							if(result == null) {
-								ntc.changeNotice("Không tìm thấy từ - " + sub_token[1]);
-								ntc.setAutoHide();
-								RootPanel.get("editor_tool").add(vocaTool);
+								LazzyBee.noticeBox.setNotice("Không tìm thấy từ - " + sub_token[1]);
+								LazzyBee.noticeBox.setAutoHide();
+								RootPanel.get("wt_editor").add(vocaTool);
 								vocaTool.replaceEditor();
 							}
 							else {
-								ntc.hide();
-								RootPanel.get("editor_tool").add(vocaTool);
+								LazzyBee.noticeBox.hide();
+								RootPanel.get("wt_editor").add(vocaTool);
 								vocaTool.replaceEditor();
 								vocaTool.setVoca(result);
 							}
@@ -103,14 +97,22 @@ public class EditorTool extends Composite {
 						
 						@Override
 						public void onFailure(Throwable caught) {
-							ntc.changeNotice("! Đã có lỗi xảy ra trong quá trình tải");
-							ntc.setAutoHide();
-							RootPanel.get("editor_tool").add(vocaTool);
+							LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
+							LazzyBee.noticeBox.setAutoHide();
+							RootPanel.get("wt_editor").add(vocaTool);
 						}
 					});
 				}
 			}
 		}
+		
+		History.addValueChangeHandler(new ValueChangeHandler<String>() {
+			@Override
+			public void onValueChange(ValueChangeEvent<String> event) {
+				if(History.getToken().contains("/"))
+					Window.Location.reload();
+			}
+		});
 	}
 
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style>
+	@external .ListVocaView_Obj3;
+	.ListVocaView_Obj1 {
+		margin-top: 30px;
+	}
+	
+	.ListVocaView_Obj2 {
+		background: #e0e0e0;
+		margin-bottom: 30px;
+		border-top: 2px solid #6f7277;
+	}
+	
+	.ListVocaView_Obj3 {
+		height: 30px;
+	}
+	
+	.ListVocaView_Obj4 {
+		color: gray;
+		float: right;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.ListVocaView_Obj1}">
+		<g:Label ui:field="lbTotal" styleName="{style.ListVocaView_Obj4}"></g:Label>
+		
+		<br/> <br/>
+		
+		<c:CellTable pageSize='500' ui:field='vocaTable' styleName="{style.ListVocaView_Obj2}"/>
+	</g:HTMLPanel>
+</ui:UiBinder> 

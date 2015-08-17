@@ -12,8 +12,22 @@
 <title>Lazzy Bee</title>
 
 <script type="text/javascript" language="javascript" src="../lazzybee/lazzybee.nocache.js"></script>
-<script src="https://apis.google.com/js/client.js"></script>
-<script src="http://connect.facebook.net/en_US/all.js"></script>
+
+<script type="text/javascript">
+	function handleClientLoad() {
+		if (typeof GWTExport != 'undefined') {
+		 	var lazzyBeeExport = new GWTExport.LazzyBeeExport();
+		 	lazzyBeeExport.handleClientLoad();
+		}
+	}
+	function exporterOnLoad() {
+		var lazzyBeeExport = new GWTExport.LazzyBeeExport();
+		lazzyBeeExport.handleClientLoad();
+    }
+</script>
+
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+<script src="https://connect.facebook.net/en_US/all.js"></script>
 
 </head>
 
@@ -38,23 +52,30 @@
 		</div>
 		<div class="header_menu">
 			<a class="header_menu_item">Bộ Flash Cards</a>
-			<a class="header_menu_item" style="color: silver !important;">Tra cứu từ vựng</a>
+			<a href="/dictionary/" class="header_menu_item" style="color: silver !important;">Tra cứu từ vựng</a>
 			<a href="/editor/" class="header_menu_item">Soạn thảo</a>
 		</div>
 		<div class="header_accPro">
 			<div id="menu_login"></div>
 		</div>
+		<div id="wt_noticebox"></div>
 	</div>
 	
 	<div id="bodyy">
-		<div id="wt_dictionary" class="content"></div>
+		<div id="wt_dictionary_slide" class="slidebar"></div>
 		
-		<div id="editor_content" class="editor_content">
+		<div id="content" class="content">
+		
 		<script type="text/javascript">
 			var ec_height = window.innerHeight -40;
-			document.getElementById("editor_content").setAttribute("style","height:" + ec_height +"px");
+			document.getElementById("content").setAttribute("style","height:" + ec_height +"px");
 		</script>
-			<div id="editor_tool" style="padding: 30px;width: 600px; float: left;"></div>
+		
+			<div id="wt_dictionary" style="padding: 30px; width: 600px; float: left;">
+				<div id="wt_search_tool"></div>
+				<div id="wt_dictionary_content"></div>
+			</div>
+			
 			<div id="right_panel">
 				<div>
 					<img alt="" src="/resources/right-panel-pic.jpg" style="width: 100%; height: 280px;">
@@ -69,7 +90,7 @@
 					<span style="font-size: 15px; font-weight: bold;">Connect with Born2Go!</span>
 					<br/> <br/>
 					<div class="fb-like" data-href="http://born2go-b.appspot.com/" data-width="260" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
-					<span style="color: #09f; cursor: pointer; margin-left: 2px; text-decoration: underline;"><img src="../resources/1435838158_Mushroom - Bee.png" style="width:18px; height: 18px; margin-right: 5px; margin-left: 15px;"> Follow LazzyBee </span>
+					<span style="color: #09f; cursor: pointer; margin-left: 2px; text-decoration: none;"><img src="../resources/1435838158_Mushroom - Bee.png" style="width:18px; height: 18px; margin-right: 5px; margin-left: 15px;"> Follow LazzyBee </span>
 				</div>
 			</div>
 		</div>

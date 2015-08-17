@@ -28,13 +28,6 @@ body {
 	min-width: 300px;
 }
 
-.content {
-	float: left;
-	width: 30%;
-	min-width: 270px;
-	max-width: 280px;
-}
-
 .header_logo {
 	float: left;
 	margin: 11px 10px;
@@ -96,13 +89,6 @@ body {
 	cursor: pointer;
 }
 
-.editor_content{
-	float: left;
-	width: 100%;
-	overflow: auto;
-	display: flex;
-}
-
 .header_accPro_img {
 	border-radius: 20px;
     width: 32px;
@@ -111,3 +97,18 @@ body {
     margin-right: 8px;
     margin-top: 3px;
 }
+
+.slidebar {
+	float: left;
+	width: 30%;
+	min-width: 270px;
+	max-width: 280px;
+}
+
+.content{
+	float: left;
+	width: 100%;
+	overflow: auto;
+	display: flex;
+}
+
