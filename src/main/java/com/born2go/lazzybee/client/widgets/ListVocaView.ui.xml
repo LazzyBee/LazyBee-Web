@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 	<ui:style>
-	@external .ListVocaView_Obj3;
+	@external .ListVocaView_Obj3, .ListVocaView_Obj6_Disable;
 	.ListVocaView_Obj1 {
 		margin-top: 30px;
 	}
@@ -21,12 +21,68 @@
 		color: gray;
 		float: right;
 	}
+	
+	.ListVocaView_Obj5 {
+		background: #0e74af;
+		padding: 7px 10px;
+		border-right: 1px silver solid;
+		color: white;
+		border-radius: 5px 0px 0px 5px;
+	}
+	
+	.ListVocaView_Obj5:hover {
+		background: silver;
+		cursor: pointer;
+		color: #0e74af;
+	}
+	
+	.ListVocaView_Obj6 {
+		background: #0e74af;
+		padding: 7px 10px;
+		border-right: 1px silver solid;
+		color: white;
+		border-radius: 0px 5px 5px 0px;
+	}
+	
+	.ListVocaView_Obj6:hover {
+		background: silver;
+		cursor: pointer;
+		color: #0e74af;
+	}
+	
+	.ListVocaView_Obj6_Disable {
+		background: silver;
+		cursor: pointer;
+		color: #0e74af;
+	}
+	
+	.ListVocaView_Obj7 {
+		float: left;
+		position: relative;
+		top: -12px;
+		display: inline-flex;
+		display: -webkit-inline-flex;
+		display: -ms-inline-flexbox;
+	}
+	
+	.ListVocaView_Obj8 {
+		margin-left: 10px;
+    	margin-top: 8px;
+    	color: gray;
+	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.ListVocaView_Obj1}">
-		<g:Label ui:field="lbTotal" styleName="{style.ListVocaView_Obj4}"></g:Label>
+		<g:HTMLPanel>
+			<g:HTMLPanel styleName="{style.ListVocaView_Obj7}">
+				<g:Anchor ui:field="btnPreviousPage" title="Previous" styleName="{style.ListVocaView_Obj5}"><i class="fa fa-arrow-left fa-lg"></i></g:Anchor>
+				<g:Anchor ui:field="btnNextPage" title="Next" styleName="{style.ListVocaView_Obj6}"><i class="fa fa-arrow-right fa-lg"></i></g:Anchor>
+				<g:Label ui:field="lbPageNumber" styleName="{style.ListVocaView_Obj8}">1 - 200</g:Label>
+			</g:HTMLPanel>
+			<g:Label ui:field="lbTotal" styleName="{style.ListVocaView_Obj4}"></g:Label>
+		</g:HTMLPanel>
 		
 		<br/> <br/>
 		
-		<c:CellTable pageSize='500' ui:field='vocaTable' styleName="{style.ListVocaView_Obj2}"/>
+		<c:CellTable pageSize='5000' ui:field='vocaTable' styleName="{style.ListVocaView_Obj2}"/>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -52,7 +52,7 @@
 			<br/> <br/> <br/>
 			<g:Anchor ui:field="b" styleName="{style.DictionaryTool_Obj4}">Từ điển Việt-Anh</g:Anchor>
 			<br/> <br/> <br/>
-			<g:Anchor ui:field="c" styleName="{style.DictionaryTool_Obj4} {style.DictionaryTool_Obj5}">Từ vựng</g:Anchor>
+			<g:Anchor ui:field="vocabularySite" styleName="{style.DictionaryTool_Obj4} {style.DictionaryTool_Obj5}">Từ vựng</g:Anchor>
 			<g:Label ui:field="trademarkLb" styleName="{style.DictionaryTool_Obj6}">Born2Go © 2015 All Rights Reserved | Privacy policy</g:Label>
 		</g:HTMLPanel>
 	</g:HTMLPanel>

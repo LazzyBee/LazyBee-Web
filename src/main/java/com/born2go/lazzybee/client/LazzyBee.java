@@ -22,7 +22,7 @@ public class LazzyBee implements EntryPoint {
 	
 	//Google app id and api key
 	public static String gClientId = "1090254847247-hhq28qf96obdjm7c7pgr2qo2mt2o842l.apps.googleusercontent.com";
-	public static String gApiKey = "AIzaSyAnZGXaYK8p0nGTSO6GF9BxoIIFfLKKONc";
+	public static String gApiKey = "AIzaSyBJUT9Le2BQ9VQBBWYpMNjKAh6uJVxPseQ";
 	public static String gScopes = "https://www.googleapis.com/auth/plus.me";
 	public static boolean isGoogleInit = false;
 	//Facebook app id

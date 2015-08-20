@@ -60,6 +60,7 @@ public class VocaEditorTool extends Composite {
 	@UiField TextArea txbMeaning;
 	@UiField TextArea txbExplain;
 	@UiField TextArea txbExam;
+	@UiField Anchor btnDelete;
 	
 	@UiField CheckBox cbTypeCommon;
 	@UiField CheckBox cbType850Basic;
@@ -84,7 +85,7 @@ public class VocaEditorTool extends Composite {
 		String txbExam_id;
 	}
 	
-	private Long voca_gid = null;
+	private Voca voca = null;
 	private List<String> packages = new ArrayList<String>();
 	private List<DefiContainer> list_defi = new ArrayList<DefiContainer>();
 	private List<DefiContainer> list_defitranforms = new ArrayList<DefiContainer>();
@@ -254,7 +255,8 @@ public class VocaEditorTool extends Composite {
 	}
 	
 	public void setVoca(Voca voca) {
-		voca_gid = voca.getGid();
+		this.voca = voca;
+		btnDelete.setVisible(true);
 		//-----
 		txbVocaDefi.setText(voca.getQ());
 		//-----
@@ -861,12 +863,10 @@ public class VocaEditorTool extends Composite {
 					if(result != null) {
 						formClean();
 						DOM.getElementById("content").setScrollTop(0);
-						LazzyBee.noticeBox.setNotice("- "+ v.getQ()+ " - đã được thêm vào từ điển");
-						LazzyBee.noticeBox.setAutoHide();
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được thêm vào từ điển", "/dictionary/#vocabulary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					} 
 					else {
-						LazzyBee.noticeBox.setNotice("- "+ v.getQ()+ " - đã có trong từ điển");
-						LazzyBee.noticeBox.setAutoHide();
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã có trong từ điển", "/dictionary/#vocabulary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 				}
 				
@@ -883,7 +883,7 @@ public class VocaEditorTool extends Composite {
 		if(verifyField()) {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final Voca v = new Voca();
-			v.setGid(voca_gid);
+			v.setGid(voca.getGid());
 			v.setQ(txbVocaDefi.getText());
 			v.setLevel(lsbLevel.getValue(lsbLevel.getSelectedIndex()));
 			v.setA(getJsonData());
@@ -894,12 +894,10 @@ public class VocaEditorTool extends Composite {
 					if(result != null) {
 						formClean();
 						DOM.getElementById("content").setScrollTop(0);
-						LazzyBee.noticeBox.setNotice("- "+ v.getQ()+ " - đã được cập nhật");
-						LazzyBee.noticeBox.setAutoHide();
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/dictionary/#vocabulary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 					else {
-						LazzyBee.noticeBox.setNotice("- "+ v.getQ()+ " - lỗi cập nhật");
-						LazzyBee.noticeBox.setAutoHide();
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - cập nhật thất bại", "/dictionary/#vocabulary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 				}
 				
@@ -915,6 +913,7 @@ public class VocaEditorTool extends Composite {
 	private void formClean() {
 		String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
 		Window.Location.replace(newURL);
+		btnDelete.setVisible(false);
 		txbVocaDefi.setText("");
 		txbVocaDefi.getElement().setAttribute("style", "");
 		txbPronoun.setText("");
@@ -940,7 +939,7 @@ public class VocaEditorTool extends Composite {
 		list_defi.clear();
 		listLbType.clear();
 		list_defitranforms.clear();
-		voca_gid = null;
+		voca = null;
 		//-----startup over-----
 		lsbType.addItem("- Chọn phân loại -");
 		htmlType.add(lsbType);
@@ -957,7 +956,7 @@ public class VocaEditorTool extends Composite {
 	
 	@UiHandler("btnSave")
 	void onBtnSaveClick(ClickEvent e) {
-		if(voca_gid == null)
+		if(voca == null)
 			saveNewVoca();
 		else
 			updateVoca();
@@ -965,10 +964,31 @@ public class VocaEditorTool extends Composite {
 	
 	@UiHandler("btnSaveB")
 	void onBtnSaveBClick(ClickEvent e) {
-		if(voca_gid == null)
+		if(voca == null)
 			saveNewVoca();
 		else
 			updateVoca();
+	}
+	
+	@UiHandler("btnDelete")
+	void onBtnDeleteClick(ClickEvent e) {
+		if(voca != null) {
+			final String voca_q = voca.getQ();
+			LazzyBee.data_service.removeVoca(voca, new AsyncCallback<Void>() {
+				@Override
+				public void onSuccess(Void result) {
+					formClean();
+					LazzyBee.noticeBox.setNotice("- "+ voca_q + " - đã bị xóa");
+					LazzyBee.noticeBox.setAutoHide();
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+					LazzyBee.noticeBox.setAutoHide();
+				}
+			});
+		}
 	}
 
 	@UiHandler("btnAddDefi")
