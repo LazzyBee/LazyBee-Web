@@ -3,7 +3,7 @@ package com.born2go.lazzybeemobile.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.born2go.lazzybee.gdatabase.shared.EmployeeObj;
+import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybeemobile.client.MDictionaryView.DefiContainer;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONParser;
@@ -38,7 +38,7 @@ public class MVocaView extends Composite {
 	@UiField
 	HTMLPanel htmlDefiTable;
 
-	private EmployeeObj voca;
+	private Voca voca;
 	private List<DefiContainer> list_defitranforms = new ArrayList<DefiContainer>();
 
 	public MVocaView() {
@@ -46,7 +46,7 @@ public class MVocaView extends Composite {
 	}
 
 	//get data from voca
-	public MVocaView setVoca(EmployeeObj voca) {
+	public MVocaView setVoca(Voca voca) {
 		this.voca = voca;
 		// -----
 		lbVocaQ.setText(voca.getQ());

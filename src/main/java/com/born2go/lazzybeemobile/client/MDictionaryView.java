@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.clientapi.DataService;
 import com.born2go.lazzybee.gdatabase.clientapi.DataServiceAsync;
-import com.born2go.lazzybee.gdatabase.shared.EmployeeObj;
+import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -84,7 +84,7 @@ public class MDictionaryView extends Widget {
 	 */
 	private void searchVoca() {
 		String voca_q = txtSeach.getText();
-		dataService.findVoca(voca_q, new AsyncCallback<EmployeeObj>() {
+		dataService.findVoca(voca_q, new AsyncCallback<Voca>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -93,7 +93,7 @@ public class MDictionaryView extends Widget {
 			}
 
 			@Override
-			public void onSuccess(EmployeeObj result) {
+			public void onSuccess(Voca result) {
 				RootPanel.get("gwt_contentMdic").clear();
 				if (result != null)
 					RootPanel.get("gwt_contentMdic").add(
