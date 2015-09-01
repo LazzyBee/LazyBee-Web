@@ -140,7 +140,7 @@ a {
 	width: 30px;
 }
 
-.m_menu_home,.m_menu_login {
+.m_menu_home,.m_menu_login,.m_menu_seach{
 	border-bottom: solid 1px gray;
 }
 
@@ -183,7 +183,9 @@ a {
 .table-cell:hover {
 	background: #0066c
 }
-
+#notfoundVoca{
+	text-align: center;
+}
 /*mobile overides*/
 @media ( max-width : 319px) {
 	.table-cell {

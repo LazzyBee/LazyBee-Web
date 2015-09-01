@@ -3,16 +3,13 @@ package com.born2go.lazzybeemobile.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.born2go.lazzybee.gdatabase.shared.Voca;
+import com.born2go.lazzybee.gdatabase.shared.EmployeeObj;
 import com.born2go.lazzybeemobile.client.MDictionaryView.DefiContainer;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
@@ -20,12 +17,14 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
+/*
+ * define ui for answer's content
+ */
 public class MVocaView extends Composite {
 
-	private static VocaViewUiBinder uiBinder = GWT
-			.create(VocaViewUiBinder.class);
+	private static Binder uiBinder = GWT.create(Binder.class);
 
-	interface VocaViewUiBinder extends UiBinder<Widget, MVocaView> {
+	interface Binder extends UiBinder<Widget, MVocaView> {
 	}
 
 	@UiField
@@ -39,14 +38,15 @@ public class MVocaView extends Composite {
 	@UiField
 	HTMLPanel htmlDefiTable;
 
-	private Voca voca;
+	private EmployeeObj voca;
 	private List<DefiContainer> list_defitranforms = new ArrayList<DefiContainer>();
 
 	public MVocaView() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
-	public MVocaView setVoca(Voca voca) {
+	//get data from voca
+	public MVocaView setVoca(EmployeeObj voca) {
 		this.voca = voca;
 		// -----
 		lbVocaQ.setText(voca.getQ());
@@ -110,6 +110,7 @@ public class MVocaView extends Composite {
 		return this;
 	}
 
+	// ui for vosao
 	private void readDefiTranforms() {
 		for (DefiContainer dc : list_defitranforms) {
 			HTMLPanel htmlDefi = new HTMLPanel("");
@@ -118,7 +119,7 @@ public class MVocaView extends Composite {
 				dc_pac = dc_pac + pac + ", ";
 			}
 			Label dcPac = new Label(dc_pac);
-			dcPac.setStyleName("VocaView_Obj5");
+			dcPac.setStyleName("MVocaView_Obj5");
 			HTML dcContent = new HTML();
 			dcContent.getElement().setAttribute("style", "padding-left: 5px;");
 			dcContent.setHTML(dc.txbMeaning_id.replaceAll("\"", "")
@@ -130,11 +131,6 @@ public class MVocaView extends Composite {
 			htmlDefi.add(dcContent);
 			htmlDefiTable.add(htmlDefi);
 		}
-	}
-
-	@UiHandler("btnEdit")
-	void onBtnEditClick(ClickEvent e) {
-		Window.Location.assign("/editor/#vocabulary/" + voca.getQ());
 	}
 
 }

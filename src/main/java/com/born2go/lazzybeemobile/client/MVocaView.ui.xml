@@ -2,53 +2,52 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	@external .VocaView_Obj5;
-	.VocaView_Obj1 {
-		margin-top: 30px;
+	@external .MVocaView_Obj5;
+	.MVocaView_Obj1 {
+		margin-top: 10px;
 	}
 	
-	.VocaView_Obj2 {
+	.MVocaView_Obj2 {
 		float: left;
 	}
 	
-	.VocaView_Obj3 {
+	.MVocaView_Obj3 {
 		float: right;
 	}
 	
-	.VocaView_Obj4 {
+	.MVocaView_Obj4 {
 		color: #0e74af;
     	font-weight: bold;
     	font-size: 18px;
 	}
 	
-	.VocaView_Obj5 {
+	.MVocaView_Obj5 {
 		padding: 10px;
 		padding-left: 5px;
 		background: #E0E0E0;
 	}
 	
-	.VocaView_Obj6 {
+	.MVocaView_Obj6 {
 		margin-left: 15px;
 		margin-top: 2px;
 	}
 	
-	.VocaView_Obj6:hover {
+	.MVocaView_Obj6:hover {
 		color: silver;
 		cursor: pointer;
 	}
 	</ui:style>
-	<g:HTMLPanel styleName="{style.VocaView_Obj1}">
+	<g:HTMLPanel styleName="{style.MVocaView_Obj1}">
 		<g:HTMLPanel>
-			<g:Label ui:field="lbVocaQ" styleName="{style.VocaView_Obj2} {style.VocaView_Obj4}"></g:Label>
-			<g:Anchor ui:field="btnEdit" styleName="{style.VocaView_Obj2} {style.VocaView_Obj6}" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></g:Anchor>
-			<g:Anchor ui:field="btnVocaPronounce" styleName="{style.VocaView_Obj3}"><i class="fa fa-volume-up fa-lg"></i></g:Anchor>
+			<g:Label ui:field="lbVocaQ" styleName="{style.MVocaView_Obj2} {style.MVocaView_Obj4}"></g:Label>
+			<g:Anchor ui:field="btnVocaPronounce" styleName="{style.MVocaView_Obj3}"><i class="fa fa-volume-up fa-lg"></i></g:Anchor>
 		</g:HTMLPanel>
 		
 		<br/> <br/>
 		
 		<g:HTMLPanel>
-			<g:Label ui:field="lbVocaLevel" styleName="{style.VocaView_Obj2}"></g:Label>
-			<g:Label ui:field="lbVocaPronoun" styleName="{style.VocaView_Obj3}"></g:Label>
+			<g:Label ui:field="lbVocaLevel" styleName="{style.MVocaView_Obj2}"></g:Label>
+			<g:Label ui:field="lbVocaPronoun" styleName="{style.MVocaView_Obj3}"></g:Label>
 		</g:HTMLPanel>
 		 
 		<br/> <br/>
