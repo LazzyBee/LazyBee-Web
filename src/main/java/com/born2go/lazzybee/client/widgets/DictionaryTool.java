@@ -40,6 +40,7 @@ public class DictionaryTool extends Composite {
 	@UiField Label trademarkLb;
 	
 	String history_token;
+	boolean isReload = true;
 
 	public DictionaryTool() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -70,6 +71,7 @@ public class DictionaryTool extends Composite {
 			String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
 			Window.Location.replace(newURL);
 			RootPanel.get("wt_dictionary_content").add(new ListVocaView());
+			isReload = false;
 		} 
 		else {
 			if(history_token.contains("vocabulary")) {
@@ -113,8 +115,9 @@ public class DictionaryTool extends Composite {
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
-				if(History.getToken().contains("/"))
+				if(isReload)
 					Window.Location.reload();
+				isReload = true;
 			}
 		});
 	}

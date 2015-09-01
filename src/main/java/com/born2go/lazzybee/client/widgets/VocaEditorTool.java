@@ -972,22 +972,24 @@ public class VocaEditorTool extends Composite {
 	
 	@UiHandler("btnDelete")
 	void onBtnDeleteClick(ClickEvent e) {
-		if(voca != null) {
-			final String voca_q = voca.getQ();
-			LazzyBee.data_service.removeVoca(voca, new AsyncCallback<Void>() {
-				@Override
-				public void onSuccess(Void result) {
-					formClean();
-					LazzyBee.noticeBox.setNotice("- "+ voca_q + " - đã bị xóa");
-					LazzyBee.noticeBox.setAutoHide();
-				}
-				
-				@Override
-				public void onFailure(Throwable caught) {
-					LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
-					LazzyBee.noticeBox.setAutoHide();
-				}
-			});
+		if(Window.confirm("Bạn muốn xóa từ - " + voca.getQ() + " -?")) {
+			if(voca != null) {
+				final String voca_q = voca.getQ();
+				LazzyBee.data_service.removeVoca(voca, new AsyncCallback<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						formClean();
+						LazzyBee.noticeBox.setNotice("- "+ voca_q + " - đã bị xóa");
+						LazzyBee.noticeBox.setAutoHide();
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+						LazzyBee.noticeBox.setAutoHide();
+					}
+				});
+			}
 		}
 	}
 

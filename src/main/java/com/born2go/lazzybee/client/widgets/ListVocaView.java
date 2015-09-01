@@ -192,7 +192,10 @@ public class ListVocaView extends Composite {
 				listVoca.addAll(result.getListVoca());
 				listDisplayVoca.addAll(result.getListVoca());
 				presentIndex = presentIndex + listDisplayVoca.size();
-				lbPageNumber.setText((presentIndex + 1 - VocaList.pageSize) + " - " + presentIndex);
+				if(presentIndex != 0)
+					lbPageNumber.setText((presentIndex + 1 - listDisplayVoca.size()) + " - " + presentIndex);
+				else
+					lbPageNumber.setText("0 - 0");
 				cursorStr = result.getCursorStr();
 				LazzyBee.noticeBox.hide();
 				if(presentIndex == totalVoca)

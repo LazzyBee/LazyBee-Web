@@ -74,9 +74,9 @@
 	<g:HTMLPanel styleName="{style.ListVocaView_Obj1}">
 		<g:HTMLPanel>
 			<g:HTMLPanel styleName="{style.ListVocaView_Obj7}">
-				<g:Anchor ui:field="btnPreviousPage" title="Previous" styleName="{style.ListVocaView_Obj5}"><i class="fa fa-arrow-left fa-lg"></i></g:Anchor>
-				<g:Anchor ui:field="btnNextPage" title="Next" styleName="{style.ListVocaView_Obj6}"><i class="fa fa-arrow-right fa-lg"></i></g:Anchor>
-				<g:Label ui:field="lbPageNumber" styleName="{style.ListVocaView_Obj8}">1 - 200</g:Label>
+				<g:Anchor ui:field="btnPreviousPage" title="Trang trước" styleName="{style.ListVocaView_Obj5}"><i class="fa fa-arrow-left fa-lg"></i></g:Anchor>
+				<g:Anchor ui:field="btnNextPage" title="Trang sau" styleName="{style.ListVocaView_Obj6}"><i class="fa fa-arrow-right fa-lg"></i></g:Anchor>
+				<g:Label ui:field="lbPageNumber" styleName="{style.ListVocaView_Obj8}"></g:Label>
 			</g:HTMLPanel>
 			<g:Label ui:field="lbTotal" styleName="{style.ListVocaView_Obj4}"></g:Label>
 		</g:HTMLPanel>
