@@ -24,6 +24,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 	@Override
 	public Voca insertVoca(final Voca voca) {
 		voca.setQ(voca.getQ().toLowerCase());
+		voca.setCheck(true);
 		if(verifyVoca(voca.getQ())) {
     		Key<Voca> key = ofy().save().entity(voca).now();
     		Voca v = ofy().load().key(key).now();
