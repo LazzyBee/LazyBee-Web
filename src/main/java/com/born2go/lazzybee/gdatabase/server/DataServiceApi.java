@@ -12,15 +12,18 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
  
 /** An endpoint class we are exposing */
+ 
 @Api(name = "dataServiceApi",
      version = "v1",
      title = "LazzyBee Backend Api",
      namespace = @ApiNamespace(ownerDomain = "server.gdatabase.lazzybee.born2go.com",
                                 ownerName = "server.gdatabase.lazzybee.born2go.com",
                                 packagePath=""))
+ 
 public class DataServiceApi {
-	
+
 	/** Get a vocabulary by id */
+ 
     @ApiMethod(name = "getVocaById", path="get_voca_byId")
     public Voca getVocaById(@Named("id") Long id) {
         Voca voca = ofy().load().type(Voca.class).id(id).now();
@@ -44,5 +47,7 @@ public class DataServiceApi {
 
         return list_voca;
     }
+ 
+	 
 
 }
