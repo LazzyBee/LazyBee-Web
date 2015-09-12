@@ -1,5 +1,8 @@
 package com.born2go.lazzybee.gdatabase.server;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
+import java.io.IOException;
 import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.shared.Voca;
@@ -8,13 +11,15 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
  
+
 /** An endpoint class we are exposing */
  
 @Api(name = "dataServiceApi",
-     version = "v1",
+     version = "v1.1",
      title = "LazzyBee Backend Api",
      namespace = @ApiNamespace(ownerDomain = "server.gdatabase.lazzybee.born2go.com",
                                 ownerName = "server.gdatabase.lazzybee.born2go.com",
@@ -47,7 +52,25 @@ public class DataServiceApi {
 
         return list_voca;
     }
- 
-	 
+
+    
+    /** Save a vocabulary */
+    @ApiMethod(name = "saveVoca")
+    public void saveVoca(Voca voca) throws IOException{
+    	voca.setQ(voca.getQ().toLowerCase());
+		if(verifyVoca(voca.getQ())) 
+    		ofy().save().entity(voca).now();
+		else
+			throw new IOException("INFO: vocabulary already existed.");
+    }
+    
+    boolean verifyVoca(String voca_q) {
+		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q).first().now();
+		if(voca == null)
+			return true;
+		else
+			return false;
+	}
+
 
 }

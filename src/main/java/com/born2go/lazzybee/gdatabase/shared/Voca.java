@@ -24,6 +24,7 @@ public class Voca implements Serializable {
 	String a;
 	String level;
 	String packages;
+	boolean isCheck = false;
 
 	public Voca() {
 		super();
@@ -67,6 +68,14 @@ public class Voca implements Serializable {
 
 	public void setPackages(String packages) {
 		this.packages = packages;
+	}
+
+	public boolean isCheck() {
+		return isCheck;
+	}
+
+	public void setCheck(boolean isCheck) {
+		this.isCheck = isCheck;
 	}
 
 }

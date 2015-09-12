@@ -78,7 +78,15 @@ public class LoginControl extends DialogBox {
 			 function handleAuthResult(authResult) {
 	        	if (authResult && !authResult.error) {
 	          		c.@com.born2go.lazzybee.client.widgets.LoginControl::googleApiCall()();
-	        	} else {}
+	          		$wnd.document.getElementById("menu_editor").style.display = "";
+	          		if($wnd.document.getElementById("wt_editor") != null) {
+	          			$wnd.document.getElementById("wt_editor_notauthorize").style.display = "none";
+	          			$wnd.document.getElementById("wt_editor").style.display = "";
+	          		}
+	        	} else {
+//	        		if($wnd.document.getElementById("wt_editor") != null)
+//	        			$wnd.document.location = "/dictionary/";
+	        	}
 	      	}
 	      	return true;
 	     }
@@ -97,6 +105,11 @@ public class LoginControl extends DialogBox {
         	if (authResult && !authResult.error) {
           		c.@com.born2go.lazzybee.client.widgets.LoginControl::googleApiCall()();
           		c.@com.born2go.lazzybee.client.widgets.LoginControl::hideDialog()();
+          		$wnd.document.getElementById("menu_editor").style.display = "";
+          		if($wnd.document.getElementById("wt_editor") != null) {
+	          			$wnd.document.getElementById("wt_editor_notauthorize").style.display = "none";
+	          			$wnd.document.getElementById("wt_editor").style.display = "";
+	          	}
         	} else {}
       	}
 	}-*/;
@@ -157,9 +170,20 @@ public class LoginControl extends DialogBox {
 				    var accessToken = response.authResponse.accessToken;
 				    
 				    c.@com.born2go.lazzybee.client.widgets.LoginControl::facebookApiCall()();
+				    $wnd.document.getElementById("menu_editor").style.display = "";
+				    if($wnd.document.getElementById("wt_editor") != null) {
+	          			$wnd.document.getElementById("wt_editor_notauthorize").style.display = "none";
+	          			$wnd.document.getElementById("wt_editor").style.display = "";
+	          		}
 				} 
-				else if (response.status === 'not_authorized') {} 
-				else {}
+				else if (response.status === 'not_authorized') {
+//					if($wnd.document.getElementById("wt_editor") != null)
+//	        			$wnd.document.location = "/dictionary/";
+				} 
+				else {
+//					if($wnd.document.getElementById("wt_editor") != null)
+//	        			$wnd.document.location = "/dictionary/";
+				}
 			}, true);
 		}
 	}-*/;
@@ -172,6 +196,11 @@ public class LoginControl extends DialogBox {
 					
 				c.@com.born2go.lazzybee.client.widgets.LoginControl::facebookApiCall()();
 				c.@com.born2go.lazzybee.client.widgets.LoginControl::hideDialog()();
+				$wnd.document.getElementById("menu_editor").style.display = "";
+				if($wnd.document.getElementById("wt_editor") != null) {
+	          			$wnd.document.getElementById("wt_editor_notauthorize").style.display = "none";
+	          			$wnd.document.getElementById("wt_editor").style.display = "";
+	          	}
 			} else {}
 		}, {scope: 'public_profile'});
 	}-*/;

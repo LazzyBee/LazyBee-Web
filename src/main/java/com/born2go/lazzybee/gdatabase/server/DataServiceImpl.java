@@ -7,8 +7,12 @@ import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.clientapi.DataService;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
+import com.born2go.lazzybee.gdatabase.shared.VocaList;
+import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.QueryResultIterator;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.cmd.Query;
 
 @SuppressWarnings("serial")
 public class DataServiceImpl extends RemoteServiceServlet implements
@@ -22,12 +26,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Voca insertVoca(final Voca voca) {
 		voca.setQ(voca.getQ().toLowerCase());
-		if (verifyVoca(voca.getQ())) {
-			Key<Voca> key = ofy().save().entity(voca).now();
-			Voca v = ofy().load().key(key).now();
-			return v;
-		} else
-			return null;
+		voca.setCheck(true);
+		if(verifyVoca(voca.getQ())) {
+    		Key<Voca> key = ofy().save().entity(voca).now();
+    		Voca v = ofy().load().key(key).now();
+    		return v;
+    	}
+    	else 
+    		return null;
 	}
 
 	/**
@@ -77,15 +83,50 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		return null;
 	}
 
+	@Override
+	public Integer getTotalVoca() {
+		return ofy().load().type(Voca.class).count();
+	}
+
 	/**
-	 * Get all vocabulary
+	 * Query limited vocabulary
 	 */
 	@Override
-	public List<Voca> getListVoca() {
-		List<Voca> list_voca = ofy().load().type(Voca.class).list();
+	public VocaList getListVoca(String cursorStr) {
 		List<Voca> result = new ArrayList<Voca>();
-		result.addAll(list_voca);
-		return result;
+		
+		Query<Voca> query = ofy().load().type(Voca.class).limit(VocaList.pageSize);
+	    if (cursorStr != null)
+	        query = query.startAt(Cursor.fromWebSafeString(cursorStr));
+	  
+	    boolean continu = false;
+	    QueryResultIterator<Voca> iterator = query.iterator();
+	    while (iterator.hasNext()) {
+	    	Voca v = iterator.next();
+	    	result.add(v);
+	        continu = true;
+	    }
+
+	    if (continu) {
+	        Cursor cursor = iterator.getCursor();
+	        String encodeCursor = cursor.toWebSafeString();
+	        VocaList vocaList = new VocaList(result, encodeCursor);
+	        return vocaList;
+	    }
+	    else {
+	    	 VocaList vocaList = new VocaList(result, "\\0");
+		     return vocaList;
+	    }
+	}
+
+	/**
+	 * Remove a vocabulary
+	 */
+	@Override
+	public void removeVoca(Voca voca) {
+		Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
+		if(v != null)
+			ofy().delete().entity(v);
 	}
 
 }
