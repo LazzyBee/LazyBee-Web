@@ -24,6 +24,10 @@ public class Voca implements Serializable {
 	String a;
 	String level;
 	String packages;
+	String l_en;
+	String l_vn;
+	
+	@Index
 	boolean isCheck = false;
 
 	public Voca() {
@@ -68,6 +72,22 @@ public class Voca implements Serializable {
 
 	public void setPackages(String packages) {
 		this.packages = packages;
+	}
+
+	public String getL_en() {
+		return l_en;
+	}
+
+	public void setL_en(String l_en) {
+		this.l_en = l_en;
+	}
+
+	public String getL_vn() {
+		return l_vn;
+	}
+
+	public void setL_vn(String l_vn) {
+		this.l_vn = l_vn;
 	}
 
 	public boolean isCheck() {

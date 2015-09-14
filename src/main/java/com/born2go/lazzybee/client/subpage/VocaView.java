@@ -1,9 +1,9 @@
-package com.born2go.lazzybee.client.widgets;
+package com.born2go.lazzybee.client.subpage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.born2go.lazzybee.client.widgets.VocaEditorTool.DefiContainer;
+import com.born2go.lazzybee.client.subpage.VocaEditorTool.DefiContainer;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

@@ -18,7 +18,12 @@
 	}
 	
 	.ListVocaView_Obj4 {
-		color: gray;
+		padding: 0px 10px 0px 10px;
+    	color: white;
+    	background-color: #0e74af;
+    	line-height: 2.3;
+    	font-weight: bold;
+    	margin-top: -10px;
 		float: right;
 	}
 	
@@ -67,8 +72,11 @@
 	
 	.ListVocaView_Obj8 {
 		margin-left: 10px;
-    	margin-top: 8px;
-    	color: gray;
+    	padding: 0px 10px 0px 10px;
+    	color: white;
+    	background-color: #0e74af;
+    	line-height: 2.3;
+    	font-weight: bold;
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.ListVocaView_Obj1}">

@@ -1,4 +1,4 @@
-package com.born2go.lazzybee.gdatabase.clientapi;
+package com.born2go.lazzybee.gdatabase.client.rpc;
 
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaList;
@@ -13,7 +13,9 @@ public interface DataService extends RemoteService{
 	public Voca findVoca(String voca_q);
 	public Voca updateVoca(Voca voca);
 	public Integer getTotalVoca();
+	public Integer getTotalPreviewVoca();
 	public VocaList getListVoca(String cursorStr);
+	public VocaList getListPreviewVoca(String cursorStr);
 	public void removeVoca(Voca voca);
 	
 }

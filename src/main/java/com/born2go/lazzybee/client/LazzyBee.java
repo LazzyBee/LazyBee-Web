@@ -2,12 +2,12 @@ package com.born2go.lazzybee.client;
 
 import org.timepedia.exporter.client.ExporterUtil;
 
-import com.born2go.lazzybee.client.widgets.DictionaryTool;
-import com.born2go.lazzybee.client.widgets.EditorTool;
+import com.born2go.lazzybee.client.mainpage.DictionaryTool;
+import com.born2go.lazzybee.client.mainpage.EditorTool;
 import com.born2go.lazzybee.client.widgets.LoginControl;
 import com.born2go.lazzybee.client.widgets.NoticeBox;
-import com.born2go.lazzybee.gdatabase.clientapi.DataService;
-import com.born2go.lazzybee.gdatabase.clientapi.DataServiceAsync;
+import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
+import com.born2go.lazzybee.gdatabase.client.rpc.DataServiceAsync;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
