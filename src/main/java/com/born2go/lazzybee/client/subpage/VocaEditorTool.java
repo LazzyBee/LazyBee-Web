@@ -1,4 +1,4 @@
-package com.born2go.lazzybee.client.widgets;
+package com.born2go.lazzybee.client.subpage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +61,7 @@ public class VocaEditorTool extends Composite {
 	@UiField TextArea txbExplain;
 	@UiField TextArea txbExam;
 	@UiField Anchor btnDelete;
+	@UiField Anchor btnVerifySaveB;
 	
 	@UiField CheckBox cbTypeCommon;
 	@UiField CheckBox cbType850Basic;
@@ -257,6 +258,7 @@ public class VocaEditorTool extends Composite {
 	public void setVoca(Voca voca) {
 		this.voca = voca;
 		btnDelete.setVisible(true);
+		btnVerifySaveB.setVisible(true);
 		//-----
 		txbVocaDefi.setText(voca.getQ());
 		//-----
@@ -440,7 +442,7 @@ public class VocaEditorTool extends Composite {
 	  	
 	  	editor.on("instanceReady",function() {
   			$wnd.document.getElementById(editor.id+'_top').style.display = "none";
-  			vet.@com.born2go.lazzybee.client.widgets.VocaEditorTool::onCkEditorInstanceReady(Ljava/lang/String;)(noteId);
+  			vet.@com.born2go.lazzybee.client.subpage.VocaEditorTool::onCkEditorInstanceReady(Ljava/lang/String;)(noteId);
 		});
 	  	
 	  	editor.on('focus', function(){	 
@@ -863,10 +865,10 @@ public class VocaEditorTool extends Composite {
 					if(result != null) {
 						formClean();
 						DOM.getElementById("content").setScrollTop(0);
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được thêm vào từ điển", "/dictionary/#vocabulary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được thêm vào từ điển", "/library/#dictionary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					} 
 					else {
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã có trong từ điển", "/dictionary/#vocabulary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã có trong từ điển", "/library/#dictionary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 				}
 				
@@ -894,10 +896,10 @@ public class VocaEditorTool extends Composite {
 					if(result != null) {
 						formClean();
 						DOM.getElementById("content").setScrollTop(0);
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/dictionary/#vocabulary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/library/#dictionary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 					else {
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - cập nhật thất bại", "/dictionary/#vocabulary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - cập nhật thất bại", "/library/#dictionary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 				}
 				
@@ -914,6 +916,7 @@ public class VocaEditorTool extends Composite {
 		String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
 		Window.Location.replace(newURL);
 		btnDelete.setVisible(false);
+		btnVerifySaveB.setVisible(false);
 		txbVocaDefi.setText("");
 		txbVocaDefi.getElement().setAttribute("style", "");
 		txbPronoun.setText("");

@@ -3,8 +3,8 @@ package com.born2go.lazzybeemobile.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.born2go.lazzybee.gdatabase.clientapi.DataService;
-import com.born2go.lazzybee.gdatabase.clientapi.DataServiceAsync;
+import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
+import com.born2go.lazzybee.gdatabase.client.rpc.DataServiceAsync;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

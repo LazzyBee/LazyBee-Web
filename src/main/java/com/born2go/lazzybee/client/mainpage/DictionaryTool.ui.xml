@@ -2,6 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
+	@external .DictionaryTool_Obj5;
 	.DictionaryTool_Obj1 {
 		float: left;
 		width: 100%;
@@ -48,11 +49,15 @@
 	<g:HTMLPanel styleName="{style.DictionaryTool_Obj3}">
 		<g:HTMLPanel ui:field="tabPanel" styleName="{style.DictionaryTool_Obj1}">
 			<br/> <br/>
-			<g:Anchor ui:field="a" styleName="{style.DictionaryTool_Obj4}">Từ điển Anh-Việt</g:Anchor>
+			
+			<g:Anchor ui:field="defaultSite" styleName="{style.DictionaryTool_Obj4}">Tra cứu từ vựng</g:Anchor>
 			<br/> <br/> <br/>
-			<g:Anchor ui:field="b" styleName="{style.DictionaryTool_Obj4}">Từ điển Việt-Anh</g:Anchor>
+			<g:Anchor ui:field="testSite" styleName="{style.DictionaryTool_Obj4}">Kiểm tra vốn từ</g:Anchor>
 			<br/> <br/> <br/>
-			<g:Anchor ui:field="vocabularySite" styleName="{style.DictionaryTool_Obj4} {style.DictionaryTool_Obj5}">Từ vựng</g:Anchor>
+			<g:Anchor ui:field="dictionarySite" styleName="{style.DictionaryTool_Obj4}">Từ điển</g:Anchor>
+			<br/> <br/> <br/>
+			<g:Anchor ui:field="previewSite" styleName="{style.DictionaryTool_Obj4}">Bảng từ mới</g:Anchor>
+			
 			<g:Label ui:field="trademarkLb" styleName="{style.DictionaryTool_Obj6}">Born2Go © 2015 All Rights Reserved | Privacy policy</g:Label>
 		</g:HTMLPanel>
 	</g:HTMLPanel>

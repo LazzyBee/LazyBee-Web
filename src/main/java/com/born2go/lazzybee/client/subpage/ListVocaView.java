@@ -1,4 +1,4 @@
-package com.born2go.lazzybee.client.widgets;
+package com.born2go.lazzybee.client.subpage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +95,10 @@ public class ListVocaView extends Composite {
 					}
 					else {
 						JSONValue defi = pac.isObject().get(packages[1]);
-						return SafeHtmlUtils.fromSafeConstant(defi.isObject().get("meaning").toString().replaceAll("\"", ""));
+						String value = defi.isObject().get("meaning").toString().replaceAll("\"", "");
+						if(value.length() >= 121)
+							value = value.substring(0, 120) + "<br/>...";
+						return SafeHtmlUtils.fromSafeConstant(value);
 					}
 				}	
 				else
@@ -123,7 +126,7 @@ public class ListVocaView extends Composite {
 		viewVocaColumn.setFieldUpdater(new FieldUpdater<Voca, String>() {
 			@Override
 			public void update(int index, Voca object, String value) {
-				Window.open("/dictionary/#vocabulary/" + object.getQ(), "_blank", "");
+				Window.open("/library/#dictionary/" + object.getQ(), "_blank", "");
 			}
 		});
 		
@@ -149,6 +152,7 @@ public class ListVocaView extends Composite {
 		vocaTable.addColumn(viewVocaColumn, "");
 		vocaTable.addColumn(editVocaColumn, "");
 		
+		vocaTable.setColumnWidth(vocaLevelColumn, "80px");
 		vocaTable.setColumnWidth(viewVocaColumn, "50px");
 		vocaTable.setColumnWidth(editVocaColumn, "50px");
 		

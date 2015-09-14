@@ -3,6 +3,6 @@
 	<inherits name='com.google.gwt.user.User' />
 	
 	<!-- Specify the paths for translatable code -->
-	<source path='clientapi' />
+	<source path='client' />
 	<source path='shared' />
 </module>

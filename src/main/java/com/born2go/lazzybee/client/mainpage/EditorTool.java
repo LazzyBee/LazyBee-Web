@@ -1,6 +1,7 @@
-package com.born2go.lazzybee.client.widgets;
+package com.born2go.lazzybee.client.mainpage;
 
 import com.born2go.lazzybee.client.LazzyBee;
+import com.born2go.lazzybee.client.subpage.VocaEditorTool;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;

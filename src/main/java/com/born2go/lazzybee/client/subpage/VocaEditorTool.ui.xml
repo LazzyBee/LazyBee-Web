@@ -190,6 +190,8 @@
 			<g:Anchor ui:field="btnGoTop" styleName="{style.VocaEditorTool_Obj6}">Lên đầu trang <i class="fa fa-level-up fa-lg"></i></g:Anchor>
 			<g:AbsolutePanel width="15px"></g:AbsolutePanel>
 			<g:Anchor ui:field="btnSaveB" styleName="{style.VocaEditorTool_Obj6}">Lưu <i class="fa fa-floppy-o fa-lg"></i></g:Anchor>
+			<g:AbsolutePanel width="15px"></g:AbsolutePanel>
+			<g:Anchor ui:field="btnVerifySaveB" visible="false" styleName="{style.VocaEditorTool_Obj6}">Lưu và duyệt <i class="fa fa-check"></i></g:Anchor>
 		</g:HorizontalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

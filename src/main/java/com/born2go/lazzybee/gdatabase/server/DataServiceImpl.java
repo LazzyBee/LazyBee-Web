@@ -5,7 +5,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.born2go.lazzybee.gdatabase.clientapi.DataService;
+import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaList;
 import com.google.appengine.api.datastore.Cursor;
@@ -72,6 +72,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
 		if(v != null) {
 			if(voca.getQ().equals(v.getQ())) {
+				voca.setCheck(true);
 				ofy().save().entity(voca);
 				return voca;
 			}
@@ -88,6 +89,11 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		return ofy().load().type(Voca.class).count();
 	}
 
+	@Override
+	public Integer getTotalPreviewVoca() {
+		return ofy().load().type(Voca.class).filter("isCheck", false).count();
+	}
+
 	/**
 	 * Query limited vocabulary
 	 */
@@ -96,6 +102,37 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		List<Voca> result = new ArrayList<Voca>();
 		
 		Query<Voca> query = ofy().load().type(Voca.class).limit(VocaList.pageSize);
+	    if (cursorStr != null)
+	        query = query.startAt(Cursor.fromWebSafeString(cursorStr));
+	  
+	    boolean continu = false;
+	    QueryResultIterator<Voca> iterator = query.iterator();
+	    while (iterator.hasNext()) {
+	    	Voca v = iterator.next();
+	    	result.add(v);
+	        continu = true;
+	    }
+
+	    if (continu) {
+	        Cursor cursor = iterator.getCursor();
+	        String encodeCursor = cursor.toWebSafeString();
+	        VocaList vocaList = new VocaList(result, encodeCursor);
+	        return vocaList;
+	    }
+	    else {
+	    	 VocaList vocaList = new VocaList(result, "\\0");
+		     return vocaList;
+	    }
+	}
+
+	/**
+	 * Query limited preview vocabulary
+	 */
+	@Override
+	public VocaList getListPreviewVoca(String cursorStr) {
+		List<Voca> result = new ArrayList<Voca>();
+		
+		Query<Voca> query = ofy().load().type(Voca.class).limit(VocaList.pageSize).filter("isCheck", false);
 	    if (cursorStr != null)
 	        query = query.startAt(Cursor.fromWebSafeString(cursorStr));
 	  

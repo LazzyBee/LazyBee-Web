@@ -1,6 +1,10 @@
-package com.born2go.lazzybee.client.widgets;
+package com.born2go.lazzybee.client.mainpage;
 
 import com.born2go.lazzybee.client.LazzyBee;
+import com.born2go.lazzybee.client.subpage.ListVocaView;
+import com.born2go.lazzybee.client.subpage.TestTool;
+import com.born2go.lazzybee.client.subpage.VocaPreview;
+import com.born2go.lazzybee.client.subpage.VocaView;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -39,8 +43,15 @@ public class DictionaryTool extends Composite {
 	@UiField HTMLPanel tabPanel;
 	@UiField Label trademarkLb;
 	
+	@UiField Anchor defaultSite;
+	@UiField Anchor testSite;
+	@UiField Anchor dictionarySite;
+	@UiField Anchor previewSite;
+	
 	String history_token;
 	boolean isReload = true;
+	
+	TextBox searchBox = new TextBox();
 
 	public DictionaryTool() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -65,22 +76,36 @@ public class DictionaryTool extends Composite {
 		trademarkLb.getElement().setAttribute("style", "position: absolute; bottom: 20px");
 		
 		addSearchTool();
-		
+		historyTokenHandler();
+	}
+	
+	void removeTabStyle() {
+		defaultSite.removeStyleName("DictionaryTool_Obj5");
+		testSite.removeStyleName("DictionaryTool_Obj5");
+		dictionarySite.removeStyleName("DictionaryTool_Obj5");
+	}
+	
+	void historyTokenHandler() {
 		history_token = History.getToken();
 		if(history_token.isEmpty()) {
-			String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
-			Window.Location.replace(newURL);
-			RootPanel.get("wt_dictionary_content").add(new ListVocaView());
-			isReload = false;
+//			String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
+//			Window.Location.replace(newURL);
+//			RootPanel.get("wt_dictionary_content").add(new ListVocaView());
+			HTMLPanel htmlPanel = new HTMLPanel("<span>Phương pháp học thông qua flashcard chỉ có trên phiên bản mobile. Bạn hãy cài đặt App mobile để học từ vựng tốt hơn.</span>");
+			htmlPanel.getElement().setAttribute("style", "margin-top: 20px; padding: 10px; background-color: lemonchiffon; line-height: 1.5;");
+			RootPanel.get("wt_dictionary_content").add(htmlPanel);
+			defaultSite.addStyleName("DictionaryTool_Obj5");
 		} 
 		else {
-			if(history_token.contains("vocabulary")) {
+			if(history_token.contains("dictionary")) {
+				dictionarySite.addStyleName("DictionaryTool_Obj5");
 				if(history_token.contains("/")) {
 					final String[] sub_token = history_token.split("/");
 					if(sub_token[1] == null || sub_token[1].isEmpty()) {
 						RootPanel.get("wt_dictionary_content").add(new ListVocaView());
 					}
 					else {
+						searchBox.setText(sub_token[1]);
 						LazzyBee.noticeBox.setNotice("Đang tải...");
 						LazzyBee.data_service.findVoca(sub_token[1], new AsyncCallback<Voca>() {					
 							@Override
@@ -88,9 +113,11 @@ public class DictionaryTool extends Composite {
 								if(result == null) {
 									LazzyBee.noticeBox.setNotice("Không tìm thấy từ - " + sub_token[1]);
 									LazzyBee.noticeBox.setAutoHide();
+									HTMLPanel htmlPanel = new HTMLPanel("");
+									htmlPanel.getElement().setAttribute("style", "margin-top: 20px; padding: 10px; background-color: lemonchiffon; line-height: 1.5;");
 									Label lbNotFound = new Label("Không tìm thấy từ - " + sub_token[1]);
-									lbNotFound.getElement().setAttribute("style", "font-weight: bold; margin-top: 30px; font-size: 16px;");
-									RootPanel.get("wt_dictionary_content").add(lbNotFound);
+									htmlPanel.add(lbNotFound);
+									RootPanel.get("wt_dictionary_content").add(htmlPanel);
 								}
 								else {
 									LazzyBee.noticeBox.hide();
@@ -110,6 +137,14 @@ public class DictionaryTool extends Composite {
 					RootPanel.get("wt_dictionary_content").add(new ListVocaView());
 				}
 			}
+			else if (history_token.equals("test")) {
+				testSite.addStyleName("DictionaryTool_Obj5");
+				RootPanel.get("wt_dictionary_content").add(new TestTool());
+			}
+			else if (history_token.equals("preview")) {
+				previewSite.addStyleName("DictionaryTool_Obj5");
+				RootPanel.get("wt_dictionary_content").add(new VocaPreview());
+			}
 		}
 		
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
@@ -125,7 +160,6 @@ public class DictionaryTool extends Composite {
 	void addSearchTool() {
 		HTMLPanel hor = new HTMLPanel("");
 		hor.getElement().setAttribute("style", "width: 100%; height: 40px; display: inline-flex;"); 
-		final TextBox searchBox = new TextBox();
 		searchBox.getElement().setAttribute("style", "float: left; width: 100%; height: 70%; padding-left: 10px;");
 		searchBox.getElement().setAttribute("placeholder", "Tìm từ vựng");
 		Anchor searchButton = new Anchor();
@@ -145,7 +179,7 @@ public class DictionaryTool extends Composite {
                 if (enterPressed)
                 {
                 	if(!searchBox.getText().equals(""))
-                		Window.Location.assign("/dictionary/#vocabulary/" + searchBox.getText());
+                		Window.Location.assign("/library/#dictionary/" + searchBox.getText());
                 }
             }
         });
@@ -153,15 +187,33 @@ public class DictionaryTool extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				if(!searchBox.getText().equals(""))
-					Window.Location.assign("/dictionary/#vocabulary/" + searchBox.getText());
+					Window.Location.assign("/library/#dictionary/" + searchBox.getText());
 			}
 		});
 	}
 	
-	@UiHandler("vocabularySite")
-	void onVocabularySiteClick(ClickEvent e) {
-		Window.Location.assign("/dictionary/#vocabulary");
+	@UiHandler("defaultSite")
+	void onDefaultSiteClick(ClickEvent e) {
+		Window.Location.assign("/library/#");
 		Window.Location.reload();
 	}
-
+	
+	@UiHandler("testSite")
+	void onTestSiteClick(ClickEvent e) {
+		Window.Location.assign("/library/#test");
+		Window.Location.reload();
+	}
+	
+	@UiHandler("dictionarySite")
+	void onDictionarySiteClick(ClickEvent e) {
+		Window.Location.assign("/library/#dictionary");
+		Window.Location.reload();
+	}
+	
+	@UiHandler("previewSite")
+	void onPreviewSiteClick(ClickEvent e) {
+		Window.Location.assign("/library/#preview");
+		Window.Location.reload();
+	}
+	
 }
