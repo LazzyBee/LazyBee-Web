@@ -58,10 +58,20 @@ public class DataServiceApi {
     @ApiMethod(name = "saveVoca")
     public void saveVoca(Voca voca) throws IOException{
     	voca.setQ(voca.getQ().toLowerCase());
-		if(verifyVoca(voca.getQ())) 
+    	Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ()).first().now();
+		if(v == null) 
     		ofy().save().entity(voca).now();
-		else
-			throw new IOException("INFO: vocabulary already existed.");
+		else {
+			if((v.getL_en() == null && v.getL_vn() == null) || (v.getL_en().isEmpty() && v.getL_vn().isEmpty())) {
+				if(voca.getL_en() != null && !voca.getL_en().isEmpty())
+					v.setL_en(voca.getL_en());
+				if(voca.getL_vn() != null && !voca.getL_vn().isEmpty())
+					v.setL_vn(voca.getL_vn());
+				ofy().save().entity(v).now();
+			}
+			else
+				throw new IOException("INFO: vocabulary already existed.");
+		}
     }
     
     boolean verifyVoca(String voca_q) {

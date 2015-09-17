@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
+import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
-import com.born2go.lazzybee.gdatabase.shared.VocaList;
+import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -68,11 +69,13 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 * @return updated vocabulary, null if update fail
 	 */
 	@Override
-	public Voca updateVoca(Voca voca) {
+	public Voca updateVoca(Voca voca, boolean isCheck) {
 		Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
 		if(v != null) {
 			if(voca.getQ().equals(v.getQ())) {
-				voca.setCheck(true);
+				if(isCheck) {
+					voca.setCheck(true);
+				}
 				ofy().save().entity(voca);
 				return voca;
 			}
@@ -164,6 +167,20 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
 		if(v != null)
 			ofy().delete().entity(v);
+	}
+
+	@Override
+	public void saveUser(User user) {
+		if(user.getGoogle_id() != null) {
+			int i = ofy().load().type(User.class).filter("google_id", user.getGoogle_id()).count();
+			if(i == 0)
+				ofy().save().entity(user);
+		}
+		if(user.getFacebook_id() != null) {
+			int i = ofy().load().type(User.class).filter("facebook_id", user.getFacebook_id()).count();
+			if(i == 0)
+				ofy().save().entity(user);
+		}
 	}
 
 }

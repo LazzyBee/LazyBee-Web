@@ -1,6 +1,7 @@
 package com.born2go.lazzybee.client.widgets;
 
 import com.born2go.lazzybee.client.LazzyBee;
+import com.born2go.lazzybee.gdatabase.shared.User;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -10,6 +11,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -27,17 +29,6 @@ public class LoginControl extends DialogBox {
 		setAutoHideEnabled(true);
 		setGlassEnabled(true);
 		setStyleName("LoginControl_clean");
-		
-		facebookInit(LazzyBee.fCLientId, this);
-	}
-	
-	public void hideDialog() {
-		hide();
-	}
-	
-	public void onGoogleJSLoad() {
-		if(!LazzyBee.isGoogleInit)
-			LazzyBee.isGoogleInit = googleInit(LazzyBee.gApiKey, LazzyBee.gClientId, LazzyBee.gScopes, this);
 	}
 	
 	@Override
@@ -50,6 +41,39 @@ public class LoginControl extends DialogBox {
 			}
 			break;
 		}
+	}
+	
+	private static void saveNewUser(String userId) {
+		User u = new User();
+		if(userId.contains("_G")) {
+			u.setGoogle_id(userId.replace("_G", ""));
+		}
+		if(userId.contains("_F")) {
+			u.setFacebook_id(userId.replace("_F", ""));
+		}
+		LazzyBee.data_service.saveUser(u, new AsyncCallback<Void>() {
+			
+			@Override
+			public void onSuccess(Void result) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+
+	public void hideDialog() {
+		hide();
+	}
+	
+	public void onGoogleJSLoad() {
+		if(!LazzyBee.isGoogleInit)
+			LazzyBee.isGoogleInit = googleInit(LazzyBee.gApiKey, LazzyBee.gClientId, LazzyBee.gScopes, this);
 	}
 	
 	@UiHandler("googleLogin")
@@ -84,8 +108,7 @@ public class LoginControl extends DialogBox {
 	          			$wnd.document.getElementById("wt_editor").style.display = "";
 	          		}
 	        	} else {
-//	        		if($wnd.document.getElementById("wt_editor") != null)
-//	        			$wnd.document.location = "/dictionary/";
+					c.@com.born2go.lazzybee.client.widgets.LoginControl::facebookLoad()();
 	        	}
 	      	}
 	      	return true;
@@ -135,6 +158,8 @@ public class LoginControl extends DialogBox {
 	            span.onclick = function() {
 	            	@com.born2go.lazzybee.client.widgets.LoginControl::addUserPorfile()();
 	            }
+	            
+	            @com.born2go.lazzybee.client.widgets.LoginControl::saveNewUser(Ljava/lang/String;)(resp.id + "_G");
           	});
        	});
 	}-*/;
@@ -142,6 +167,10 @@ public class LoginControl extends DialogBox {
 	native static void googleLogout() /*-{
 	   	$wnd.gapi.auth.signOut();
 	}-*/;
+	
+	void facebookLoad() {
+		facebookInit(LazzyBee.fCLientId, this);
+	}
 	
 	native void facebookInit(String fClientId, LoginControl c) /*-{
 		var clientId = fClientId;
@@ -222,6 +251,8 @@ public class LoginControl extends DialogBox {
             span.onclick = function() {
 	            @com.born2go.lazzybee.client.widgets.LoginControl::addUserPorfile()();
 	        }
+	        
+	        @com.born2go.lazzybee.client.widgets.LoginControl::saveNewUser(Ljava/lang/String;)(response.id + "_F");
 		});
 	}-*/;
 	

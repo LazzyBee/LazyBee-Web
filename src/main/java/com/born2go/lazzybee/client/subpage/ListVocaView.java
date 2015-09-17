@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
-import com.born2go.lazzybee.gdatabase.shared.VocaList;
+import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
 import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.SafeHtmlCell;

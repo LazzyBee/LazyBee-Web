@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.born2go.lazzybee.client.LazzyBee;
-import com.born2go.lazzybee.gdatabase.shared.Category;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
+import com.born2go.lazzybee.gdatabase.shared.nonentity.Category;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -235,11 +235,13 @@ public class VocaEditorTool extends Composite {
 							checkVocaImg.setVisible(false);
 							if(!result) {
 								txbVocaDefi.getElement().setAttribute("style", "border: 1px solid red;");
-								LazzyBee.noticeBox.setNotice("- " + txbVocaDefi.getText() + " - Đã có trong từ điển");
-								LazzyBee.noticeBox.setAutoHide();
+								LazzyBee.noticeBox.setNotice("");
+								LazzyBee.noticeBox.setRichNotice("- " + txbVocaDefi.getText() + " - Đã có trong từ điển", "/library/#dictionary/"+txbVocaDefi.getText(), "/editor/#vocabulary/"+txbVocaDefi.getText());
 							}
-							else
+							else {
 								txbVocaDefi.getElement().setAttribute("style", "border: 1px solid #b6b6b6;");
+								LazzyBee.noticeBox.hide();
+							}
 						}
 						
 						@Override
@@ -881,7 +883,7 @@ public class VocaEditorTool extends Composite {
 		}
 	}
 	
-	private void updateVoca() {
+	private void updateVoca(boolean isCheck) {
 		if(verifyField()) {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final Voca v = new Voca();
@@ -890,7 +892,7 @@ public class VocaEditorTool extends Composite {
 			v.setLevel(lsbLevel.getValue(lsbLevel.getSelectedIndex()));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
-			LazzyBee.data_service.updateVoca(v, new AsyncCallback<Voca>() {
+			LazzyBee.data_service.updateVoca(v, isCheck, new AsyncCallback<Voca>() {
 				@Override
 				public void onSuccess(Voca result) {
 					if(result != null) {
@@ -962,7 +964,7 @@ public class VocaEditorTool extends Composite {
 		if(voca == null)
 			saveNewVoca();
 		else
-			updateVoca();
+			updateVoca(false);
 	}
 	
 	@UiHandler("btnSaveB")
@@ -970,7 +972,13 @@ public class VocaEditorTool extends Composite {
 		if(voca == null)
 			saveNewVoca();
 		else
-			updateVoca();
+			updateVoca(false);
+	}
+	
+	@UiHandler("btnVerifySaveB")
+	void onBtnVerifySaveBClick(ClickEvent e) {
+		if(voca != null)
+			updateVoca(true);
 	}
 	
 	@UiHandler("btnDelete")
