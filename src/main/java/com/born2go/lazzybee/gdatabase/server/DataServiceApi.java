@@ -58,9 +58,11 @@ public class DataServiceApi {
 				if(voca.getL_vn() != null && !voca.getL_vn().isEmpty())
 					v.setL_vn(voca.getL_vn());
 				ofy().save().entity(v).now();
+				
+				throw new IOException("INFO: vocabulary - Updated.");
 			}
 			else
-				throw new IOException("INFO: vocabulary already existed.");
+				throw new IOException("INFO: vocabulary - Existed.");
 		}
     }
     
