@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
-import com.born2go.lazzybee.gdatabase.shared.VocaList;
+import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.json.client.JSONParser;
@@ -115,7 +115,7 @@ public class TestTool extends Composite {
 	
 	@UiHandler("btnStartTesting")
 	void onBtnStartTestingClick(ClickEvent e) {
-		getListTestVoca();
+//		getListTestVoca();
 	}
 
 }

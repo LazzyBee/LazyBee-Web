@@ -1,8 +1,10 @@
-package com.born2go.lazzybee.gdatabase.shared;
+package com.born2go.lazzybee.gdatabase.shared.nonentity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.born2go.lazzybee.gdatabase.shared.Voca;
 
 public class VocaList implements Serializable{
 	

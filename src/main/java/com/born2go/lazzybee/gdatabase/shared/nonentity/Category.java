@@ -1,4 +1,4 @@
-package com.born2go.lazzybee.gdatabase.shared;
+package com.born2go.lazzybee.gdatabase.shared.nonentity;
 
 public class Category {
 	
