@@ -30,7 +30,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
@@ -121,13 +123,39 @@ public class VocaPreview extends Composite {
 				new ClickableTextCell(anchorRenderer)) {
 			@Override
 			public String getValue(Voca object) {
-				return "View";
+				return "Duyệt";
 			}
 		};
 		viewVocaColumn.setFieldUpdater(new FieldUpdater<Voca, String>() {
 			@Override
 			public void update(int index, Voca object, String value) {
-				Window.open("/library/#dictionary/" + object.getQ(), "_blank", "");
+				final DialogBox d = new DialogBox();
+				d.setStyleName("VocaPreview_Obj10");
+				d.setAutoHideEnabled(true);
+				d.setGlassEnabled(true);
+				ScrollPanel sc = new ScrollPanel();
+				sc.getElement().setAttribute("style", "overflow-x: hidden; padding: 20px; height: 500px; padding-right: 40px; padding-top: 0px;");
+				VocaEditorTool editor = new VocaEditorTool();
+				editor.setVoca(object);
+				editor.setPreviewMode();
+				sc.add(editor);
+				d.add(sc);
+				d.center();
+				editor.replaceEditor();
+				//-----
+				editor.setListener(new VocaEditorTool.EditorListener() {
+					@Override
+					public void onClose() {
+						d.hide();
+					}
+					
+					@Override
+					public void onApproval() {
+						d.hide();
+						cleanData();
+						getTotal();
+					}
+				});
 			}
 		});
 		
@@ -135,7 +163,7 @@ public class VocaPreview extends Composite {
 				new ClickableTextCell(anchorRenderer)) {
 			@Override
 			public String getValue(Voca object) {
-				return "Edit";
+				return "Sửa";
 			}
 		};
 		editVocaColumn.setFieldUpdater(new FieldUpdater<Voca, String>() {
@@ -170,6 +198,14 @@ public class VocaPreview extends Composite {
 		btnPreviousPage.addStyleName("VocaPreview_Obj6_Disable");
 		getTotal();
 //		getData();
+	}
+	
+	void cleanData() {
+		cursorStr = null;
+		totalVoca = 0;
+		presentIndex = 0;
+		listVoca.clear();
+		listDisplayVoca.clear();
 	}
 	
 	void getTotal() {

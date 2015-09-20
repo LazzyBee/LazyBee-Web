@@ -107,7 +107,16 @@ public class VocaView extends Composite {
 			dcPac.setStyleName("VocaView_Obj5");
 			HTML dcContent = new HTML();
 			dcContent.getElement().setAttribute("style", "padding-left: 5px;");
-			dcContent.setHTML(dc.txbMeaning_id.replaceAll("\"", "") + dc.txbExplain_id.replaceAll("\"", "") + "<span style='color: gray; font-style: italic;'>" + dc.txbExam_id.replaceAll("\"", "") + "</span>");
+			String meaning = dc.txbMeaning_id.replaceAll("\"", "");
+			String explain = dc.txbExplain_id.replaceAll("\"", "");
+			String exam = dc.txbExam_id.replaceAll("\"", "");
+			if(!meaning.contains("<p>"))
+				meaning = "<p> " + meaning + " </p>";
+			if(!explain.contains("<p>"))
+				explain = "<p> " + explain + " </p>";
+			if(!exam.contains("<p>"))
+				exam = "<p> " + exam + " </p>";
+			dcContent.setHTML(meaning + explain + "<span style='color: gray; font-style: italic;'>" + exam + "</span>");
 			//-----
 			htmlDefi.add(dcPac);
 			htmlDefi.add(dcContent);

@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 	<ui:style>
-	@external .VocaPreview_Obj3, .VocaPreview_Obj6_Disable;
+	@external .VocaPreview_Obj3, .VocaPreview_Obj6_Disable, .VocaPreview_Obj10;
 	.VocaPreview_Obj1 {
 	}
 	
@@ -83,6 +83,12 @@
 		background-color: lemonchiffon; 
 		line-height: 1.5;
 		margin-bottom: 30px;
+	}
+	
+	.VocaPreview_Obj10 {
+		background: white;	
+		border: 15px solid silver;
+		box-shadow: 2px 3px 5px #999;
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.VocaPreview_Obj1}">
