@@ -73,9 +73,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
 		if(v != null) {
 			if(voca.getQ().equals(v.getQ())) {
-				if(isCheck) {
+				if(isCheck)
 					voca.setCheck(true);
-				}
 				ofy().save().entity(voca);
 				return voca;
 			}
@@ -89,7 +88,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Integer getTotalVoca() {
-		return ofy().load().type(Voca.class).count();
+		return ofy().load().type(Voca.class).filter("isCheck", true).count();
 	}
 
 	@Override
@@ -104,7 +103,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	public VocaList getListVoca(String cursorStr) {
 		List<Voca> result = new ArrayList<Voca>();
 		
-		Query<Voca> query = ofy().load().type(Voca.class).limit(VocaList.pageSize);
+		Query<Voca> query = ofy().load().type(Voca.class).limit(VocaList.pageSize).filter("isCheck", true);
 	    if (cursorStr != null)
 	        query = query.startAt(Cursor.fromWebSafeString(cursorStr));
 	  

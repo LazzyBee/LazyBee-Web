@@ -95,9 +95,19 @@
 		margin-left: 5px;
 		margin-top: 5px;
 	}
+	
+	.VocaEditorTool_Obj14 {
+		margin-left: 15px;
+	}
+	
+	.VocaEditorTool_Obj14:hover {
+		color: silver !important;
+		text-decoration: none;
+		cursor: pointer;
+	}
 	</ui:style>
 	<g:HTMLPanel ui:field="vocaEditorTool" styleName="{style.VocaEditorTool_Obj12}">
-		<g:HTMLPanel>
+		<g:HTMLPanel ui:field="topToolbar">
 			<g:Anchor ui:field="btnSave" title="Save" styleName="{style.VocaEditorTool_Obj1}"><i class="fa fa-floppy-o fa-lg"></i></g:Anchor>
 			<g:Anchor ui:field="btnClear" title="Clear All" styleName="{style.VocaEditorTool_Obj1}"><i class="fa fa-refresh fa-lg"></i></g:Anchor>
 			<g:Anchor ui:field="btnDelete" title="Remove" styleName="{style.VocaEditorTool_Obj1}" visible="false"><i class="fa fa-trash-o fa-lg"></i></g:Anchor>
@@ -186,12 +196,10 @@
 		<br/> <br/>
 		<g:HorizontalPanel>
 			<g:Anchor ui:field="btnAddDefi" styleName="{style.VocaEditorTool_Obj6}">Thêm giải nghĩa</g:Anchor>
-			<g:AbsolutePanel width="15px"></g:AbsolutePanel>
-			<g:Anchor ui:field="btnGoTop" styleName="{style.VocaEditorTool_Obj6}">Lên đầu trang <i class="fa fa-level-up fa-lg"></i></g:Anchor>
-			<g:AbsolutePanel width="15px"></g:AbsolutePanel>
-			<g:Anchor ui:field="btnSaveB" styleName="{style.VocaEditorTool_Obj6}">Lưu <i class="fa fa-floppy-o fa-lg"></i></g:Anchor>
-			<g:AbsolutePanel width="15px"></g:AbsolutePanel>
-			<g:Anchor ui:field="btnVerifySaveB" visible="false" styleName="{style.VocaEditorTool_Obj6}">Lưu và duyệt <i class="fa fa-check"></i></g:Anchor>
+			<g:Anchor ui:field="btnGoTop" styleName="{style.VocaEditorTool_Obj14}">Lên đầu trang <i class="fa fa-level-up fa-lg"></i></g:Anchor>
+			<g:Anchor ui:field="btnSaveB" styleName="{style.VocaEditorTool_Obj14}">Lưu <i class="fa fa-floppy-o fa-lg"></i></g:Anchor>
+			<g:Anchor ui:field="btnVerifySaveB" visible="false" styleName="{style.VocaEditorTool_Obj14}">Lưu và duyệt <i class="fa fa-check"></i></g:Anchor>
+			<g:Anchor ui:field="btnClose" visible="false" styleName="{style.VocaEditorTool_Obj14}">Đóng <i class="fa fa-times"></i></g:Anchor>
 		</g:HorizontalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

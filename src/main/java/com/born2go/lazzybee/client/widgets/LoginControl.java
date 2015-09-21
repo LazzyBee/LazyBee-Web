@@ -29,6 +29,7 @@ public class LoginControl extends DialogBox {
 		setAutoHideEnabled(true);
 		setGlassEnabled(true);
 		setStyleName("LoginControl_clean");
+		facebookInit(LazzyBee.fClientId);
 	}
 	
 	@Override
@@ -43,14 +44,15 @@ public class LoginControl extends DialogBox {
 		}
 	}
 	
-	private static void saveNewUser(String userId) {
+	private static void saveNewUser(String userId, String userName) {
 		User u = new User();
 		if(userId.contains("_G")) {
-			u.setGoogle_id(userId.replace("_G", ""));
+			u.setGoogle_id(userId);
 		}
 		if(userId.contains("_F")) {
-			u.setFacebook_id(userId.replace("_F", ""));
+			u.setFacebook_id(userId);
 		}
+		u.setUserName(userName);
 		LazzyBee.data_service.saveUser(u, new AsyncCallback<Void>() {
 			
 			@Override
@@ -159,7 +161,7 @@ public class LoginControl extends DialogBox {
 	            	@com.born2go.lazzybee.client.widgets.LoginControl::addUserPorfile()();
 	            }
 	            
-	            @com.born2go.lazzybee.client.widgets.LoginControl::saveNewUser(Ljava/lang/String;)(resp.id + "_G");
+	            @com.born2go.lazzybee.client.widgets.LoginControl::saveNewUser(Ljava/lang/String;Ljava/lang/String;)(resp.id + "_G",resp.displayName);
           	});
        	});
 	}-*/;
@@ -169,10 +171,10 @@ public class LoginControl extends DialogBox {
 	}-*/;
 	
 	void facebookLoad() {
-		facebookInit(LazzyBee.fCLientId, this);
+		facebookCheckAuth(this);
 	}
 	
-	native void facebookInit(String fClientId, LoginControl c) /*-{
+	native void facebookInit(String fClientId) /*-{
 		var clientId = fClientId;
 		$wnd.FB._https = true;
 	 	$wnd.FB.init({
@@ -189,32 +191,30 @@ public class LoginControl extends DialogBox {
 		    js.src = "//connect.facebook.net/en_US/sdk.js";
 		    fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
-		
-		$wnd.window.setTimeout(checkAuth,1);
-		
-		function checkAuth() {
-  			$wnd.FB.getLoginStatus(function(response) {
-				if (response.status === 'connected') {
-					var userId = response.authResponse.userID;
-				    var accessToken = response.authResponse.accessToken;
-				    
-				    c.@com.born2go.lazzybee.client.widgets.LoginControl::facebookApiCall()();
-				    $wnd.document.getElementById("menu_editor").style.display = "";
-				    if($wnd.document.getElementById("wt_editor") != null) {
-	          			$wnd.document.getElementById("wt_editor_notauthorize").style.display = "none";
-	          			$wnd.document.getElementById("wt_editor").style.display = "";
-	          		}
-				} 
-				else if (response.status === 'not_authorized') {
-//					if($wnd.document.getElementById("wt_editor") != null)
-//	        			$wnd.document.location = "/dictionary/";
-				} 
-				else {
-//					if($wnd.document.getElementById("wt_editor") != null)
-//	        			$wnd.document.location = "/dictionary/";
-				}
-			}, true);
+	}-*/;
+	
+	native void facebookCheckAuth(LoginControl c) /*-{
+		$wnd.FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			var userId = response.authResponse.userID;
+		    var accessToken = response.authResponse.accessToken;
+		    
+		    c.@com.born2go.lazzybee.client.widgets.LoginControl::facebookApiCall()();
+		    $wnd.document.getElementById("menu_editor").style.display = "";
+		    if($wnd.document.getElementById("wt_editor") != null) {
+      			$wnd.document.getElementById("wt_editor_notauthorize").style.display = "none";
+      			$wnd.document.getElementById("wt_editor").style.display = "";
+      		}
+		} 
+		else if (response.status === 'not_authorized') {
+//			if($wnd.document.getElementById("wt_editor") != null)
+//        		$wnd.document.location = "/dictionary/";
+		} 
+		else {
+//			if($wnd.document.getElementById("wt_editor") != null)
+//        		$wnd.document.location = "/dictionary/";
 		}
+		}, true);
 	}-*/;
 	
 	native void facebookLogin(LoginControl c) /*-{
@@ -252,7 +252,7 @@ public class LoginControl extends DialogBox {
 	            @com.born2go.lazzybee.client.widgets.LoginControl::addUserPorfile()();
 	        }
 	        
-	        @com.born2go.lazzybee.client.widgets.LoginControl::saveNewUser(Ljava/lang/String;)(response.id + "_F");
+	        @com.born2go.lazzybee.client.widgets.LoginControl::saveNewUser(Ljava/lang/String;Ljava/lang/String;)(response.id + "_F",response.name);
 		});
 	}-*/;
 	

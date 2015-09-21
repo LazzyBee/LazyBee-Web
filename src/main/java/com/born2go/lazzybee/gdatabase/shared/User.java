@@ -23,6 +23,10 @@ public class User implements Serializable {
 	String google_id;
 	@Index
 	String facebook_id;
+	@Index
+	String userName;
+	@Index 
+	boolean isAdmin = false;
 
 	public User() {
 		super();
@@ -50,6 +54,22 @@ public class User implements Serializable {
 
 	public void setFacebook_id(String facebook_id) {
 		this.facebook_id = facebook_id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 }
