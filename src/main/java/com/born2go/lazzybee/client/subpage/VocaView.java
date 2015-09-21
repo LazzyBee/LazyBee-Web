@@ -109,13 +109,13 @@ public class VocaView extends Composite {
 			dcContent.getElement().setAttribute("style", "padding-left: 5px;");
 			String meaning = dc.txbMeaning_id.replaceAll("\"", "");
 			String explain = dc.txbExplain_id.replaceAll("\"", "");
-			String exam = dc.txbExam_id.replaceAll("\"", "");
+			String exam = dc.txbExam_id.replaceAll("\"", "").replace("<p>", "").replace("</p>", "");
 			if(!meaning.contains("<p>"))
 				meaning = "<p> " + meaning + " </p>";
 			if(!explain.contains("<p>"))
 				explain = "<p> " + explain + " </p>";
 			if(!exam.contains("<p>"))
-				exam = "<p> " + exam + " </p>";
+				exam = "<p> VD: " + exam + " </p>";
 			dcContent.setHTML(meaning + explain + "<span style='color: gray; font-style: italic;'>" + exam + "</span>");
 			//-----
 			htmlDefi.add(dcPac);

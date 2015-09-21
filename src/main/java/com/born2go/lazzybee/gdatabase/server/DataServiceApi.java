@@ -66,6 +66,17 @@ public class DataServiceApi {
 		}
     }
     
+    /** update answer a vocabulary */
+    @ApiMethod(name = "updateA")
+    public void updateA(Voca voca) throws IOException{
+    	voca.setQ(voca.getQ().toLowerCase());
+    	Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ()).first().now();
+		if(v != null && v.isCheck() == false) {
+			v.setA(voca.getA());
+			ofy().save().entity(v);
+		}
+    }
+    
     boolean verifyVoca(String voca_q) {
 		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q).first().now();
 		if(voca == null)

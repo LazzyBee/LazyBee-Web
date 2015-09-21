@@ -26,7 +26,7 @@ public class LazzyBee implements EntryPoint {
 	public static String gScopes = "https://www.googleapis.com/auth/plus.me";
 	public static boolean isGoogleInit = false;
 	//Facebook app id
-	public static String fCLientId = "754889477966743";
+	public static String fClientId = "754889477966743";
 	//App notice
 	public static NoticeBox noticeBox = new NoticeBox("");
 	
