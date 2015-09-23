@@ -13,8 +13,8 @@ public interface DataService extends RemoteService{
 	public Voca insertVoca(Voca voca);
 	public Voca findVoca(String voca_q);
 	public Voca updateVoca(Voca voca, boolean isCheck);
-	public Integer getTotalVoca();
-	public Integer getTotalPreviewVoca();
+//	public Integer getTotalVoca();
+//	public Integer getTotalPreviewVoca();
 	public VocaList getListVoca(String cursorStr);
 	public VocaList getListPreviewVoca(String cursorStr);
 	public void removeVoca(Voca voca);

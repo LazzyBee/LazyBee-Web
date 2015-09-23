@@ -33,6 +33,7 @@ public class VocaView extends Composite {
 	@UiField Label lbVocaLevel;
 	@UiField Label lbVocaPronoun;
 	@UiField HTMLPanel htmlDefiTable;
+	@UiField HTMLPanel htmlVocaNote;
 	
 	private Voca voca;
 	private List<DefiContainer> list_defitranforms = new ArrayList<DefiContainer>();
@@ -46,6 +47,10 @@ public class VocaView extends Composite {
 		//-----
 		lbVocaQ.setText(voca.getQ());
 		lbVocaLevel.setText("Level: " + voca.getLevel());
+		if(!voca.isCheck()) {
+			htmlVocaNote.setVisible(true);
+			htmlVocaNote.getElement().setInnerHTML("<span style=\"font-weight: bold;\">- "+voca.getQ()+" -</span> chưa được đưa vào từ điển chính thức.");
+		}
 		//-----
 		JSONValue a = JSONParser.parseStrict(voca.getA());
 		lbVocaPronoun.setText(a.isObject().get("pronoun").toString().replaceAll("\"", ""));

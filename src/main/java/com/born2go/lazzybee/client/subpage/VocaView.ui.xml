@@ -36,8 +36,16 @@
 		color: silver;
 		cursor: pointer;
 	}
+	
+	.VocaView_Obj7 {
+		margin-bottom: 20px;
+    	padding: 10px;
+    	background-color: lemonchiffon;
+    	line-height: 1.5;
+	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.VocaView_Obj1}">
+		<g:HTMLPanel styleName="{style.VocaView_Obj7}" ui:field="htmlVocaNote" visible="false"></g:HTMLPanel>
 		<g:HTMLPanel>
 			<g:Label ui:field="lbVocaQ" styleName="{style.VocaView_Obj2} {style.VocaView_Obj4}"></g:Label>
 			<g:Anchor ui:field="btnEdit" styleName="{style.VocaView_Obj2} {style.VocaView_Obj6}" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></g:Anchor>

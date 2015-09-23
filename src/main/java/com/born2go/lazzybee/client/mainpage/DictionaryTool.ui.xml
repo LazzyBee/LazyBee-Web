@@ -54,9 +54,9 @@
 			<br/> <br/> <br/>
 			<g:Anchor ui:field="testSite" styleName="{style.DictionaryTool_Obj4}">Kiểm tra vốn từ</g:Anchor>
 			<br/> <br/> <br/>
-			<g:Anchor ui:field="dictionarySite" styleName="{style.DictionaryTool_Obj4}">Từ điển</g:Anchor>
+			<g:Anchor ui:field="dictionarySite" visible="false" styleName="{style.DictionaryTool_Obj4}">Từ điển</g:Anchor>
 			<br/> <br/> <br/>
-			<g:Anchor ui:field="previewSite" styleName="{style.DictionaryTool_Obj4}">Bảng từ mới</g:Anchor>
+			<g:Anchor ui:field="previewSite" visible="false" styleName="{style.DictionaryTool_Obj4}">Bảng từ mới</g:Anchor>
 			
 			<g:Label ui:field="trademarkLb" styleName="{style.DictionaryTool_Obj6}">Born2Go © 2015 All Rights Reserved | Privacy policy</g:Label>
 		</g:HTMLPanel>

@@ -57,25 +57,14 @@ public class TestTool extends Composite {
 	}
 	
 	private void addTestVoca(HTMLPanel vocaShowPanel, Voca v) {
-		HTMLPanel panel1 = new HTMLPanel("");
+		HTMLPanel form = new HTMLPanel("");
 		Label vocaQ = new Label(v.getQ());
-		vocaQ.getElement().setAttribute("style", "float: left; color: white; font-weight: bold; font-size: 15px;");
-		Anchor speech = new Anchor("");
-		speech.getElement().setInnerHTML("<i class=\"fa fa-volume-up fa-lg\"></i>");
-		speech.getElement().setAttribute("style", "float: right; color: white; cusor: pointer");
-		panel1.add(vocaQ); panel1.add(speech);
-		panel1.getElement().setAttribute("style", "overflow: hidden; margin-bottom: 15px;");
-		HTMLPanel panel2 = new HTMLPanel("");
-		Label vocaLv = new Label("Level: " + v.getLevel());
-		Label pronoun = new Label("");
-		JSONValue a = JSONParser.parseStrict(v.getA());
-		pronoun.setText(a.isObject().get("pronoun").toString().replaceAll("\"", ""));
-		panel2.add(vocaLv); panel2.add(pronoun);
-		vocaLv.getElement().setAttribute("style", "float: left; color: white");
-		pronoun.getElement().setAttribute("style", "float: right; color: white");
-		panel2.getElement().setAttribute("style", "overflow: hidden; margin-bottom: 15px;"); 
-		vocaShowPanel.add(panel1);
-		vocaShowPanel.add(panel2);
+		Label vocaLv = new Label("Lv: "+v.getLevel());
+		form.add(vocaQ);form.add(vocaLv);
+		form.getElement().setAttribute("style", "cursor: pointer; padding: 10px 20px 15px 20px; background: gray; margin-top: 20px; margin-bottom: 10px; display: inline-block; margin-right: 15px;");
+		vocaQ.getElement().setAttribute("style", "float: left; display: block; font-size: 14px; font-weight: bold; color: aqua");
+		vocaLv.getElement().setAttribute("style", "font-weight: bold; color: white; margin-top: 30px");
+		vocaShowPanel.add(form);
 	}
 	
 	void startTesting(List<Voca> listTestVoca) {
@@ -90,32 +79,26 @@ public class TestTool extends Composite {
 		testInfoPanel.getElement().setAttribute("style", "padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + listTestVoca.size());
 		Label yestotal = new Label("B: ");
-		Label nototal = new Label("KB: ");
-		total.getElement().setAttribute("style", "float: left");
-		yestotal.getElement().setAttribute("style", "float: right; color: green; margin-right: 15px;");
-		nototal.getElement().setAttribute("style", "float: right; color: red");
+		total.getElement().setAttribute("style", "float: left; font-weight: bold;");
+		yestotal.getElement().setAttribute("style", "float: right; font-weight:bold; color: forestgreen; margin-right: 0px;");
 		testInfoPanel.add(total);
-		testInfoPanel.add(nototal);
 		testInfoPanel.add(yestotal);
-		Anchor btnYes = new Anchor("Đã Biết");
-		Anchor btnNo = new Anchor("Chưa Biết");
+		Anchor btnComplete = new Anchor("Hoàn Thành");
 		Anchor btnQuit = new Anchor("Dừng Bài Test");
+		controlPanel.add(btnComplete);
 		controlPanel.add(btnQuit);
-		controlPanel.add(btnNo);
-		controlPanel.add(btnYes);
-		btnYes.setStyleName("TestTool_Obj2");
-		btnNo.setStyleName("TestTool_Obj2");
-		btnQuit.setStyleName("TestTool_Obj2");
-		btnNo.getElement().setAttribute("style", "margin-right: 10px");
-		btnYes.getElement().setAttribute("style", "margin-right: 10px");
-		vocaShowPanel.getElement().setAttribute("style", "padding: 20px; background: #0e74af; margin-top: 20px; margin-bottom: 10px;");
+		controlPanel.getElement().setAttribute("style", "text-align: center; white-space: nowrap;");
+		btnComplete.setStyleName("TestTool_Obj3");
+		btnQuit.setStyleName("TestTool_Obj4");
+		vocaShowPanel.getElement().setAttribute("style", "text-align: center; margin-bottom:40px;");
 		//-----
-		addTestVoca(vocaShowPanel, listTestVoca.get(0));
+		for(Voca v: listTestVoca)
+			addTestVoca(vocaShowPanel, v);
 	}
 	
 	@UiHandler("btnStartTesting")
 	void onBtnStartTestingClick(ClickEvent e) {
-//		getListTestVoca();
+		getListTestVoca();
 	}
 
 }

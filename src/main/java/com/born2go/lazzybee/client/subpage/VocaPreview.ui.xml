@@ -101,7 +101,7 @@
 				<g:Anchor ui:field="btnNextPage" title="Trang sau" styleName="{style.VocaPreview_Obj6}"><i class="fa fa-arrow-right fa-lg"></i></g:Anchor>
 				<g:Label ui:field="lbPageNumber" styleName="{style.VocaPreview_Obj8}"></g:Label>
 			</g:HTMLPanel>
-			<g:Label ui:field="lbTotal" styleName="{style.VocaPreview_Obj4}"></g:Label>
+			<!-- <g:Label ui:field="lbTotal" styleName="{style.VocaPreview_Obj4}"></g:Label> -->
 		</g:HTMLPanel>
 		
 		<br/> <br/>

@@ -51,6 +51,7 @@ public class VocaEditorTool extends Composite {
 	
 	@UiField HTMLPanel vocaEditorTool;
 	@UiField HTMLPanel topToolbar;
+	@UiField HTMLPanel htmlVocaNote;
 	@UiField TextBox txbVocaDefi;
 	@UiField Image checkVocaImg;
 	@UiField TextBox txbPronoun;
@@ -110,7 +111,7 @@ public class VocaEditorTool extends Composite {
 	}
 	
 	public interface EditorListener {
-		void onApproval();
+		void onApproval(Voca v);
 		void onClose();
 	}
 	
@@ -276,16 +277,22 @@ public class VocaEditorTool extends Composite {
 	public void setPreviewMode() {
 		topToolbar.setVisible(false);
 		btnGoTop.setVisible(false);
-		btnSaveB.setVisible(false);
+//		btnSaveB.setVisible(false);
 		btnVerifySaveB.setVisible(true);
 		btnClose.setVisible(true);
 		isPreviewMode = true;
+		txbVocaDefi.setEnabled(false);
+		htmlVocaNote.setVisible(false);
 	}
 	
 	public void setVoca(Voca voca) {
 		this.voca = voca;
 		btnDelete.setVisible(true);
-		btnVerifySaveB.setVisible(true);
+		if(!voca.isCheck()) {
+			htmlVocaNote.setVisible(true);
+			htmlVocaNote.getElement().setInnerHTML("<span style=\"font-weight: bold;\">- "+voca.getQ()+" -</span> chưa được đưa vào từ điển chính thức.");
+		}
+//		btnVerifySaveB.setVisible(true);
 		//-----
 		txbVocaDefi.setText(voca.getQ());
 		//-----
@@ -911,18 +918,21 @@ public class VocaEditorTool extends Composite {
 	private void updateVoca(boolean isCheck) {
 		if(verifyField()) {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
-			final Voca v = new Voca();
+			final Voca v = voca;
 			v.setGid(voca.getGid());
 			v.setQ(txbVocaDefi.getText());
 			v.setLevel(lsbLevel.getValue(lsbLevel.getSelectedIndex()));
-			v.setCheck(voca.isCheck());
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
 			LazzyBee.data_service.updateVoca(v, isCheck, new AsyncCallback<Voca>() {
 				@Override
 				public void onSuccess(Voca result) {
 					if(result != null) {
-						formClean();
+						if(!isPreviewMode)
+							formClean();
+						else
+							if(listener != null)
+								listener.onApproval(result);
 						DOM.getElementById("content").setScrollTop(0);
 						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/library/#dictionary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
@@ -941,54 +951,49 @@ public class VocaEditorTool extends Composite {
 	}
 	
 	private void formClean() {
-		if(!isPreviewMode) {
-			String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
-			Window.Location.replace(newURL);
-			btnDelete.setVisible(false);
-			btnVerifySaveB.setVisible(false);
-			txbVocaDefi.setText("");
-			txbVocaDefi.getElement().setAttribute("style", "");
-			txbPronoun.setText("");
-			txbPronoun.getElement().setAttribute("style", "");
-			lsbType.setSelectedIndex(0);
-			destroyCustomEditor(DEFI_TXBMEANING + "1");
-			destroyCustomEditor(DEFI_TXBEXPLAIN + "1");
-			destroyCustomEditor(DEFI_TXBEXAM + "1");
-			cbTypeCommon.setValue(false);
-			cbType850Basic.setValue(false);
-			cbTypeVoaEnglish.setValue(false);
-			cbTypeIelts.setValue(false);
-			cbTypeToefl.setValue(false);
-			cbTypeEconomic.setValue(false);
-			cbTypeIt.setValue(false);
-			cbTypeScience.setValue(false);
-			cbTypeMedicine.setValue(false);
-			cbTypeOther.setValue(false);
-			htmlType.clear();
-			packages.clear();
-			lsbType.clear();
-			defiTable.clear();
-			list_defi.clear();
-			listLbType.clear();
-			list_defitranforms.clear();
-			voca = null;
-			//-----startup over-----
-			lsbType.addItem("- Chọn phân loại -");
-			htmlType.add(lsbType);
-			replaceTxbNote(DEFI_TXBMEANING + 1, vet);
-			replaceTxbNote(DEFI_TXBEXPLAIN + 1, vet);
-			replaceTxbNote(DEFI_TXBEXAM + 1, vet);
-			defi_count = 1;
-			DefiContainer dc = new DefiContainer();
-			dc.txbMeaning_id = DEFI_TXBMEANING + defi_count;
-			dc.txbExplain_id = DEFI_TXBEXPLAIN + defi_count;
-			dc.txbExam_id = DEFI_TXBEXAM + defi_count;
-			list_defi.add(dc);
-		}
-		else {
-			if(listener != null)
-				listener.onApproval();
-		}
+		String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
+		Window.Location.replace(newURL);
+		htmlVocaNote.setVisible(false);
+		btnDelete.setVisible(false);
+		btnVerifySaveB.setVisible(false);
+		txbVocaDefi.setText("");
+		txbVocaDefi.getElement().setAttribute("style", "");
+		txbPronoun.setText("");
+		txbPronoun.getElement().setAttribute("style", "");
+		lsbType.setSelectedIndex(0);
+		destroyCustomEditor(DEFI_TXBMEANING + "1");
+		destroyCustomEditor(DEFI_TXBEXPLAIN + "1");
+		destroyCustomEditor(DEFI_TXBEXAM + "1");
+		cbTypeCommon.setValue(false);
+		cbType850Basic.setValue(false);
+		cbTypeVoaEnglish.setValue(false);
+		cbTypeIelts.setValue(false);
+		cbTypeToefl.setValue(false);
+		cbTypeEconomic.setValue(false);
+		cbTypeIt.setValue(false);
+		cbTypeScience.setValue(false);
+		cbTypeMedicine.setValue(false);
+		cbTypeOther.setValue(false);
+		htmlType.clear();
+		packages.clear();
+		lsbType.clear();
+		defiTable.clear();
+		list_defi.clear();
+		listLbType.clear();
+		list_defitranforms.clear();
+		voca = null;
+		//-----startup over-----
+		lsbType.addItem("- Chọn phân loại -");
+		htmlType.add(lsbType);
+		replaceTxbNote(DEFI_TXBMEANING + 1, vet);
+		replaceTxbNote(DEFI_TXBEXPLAIN + 1, vet);
+		replaceTxbNote(DEFI_TXBEXAM + 1, vet);
+		defi_count = 1;
+		DefiContainer dc = new DefiContainer();
+		dc.txbMeaning_id = DEFI_TXBMEANING + defi_count;
+		dc.txbExplain_id = DEFI_TXBEXPLAIN + defi_count;
+		dc.txbExam_id = DEFI_TXBEXAM + defi_count;
+		list_defi.add(dc);
 	}
 	
 	@UiHandler("btnSave")

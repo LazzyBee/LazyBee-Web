@@ -98,13 +98,14 @@ public class DictionaryTool extends Composite {
 		} 
 		else {
 			if(history_token.contains("dictionary")) {
-				dictionarySite.addStyleName("DictionaryTool_Obj5");
 				if(history_token.contains("/")) {
 					final String[] sub_token = history_token.split("/");
 					if(sub_token[1] == null || sub_token[1].isEmpty()) {
 						RootPanel.get("wt_dictionary_content").add(new ListVocaView());
+						dictionarySite.addStyleName("DictionaryTool_Obj5");
 					}
 					else {
+						defaultSite.addStyleName("DictionaryTool_Obj5");
 						searchBox.setText(sub_token[1]);
 						LazzyBee.noticeBox.setNotice("Đang tải...");
 						LazzyBee.data_service.findVoca(sub_token[1], new AsyncCallback<Voca>() {					
@@ -194,8 +195,9 @@ public class DictionaryTool extends Composite {
 	
 	@UiHandler("defaultSite")
 	void onDefaultSiteClick(ClickEvent e) {
-		Window.Location.assign("/library/#");
-		Window.Location.reload();
+		String newURL = "/library/";
+		Window.Location.replace(newURL);
+//		Window.Location.reload();
 	}
 	
 	@UiHandler("testSite")

@@ -11,8 +11,8 @@ public interface DataServiceAsync {
 	void insertVoca(Voca voca, AsyncCallback<Voca> callback);
 	void findVoca(String voca_q, AsyncCallback<Voca> callback);
 	void updateVoca(Voca voca, boolean isCheck, AsyncCallback<Voca> callback);
-	void getTotalVoca(AsyncCallback<Integer> callback);
-	void getTotalPreviewVoca(AsyncCallback<Integer> callback);
+//	void getTotalVoca(AsyncCallback<Integer> callback);
+//	void getTotalPreviewVoca(AsyncCallback<Integer> callback);
 	void getListVoca(String cursorStr, AsyncCallback<VocaList> callback);
 	void getListPreviewVoca(String cursorStr, AsyncCallback<VocaList> callback);
 	void removeVoca(Voca voca, AsyncCallback<Void> callback);
