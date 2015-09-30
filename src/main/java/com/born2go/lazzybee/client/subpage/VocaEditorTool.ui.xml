@@ -105,6 +105,14 @@
 		text-decoration: none;
 		cursor: pointer;
 	}
+	
+	.VocaEditorTool_Obj15 {
+		margin-bottom: 20px;
+    	padding: 10px;
+    	background-color: lemonchiffon;
+    	line-height: 1.5;
+    	width: 557px;
+	}
 	</ui:style>
 	<g:HTMLPanel ui:field="vocaEditorTool" styleName="{style.VocaEditorTool_Obj12}">
 		<g:HTMLPanel ui:field="topToolbar">
@@ -115,6 +123,7 @@
 		<!--  -->
 		<br/> <br/>
 		<!-- <g:Label styleName="{style.VocaEditorTool_Obj7}">* Phần định nghĩa</g:Label> -->
+		<g:HTMLPanel styleName="{style.VocaEditorTool_Obj15}" ui:field="htmlVocaNote" visible="false"></g:HTMLPanel>
 		<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
 			<g:Label styleName="{style.VocaEditorTool_Obj2}">Định nghĩa từ, cụm từ</g:Label>
 			<g:TextBox styleName="{style.VocaEditorTool_Obj4}" ui:field="txbVocaDefi"></g:TextBox>

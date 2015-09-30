@@ -86,7 +86,7 @@
 				<g:Anchor ui:field="btnNextPage" title="Trang sau" styleName="{style.ListVocaView_Obj6}"><i class="fa fa-arrow-right fa-lg"></i></g:Anchor>
 				<g:Label ui:field="lbPageNumber" styleName="{style.ListVocaView_Obj8}"></g:Label>
 			</g:HTMLPanel>
-			<g:Label ui:field="lbTotal" styleName="{style.ListVocaView_Obj4}"></g:Label>
+			<!-- <g:Label ui:field="lbTotal" styleName="{style.ListVocaView_Obj4}"></g:Label> -->
 		</g:HTMLPanel>
 		
 		<br/> <br/>

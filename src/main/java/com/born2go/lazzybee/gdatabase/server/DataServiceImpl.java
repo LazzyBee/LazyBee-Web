@@ -86,16 +86,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		return null;
 	}
 
-	@Override
-	public Integer getTotalVoca() {
-		return ofy().load().type(Voca.class).filter("isCheck", true).count();
-	}
-
-	@Override
-	public Integer getTotalPreviewVoca() {
-		return ofy().load().type(Voca.class).filter("isCheck", false).count();
-	}
-
 	/**
 	 * Query limited vocabulary
 	 */

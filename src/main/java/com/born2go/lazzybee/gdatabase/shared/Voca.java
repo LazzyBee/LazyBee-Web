@@ -97,5 +97,14 @@ public class Voca implements Serializable {
 	public void setCheck(boolean isCheck) {
 		this.isCheck = isCheck;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Voca v = (Voca) obj;
+		if(v.getQ().equals(q))
+			return true;
+		else
+			return false;
+	}
 
 }

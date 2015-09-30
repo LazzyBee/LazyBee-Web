@@ -43,7 +43,7 @@ public class ListVocaView extends Composite {
 	}
 
 	@UiField CellTable<Voca> vocaTable;
-	@UiField Label lbTotal;
+//	@UiField Label lbTotal;
 	@UiField Anchor btnPreviousPage;
 	@UiField Anchor btnNextPage;
 	@UiField Label lbPageNumber;
@@ -51,7 +51,7 @@ public class ListVocaView extends Composite {
 	private ListDataProvider<Voca> dataProvider = new ListDataProvider<Voca>();
 	
 	private String cursorStr = null;
-	private int totalVoca = 0;
+//	private int totalVoca = 0;
 	private int presentIndex = 0;
 	private List<Voca> listVoca = new ArrayList<Voca>();
 	private List<Voca> listDisplayVoca = new ArrayList<Voca>();
@@ -167,26 +167,26 @@ public class ListVocaView extends Composite {
 		listDisplayVoca = dataProvider.getList();
 		
 		btnPreviousPage.addStyleName("ListVocaView_Obj6_Disable");
-		getTotal();
-//		getData();
+//		getTotal();
+		getData();
 	}
 
-	void getTotal() {
-		LazzyBee.data_service.getTotalVoca(new AsyncCallback<Integer>() {
-			@Override
-			public void onSuccess(Integer result) {
-				lbTotal.setText("Total: " + result);
-				totalVoca = result;
-				getData();
-			}
-			
-			@Override
-			public void onFailure(Throwable caught) {
-				LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
-				LazzyBee.noticeBox.setAutoHide();
-			}
-		});
-	}
+//	void getTotal() {
+//		LazzyBee.data_service.getTotalVoca(new AsyncCallback<Integer>() {
+//			@Override
+//			public void onSuccess(Integer result) {
+//				lbTotal.setText("Total: " + result);
+//				totalVoca = result;
+//				getData();
+//			}
+//			
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
+//				LazzyBee.noticeBox.setAutoHide();
+//			}
+//		});
+//	}
 	
 	void getData() {
 		LazzyBee.noticeBox.setNotice("Đang tải...");
@@ -202,8 +202,8 @@ public class ListVocaView extends Composite {
 					lbPageNumber.setText("0 - 0");
 				cursorStr = result.getCursorStr();
 				LazzyBee.noticeBox.hide();
-				if(presentIndex == totalVoca)
-					btnNextPage.addStyleName("ListVocaView_Obj6_Disable");
+//				if(presentIndex == totalVoca)
+//					btnNextPage.addStyleName("ListVocaView_Obj6_Disable");
 			}
 
 			@Override
@@ -229,9 +229,11 @@ public class ListVocaView extends Composite {
 							lbPageNumber.setText((presentIndex + 1 - listDisplayVoca.size()) + " - " + presentIndex);
 							//-----
 							btnPreviousPage.removeStyleName("ListVocaView_Obj6_Disable");
-							if(presentIndex == totalVoca)
-								btnNextPage.addStyleName("ListVocaView_Obj6_Disable");
+//							if(presentIndex == totalVoca)
+//								btnNextPage.addStyleName("ListVocaView_Obj6_Disable");
 						}
+						else
+							btnNextPage.addStyleName("ListVocaView_Obj6_Disable");
 						cursorStr = result.getCursorStr();
 						LazzyBee.noticeBox.hide();
 					}
@@ -243,6 +245,7 @@ public class ListVocaView extends Composite {
 				});
 			} else {
 				LazzyBee.noticeBox.hide();
+				btnNextPage.addStyleName("ListVocaView_Obj6_Disable");
 			}
 		} 
 		else {
@@ -257,8 +260,8 @@ public class ListVocaView extends Composite {
 			listDisplayVoca.addAll(listVoca.subList(presentIndex + mi - VocaList.pageSize, presentIndex));
 			//-----
 			btnPreviousPage.removeStyleName("ListVocaView_Obj6_Disable");
-			if(presentIndex == totalVoca)
-				btnNextPage.addStyleName("ListVocaView_Obj6_Disable");
+//			if(presentIndex == totalVoca)
+//				btnNextPage.addStyleName("ListVocaView_Obj6_Disable");
 		}
 	}
 	
