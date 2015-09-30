@@ -1,14 +1,15 @@
 package com.born2go.lazzybee.client.subpage;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.json.client.JSONParser;
-import com.google.gwt.json.client.JSONValue;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -27,27 +28,35 @@ public class TestTool extends Composite {
 
 	interface TestToolUiBinder extends UiBinder<Widget, TestTool> {
 	}
+
+	@UiField
+	HTMLPanel container;
+	Label checkTotal;
 	
-	@UiField HTMLPanel container;
+	private Map<Voca, Boolean> result = new HashMap<Voca, Boolean>();
+	private int totalCheck = 0;
 
 	public TestTool() {
 		initWidget(uiBinder.createAndBindUi(this));
-		
-		DOM.getElementById("wt_search_tool").setAttribute("style", "display: none");
+
+		DOM.getElementById("wt_search_tool").setAttribute("style",
+				"display: none");
 	}
-	
+
 	void getListTestVoca() {
 		LazzyBee.noticeBox.setLoading();
 		LazzyBee.data_service.getListVoca(null, new AsyncCallback<VocaList>() {
-			
+
 			@Override
 			public void onSuccess(VocaList result) {
 				// TODO Auto-generated method stub
 				LazzyBee.noticeBox.hide();
-				startTesting(result.getListVoca());
-				
+				if (result.getListVoca().size() >= 30)
+					startTesting(result.getListVoca().subList(0, 29));
+				else
+					startTesting(result.getListVoca());
 			}
-			
+
 			@Override
 			public void onFailure(Throwable caught) {
 				// TODO Auto-generated method stub
@@ -55,18 +64,43 @@ public class TestTool extends Composite {
 			}
 		});
 	}
-	
-	private void addTestVoca(HTMLPanel vocaShowPanel, Voca v) {
-		HTMLPanel form = new HTMLPanel("");
+
+	void addTestVoca(HTMLPanel vocaShowPanel, final Voca v) {
+		result.put(v, false);
+		final HTMLPanel form = new HTMLPanel("");
 		Label vocaQ = new Label(v.getQ());
-		Label vocaLv = new Label("Lv: "+v.getLevel());
-		form.add(vocaQ);form.add(vocaLv);
-		form.getElement().setAttribute("style", "cursor: pointer; padding: 10px 20px 15px 20px; background: gray; margin-top: 20px; margin-bottom: 10px; display: inline-block; margin-right: 15px;");
-		vocaQ.getElement().setAttribute("style", "float: left; display: block; font-size: 14px; font-weight: bold; color: aqua");
-		vocaLv.getElement().setAttribute("style", "font-weight: bold; color: white; margin-top: 30px");
+		Label vocaLv = new Label("Lv: " + v.getLevel());
+		form.add(vocaQ);
+		form.add(vocaLv);
+		form.setStyleName("TestTool_Obj5");
+		vocaQ.getElement()
+				.setAttribute("style",
+						"float: left; display: block; font-size: 14px; font-weight: bold; color: aqua");
+		vocaLv.getElement().setAttribute("style",
+				"font-weight: bold; color: white; margin-top: 30px");
 		vocaShowPanel.add(form);
+		Anchor btnForm = new Anchor();
+		btnForm.getElement().setAttribute("style", "position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;");
+		form.add(btnForm);
+		//-----
+		btnForm.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				if(result.get(v)) {
+					form.getElement().setAttribute("style", "background: gray");
+					totalCheck--;
+				}
+				else {
+					form.getElement().setAttribute("style", "background: forestgreen");
+					totalCheck++;
+				}
+				result.put(v, !result.get(v));
+				checkTotal.setText("B: " + totalCheck);
+			}
+		});
 	}
-	
+
 	void startTesting(List<Voca> listTestVoca) {
 		container.clear();
 		HTMLPanel testInfoPanel = new HTMLPanel("");
@@ -76,26 +110,34 @@ public class TestTool extends Composite {
 		container.add(vocaShowPanel);
 		container.add(controlPanel);
 		testInfoPanel.setStyleName("TestTool_Obj1");
-		testInfoPanel.getElement().setAttribute("style", "padding: 10px; overflow: hidden;");
+		testInfoPanel.getElement().setAttribute("style",
+				"padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + listTestVoca.size());
-		Label yestotal = new Label("B: ");
-		total.getElement().setAttribute("style", "float: left; font-weight: bold;");
-		yestotal.getElement().setAttribute("style", "float: right; font-weight:bold; color: forestgreen; margin-right: 0px;");
+		checkTotal = new Label("B: " + totalCheck);
+		total.getElement().setAttribute("style",
+				"float: left; font-weight: bold;");
+		checkTotal.getElement()
+				.setAttribute("style",
+						"float: right; font-weight:bold; color: forestgreen; margin-right: 0px;");
 		testInfoPanel.add(total);
-		testInfoPanel.add(yestotal);
+		testInfoPanel.add(checkTotal);
 		Anchor btnComplete = new Anchor("Hoàn Thành");
 		Anchor btnQuit = new Anchor("Dừng Bài Test");
 		controlPanel.add(btnComplete);
 		controlPanel.add(btnQuit);
-		controlPanel.getElement().setAttribute("style", "text-align: center; white-space: nowrap;");
+		controlPanel
+				.getElement()
+				.setAttribute("style",
+						"text-align: center; white-space: nowrap; margin-bottom: 60px;");
 		btnComplete.setStyleName("TestTool_Obj3");
 		btnQuit.setStyleName("TestTool_Obj4");
-		vocaShowPanel.getElement().setAttribute("style", "text-align: center; margin-bottom:40px;");
-		//-----
-		for(Voca v: listTestVoca)
+		vocaShowPanel.getElement().setAttribute("style",
+				"text-align: center; margin-bottom:40px;");
+		// -----
+		for (Voca v : listTestVoca)
 			addTestVoca(vocaShowPanel, v);
 	}
-	
+
 	@UiHandler("btnStartTesting")
 	void onBtnStartTestingClick(ClickEvent e) {
 		getListTestVoca();

@@ -2,10 +2,10 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	@external .TestTool_Obj1, .TestTool_Obj2, .TestTool_Obj3, .TestTool_Obj4;
+	@external .TestTool_Obj1, .TestTool_Obj2, .TestTool_Obj3, .TestTool_Obj4, .TestTool_Obj5;
 	.TestTool_Obj1 {
-		padding: 20px; 
-		background-color: lemonchiffon; 
+		padding: 20px;
+		background-color: lemonchiffon;
 		line-height: 1.5;
 	}
 	
@@ -57,14 +57,35 @@
 		color: white;
 		text-decoration: none;
 	}
+	
+	.TestTool_Obj5 {
+		width: 140px;
+		cursor: pointer;
+		padding: 10px 20px 15px 20px;
+		background: gray;
+		margin-top: 20px;
+		margin-bottom: 10px;
+		display: inline-block;
+		margin-right: 15px;
+		position: relative;
+	}
+	
+	.TestTool_Obj5:hover {
+		background: tomato;
+	}
 	</ui:style>
-	<g:HTMLPanel ui:field="container">
+	<g:HTMLPanel width="600px" ui:field="container">
 		<g:HTML styleName="{style.TestTool_Obj1}">
-			<span style="font-weight: bold">Bài kiểm tra này sẽ giúp các bạn test vốn từ của mình để tránh việc gặp lại nhiều từ đã biết trong quá trình học. Nội dung bài kiểm tra như sau:</span>
+			<span style="font-weight: bold">Bài kiểm tra này sẽ giúp các bạn test vốn từ của
+				mình để tránh việc gặp lại nhiều từ đã biết trong quá trình học. Nội
+				dung bài kiểm tra như sau:</span>
 			<ul style="width: 90%; line-height: 1.6">
-				<li>Bài kiểm tra này sẽ cho bạn một số từ dựa theo level, bạn chỉ cần đánh dấu Biết hoặc Không Biết từ đó.</li>
-				<li>Kết quả bài kiểm tra sẽ được lưu lại khi bạn đã đăng nhập và để phục vụ quá trình học.</li>
-				<li>Bạn có thể tiếp tục làm bài test tiếp theo. Độ khó của bài test sẽ được tăng lên dựa theo kêt quả của bài test trước.</li>
+				<li>Bài kiểm tra này sẽ cho bạn một số từ dựa theo level, bạn chỉ
+					cần đánh dấu Biết hoặc Không Biết từ đó.</li>
+				<li>Kết quả bài kiểm tra sẽ được lưu lại khi bạn đã đăng nhập và để
+					phục vụ quá trình học.</li>
+				<li>Bạn có thể tiếp tục làm bài test tiếp theo. Độ khó của bài test
+					sẽ được tăng lên dựa theo kêt quả của bài test trước.</li>
 			</ul>
 		</g:HTML>
 		<g:Anchor ui:field="btnStartTesting" styleName="{style.TestTool_Obj2}">Bắt Đầu</g:Anchor>

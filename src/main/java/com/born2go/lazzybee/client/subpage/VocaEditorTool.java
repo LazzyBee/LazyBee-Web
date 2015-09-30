@@ -475,16 +475,16 @@ public class VocaEditorTool extends Composite {
 	  	});
 	  	
 	  	editor.on("instanceReady",function() {
-  			$wnd.document.getElementById(editor.id+'_top').style.display = "none";
+//  		$wnd.document.getElementById(editor.id+'_top').style.display = "none";
   			vet.@com.born2go.lazzybee.client.subpage.VocaEditorTool::onCkEditorInstanceReady(Ljava/lang/String;)(noteId);
 		});
 	  	
 	  	editor.on('focus', function(){	 
-	        $wnd.document.getElementById(editor.id+'_top').style.display = "block";
+//	        $wnd.document.getElementById(editor.id+'_top').style.display = "block";
 	    });
 	   
 	    editor.on('blur', function(){	       
-	        $wnd.document.getElementById(editor.id+'_top').style.display = "none";
+//	        $wnd.document.getElementById(editor.id+'_top').style.display = "none";
 	    });
 	}-*/;
 	
@@ -933,7 +933,6 @@ public class VocaEditorTool extends Composite {
 						else
 							if(listener != null)
 								listener.onApproval(result);
-						DOM.getElementById("content").setScrollTop(0);
 						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/library/#dictionary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 					else {
@@ -953,6 +952,7 @@ public class VocaEditorTool extends Composite {
 	private void formClean() {
 		String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
 		Window.Location.replace(newURL);
+		DOM.getElementById("content").setScrollTop(0);
 		htmlVocaNote.setVisible(false);
 		btnDelete.setVisible(false);
 		btnVerifySaveB.setVisible(false);

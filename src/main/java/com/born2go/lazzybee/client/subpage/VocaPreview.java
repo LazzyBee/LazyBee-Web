@@ -10,7 +10,9 @@ import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.SafeHtmlCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.safehtml.shared.SafeHtml;
@@ -26,6 +28,7 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
@@ -34,6 +37,8 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.CellPreviewEvent;
+import com.google.gwt.view.client.CellPreviewEvent.Handler;
 import com.google.gwt.view.client.ListDataProvider;
 
 public class VocaPreview extends Composite {
@@ -129,32 +134,7 @@ public class VocaPreview extends Composite {
 		viewVocaColumn.setFieldUpdater(new FieldUpdater<Voca, String>() {
 			@Override
 			public void update(int index, Voca object, String value) {
-				final DialogBox d = new DialogBox();
-				d.setStyleName("VocaPreview_Obj10");
-				d.setAutoHideEnabled(true);
-				d.setGlassEnabled(true);
-				ScrollPanel sc = new ScrollPanel();
-				sc.getElement().setAttribute("style", "overflow-x: hidden; padding: 20px; height: 500px; padding-right: 80px; padding-top: 0px; padding-left: 60px");
-				VocaEditorTool editor = new VocaEditorTool();
-				editor.setVoca(object);
-				editor.setPreviewMode();
-				sc.add(editor);
-				d.add(sc);
-				d.center();
-				editor.replaceEditor();
-				//-----
-				editor.setListener(new VocaEditorTool.EditorListener() {
-					@Override
-					public void onClose() {
-						d.hide();
-					}
-					
-					@Override
-					public void onApproval(Voca v) {
-						d.hide();
-						refreshData(v);
-					}
-				});
+				
 			}
 		});
 		
@@ -171,6 +151,17 @@ public class VocaPreview extends Composite {
 //				Window.open("/editor/#vocabulary/" + object.getQ(), "_blank", "");
 //			}
 //		});
+		
+		vocaTable.addCellPreviewHandler(new Handler<Voca>() {
+			@Override
+			public void onCellPreview(CellPreviewEvent<Voca> event) {
+				if (BrowserEvents.CLICK
+						.equals(event.getNativeEvent().getType())) {
+					Voca v = event.getValue();
+					onVocaPreview(v);
+				}
+			}
+		});
 
 		vocaTable.setWidth("100%");
 		vocaTable.addColumn(vocaQColumn, "Từ, cụm từ");
@@ -197,6 +188,35 @@ public class VocaPreview extends Composite {
 		btnPreviousPage.addStyleName("VocaPreview_Obj6_Disable");
 //		getTotal();
 		getData();
+	}
+	
+	void onVocaPreview(Voca v) {
+		final DialogBox d = new DialogBox();
+		d.setStyleName("VocaPreview_Obj10");
+		d.setAutoHideEnabled(true);
+		d.setGlassEnabled(true);
+		ScrollPanel sc = new ScrollPanel();
+		sc.getElement().setAttribute("style", "overflow-x: hidden; padding: 20px; height: 500px; padding-right: 80px; padding-top: 0px; padding-left: 60px");
+		VocaEditorTool editor = new VocaEditorTool();
+		editor.setVoca(v);
+		editor.setPreviewMode();
+		sc.add(editor);
+		d.add(sc);
+		d.center();
+		editor.replaceEditor();
+		//-----
+		editor.setListener(new VocaEditorTool.EditorListener() {
+			@Override
+			public void onClose() {
+				d.hide();
+			}
+			
+			@Override
+			public void onApproval(Voca v) {
+				d.hide();
+				refreshData(v);
+			}
+		});
 	}
 	
 	void refreshData(Voca v) {
