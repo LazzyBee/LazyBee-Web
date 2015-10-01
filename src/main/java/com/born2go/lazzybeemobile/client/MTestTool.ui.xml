@@ -1,0 +1,79 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	@external .MTestTool_Obj1, .MTestTool_Obj2, .MTestTool_Obj3, .MTestTool_Obj4;
+	.MTestTool_Obj1 {
+		padding: 20px;
+		background-color: lemonchiffon;
+		line-height: 1.5;
+	}
+	
+	.MTestTool_Obj2 {
+		float: right;
+		background: #0e74af;
+		padding: 10px 20px;
+		border-right: 1px silver solid;
+		color: white;
+		margin: 10px 10px;
+	}
+	
+	.MTestTool_Obj2:hover {
+		background: silver;
+		cursor: pointer;
+		/*color: #0e74af;*/
+		color: white;
+		text-decoration: none;
+	}
+	
+	.MTestTool_Obj3 {
+		background: forestgreen;
+		padding: 10px 20px;
+		border-right: 1px silver solid;
+		color: white;
+		margin-top: 10px;
+	}
+	
+	.MTestTool_Obj3:hover {
+		background: silver;
+		cursor: pointer;
+		/*color: #0e74af;*/
+		color: white;
+		text-decoration: none;
+	}
+	
+	.MTestTool_Obj4 {
+		background: tomato;
+		padding: 10px 20px;
+		border-right: 1px silver solid;
+		color: white;
+		margin-top: 10px;
+	}
+	
+	.MTestTool_Obj4:hover {
+		background: silver;
+		cursor: pointer;
+		/*color: #0e74af;*/
+		color: white;
+		text-decoration: none;
+	}
+	
+	  
+	</ui:style>
+	<g:HTMLPanel ui:field="mainMTestTool">
+		<g:HTML styleName="{style.MTestTool_Obj1}">
+			<span style="font-weight: bold">Bài kiểm tra này sẽ giúp các bạn test vốn từ của
+				mình để tránh việc gặp lại nhiều từ đã biết trong quá trình học. Nội
+				dung bài kiểm tra như sau:</span>
+			<ul style="width: 90%; line-height: 1.6">
+				<li>Bài kiểm tra này sẽ cho bạn một số từ dựa theo level, bạn chỉ
+					cần đánh dấu Biết hoặc Không Biết từ đó.</li>
+				<li>Kết quả bài kiểm tra sẽ được lưu lại khi bạn đã đăng nhập và để
+					phục vụ quá trình học.</li>
+				<li>Bạn có thể tiếp tục làm bài test tiếp theo. Độ khó của bài test
+					sẽ được tăng lên dựa theo kêt quả của bài test trước.</li>
+			</ul>
+		</g:HTML>
+		<g:Anchor ui:field="btnStartTesting" styleName="{style.MTestTool_Obj2}">Bắt Đầu</g:Anchor>
+	</g:HTMLPanel>
+</ui:UiBinder> 
