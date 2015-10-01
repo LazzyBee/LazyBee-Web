@@ -7,10 +7,12 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("dataservice")
-public interface DataService extends RemoteService{
-	
+public interface DataService extends RemoteService {
+
 	public boolean verifyVoca(String voca_q);
+
 	public Voca insertVoca(Voca voca);
+
 	public Voca findVoca(String voca_q);
 	public Voca updateVoca(Voca voca, boolean isCheck);
 //	public Integer getTotalVoca();

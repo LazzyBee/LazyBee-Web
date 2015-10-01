@@ -11,16 +11,24 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
+ 
+
 /** An endpoint class we are exposing */
+ 
 @Api(name = "dataServiceApi",
      version = "v1.1",
      title = "LazzyBee Backend Api",
      namespace = @ApiNamespace(ownerDomain = "server.gdatabase.lazzybee.born2go.com",
                                 ownerName = "server.gdatabase.lazzybee.born2go.com",
                                 packagePath=""))
+ 
 public class DataServiceApi {
-	
+
 	/** Get a vocabulary by id */
+ 
     @ApiMethod(name = "getVocaById", path="get_voca_byId")
     public Voca getVocaById(@Named("id") Long id) {
         Voca voca = ofy().load().type(Voca.class).id(id).now();
@@ -35,6 +43,7 @@ public class DataServiceApi {
 
         return voca;
     }
+ 
     
     /** Get list all of vocabulary */
     @ApiMethod(name = "listVoca")
@@ -43,6 +52,7 @@ public class DataServiceApi {
 
         return list_voca;
     }
+
     
     /** Save a vocabulary */
     @ApiMethod(name = "saveVoca")
@@ -84,5 +94,6 @@ public class DataServiceApi {
 		else
 			return false;
 	}
+
 
 }

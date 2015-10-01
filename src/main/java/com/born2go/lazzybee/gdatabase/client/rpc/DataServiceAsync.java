@@ -6,8 +6,9 @@ import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface DataServiceAsync {
-	
+
 	void verifyVoca(String voca_q, AsyncCallback<Boolean> callback);
+
 	void insertVoca(Voca voca, AsyncCallback<Voca> callback);
 	void findVoca(String voca_q, AsyncCallback<Voca> callback);
 	void updateVoca(Voca voca, boolean isCheck, AsyncCallback<Voca> callback);
@@ -18,5 +19,7 @@ public interface DataServiceAsync {
 	void removeVoca(Voca voca, AsyncCallback<Void> callback);
 	
 	void saveUser(User user, AsyncCallback<Void> callback);
+
+	 
 
 }

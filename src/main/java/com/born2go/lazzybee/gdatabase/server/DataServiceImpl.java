@@ -16,10 +16,12 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
 @SuppressWarnings("serial")
-public class DataServiceImpl extends RemoteServiceServlet implements DataService{
+public class DataServiceImpl extends RemoteServiceServlet implements
+		DataService {
 
 	/**
 	 * Insert new vocabulary
+	 * 
 	 * @return inserted vocabulary
 	 */
 	@Override
@@ -37,18 +39,21 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 
 	/**
 	 * Verify the vocabulary
-	 * @return 	<b>true</b> if voca isn't exist <br/> 
-	 * 			<b>false</b> if contrary 
+	 * 
+	 * @return <b>true</b> if voca isn't exist <br/>
+	 *         <b>false</b> if contrary
 	 */
 	@Override
 	public boolean verifyVoca(String voca_q) {
-		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q).first().now();
-		if(voca == null)
+		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q).first()
+				.now();
+		if (voca == null)
 			return true;
 		else
 			return false;
 	}
 
+ 
 	/**
 	 * Find a vocabulary by question
 	 * @return the vocabulary match the question
