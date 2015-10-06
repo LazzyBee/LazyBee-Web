@@ -11,7 +11,7 @@
 	
 	.MTestTool_Obj2 {
 		float: right;
-		background: #0e74af;
+		background: #009688;
 		padding: 10px 20px;
 		border-right: 1px silver solid;
 		color: white;

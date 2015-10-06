@@ -8,7 +8,6 @@ import com.born2go.lazzybee.client.widgets.LoginControl;
 import com.born2go.lazzybee.client.widgets.NoticeBox;
 import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.client.rpc.DataServiceAsync;
-import com.born2go.lazzybeemobile.client.MobileControler;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -35,9 +34,7 @@ public class LazzyBee implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		if (RootPanel.get("version_mobile") != null) {
-			MobileControler mobileControler = new MobileControler();
-		} else {
+ 
 			loginControl = new LoginControl();
 			menuLogin.setStyleName("header_accPro_item");
 			menuLogin.addClickHandler(new ClickHandler() {
@@ -59,9 +56,9 @@ public class LazzyBee implements EntryPoint {
 
 			ExporterUtil.exportAll();
 			onLoadImpl();
-		}
+	 
 	}
-
+	
 	private native void onLoadImpl() /*-{
 										if ($wnd.exporterOnLoad && typeof $wnd.exporterOnLoad == 'function') $wnd.exporterOnLoad();
 										}-*/;

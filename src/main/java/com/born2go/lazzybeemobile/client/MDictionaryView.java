@@ -12,6 +12,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
@@ -27,6 +28,7 @@ public class MDictionaryView extends Widget {
 	private TextBox txtSeach;
 	private Button btSearch;
 	public final DataServiceAsync dataService = GWT.create(DataService.class);
+
 	public static class DefiContainer {
 		List<String> types = new ArrayList<String>();
 		String txbMeaning_id;
@@ -84,6 +86,8 @@ public class MDictionaryView extends Widget {
 	 */
 	private void searchVoca() {
 		String voca_q = txtSeach.getText();
+		DOM.getElementById("mdic_introduction").setAttribute("style",
+				"display:none");
 		dataService.findVoca(voca_q, new AsyncCallback<Voca>() {
 
 			@Override
@@ -95,10 +99,11 @@ public class MDictionaryView extends Widget {
 			@Override
 			public void onSuccess(Voca result) {
 				RootPanel.get("gwt_contentMdic").clear();
-				if (result != null)
+				if (result != null) {
 					RootPanel.get("gwt_contentMdic").add(
 							new MVocaView().setVoca(result));
-				else
+					RootPanel.get("notfoundVoca").clear();
+				} else
 					notfoundVoca();
 
 			}

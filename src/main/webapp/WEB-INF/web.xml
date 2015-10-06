@@ -41,6 +41,16 @@
 		<servlet-name>data_service</servlet-name>
 		<url-pattern>/lazzybee/dataservice</url-pattern>
 	</servlet-mapping>
+	
+	<!-- DataStore service for mobile-->
+	<servlet>
+		<servlet-name>data_service1</servlet-name>
+		<servlet-class>com.born2go.lazzybee.gdatabase.server.DataServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>data_service1</servlet-name>
+		<url-pattern>/lazzybeemobile/dataservice</url-pattern>
+	</servlet-mapping>
 
 	<!-- DataStore service -->
 	<servlet>

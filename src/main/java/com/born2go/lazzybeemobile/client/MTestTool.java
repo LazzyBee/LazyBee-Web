@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
 import com.google.gwt.core.client.GWT;
@@ -13,8 +12,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
@@ -46,13 +43,12 @@ public class MTestTool extends Composite {
 	}
 
 	void getListTestVoca() {
-		LazzyBee.noticeBox.setLoading();
-		LazzyBee.data_service.getListVoca(null, new AsyncCallback<VocaList>() {
+		LazzyBeeMobile.noticeBox.setLoading();
+		LazzyBeeMobile.data_service.getListVoca(null, new AsyncCallback<VocaList>() {
 
 			@Override
 			public void onSuccess(VocaList result) {
-				// TODO Auto-generated method stub
-				LazzyBee.noticeBox.hide();
+				LazzyBeeMobile.noticeBox.hide();
 				if (result.getListVoca().size() >= 30)
 					startTesting(result.getListVoca().subList(0, 29));
 				else
@@ -61,8 +57,7 @@ public class MTestTool extends Composite {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				LazzyBee.noticeBox.hide();
+				LazzyBeeMobile.noticeBox.hide();
 			}
 		});
 	}

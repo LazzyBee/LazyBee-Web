@@ -129,6 +129,7 @@
 					<runTarget>/</runTarget>
 					<modules>
 						<module>com.born2go.lazzybee.LazzyBee</module>
+						<module>com.born2go.lazzybeemobile.LazzyBeeMobile</module>
 					</modules>
 					<superDevMode>true</superDevMode>
 					<compileReport>true</compileReport>
