@@ -11,11 +11,6 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
- 
-
 /** An endpoint class we are exposing */
  
 @Api(name = "dataServiceApi",
@@ -28,7 +23,6 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public class DataServiceApi {
 
 	/** Get a vocabulary by id */
- 
     @ApiMethod(name = "getVocaById", path="get_voca_byId")
     public Voca getVocaById(@Named("id") Long id) {
         Voca voca = ofy().load().type(Voca.class).id(id).now();
@@ -94,6 +88,5 @@ public class DataServiceApi {
 		else
 			return false;
 	}
-
 
 }

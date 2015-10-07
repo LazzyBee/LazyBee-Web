@@ -26,6 +26,7 @@ public class Voca implements Serializable {
 	String packages;
 	String l_en;
 	String l_vn;
+	String note;
 	
 	@Index
 	boolean isCheck = false;
@@ -98,6 +99,14 @@ public class Voca implements Serializable {
 		this.isCheck = isCheck;
 	}
 	
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		Voca v = (Voca) obj;

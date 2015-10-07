@@ -51,8 +51,8 @@ public class TestTool extends Composite {
 			public void onSuccess(VocaList result) {
 				// TODO Auto-generated method stub
 				LazzyBee.noticeBox.hide();
-				if (result.getListVoca().size() >= 30)
-					startTesting(result.getListVoca().subList(0, 29));
+				if (result.getListVoca().size() >= 20)
+					startTesting(result.getListVoca().subList(0, 20));
 				else
 					startTesting(result.getListVoca());
 			}

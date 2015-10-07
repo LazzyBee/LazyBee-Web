@@ -18,7 +18,7 @@
 	.LoginControl_Obj2 {
 		width: 200px;
 		height: 50px;
-		background: #0e74af;
+		background: #009688;
 		box-shadow: 0 4px 2px -2px gray;
 	}
 	
