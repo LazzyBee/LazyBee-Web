@@ -203,7 +203,12 @@ public class TestTool extends Composite {
 			testgood.setVisible(true);
 			testgoodlv.setText("Level: "+ testLevel);
 			lbTest1.setText("Bạn đã hoàn thành tốt bài kiểm tra!");
-			lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "+(testLevel+1)+" hoặc bắt đầu học từ Level "+(testLevel+1)+".");
+			if(testLevel+1 <= 6)
+				lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "+(testLevel+1)+" hoặc bắt đầu học từ Level "+(testLevel+1)+".");
+			else {
+				lbTest2.setText("Note: Bạn đã có một vốn tiếng anh rất xuất sắc. Bạn có thể dùng LazzyBee để ôn tập lại vốn từ của mình.");
+				btnAgainTesting.getElement().setAttribute("style", "background: silver");
+			}
 		}
 		else if(totalCheck < 15 && totalCheck >= 10) {
 			testmedium.setVisible(true);
@@ -216,7 +221,12 @@ public class TestTool extends Composite {
 			testbad.setVisible(true);
 			testbadlv.setText("Level: "+ testLevel);
 			lbTest1.setText("Bạn đã không hoàn thành tốt bài kiểm tra!");
-			lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "+(testLevel-1)+" hoặc bắt đầu học từ Level "+(testLevel-1)+".");
+			if(testLevel-1 != 0) 
+				lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "+(testLevel-1)+" hoặc bắt đầu học từ Level "+(testLevel-1)+".");
+			else {
+				lbTest2.setText("Note: Bạn nên bắt đầu học từ Level 1");
+				btnAgainTesting.getElement().setAttribute("style", "background: silver");
+			}
 		}
 	}
 
@@ -228,15 +238,19 @@ public class TestTool extends Composite {
 	@UiHandler("btnAgainTesting")
 	void onBtnAgainTestingClick(ClickEvent e) {
 		if(totalCheck >= 15) {
-			testLevel++;
-			getTestByLevel(testLevel);
+			if(testLevel+1 <= 6) {
+				testLevel++;
+				getTestByLevel(testLevel);
+			}
 		}
 		else if(totalCheck < 15 && totalCheck >= 10) {
 			
 		}
 		else {
-			testLevel--;
-			getTestByLevel(testLevel);
+			if(testLevel-1 != 0) {
+				testLevel--;
+				getTestByLevel(testLevel);
+			}	
 		}
 	}
 
