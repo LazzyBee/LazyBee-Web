@@ -1,12 +1,11 @@
 package com.born2go.lazzybee.client.subpage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.born2go.lazzybee.client.LazzyBee;
-import com.born2go.lazzybee.gdatabase.shared.Voca;
-import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
+import com.born2go.lazzybee.gdatabase.shared.nonentity.Test;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -14,7 +13,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -31,10 +29,34 @@ public class TestTool extends Composite {
 
 	@UiField
 	HTMLPanel container;
-	Label checkTotal;
+	@UiField
+	HTMLPanel htmlIntroTest;
+	@UiField
+	HTMLPanel htmlResultTest;
+	@UiField
+	HTMLPanel testgood;
+	@UiField
+	HTMLPanel testmedium;
+	@UiField
+	HTMLPanel testbad;
+	@UiField 
+	Label testgoodlv;
+	@UiField 
+	Label testmediumlv;
+	@UiField 
+	Label testbadlv;
+	@UiField 
+	Label lbTest1;
+	@UiField 
+	Label lbTest2;
+	@UiField
+	Anchor btnAgainTesting;
 	
-	private Map<Voca, Boolean> result = new HashMap<Voca, Boolean>();
-	private int totalCheck = 0;
+	Label checkTotal;
+
+	private int totalCheck = 0; // Tong so tu user biet
+	private int testLevel = 2; // Level test default khi bat dau
+	private Map<String, Boolean> testMap = new HashMap<String, Boolean>();
 
 	public TestTool() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -43,33 +65,43 @@ public class TestTool extends Composite {
 				"display: none");
 	}
 
-	void getListTestVoca() {
-		LazzyBee.noticeBox.setLoading();
-		LazzyBee.data_service.getListVoca(null, new AsyncCallback<VocaList>() {
+	private void getTestByLevel(int level) {
+		String test[] = null;
+		switch (level) {
+		case 1:
+			test = Test.TEST_LV1.split(",");
+			break;
+		case 2:
+			test = Test.TEST_LV2.split(",");
+			break;
+		case 3:
+			test = Test.TEST_LV3.split(",");
+			break;
+		case 4:
+			test = Test.TEST_LV4.split(",");
+			break;
+		case 5:
+			test = Test.TEST_LV5.split(",");
+			break;
+		case 6:
+			test = Test.TEST_LV6.split(",");
+			break;
+		default:
+			break;
+		}
 
-			@Override
-			public void onSuccess(VocaList result) {
-				// TODO Auto-generated method stub
-				LazzyBee.noticeBox.hide();
-				if (result.getListVoca().size() >= 20)
-					startTesting(result.getListVoca().subList(0, 20));
-				else
-					startTesting(result.getListVoca());
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				LazzyBee.noticeBox.hide();
-			}
-		});
+		List<String> ltest = new ArrayList<String>();
+		for (int i = 0; i <= 19; i++) {
+			ltest.add(test[i]);
+		}
+		startTesting(ltest);
 	}
 
-	void addTestVoca(HTMLPanel vocaShowPanel, final Voca v) {
-		result.put(v, false);
+	private void addTestVoca(HTMLPanel vocaShowPanel, final String v) {
+		testMap.put(v, false);
 		final HTMLPanel form = new HTMLPanel("");
-		Label vocaQ = new Label(v.getQ());
-		Label vocaLv = new Label("Lv: " + v.getLevel());
+		Label vocaQ = new Label(v);
+		Label vocaLv = new Label("Lv: "+ testLevel);
 		form.add(vocaQ);
 		form.add(vocaLv);
 		form.setStyleName("TestTool_Obj5");
@@ -80,29 +112,33 @@ public class TestTool extends Composite {
 				"font-weight: bold; color: white; margin-top: 30px");
 		vocaShowPanel.add(form);
 		Anchor btnForm = new Anchor();
-		btnForm.getElement().setAttribute("style", "position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;");
+		btnForm.getElement()
+				.setAttribute("style",
+						"position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;");
 		form.add(btnForm);
-		//-----
+		// -----
 		btnForm.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
-				if(result.get(v)) {
+				if (testMap.get(v)) {
 					form.getElement().setAttribute("style", "background: gray");
 					totalCheck--;
-				}
-				else {
-					form.getElement().setAttribute("style", "background: forestgreen");
+				} else {
+					form.getElement().setAttribute("style",
+							"background: forestgreen");
 					totalCheck++;
 				}
-				result.put(v, !result.get(v));
-				checkTotal.setText("B: " + totalCheck);
+				testMap.put(v, !testMap.get(v));
+				checkTotal.setText("B: " + totalCheck + " / 20");
 			}
 		});
 	}
 
-	void startTesting(List<Voca> listTestVoca) {
+	private void startTesting(List<String> test) {
 		container.clear();
+		totalCheck = 0;
+		testMap.clear();
 		HTMLPanel testInfoPanel = new HTMLPanel("");
 		HTMLPanel vocaShowPanel = new HTMLPanel("");
 		HTMLPanel controlPanel = new HTMLPanel("");
@@ -112,11 +148,12 @@ public class TestTool extends Composite {
 		testInfoPanel.setStyleName("TestTool_Obj1");
 		testInfoPanel.getElement().setAttribute("style",
 				"padding: 10px; overflow: hidden;");
-		Label total = new Label("Tổng: " + listTestVoca.size());
-		checkTotal = new Label("B: " + totalCheck);
+		Label total = new Label("Tổng: " + test.size() + " Từ");
+		checkTotal = new Label("B: " + totalCheck + " / 20");
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
-		checkTotal.getElement()
+		checkTotal
+				.getElement()
 				.setAttribute("style",
 						"float: right; font-weight:bold; color: forestgreen; margin-right: 0px;");
 		testInfoPanel.add(total);
@@ -134,13 +171,73 @@ public class TestTool extends Composite {
 		vocaShowPanel.getElement().setAttribute("style",
 				"text-align: center; margin-bottom:40px;");
 		// -----
-		for (Voca v : listTestVoca)
+		for (String v : test)
 			addTestVoca(vocaShowPanel, v);
+		// -----
+		btnComplete.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				getTestResult();
+			}
+		});
+		
+		btnQuit.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				container.clear();
+				container.add(htmlIntroTest);
+			}
+		});
+	}
+
+	private void getTestResult() {
+		container.clear();
+		container.add(htmlResultTest);
+		htmlResultTest.setVisible(true);
+		testgood.setVisible(false);
+		testmedium.setVisible(false);
+		testbad.setVisible(false);
+		if(totalCheck >= 15) {
+			testgood.setVisible(true);
+			testgoodlv.setText("Level: "+ testLevel);
+			lbTest1.setText("Bạn đã hoàn thành tốt bài kiểm tra!");
+			lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "+(testLevel+1)+" hoặc bắt đầu học từ Level "+(testLevel+1)+".");
+		}
+		else if(totalCheck < 15 && totalCheck >= 10) {
+			testmedium.setVisible(true);
+			testmediumlv.setText("Level: "+ testLevel);
+			lbTest1.setText("Bạn đã hoàn thành bài kiểm tra ở mức trung bình!");
+			lbTest2.setText("Note: Bạn nên bắt đầu học từ Level "+testLevel+".");
+			btnAgainTesting.getElement().setAttribute("style", "background: silver");
+		}
+		else {
+			testbad.setVisible(true);
+			testbadlv.setText("Level: "+ testLevel);
+			lbTest1.setText("Bạn đã không hoàn thành tốt bài kiểm tra!");
+			lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "+(testLevel-1)+" hoặc bắt đầu học từ Level "+(testLevel-1)+".");
+		}
 	}
 
 	@UiHandler("btnStartTesting")
 	void onBtnStartTestingClick(ClickEvent e) {
-		getListTestVoca();
+		getTestByLevel(testLevel);
+	}
+	
+	@UiHandler("btnAgainTesting")
+	void onBtnAgainTestingClick(ClickEvent e) {
+		if(totalCheck >= 15) {
+			testLevel++;
+			getTestByLevel(testLevel);
+		}
+		else if(totalCheck < 15 && totalCheck >= 10) {
+			
+		}
+		else {
+			testLevel--;
+			getTestByLevel(testLevel);
+		}
 	}
 
 }

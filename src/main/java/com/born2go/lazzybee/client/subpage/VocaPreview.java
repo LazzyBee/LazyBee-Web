@@ -195,6 +195,7 @@ public class VocaPreview extends Composite {
 		d.setStyleName("VocaPreview_Obj10");
 		d.setAutoHideEnabled(true);
 		d.setGlassEnabled(true);
+		d.setAnimationEnabled(true);
 		ScrollPanel sc = new ScrollPanel();
 		sc.getElement().setAttribute("style", "overflow-x: hidden; padding: 20px; height: 500px; padding-right: 80px; padding-top: 0px; padding-left: 60px");
 		VocaEditorTool editor = new VocaEditorTool();
