@@ -11,7 +11,7 @@
 	
 	.TestTool_Obj2 {
 		float: right;
-		background: #0e74af;
+		background: #009688;
 		padding: 10px 20px;
 		border-right: 1px silver solid;
 		color: white;
@@ -73,21 +73,66 @@
 	.TestTool_Obj5:hover {
 		background: tomato;
 	}
+	
+	.TestTool_Obj6 {
+		margin-right: 10px;
+		background: silver !important;
+	}
 	</ui:style>
 	<g:HTMLPanel width="600px" ui:field="container">
-		<g:HTML styleName="{style.TestTool_Obj1}">
-			<span style="font-weight: bold">Bài kiểm tra này sẽ giúp các bạn test vốn từ của
-				mình để tránh việc gặp lại nhiều từ đã biết trong quá trình học. Nội
-				dung bài kiểm tra như sau:</span>
-			<ul style="width: 90%; line-height: 1.6">
-				<li>Bài kiểm tra này sẽ cho bạn một số từ dựa theo level, bạn chỉ
-					cần đánh dấu Biết hoặc Không Biết từ đó.</li>
-				<li>Kết quả bài kiểm tra sẽ được lưu lại khi bạn đã đăng nhập và để
-					phục vụ quá trình học.</li>
-				<li>Bạn có thể tiếp tục làm bài test tiếp theo. Độ khó của bài test
-					sẽ được tăng lên dựa theo kêt quả của bài test trước.</li>
-			</ul>
-		</g:HTML>
-		<g:Anchor ui:field="btnStartTesting" styleName="{style.TestTool_Obj2}">Bắt Đầu</g:Anchor>
+		<g:HTMLPanel ui:field="htmlIntroTest" visible="true">
+			<g:HTML styleName="{style.TestTool_Obj1}">
+				<span style="font-weight: bold">Bài kiểm tra này sẽ giúp các bạn test vốn từ của
+					mình để tránh việc gặp lại nhiều từ đã biết trong quá trình học.
+					Nội
+					dung bài kiểm tra như sau:</span>
+				<ul style="width: 90%; line-height: 1.6">
+					<li>Bài kiểm tra này sẽ cho bạn một số từ dựa theo Level, bạn chỉ
+						cần click vào những từ nào đã biết.</li>
+					<li>Bạn có thể tiếp tục làm bài test tiếp theo. Độ khó của bài test
+						sẽ được tăng hoặc giảm dựa theo kết quả của bài test trước.</li>
+					<li>Kết quả bài kiểm tra sẽ được lưu lại khi bạn đã đăng nhập và để
+						phục vụ quá trình học.</li>
+				</ul>
+			</g:HTML>
+			<g:Anchor ui:field="btnStartTesting" styleName="{style.TestTool_Obj2}">Bắt Đầu</g:Anchor>
+		</g:HTMLPanel>
+
+		<g:HTMLPanel ui:field="htmlResultTest" visible="false">
+			<g:HTMLPanel styleName="{style.TestTool_Obj1}">
+				<g:HTMLPanel ui:field="testgood" visible="false">
+					<i class="fa fa-check" style="color: green; font-size: 24px; margin-bottom: 20px;"> Good</i>
+					<div
+						style="float: right; font-size: 16px; font-weight: bold; margin-top: 4px;">
+						<g:Label ui:field="testgoodlv">Level: 1</g:Label>
+					</div>
+				</g:HTMLPanel>
+				<g:HTMLPanel ui:field="testmedium" visible="true">
+					<i class="fa fa-exclamation" style="color: #D4E157; font-size: 24px; margin-bottom: 20px;"> Medium</i>
+					<div
+						style="float: right; font-size: 16px; font-weight: bold; margin-top: 4px;">
+						<g:Label ui:field="testmediumlv">Level: 1</g:Label>
+					</div>
+				</g:HTMLPanel>
+				<g:HTMLPanel ui:field="testbad" visible="false">
+					<i class="fa fa-times" style="color: red; font-size: 24px; margin-bottom: 20px;"> Bad</i>
+					<div
+						style="float: right; font-size: 16px; font-weight: bold; margin-top: 4px;">
+						<g:Label ui:field="testbadlv">Level: 1</g:Label>
+					</div>
+				</g:HTMLPanel>
+				<div style="font-weight: bold;">
+					<g:Label ui:field="lbTest1">Bạn đã hoàn thành bài kiểm tra!</g:Label>
+				</div>
+				<br />
+				<g:Label ui:field="lbTest2">Bạn có thể tiếp tục làm bài test khác hoặc
+					bắt đầu học ở level này.</g:Label>
+			</g:HTMLPanel>
+			<g:Anchor ui:field="btnAgainTesting" styleName="{style.TestTool_Obj2}">Tiếp Tục</g:Anchor>
+			<g:Anchor styleName="{style.TestTool_Obj2} {style.TestTool_Obj6}">
+				<i class="fa fa-share-alt fa-lg" style="margin-right: 10px;"></i>
+				Share Kết Quả
+			</g:Anchor>
+		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -87,7 +87,7 @@
 	
 	.VocaPreview_Obj10 {
 		background: white;	
-		border: 15px solid silver;
+		border: 15px solid rgba(0, 150, 136, 0.8);
 		box-shadow: 2px 3px 5px #999;
 	}
 	</ui:style>

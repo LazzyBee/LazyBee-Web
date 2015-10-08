@@ -4,7 +4,7 @@
 	<ui:style>
 	@external .VocaEditorTool_Obj2, .VocaEditorTool_Obj3, .VocaEditorTool_Obj4, .VocaEditorTool_Obj5, .VocaEditorTool_Obj6, .VocaEditorTool_Obj10, .VocaEditorTool_Obj11;
 	.VocaEditorTool_Obj1 {
-		background: #0e74af;
+		background: #009688;
 		padding: 7px 15px;
 		border: 1px silver solid;
 		color: white;

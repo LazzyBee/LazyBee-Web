@@ -165,7 +165,7 @@ public class DictionaryTool extends Composite {
 		searchBox.getElement().setAttribute("placeholder", "Tìm từ vựng");
 		Anchor searchButton = new Anchor();
 		searchButton.getElement().setInnerHTML("<i class='fa fa-search fa-lg' style='margin-top: 12px; margin-left: 20px;'></i>");
-		searchButton.getElement().setAttribute("style", "float: left; width: 60px; height: 100%; background: #0e74af; color: white; cursor: pointer;");
+		searchButton.getElement().setAttribute("style", "float: left; width: 60px; height: 100%; background: #009688; color: white; cursor: pointer;");
 		hor.add(searchBox);
 		hor.add(searchButton);
 		RootPanel.get("wt_search_tool").add(hor);

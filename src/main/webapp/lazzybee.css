@@ -3,7 +3,7 @@ body {
 }
 
 #header {
-	background: #0e74af;
+	background: #009688;
 	height: 40px;
 }
 
@@ -100,9 +100,7 @@ body {
 
 .slidebar {
 	float: left;
-	width: 30%;
-	min-width: 270px;
-	max-width: 280px;
+	width: 330px;
 }
 
 .content{

@@ -6,7 +6,7 @@
 	.DictionaryTool_Obj1 {
 		float: left;
 		width: 100%;
-		background: #0e74af;
+		background: #009688;
 		text-align: center;
 		position: relative;
 	}
@@ -37,7 +37,7 @@
 	}
 	
 	.DictionaryTool_Obj5 {
-		color: silver !important;
+		color: rgb(234, 253, 116) !important;
 	}
 	
 	.DictionaryTool_Obj6 {
