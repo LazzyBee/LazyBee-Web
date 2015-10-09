@@ -15,7 +15,7 @@
 		padding: 10px 20px;
 		border-right: 1px silver solid;
 		color: white;
-		margin-top: 10px;
+		margin-top: 20px;
 	}
 	
 	.TestTool_Obj2:hover {
@@ -78,6 +78,14 @@
 		margin-right: 10px;
 		background: silver !important;
 	}
+	
+	.TestTool_Obj7 {
+		overflow: hidden;
+	}
+	
+	.TestTool_Obj8 {
+		margin-right: 10px;
+	}
 	</ui:style>
 	<g:HTMLPanel width="600px" ui:field="container">
 		<g:HTMLPanel ui:field="htmlIntroTest" visible="true">
@@ -100,22 +108,25 @@
 
 		<g:HTMLPanel ui:field="htmlResultTest" visible="false">
 			<g:HTMLPanel styleName="{style.TestTool_Obj1}">
-				<g:HTMLPanel ui:field="testgood" visible="false">
-					<i class="fa fa-check" style="color: green; font-size: 24px; margin-bottom: 20px;"> Good</i>
+				<g:HTMLPanel styleName="{style.TestTool_Obj7}" ui:field="testgood" visible="false">
+					<!-- <i class="fa fa-check" style="color: green; font-size: 24px; margin-bottom: 20px;"> Good</i> -->
+					<div style="float:left; color: green; font-size: 24px; margin-bottom: 15px;"><g:Label ui:field="resultTestGood"></g:Label></div>
 					<div
 						style="float: right; font-size: 16px; font-weight: bold; margin-top: 4px;">
 						<g:Label ui:field="testgoodlv">Level: 1</g:Label>
 					</div>
 				</g:HTMLPanel>
-				<g:HTMLPanel ui:field="testmedium" visible="true">
-					<i class="fa fa-exclamation" style="color: #D4E157; font-size: 24px; margin-bottom: 20px;"> Medium</i>
+				<g:HTMLPanel styleName="{style.TestTool_Obj7}" ui:field="testmedium" visible="true">
+					<!-- <i class="fa fa-exclamation" style="color: #D4E157; font-size: 24px; margin-bottom: 20px;"> Medium</i> -->
+					<div style="float:left; color: #D4E157; font-size: 24px; margin-bottom: 15px;"><g:Label ui:field="resultTestMedium"></g:Label></div>
 					<div
 						style="float: right; font-size: 16px; font-weight: bold; margin-top: 4px;">
 						<g:Label ui:field="testmediumlv">Level: 1</g:Label>
 					</div>
 				</g:HTMLPanel>
-				<g:HTMLPanel ui:field="testbad" visible="false">
-					<i class="fa fa-times" style="color: red; font-size: 24px; margin-bottom: 20px;"> Bad</i>
+				<g:HTMLPanel styleName="{style.TestTool_Obj7}" ui:field="testbad" visible="false">
+					<!-- <i class="fa fa-times" style="color: red; font-size: 24px; margin-bottom: 20px;"> Bad</i> -->
+					<div style="float:left; color: red; font-size: 24px; margin-bottom: 15px;"><g:Label ui:field="resultTestBad"></g:Label></div>
 					<div
 						style="float: right; font-size: 16px; font-weight: bold; margin-top: 4px;">
 						<g:Label ui:field="testbadlv">Level: 1</g:Label>
@@ -128,7 +139,8 @@
 				<g:Label ui:field="lbTest2">Bạn có thể tiếp tục làm bài test khác hoặc
 					bắt đầu học ở level này.</g:Label>
 			</g:HTMLPanel>
-			<g:Anchor ui:field="btnAgainTesting" styleName="{style.TestTool_Obj2}">Tiếp Tục</g:Anchor>
+			<g:Anchor ui:field="btnNextTesting" styleName="{style.TestTool_Obj2}">Tiếp Tục</g:Anchor>
+			<g:Anchor ui:field="btnAgainTesting" styleName="{style.TestTool_Obj2} {style.TestTool_Obj8}">Test Lại</g:Anchor>
 			<g:Anchor styleName="{style.TestTool_Obj2} {style.TestTool_Obj6}">
 				<i class="fa fa-share-alt fa-lg" style="margin-right: 10px;"></i>
 				Share Kết Quả
