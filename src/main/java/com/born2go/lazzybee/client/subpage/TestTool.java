@@ -13,6 +13,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -39,24 +40,34 @@ public class TestTool extends Composite {
 	HTMLPanel testmedium;
 	@UiField
 	HTMLPanel testbad;
-	@UiField 
+	@UiField
 	Label testgoodlv;
-	@UiField 
+	@UiField
 	Label testmediumlv;
-	@UiField 
+	@UiField
 	Label testbadlv;
-	@UiField 
+	@UiField
 	Label lbTest1;
-	@UiField 
+	@UiField
 	Label lbTest2;
 	@UiField
+	Label resultTestGood;
+	@UiField
+	Label resultTestMedium;
+	@UiField
+	Label resultTestBad;
+	@UiField
 	Anchor btnAgainTesting;
-	
+	@UiField
+	Anchor btnNextTesting;
+
 	Label checkTotal;
 
 	private int totalCheck = 0; // Tong so tu user biet
 	private int testLevel = 2; // Level test default khi bat dau
 	private Map<String, Boolean> testMap = new HashMap<String, Boolean>();
+
+	private int current_random;
 
 	public TestTool() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -67,24 +78,29 @@ public class TestTool extends Composite {
 
 	private void getTestByLevel(int level) {
 		String test[] = null;
+		int test_index = Random.nextInt(10);
+		while (test_index == current_random) {
+			test_index = Random.nextInt(10);
+		}
+		current_random = test_index;
 		switch (level) {
 		case 1:
-			test = Test.TEST_LV1.split(",");
+			test = Test.getTestLv1()[test_index].split(",");
 			break;
 		case 2:
-			test = Test.TEST_LV2.split(",");
+			test = Test.getTestLv2()[test_index].split(",");
 			break;
 		case 3:
-			test = Test.TEST_LV3.split(",");
+			test = Test.getTestLv3()[test_index].split(",");
 			break;
 		case 4:
-			test = Test.TEST_LV4.split(",");
+			test = Test.getTestLv4()[test_index].split(",");
 			break;
 		case 5:
-			test = Test.TEST_LV5.split(",");
+			test = Test.getTestLv5()[test_index].split(",");
 			break;
 		case 6:
-			test = Test.TEST_LV6.split(",");
+			test = Test.getTestLv6()[test_index].split(",");
 			break;
 		default:
 			break;
@@ -101,13 +117,14 @@ public class TestTool extends Composite {
 		testMap.put(v, false);
 		final HTMLPanel form = new HTMLPanel("");
 		Label vocaQ = new Label(v);
-		Label vocaLv = new Label("Lv: "+ testLevel);
+		Label vocaLv = new Label("Lv: " + testLevel);
 		form.add(vocaQ);
 		form.add(vocaLv);
 		form.setStyleName("TestTool_Obj5");
 		vocaQ.getElement()
-				.setAttribute("style",
-						"float: left; display: block; font-size: 14px; font-weight: bold; color: aqua");
+				.setAttribute(
+						"style",
+						"float: left; display: block; font-size: 14px; font-weight: bold; color: #eafd74");
 		vocaLv.getElement().setAttribute("style",
 				"font-weight: bold; color: white; margin-top: 30px");
 		vocaShowPanel.add(form);
@@ -175,13 +192,13 @@ public class TestTool extends Composite {
 			addTestVoca(vocaShowPanel, v);
 		// -----
 		btnComplete.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				getTestResult();
 			}
 		});
-		
+
 		btnQuit.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -199,33 +216,47 @@ public class TestTool extends Composite {
 		testgood.setVisible(false);
 		testmedium.setVisible(false);
 		testbad.setVisible(false);
-		if(totalCheck >= 15) {
+		if (totalCheck >= 15) {
 			testgood.setVisible(true);
-			testgoodlv.setText("Level: "+ testLevel);
+			testgoodlv.setText("Level: " + testLevel);
+			resultTestGood.setText(totalCheck + " / 20");
 			lbTest1.setText("Bạn đã hoàn thành tốt bài kiểm tra!");
-			if(testLevel+1 <= 6)
-				lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "+(testLevel+1)+" hoặc bắt đầu học từ Level "+(testLevel+1)+".");
-			else {
+			if (testLevel + 1 <= 6) {
+				lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "
+						+ (testLevel + 1) + " hoặc bắt đầu học từ Level "
+						+ (testLevel + 1) + ".");
+				btnNextTesting.setText("Tiếp Tục - Lv " + (testLevel + 1));
+				btnNextTesting.getElement().setAttribute("style", "");
+			} else {
 				lbTest2.setText("Note: Bạn đã có một vốn tiếng anh rất xuất sắc. Bạn có thể dùng LazzyBee để ôn tập lại vốn từ của mình.");
-				btnAgainTesting.getElement().setAttribute("style", "background: silver");
+				btnNextTesting.getElement().setAttribute("style",
+						"background: silver");
 			}
-		}
-		else if(totalCheck < 15 && totalCheck >= 10) {
+		} else if (totalCheck < 15 && totalCheck >= 10) {
 			testmedium.setVisible(true);
-			testmediumlv.setText("Level: "+ testLevel);
+			testmediumlv.setText("Level: " + testLevel);
+			resultTestMedium.setText(totalCheck + " / 20");
 			lbTest1.setText("Bạn đã hoàn thành bài kiểm tra ở mức trung bình!");
-			lbTest2.setText("Note: Bạn nên bắt đầu học từ Level "+testLevel+".");
-			btnAgainTesting.getElement().setAttribute("style", "background: silver");
-		}
-		else {
+			lbTest2.setText("Note: Bạn nên bắt đầu học từ Level " + testLevel
+					+ ".");
+			btnNextTesting.setText("Tiếp Tục");
+			btnNextTesting.getElement().setAttribute("style",
+					"background: silver");
+		} else {
 			testbad.setVisible(true);
-			testbadlv.setText("Level: "+ testLevel);
+			testbadlv.setText("Level: " + testLevel);
+			resultTestBad.setText(totalCheck + " / 20");
 			lbTest1.setText("Bạn đã không hoàn thành tốt bài kiểm tra!");
-			if(testLevel-1 != 0) 
-				lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "+(testLevel-1)+" hoặc bắt đầu học từ Level "+(testLevel-1)+".");
-			else {
+			if (testLevel - 1 != 0) {
+				lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "
+						+ (testLevel - 1) + " hoặc bắt đầu học từ Level "
+						+ (testLevel - 1) + ".");
+				btnNextTesting.setText("Tiếp Tục - Lv " + (testLevel - 1));
+				btnNextTesting.getElement().setAttribute("style", "");
+			} else {
 				lbTest2.setText("Note: Bạn nên bắt đầu học từ Level 1");
-				btnAgainTesting.getElement().setAttribute("style", "background: silver");
+				btnNextTesting.getElement().setAttribute("style",
+						"background: silver");
 			}
 		}
 	}
@@ -234,23 +265,26 @@ public class TestTool extends Composite {
 	void onBtnStartTestingClick(ClickEvent e) {
 		getTestByLevel(testLevel);
 	}
-	
+
 	@UiHandler("btnAgainTesting")
 	void onBtnAgainTestingClick(ClickEvent e) {
-		if(totalCheck >= 15) {
-			if(testLevel+1 <= 6) {
+		getTestByLevel(testLevel);
+	}
+
+	@UiHandler("btnNextTesting")
+	void onBtnNextTestingClick(ClickEvent e) {
+		if (totalCheck >= 15) {
+			if (testLevel + 1 <= 6) {
 				testLevel++;
 				getTestByLevel(testLevel);
 			}
-		}
-		else if(totalCheck < 15 && totalCheck >= 10) {
-			
-		}
-		else {
-			if(testLevel-1 != 0) {
+		} else if (totalCheck < 15 && totalCheck >= 10) {
+
+		} else {
+			if (testLevel - 1 != 0) {
 				testLevel--;
 				getTestByLevel(testLevel);
-			}	
+			}
 		}
 	}
 
