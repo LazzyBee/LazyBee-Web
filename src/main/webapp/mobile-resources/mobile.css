@@ -115,7 +115,7 @@ h1 {
 #menu ul {
 	left: 0;
 	font-size: 20px;
-	background-color:#80CBC4;
+	background-color: #80CBC4;
 	position: absolute;
 	right: -10px;
 	top: 40px;
@@ -348,6 +348,37 @@ a {
 }
 
 @media ( min-width : 768px) {
+	.left_header {
+		width: 5%;
+		font-size: 1.3em;
+		padding-top: 12px;
+	}
+	.right_header {
+		width: 93%;
+	}
+	.btsearch {
+		margin-top: 5px;
+		font-size: 1.2em;
+		margin-left: 13px;
+	}
+	#inputsearch {
+		width: 92%;
+	}
+	.table-cell {
+		height: 70px;
+		width: 200px;
+		font-size: 17px;
+	}
+	.skill-table {
+		border-spacing: 40px 20px;
+	}
+	.mainMTestTool {
+		width: 590px;
+	}
+	.MTestTool_Obj5 {
+		width: 130px;
+		margin: 10px 10px;
+	}
 }
 
 .VocaEditorTool_Obj1 {
@@ -438,6 +469,7 @@ a {
 .VocaEditorTool_Obj12 {
 	padding-bottom: 30px;
 }
-.table-app{
+
+.table-app {
 	margin: auto;
 }

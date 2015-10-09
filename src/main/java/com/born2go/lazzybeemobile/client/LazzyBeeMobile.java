@@ -17,7 +17,7 @@ public class LazzyBeeMobile implements EntryPoint {
 		if (RootPanel.get("gwt_header_mdic") != null) {
 			MDictionaryView m = new MDictionaryView();
 		} else if (RootPanel.get("gwt_contentMTestTool") != null) {
-			MTestTool testTool = new MTestTool();
+			MMTestTool testTool = new MMTestTool();
 			RootPanel.get("gwt_contentMTestTool").add(testTool);
 		}
 	}

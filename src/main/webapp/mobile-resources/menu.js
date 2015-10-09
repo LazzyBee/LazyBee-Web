@@ -1,6 +1,14 @@
 $(function() {
+	$('html').click(function(e) {
+		$('#menu').css({
+			'display' : 'none'
+		});
+		menuVisible = false;
+		return;
+	})
 	var menuVisible = false;
-	$('#menuBtn').click(function() {
+	$('#menuBtn').click(function(e) {
+		e.stopPropagation();
 		if (menuVisible) {
 			$('#menu').css({
 				'display' : 'none'
