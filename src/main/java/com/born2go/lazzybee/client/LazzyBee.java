@@ -63,7 +63,7 @@ public class LazzyBee implements EntryPoint {
 	}
 
 	private native void onLoadImpl() /*-{
-										if ($wnd.exporterOnLoad && typeof $wnd.exporterOnLoad == 'function') $wnd.exporterOnLoad();
-										}-*/;
+		if ($wnd.exporterOnLoad && typeof $wnd.exporterOnLoad == 'function') $wnd.exporterOnLoad();
+	}-*/;
 
 }

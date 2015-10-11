@@ -90,17 +90,17 @@
 	<g:HTMLPanel width="600px" ui:field="container">
 		<g:HTMLPanel ui:field="htmlIntroTest" visible="true">
 			<g:HTML styleName="{style.TestTool_Obj1}">
-				<span style="font-weight: bold">Bài kiểm tra này sẽ giúp các bạn test vốn từ của
-					mình để tránh việc gặp lại nhiều từ đã biết trong quá trình học.
-					Nội
-					dung bài kiểm tra như sau:</span>
+				<span style="font-weight: bold">Bài TỰ kiểm tra này sẽ giúp các bạn kiểm tra vốn từ
+					của mình để chọn level tối ưu nhất, tránh việc gặp nhiều từ đã biết
+					cũng như gặp các từ quá khó so với trình độ của mình. Nội dung bài
+					kiểm tra như sau:</span>
 				<ul style="width: 90%; line-height: 1.6">
 					<li>Bài kiểm tra này sẽ cho bạn một số từ dựa theo Level, bạn chỉ
 						cần click vào những từ nào đã biết.</li>
 					<li>Bạn có thể tiếp tục làm bài test tiếp theo. Độ khó của bài test
 						sẽ được tăng hoặc giảm dựa theo kết quả của bài test trước.</li>
-					<li>Kết quả bài kiểm tra sẽ được lưu lại khi bạn đã đăng nhập và để
-						phục vụ quá trình học.</li>
+					<li>Dựa vào kết quả kiểm tra, bạn chọn level tương ứng trong phần
+						setting của ứng dụng LazzyBee trên mobile và bắt đầu học</li>
 				</ul>
 			</g:HTML>
 			<g:Anchor ui:field="btnStartTesting" styleName="{style.TestTool_Obj2}">Bắt Đầu</g:Anchor>
@@ -108,25 +108,40 @@
 
 		<g:HTMLPanel ui:field="htmlResultTest" visible="false">
 			<g:HTMLPanel styleName="{style.TestTool_Obj1}">
-				<g:HTMLPanel styleName="{style.TestTool_Obj7}" ui:field="testgood" visible="false">
-					<!-- <i class="fa fa-check" style="color: green; font-size: 24px; margin-bottom: 20px;"> Good</i> -->
-					<div style="float:left; color: green; font-size: 24px; margin-bottom: 15px;"><g:Label ui:field="resultTestGood"></g:Label></div>
+				<g:HTMLPanel styleName="{style.TestTool_Obj7}" ui:field="testgood"
+					visible="false">
+					<!-- <i class="fa fa-check" style="color: green; font-size: 24px; margin-bottom: 
+						20px;"> Good</i> -->
+					<div
+						style="float:left; color: green; font-size: 24px; margin-bottom: 15px;">
+						<g:Label ui:field="resultTestGood"></g:Label>
+					</div>
 					<div
 						style="float: right; font-size: 16px; font-weight: bold; margin-top: 4px;">
 						<g:Label ui:field="testgoodlv">Level: 1</g:Label>
 					</div>
 				</g:HTMLPanel>
-				<g:HTMLPanel styleName="{style.TestTool_Obj7}" ui:field="testmedium" visible="true">
-					<!-- <i class="fa fa-exclamation" style="color: #D4E157; font-size: 24px; margin-bottom: 20px;"> Medium</i> -->
-					<div style="float:left; color: #D4E157; font-size: 24px; margin-bottom: 15px;"><g:Label ui:field="resultTestMedium"></g:Label></div>
+				<g:HTMLPanel styleName="{style.TestTool_Obj7}" ui:field="testmedium"
+					visible="true">
+					<!-- <i class="fa fa-exclamation" style="color: #D4E157; font-size: 
+						24px; margin-bottom: 20px;"> Medium</i> -->
+					<div
+						style="float:left; color: #D4E157; font-size: 24px; margin-bottom: 15px;">
+						<g:Label ui:field="resultTestMedium"></g:Label>
+					</div>
 					<div
 						style="float: right; font-size: 16px; font-weight: bold; margin-top: 4px;">
 						<g:Label ui:field="testmediumlv">Level: 1</g:Label>
 					</div>
 				</g:HTMLPanel>
-				<g:HTMLPanel styleName="{style.TestTool_Obj7}" ui:field="testbad" visible="false">
-					<!-- <i class="fa fa-times" style="color: red; font-size: 24px; margin-bottom: 20px;"> Bad</i> -->
-					<div style="float:left; color: red; font-size: 24px; margin-bottom: 15px;"><g:Label ui:field="resultTestBad"></g:Label></div>
+				<g:HTMLPanel styleName="{style.TestTool_Obj7}" ui:field="testbad"
+					visible="false">
+					<!-- <i class="fa fa-times" style="color: red; font-size: 24px; margin-bottom: 
+						20px;"> Bad</i> -->
+					<div
+						style="float:left; color: red; font-size: 24px; margin-bottom: 15px;">
+						<g:Label ui:field="resultTestBad"></g:Label>
+					</div>
 					<div
 						style="float: right; font-size: 16px; font-weight: bold; margin-top: 4px;">
 						<g:Label ui:field="testbadlv">Level: 1</g:Label>
@@ -140,7 +155,8 @@
 					bắt đầu học ở level này.</g:Label>
 			</g:HTMLPanel>
 			<g:Anchor ui:field="btnNextTesting" styleName="{style.TestTool_Obj2}">Tiếp Tục</g:Anchor>
-			<g:Anchor ui:field="btnAgainTesting" styleName="{style.TestTool_Obj2} {style.TestTool_Obj8}">Test Lại</g:Anchor>
+			<g:Anchor ui:field="btnAgainTesting"
+				styleName="{style.TestTool_Obj2} {style.TestTool_Obj8}">Test Lại</g:Anchor>
 			<g:Anchor styleName="{style.TestTool_Obj2} {style.TestTool_Obj6}">
 				<i class="fa fa-share-alt fa-lg" style="margin-right: 10px;"></i>
 				Share Kết Quả

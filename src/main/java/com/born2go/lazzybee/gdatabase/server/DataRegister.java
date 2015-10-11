@@ -1,7 +1,5 @@
 package com.born2go.lazzybee.gdatabase.server;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaPreview;

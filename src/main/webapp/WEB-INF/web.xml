@@ -8,8 +8,12 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>flashcards.html</welcome-file>
-		<welcome-file>library.html</welcome-file>
+		<welcome-file>vdict.html</welcome-file>
+		<welcome-file>test.html</welcome-file>
 		<welcome-file>editor.html</welcome-file>
+		<welcome-file>dictionary.html</welcome-file>
+		<welcome-file>preview.html</welcome-file>
+		
 		<welcome-file>mdictionary.html</welcome-file>
 		<welcome-file>mhome.html</welcome-file>
 		<welcome-file>mtesttool.html</welcome-file>

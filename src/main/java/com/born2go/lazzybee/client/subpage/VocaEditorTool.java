@@ -253,7 +253,7 @@ public class VocaEditorTool extends Composite {
 							if(!result) {
 								txbVocaDefi.getElement().setAttribute("style", "border: 1px solid red;");
 								LazzyBee.noticeBox.setNotice("");
-								LazzyBee.noticeBox.setRichNotice("- " + txbVocaDefi.getText() + " - Đã có trong từ điển", "/library/#dictionary/"+txbVocaDefi.getText(), "/editor/#vocabulary/"+txbVocaDefi.getText());
+								LazzyBee.noticeBox.setRichNotice("- " + txbVocaDefi.getText() + " - Đã có trong từ điển", "/vdict/#"+txbVocaDefi.getText(), "/editor/#vocabulary/"+txbVocaDefi.getText());
 							}
 							else {
 								txbVocaDefi.getElement().setAttribute("style", "border: 1px solid #b6b6b6;");
@@ -899,10 +899,10 @@ public class VocaEditorTool extends Composite {
 					if(result != null) {
 						formClean();
 						DOM.getElementById("content").setScrollTop(0);
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được thêm vào từ điển", "/library/#dictionary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được thêm vào từ điển", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					} 
 					else {
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã có trong từ điển", "/library/#dictionary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã có trong từ điển", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 				}
 				
@@ -933,10 +933,10 @@ public class VocaEditorTool extends Composite {
 						else
 							if(listener != null)
 								listener.onApproval(result);
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/library/#dictionary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 					else {
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - cập nhật thất bại", "/library/#dictionary/" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - cập nhật thất bại", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 				}
 				

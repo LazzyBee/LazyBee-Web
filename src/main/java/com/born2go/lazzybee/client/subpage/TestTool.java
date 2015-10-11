@@ -166,14 +166,19 @@ public class TestTool extends Composite {
 		testInfoPanel.getElement().setAttribute("style",
 				"padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + test.size() + " Từ");
+		Label info = new Label("(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết)");
 		checkTotal = new Label("B: " + totalCheck + " / 20");
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
+		info.getElement()
+				.setAttribute("style",
+						"float: left;margin-left: 20px;color: #009688;font-weight: bold;");
 		checkTotal
 				.getElement()
 				.setAttribute("style",
 						"float: right; font-weight:bold; color: forestgreen; margin-right: 0px;");
 		testInfoPanel.add(total);
+		testInfoPanel.add(info);
 		testInfoPanel.add(checkTotal);
 		Anchor btnComplete = new Anchor("Hoàn Thành");
 		Anchor btnQuit = new Anchor("Dừng Bài Test");
