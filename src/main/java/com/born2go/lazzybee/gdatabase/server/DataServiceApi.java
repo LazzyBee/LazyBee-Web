@@ -10,6 +10,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
+import com.google.api.server.spi.response.NotFoundException;
 
 /** An endpoint class we are exposing */
  
@@ -24,18 +25,27 @@ public class DataServiceApi {
 
 	/** Get a vocabulary by id */
     @ApiMethod(name = "getVocaById", path="get_voca_byId")
-    public Voca getVocaById(@Named("id") Long id) {
+    public Voca getVocaById(@Named("id") Long id) throws NotFoundException {
         Voca voca = ofy().load().type(Voca.class).id(id).now();
-
-        return voca;
+        if(voca == null) {
+        	String message = "No entity exists with ID: " + id;
+        	throw new NotFoundException(message);
+        }
+        else
+        	return voca;
     }
     
-    /** Get a vocabulary by question */
+    /** Get a vocabulary by question 
+     * @throws NotFoundException */
     @ApiMethod(name = "getVocaByQ", path="get_voca_byQ")
-    public Voca getVocaByQ(@Named("q") String q) {
+    public Voca getVocaByQ(@Named("q") String q) throws NotFoundException {
         Voca voca = ofy().load().type(Voca.class).filter("q", q).first().now();
-
-        return voca;
+        if(voca == null) {
+        	String message = "No entity exists with question: " + q;
+        	throw new NotFoundException(message);
+        }
+        else
+        	return voca;
     }
  
     
