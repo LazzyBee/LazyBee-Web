@@ -176,15 +176,16 @@ public class MTestTool extends Composite {
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
 		info.getElement()
-				.setAttribute("style",
-						"float: left;margin-left: 20px;color: #009688;font-weight: bold;");
+				.setAttribute(
+						"style",
+						"margin-left: 20px;color: #009688;font-weight: bold;margin-top: 25px; text-align: center;");
 		checkTotal
 				.getElement()
 				.setAttribute("style",
 						"float: right; font-weight:bold; color: forestgreen; margin-right: 0px;");
 		testInfoPanel.add(total);
-		testInfoPanel.add(info);
 		testInfoPanel.add(checkTotal);
+		testInfoPanel.add(info);
 		Anchor btnComplete = new Anchor("Hoàn Thành");
 		Anchor btnQuit = new Anchor("Dừng Bài Test");
 		controlPanel.add(btnComplete);

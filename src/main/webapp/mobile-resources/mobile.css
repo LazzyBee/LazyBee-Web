@@ -22,26 +22,18 @@ body {
 .header {
 	height: 40px;
 	width: 98%;
-	display: inline-flex;
 	background: #009688;
 	box-shadow: 0 0 3px #009688;
 	padding: 2px 1%;
+	position: relative;
 }
 
-/* .footer {
-	font-weight: bold;
-	padding-top: 10px;
-	height: 25px;
-	width: 100%;
-	text-align: center;
-	background-color: #009688;
-	color: white;
-} */
 .left_header {
 	width: 10%;
 	padding-top: 15px;
 	padding-left: 6px;
 	padding-right: 4px;
+	float: left;
 }
 
 .right_header {
@@ -52,6 +44,7 @@ body {
 	box-shadow: 0 0 3px rgba(252, 250, 250, 0.7);
 	margin-top: 5px;
 	display: flex;
+	float: left;
 }
 
 #inputsearch {
@@ -59,6 +52,7 @@ body {
 	border: none;
 	margin-left: 10px;
 	width: 90%;
+	float: left;
 }
 
 input#txt_valueSearch {
@@ -71,7 +65,8 @@ input#txt_valueSearch {
 
 .btsearch {
 	margin-top: 5px;
-	margin-right: 10px;
+	position: absolute;
+	right: 15px;
 }
 
 button.fa.fa-search {
@@ -208,9 +203,13 @@ a {
 
 .actionForm {
 	width: 100%;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+#mdic_introduction {
+	margin-top: 50px;
 }
 
 #notfoundVoca {
@@ -231,6 +230,9 @@ a {
 		width: 90px;
 		margin: 10px 5px;
 	}
+	#inputsearch {
+		width: 90%;
+	}
 }
 
 @media ( min-width : 320px) and (max-width: 420px) {
@@ -244,7 +246,6 @@ a {
 	.btsearch {
 		margin-top: 5px;
 		font-size: 1.2em;
-		margin-left: 10px;
 	}
 	.mainMTestTool {
 		width: 300px;
@@ -252,6 +253,9 @@ a {
 	.MTestTool_Obj5 {
 		width: 90px;
 		margin: 10px 5px;
+	}
+	#inputsearch {
+		width: 85%;
 	}
 }
 
@@ -267,7 +271,7 @@ a {
 	.btsearch {
 		margin-top: 5px;
 		font-size: 1.2em;
-		margin-left: 10px;
+		right: 15px;
 	}
 	.table-cell {
 		width: 140px;
@@ -282,6 +286,7 @@ a {
 		width: 120px;
 		margin: 10px 20px;
 	}
+	 
 }
 
 @media ( min-width : 521px) and (max-width: 600px) {
@@ -298,7 +303,7 @@ a {
 	.btsearch {
 		margin-top: 5px;
 		font-size: 1.3em;
-		margin-left: 9px;
+		right: 20px;
 	}
 	.table-cell {
 		width: 150px;
@@ -315,6 +320,7 @@ a {
 		width: 100px;
 		margin: 10px 10px;
 	}
+	 
 }
 
 @media ( min-width : 601px) and (max-width: 767px) {
@@ -329,7 +335,7 @@ a {
 	.btsearch {
 		margin-top: 5px;
 		font-size: 1.2em;
-		margin-left: 13px;
+		right: 22px;
 	}
 	#inputsearch {
 		width: 92%;
@@ -366,7 +372,7 @@ a {
 	.btsearch {
 		margin-top: 5px;
 		font-size: 1.2em;
-		margin-left: 13px;
+		right: 25px;
 	}
 	#inputsearch {
 		width: 92%;

@@ -51,7 +51,7 @@ public class MDictionaryView extends Widget {
 		txtSeach = new TextBox();
 		txtSeach.getElement().setId("txt_valueSearch");
 		RootPanel.get("inputsearch").add(txtSeach);
-
+		txtSeach.getElement().setPropertyString("placeholder", "Nhập từ muốn tìm...");
 		txtSeach.addKeyDownHandler(new KeyDownHandler() {
 
 			@Override
