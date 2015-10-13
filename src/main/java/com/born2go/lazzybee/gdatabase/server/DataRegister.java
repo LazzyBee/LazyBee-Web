@@ -21,7 +21,7 @@ public class DataRegister extends RemoteServiceServlet {
 //			v.setLevel("1");
 //			v.setA("{\"q\":\"a\", \"pronoun\":\"/a\", \"packages\":{}}");
 //			v.setPackages(",");
-//			v.setCheck(false);
+// 			v.setCheck(false);
 //			v.setL_en("E");
 //			v.setL_vn("V");
 //			ofy().save().entity(v);

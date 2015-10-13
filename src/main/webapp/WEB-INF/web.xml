@@ -26,7 +26,7 @@
 		<load-on-startup>0</load-on-startup>
 	</servlet>
 
-	<!-- Objectify Filter -->
+	<!-- Filter -->
 	<filter>
 		<filter-name>ObjectifyFilter</filter-name>
 		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
@@ -45,8 +45,18 @@
 		<servlet-name>data_service</servlet-name>
 		<url-pattern>/lazzybee/dataservice</url-pattern>
 	</servlet-mapping>
+	
+	<!-- DataStore service for mobile-->
+	<servlet>
+		<servlet-name>data_service1</servlet-name>
+		<servlet-class>com.born2go.lazzybee.gdatabase.server.DataServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>data_service1</servlet-name>
+		<url-pattern>/lazzybeemobile/dataservice</url-pattern>
+	</servlet-mapping>
 
-	<!-- DataStore service -->
+	<!-- Backend API service -->
 	<servlet>
 		<servlet-name>ApiServiceServlet</servlet-name>
 		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
