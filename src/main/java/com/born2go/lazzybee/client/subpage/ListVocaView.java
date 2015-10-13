@@ -126,7 +126,7 @@ public class ListVocaView extends Composite {
 		viewVocaColumn.setFieldUpdater(new FieldUpdater<Voca, String>() {
 			@Override
 			public void update(int index, Voca object, String value) {
-				Window.open("/library/#dictionary/" + object.getQ(), "_blank", "");
+				Window.open("/vdict/#" + object.getQ(), "_blank", "");
 			}
 		});
 		
