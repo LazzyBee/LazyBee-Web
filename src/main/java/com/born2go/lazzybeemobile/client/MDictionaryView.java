@@ -21,15 +21,16 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.googlecode.mgwt.ui.client.widget.input.MTextBox;
 
 /*
  * MDictionaryView is ui gwt for page mdictionay.html
  * function: search q, show answer to user
  */
 public class MDictionaryView extends Widget {
-	private TextBox txtSeach;
+	private MTextBox txtSeach;
+
 	private Button btSearch;
 	public final DataServiceAsync dataService = GWT.create(DataService.class);
 
@@ -53,9 +54,14 @@ public class MDictionaryView extends Widget {
 	private void designView() {
 
 		// add textbox input search by element id
-		txtSeach = new TextBox();
+		txtSeach = new MTextBox();
 		txtSeach.getElement().setId("txt_valueSearch");
+		txtSeach.getElement().getStyle().setBackgroundColor("#ffffff");
+		txtSeach.getElement().setAttribute("style", "background-color: white;");
+		
 		RootPanel.get("inputsearch").add(txtSeach);
+		DOM.getElementById("txt_valueSearch").setAttribute("style",
+				"background-color: white");
 		txtSeach.getElement().setPropertyString("placeholder",
 				"Nhập từ muốn tìm...");
 		// txtSeach.addKeyDownHandler(new KeyDownHandler() {
@@ -83,17 +89,26 @@ public class MDictionaryView extends Widget {
 		// searchVoca();
 		// }
 		// });
-		txtSeach.addKeyPressHandler(new KeyPressHandler() {
-			@Override
-			public void onKeyPress(KeyPressEvent event_) {
-				boolean enterPressed = KeyCodes.KEY_ENTER == event_
-						.getNativeEvent().getKeyCode();
-				if (enterPressed) {
-					if (!txtSeach.getText().equals(""))
-						Window.Location.assign("/mvdict/#" + txtSeach.getText());
-				}
-			}
-		});
+//		txtSeach.addSearchSubmitHandler(new SearchSubmitHandler() {
+//
+//			@Override
+//			public void onEvent(SearchSubmitEvent event) {
+//
+//				if (!txtSeach.getText().equals(""))
+//					Window.Location.assign("/mvdict/#" + txtSeach.getText());
+//			}
+//		});
+		 txtSeach.addKeyPressHandler(new KeyPressHandler() {
+		 @Override
+		 public void onKeyPress(KeyPressEvent event_) {
+		 boolean enterPressed = KeyCodes.KEY_ENTER == event_
+		 .getNativeEvent().getKeyCode();
+		 if (enterPressed) {
+		 if (!txtSeach.getText().equals(""))
+		 Window.Location.assign("/mvdict/#" + txtSeach.getText());
+		 }
+		 }
+		 });
 		btSearch.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {

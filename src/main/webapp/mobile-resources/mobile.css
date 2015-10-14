@@ -68,6 +68,12 @@ input#txt_valueSearch {
 	position: absolute;
 	right: 15px;
 } */
+div#txt_valueSearch {
+	margin-top: 1px;
+	height: 27px;
+	color: white !important;
+}
+
 .header {
 	height: 40px;
 	width: 98%;
@@ -117,12 +123,17 @@ input#txt_valueSearch {
 	margin-right: 10px;
 	float: right;
 	margin-left: 2%;
+	 
 }
 
 button.fa.fa-search {
 	background-color: white;
 	border: none;
 	padding: 0px;
+}
+
+input.gwt-TextBox {
+	background-color: white;
 }
 
 .main-title {
@@ -409,20 +420,21 @@ a {
 
 @media ( min-width : 768px) {
 	.left_header {
-		width: 5%;
+		width: 3%;
 		font-size: 1.3em;
 		padding-top: 12px;
 	}
 	.right_header {
-		width: 93%;
+		width: 96%;
 	}
 	.btsearch {
 		margin-top: 5px;
 		font-size: 1.2em;
+		margin-left: 1%;
 		/* right: 25px; */
 	}
 	#inputsearch {
-		width: 92%;
+		width: 99%;
 	}
 	.table-cell {
 		height: 70px;
