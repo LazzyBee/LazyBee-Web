@@ -102,7 +102,6 @@ input.gwt-TextBox {
 #content {
 	margin: 0px 10px;
 	height: 100%;
-	 
 }
 
 h1 {
@@ -224,8 +223,9 @@ a {
 
 #mdic_introduction {
 	position: absolute;
+	right: 10px;
 	bottom: 20px;
-	margin-right: 10px;
+	left: 10px;
 }
 
 #notfoundVoca {
@@ -285,7 +285,7 @@ a {
 		padding-top: 12px;
 	}
 	.right_header {
-		width: 90%;
+		width: 98%;
 	}
 	.btsearch {
 		margin-top: 5px;
@@ -347,7 +347,7 @@ a {
 		padding-top: 12px;
 	}
 	.right_header {
-		width: 93%;
+		width: 92%;
 	}
 	.btsearch {
 		margin-top: 5px;
@@ -384,7 +384,7 @@ a {
 		padding-top: 12px;
 	}
 	.right_header {
-		width: 96%;
+		width: 95%;
 	}
 	.btsearch {
 		margin-top: 5px;
