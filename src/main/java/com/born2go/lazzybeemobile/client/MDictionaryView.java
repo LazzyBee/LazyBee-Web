@@ -12,16 +12,21 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.googlecode.mgwt.dom.client.event.tap.TapEvent;
+import com.googlecode.mgwt.dom.client.event.tap.TapHandler;
+import com.googlecode.mgwt.ui.client.widget.button.Button;
 import com.googlecode.mgwt.ui.client.widget.input.MTextBox;
 
 /*
@@ -41,6 +46,8 @@ public class MDictionaryView extends Widget {
 		String txbExam_id;
 	}
 
+	
+
 	public MDictionaryView() {
 		designView();
 		historyTokenHandler();
@@ -51,71 +58,44 @@ public class MDictionaryView extends Widget {
 	 * add button gwt search for mdictionary.html add textbox gwt input search
 	 * for mdictionary.htlm
 	 */
+	int divHeight;
+	int heightMdic_intro;
+
 	private void designView() {
 
 		// add textbox input search by element id
 		txtSeach = new MTextBox();
 		txtSeach.getElement().setId("txt_valueSearch");
-		txtSeach.getElement().getStyle().setBackgroundColor("#ffffff");
-		txtSeach.getElement().setAttribute("style", "background-color: white;");
-		
+		txtSeach.setPlaceHolder("Nhập từ muốn tìm...");
 		RootPanel.get("inputsearch").add(txtSeach);
-		DOM.getElementById("txt_valueSearch").setAttribute("style",
-				"background-color: white");
-		txtSeach.getElement().setPropertyString("placeholder",
-				"Nhập từ muốn tìm...");
-		// txtSeach.addKeyDownHandler(new KeyDownHandler() {
-		//
-		// @Override
-		// public void onKeyDown(KeyDownEvent event) {
-		// if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-		// searchVoca();
-		// }
-		// }
-		// });
-
 		// add button search by element id
 
 		btSearch = new Button();
 		btSearch.getElement().setClassName("fa fa-search");
 		RootPanel.get("btsearch").add(btSearch);
 
-		// when click button search call method to server and return value for
-		// client
-		// btSearch.addClickHandler(new ClickHandler() {
-		//
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// searchVoca();
-		// }
-		// });
-//		txtSeach.addSearchSubmitHandler(new SearchSubmitHandler() {
-//
-//			@Override
-//			public void onEvent(SearchSubmitEvent event) {
-//
-//				if (!txtSeach.getText().equals(""))
-//					Window.Location.assign("/mvdict/#" + txtSeach.getText());
-//			}
-//		});
-		 txtSeach.addKeyPressHandler(new KeyPressHandler() {
-		 @Override
-		 public void onKeyPress(KeyPressEvent event_) {
-		 boolean enterPressed = KeyCodes.KEY_ENTER == event_
-		 .getNativeEvent().getKeyCode();
-		 if (enterPressed) {
-		 if (!txtSeach.getText().equals(""))
-		 Window.Location.assign("/mvdict/#" + txtSeach.getText());
-		 }
-		 }
-		 });
-		btSearch.addClickHandler(new ClickHandler() {
+		txtSeach.addKeyPressHandler(new KeyPressHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
-				if (!txtSeach.getText().equals(""))
-					Window.Location.assign("/mvdict/#" + txtSeach.getText());
+			public void onKeyPress(KeyPressEvent event_) {
+				boolean enterPressed = KeyCodes.KEY_ENTER == event_
+						.getNativeEvent().getKeyCode();
+
+				if (enterPressed) {
+					if (!txtSeach.getText().equals(""))
+						Window.Location.assign("/mvdict/#" + txtSeach.getText());
+				}
 			}
 		});
+		btSearch.addTapHandler(new TapHandler() {
+
+			@Override
+			public void onTap(TapEvent event) {
+				if (!txtSeach.getText().equals(""))
+					Window.Location.assign("/mvdict/#" + txtSeach.getText());
+
+			}
+		});
+
 	}
 
 	void historyTokenHandler() {
