@@ -116,3 +116,8 @@ body {
     font-weight: bold;
 }
 
+.ex {
+	color: gray;
+    margin-left: 15px;
+}
+

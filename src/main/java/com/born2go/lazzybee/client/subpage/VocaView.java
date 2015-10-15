@@ -97,8 +97,8 @@ public class VocaView extends Composite {
 					}
 				}
 			}
-			readDefiTranforms();
 		}
+		readDefiTranforms();
 		return this;
 	}
 	
@@ -112,7 +112,7 @@ public class VocaView extends Composite {
 			EVContent.setHTML("(Chưa có nội dung)");
 		// E-E Tab
 		HTML EEContent = new HTML();
-		EEContent.getElement().setAttribute("style", "padding-left: 5px; padding-top: 10px; padding-bottom: 20px; width: 588px");
+		EEContent.getElement().setAttribute("style", "padding-left: 5px; padding-top: 10px; padding-bottom: 20px; width: 588px; line-height: 1.6;");
 		if(voca.getL_en() != null && !voca.getL_en().isEmpty())
 			EEContent.setHTML(voca.getL_en());
 		else
@@ -138,6 +138,8 @@ public class VocaView extends Composite {
 				exam = "<p> VD: " + exam + " </p>";
 			LazzyBeeContent.setHTML(meaning + explain + "<span style='color: gray; font-style: italic;'>" + exam + "</span>");
 		}
+		if(list_defitranforms.isEmpty())
+			LazzyBeeContent.setHTML("(Chưa có nội dung)");
 		// -----
 		TabPanel tab = new TabPanel();
 		tab.add(EVContent, "English - Tiếng Việt");

@@ -106,45 +106,7 @@ public class DictionaryTool extends Composite {
 			defaultSite.addStyleName("DictionaryTool_Obj5");
 			// -----
 			if (!History.getToken().isEmpty()) {
-				RootPanel.get("wt_dictionary_content").clear();
-				final String history_token = History.getToken();
-				searchBox.setText(history_token);
-				LazzyBee.noticeBox.setNotice("Đang tải...");
-				LazzyBee.data_service.findVoca(history_token,
-						new AsyncCallback<Voca>() {
-							@Override
-							public void onSuccess(Voca result) {
-								if (result == null) {
-									LazzyBee.noticeBox
-											.setNotice("Không tìm thấy từ - "
-													+ history_token);
-									LazzyBee.noticeBox.setAutoHide();
-									HTMLPanel htmlPanel = new HTMLPanel("");
-									htmlPanel
-											.getElement()
-											.setAttribute(
-													"style",
-													"margin-top: 20px; padding: 10px; background-color: lemonchiffon; line-height: 1.5;");
-									Label lbNotFound = new Label(
-											"Không tìm thấy từ - "
-													+ history_token);
-									htmlPanel.add(lbNotFound);
-									RootPanel.get("wt_dictionary_content").add(
-											htmlPanel);
-								} else {
-									LazzyBee.noticeBox.hide();
-									RootPanel.get("wt_dictionary_content").add(
-											new VocaView().setVoca(result));
-								}
-							}
-
-							@Override
-							public void onFailure(Throwable caught) {
-								LazzyBee.noticeBox
-										.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
-								LazzyBee.noticeBox.setAutoHide();
-							}
-						});
+				loadVocaToken();
 			}
 		} else if (path.contains("test")) {
 			testSite.addStyleName("DictionaryTool_Obj5");
@@ -159,9 +121,49 @@ public class DictionaryTool extends Composite {
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
-				Window.Location.reload();
+				loadVocaToken();
 			}
 		});
+	}
+
+	void loadVocaToken() {
+		RootPanel.get("wt_dictionary_content").clear();
+		final String history_token = History.getToken();
+		searchBox.setText(history_token);
+		LazzyBee.noticeBox.setNotice("Đang tải...");
+		LazzyBee.data_service.findVoca(history_token,
+				new AsyncCallback<Voca>() {
+					@Override
+					public void onSuccess(Voca result) {
+						if (result == null) {
+							LazzyBee.noticeBox.setNotice("Không tìm thấy từ - "
+									+ history_token);
+							LazzyBee.noticeBox.setAutoHide();
+							HTMLPanel htmlPanel = new HTMLPanel("");
+							htmlPanel
+									.getElement()
+									.setAttribute(
+											"style",
+											"margin-top: 20px; padding: 10px; background-color: lemonchiffon; line-height: 1.5;");
+							Label lbNotFound = new Label("Không tìm thấy từ - "
+									+ history_token);
+							htmlPanel.add(lbNotFound);
+							RootPanel.get("wt_dictionary_content").add(
+									htmlPanel);
+						} else {
+							LazzyBee.noticeBox.hide();
+							RootPanel.get("wt_dictionary_content").add(
+									new VocaView().setVoca(result));
+						}
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						LazzyBee.noticeBox
+								.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
+						LazzyBee.noticeBox.setAutoHide();
+					}
+				});
 	}
 
 	void addSearchTool() {

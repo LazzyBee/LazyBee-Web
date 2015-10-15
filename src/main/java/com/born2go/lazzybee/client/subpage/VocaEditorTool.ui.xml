@@ -57,6 +57,7 @@
   		font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   		font-size: 15px;
   		margin-bottom: 24px;
+  		color: #0e74af;
 	}
 	
 	.VocaEditorTool_Obj8 {
@@ -120,6 +121,7 @@
 			<g:Anchor ui:field="btnClear" title="Clear All" styleName="{style.VocaEditorTool_Obj1}"><i class="fa fa-refresh fa-lg"></i></g:Anchor>
 			<g:Anchor ui:field="btnDelete" title="Remove" styleName="{style.VocaEditorTool_Obj1}" visible="false"><i class="fa fa-trash-o fa-lg"></i></g:Anchor>
 		</g:HTMLPanel>
+		
 		<!--  -->
 		<br/> <br/>
 		<!-- <g:Label styleName="{style.VocaEditorTool_Obj7}">* Phần định nghĩa</g:Label> -->
@@ -164,11 +166,12 @@
 				</g:HorizontalPanel>
 			</g:HTMLPanel>
 		</g:HorizontalPanel>
+		
 		<!--  -->
 		<br/>
 		<div style="border-top: 1px solid silver; margin-bottom: 25px; width: 575px;"></div>
 		<g:HTMLPanel>
-			<!-- <g:Label styleName="{style.VocaEditorTool_Obj7}">* Phần giải nghĩa</g:Label> -->
+			<g:Label styleName="{style.VocaEditorTool_Obj7}">LazzyBee Card</g:Label>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
 				<g:Label styleName="{style.VocaEditorTool_Obj2}">Giải nghĩa cho</g:Label>
 				<g:HTMLPanel ui:field="htmlType" width="400px">
@@ -199,8 +202,23 @@
 			</g:HorizontalPanel>
 			<!-- <g:Anchor styleName="{style.VocaEditorTool_Obj5} {style.VocaEditorTool_Obj6}">Xóa giải nghĩa này</g:Anchor> -->
 		</g:HTMLPanel>
+		
 		<!--  -->
 		<g:HTMLPanel ui:field="defiTable"></g:HTMLPanel>
+		
+		<!--  -->
+		<g:HTMLPanel ui:field="dictionaryTable">
+			<div style="border-top: 1px solid silver; margin-bottom: 25px; width: 575px; margin-top: 35px"></div>
+			<g:Label styleName="{style.VocaEditorTool_Obj7}">Dictionary</g:Label>
+			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
+				<g:Label styleName="{style.VocaEditorTool_Obj2}">English - Tiếng Việt</g:Label>	
+				<g:TextArea ui:field="dictionaryEV" styleName="{style.VocaEditorTool_Obj4}"></g:TextArea>
+			</g:HorizontalPanel>
+			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
+				<g:Label styleName="{style.VocaEditorTool_Obj2}">English - English</g:Label>
+				<g:TextArea ui:field="dictionaryEE" styleName="{style.VocaEditorTool_Obj4}"></g:TextArea>
+			</g:HorizontalPanel>
+		</g:HTMLPanel>
 		<!--  -->
 		<br/> <br/>
 		<g:HorizontalPanel>

@@ -120,7 +120,7 @@ public class ListVocaView extends Composite {
 				new ClickableTextCell(anchorRenderer)) {
 			@Override
 			public String getValue(Voca object) {
-				return "Tra";
+				return "Xem";
 			}
 		};
 		viewVocaColumn.setFieldUpdater(new FieldUpdater<Voca, String>() {
