@@ -19,31 +19,29 @@ body {
 	overflow-x: hidden;
 }
 
-div#txt_valueSearch {
-	margin-top: 1px;
-	height: 27px;
-	color: white !important;
-}
-
 .header_w {
 	width: 100%;
+	height: 40px;
+	margin: auto;
+	padding: 4px 0;
 	background: #009688;
 	box-shadow: 0 0 3px #009688;
 }
 
 .header {
-	padding: 4px 12px 4px 0px;
-	display: flex;
-	display: -webkit-flex;
+	padding: 0px 12px 0px 0;
 }
 
 .left_header {
-	font-size: 1.1em;
-	padding: 12px;
+	width: 45px;
+	float: left;
+}
+
+.right_header_w {
+	margin-left: 45px;
 }
 
 .right_header {
-	width: 100%;
 	border-radius: 10px;
 	height: 28px;
 	background-color: white;
@@ -51,18 +49,33 @@ div#txt_valueSearch {
 	margin-top: 5px;
 }
 
-.right_header_w {
-	padding-right: 10px;
-	display: flex;
+#menuBtn {
+	padding: 12px;
+	padding-top: 7px;
+	font-size: 1.5em;
+}
+
+#btsearch {
+	width: 40px;
+	float: right;
+	font-size: 1.1em;
+	text-align: center;
+	padding-top: 6px;
 }
 
 #inputsearch {
-	background-color: white;
-	border: none;
 	margin-left: 10px;
-	width: 100%;
+	width: 85%;
 	float: left;
 	margin-right: 10px;
+}
+
+#txt_valueSearch {
+	margin-top: 1px;
+	height: 27px;
+	color: white !important;
+	background-color: white;
+	border: 0;
 }
 
 input#txt_valueSearch {
@@ -73,12 +86,6 @@ input#txt_valueSearch {
 	width: 100%;
 }
 
-.btsearch {
-	font-size: 1.2em;
-	padding: 5px 0;
-}
-
-}
 button.fa.fa-search {
 	background-color: white;
 	border: none;
@@ -87,12 +94,18 @@ button.fa.fa-search {
 
 input.gwt-TextBox {
 	background-color: white;
+	border: none;
+	outline: none;
 }
 
-.main-title {
+.txt_valueSearch input {
+	border: none;
+}
+
+.main_title {
+	margin-top: 4px;
 	font-size: 1.5em;
-	line-height: 1.6em;
-	padding-top: 3px;
+	line-height: 1.3em;
 	color: white;
 }
 
@@ -104,6 +117,7 @@ input.gwt-TextBox {
 #content {
 	margin: 0px 10px;
 	height: 100%;
+	position: relative;
 }
 
 h1 {
@@ -235,7 +249,11 @@ a {
 	margin-top: 10px;
 }
 /*mobile overides*/
+
 @media ( max-width : 319px) {
+	#inputsearch {
+		width: 60%;
+	}
 	.table-cell {
 		width: 120px;
 	}
@@ -252,6 +270,9 @@ a {
 }
 
 @media ( min-width : 320px) and (max-width: 420px) {
+	#inputsearch {
+		width: 67%;
+	}
 	.mainMTestTool {
 		width: 300px;
 	}
@@ -262,6 +283,9 @@ a {
 }
 
 @media ( min-width : 421px) and (max-width: 520px) {
+	#inputsearch {
+		width: 75%;
+	}
 	.table-cell {
 		width: 140px;
 	}
@@ -278,6 +302,9 @@ a {
 }
 
 @media ( min-width : 521px) and (max-width: 600px) {
+	#inputsearch {
+		width: 80%;
+	}
 	.table-cell {
 		width: 150px;
 		font-size: 16px;
@@ -296,6 +323,9 @@ a {
 }
 
 @media ( min-width : 601px) and (max-width: 767px) {
+	#inputsearch {
+		width: 84%;
+	}
 	.table-cell {
 		height: 70px;
 		width: 200px;
@@ -314,9 +344,13 @@ a {
 }
 
 @media ( max-width : 767px) {
+	
 }
 
 @media ( min-width : 768px) {
+	#inputsearch {
+		width: 88%;
+	}
 	.table-cell {
 		height: 70px;
 		width: 200px;

@@ -7,11 +7,8 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.googlecode.mgwt.ui.client.MGWT;
-import com.googlecode.mgwt.ui.client.MGWTSettings;
 
 public class LazzyBeeMobile implements EntryPoint {
 	public static DataServiceAsync data_service = GWT.create(DataService.class);
@@ -28,8 +25,17 @@ public class LazzyBeeMobile implements EntryPoint {
 			MTestTool testTool = new MTestTool();
 			RootPanel.get("gwt_contentMTestTool").add(testTool);
 		}
-//		DOM.getElementById("main").setAttribute("style",
-//				"height:" + (Window.getClientHeight() - heightHeader) + "px");
+		DOM.getElementById("main").setAttribute("style",
+				"height:" + (Window.getClientHeight() - heightHeader) + "px");
+		
+		Window.addResizeHandler(new ResizeHandler() {
+			
+			@Override
+			public void onResize(ResizeEvent event) {
+				DOM.getElementById("main").setAttribute("style",
+						"height:" + (Window.getClientHeight() - heightHeader) + "px");
+			}
+		});
 		
 	}
 
