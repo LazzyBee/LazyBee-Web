@@ -17,8 +17,8 @@
 	
 	.MVocaView_Obj4 {
 		color: #009688;
-    	font-weight: bold;
-    	font-size: 18px;
+		font-weight: bold;
+		font-size: 18px;
 	}
 	
 	.MVocaView_Obj5 {
@@ -36,22 +36,133 @@
 		color: silver;
 		cursor: pointer;
 	}
+	
+	.MVocaView_Obj7 {
+		margin-bottom: 10px;
+		padding-bottom: 10px;
+	}
+	
+	@external .gwt-TabBarItem-wrapper ;
+	.gwt-TabBarItem-wrapper {
+		width: 34%;
+	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.MVocaView_Obj1}">
 		<g:HTMLPanel>
-			<g:Label ui:field="lbVocaQ" styleName="{style.MVocaView_Obj2} {style.MVocaView_Obj4}"></g:Label>
-			<g:Anchor ui:field="btnVocaPronounce" styleName="{style.MVocaView_Obj3}"><i class="fa fa-volume-up fa-lg"></i></g:Anchor>
+			<g:Label ui:field="lbVocaQ"
+				styleName="{style.MVocaView_Obj2} {style.MVocaView_Obj4}"></g:Label>
+			<g:Anchor ui:field="btnVocaPronounce" styleName="{style.MVocaView_Obj3}">
+				<i class="fa fa-volume-up fa-lg"></i>
+			</g:Anchor>
 		</g:HTMLPanel>
-		
-		<br/> <br/>
-		
+
+		<br />
+		<br />
+
 		<g:HTMLPanel>
 			<g:Label ui:field="lbVocaLevel" styleName="{style.MVocaView_Obj2}"></g:Label>
 			<g:Label ui:field="lbVocaPronoun" styleName="{style.MVocaView_Obj3}"></g:Label>
 		</g:HTMLPanel>
-		 
-		<br/> <br/>
-		
-		<g:HTMLPanel ui:field="htmlDefiTable"></g:HTMLPanel>
+
+		<br />
+		<br />
+
+		<g:TabPanel height="" width="100%" ui:field="tabPanel"
+			styleName="{style.MVocaView_Obj7}">
+			<g:Tab text="EV">
+				<g:HTML ui:field="l_vn">
+					<span class="tl">tính từ</span>
+					<ul>
+						<li>thẳng, đứng thẳng</li>
+						<li>dựng đứng (tóc...)</li>
+					</ul>
+					<span class="tl">ngoại động từ</span>
+					<ul>
+						<li>dựng đứng thẳng, đặt đứng thẳng</li>
+						<li>dựng nên, xây dựng ((nghĩa đen) &amp; (nghĩa bóng))</li>
+						<li>(sinh vật học) làm cương lên</li>
+						<li>(kỹ thuật) ghép, lắp ráp</li>
+						<li>(toán học) dựng (hình...)</li>
+					</ul>
+					<span class="tl">nội động từ</span>
+					<ul>
+						<li>cương lên</li>
+					</ul>
+					<span class="tl">Kỹ thuật</span>
+					<ul>
+						<li>dựng</li>
+						<li>dựng lên</li>
+						<li>lắp</li>
+						<li>lắp ghép</li>
+						<li>lắp ráp</li>
+						<li>thẳng</li>
+						<li>thẳng góc</li>
+						<li>vuông góc</li>
+						<li>xây</li>
+						<li>xây dựng</li>
+					</ul>
+					<span class="tl">Lĩnh vực: xây dựng</span>
+					<ul>
+						<li>dựng (lắp)</li>
+						<li>sự dựng</li>
+					</ul>
+					<span class="tl">Kỹ thuật</span>
+					<ul>
+						<li>dựng</li>
+						<li>dựng lên</li>
+						<li>lắp</li>
+						<li>lắp ghép</li>
+						<li>lắp ráp</li>
+						<li>thẳng</li>
+						<li>thẳng góc</li>
+						<li>vuông góc</li>
+						<li>xây</li>
+						<li>xây dựng</li>
+					</ul>
+					<span class="tl">Lĩnh vực: xây dựng</span>
+					<ul>
+						<li>dựng (lắp)</li>
+						<li>sự dựng</li>
+					</ul>
+				</g:HTML>
+			</g:Tab>
+			<g:Tab text="EN">
+				<g:HTML ui:field="l_en">
+					<span class="tl">Verb</span>
+					<br />
+					<span class="mean">construct, build, or erect</span>
+					<br />
+					<span class="ex"> "Raise a barn"</span>
+					<br />
+					<span class="mean">cause to rise up</span>
+					<br />
+					<br />
+					<span class="tl">Adjective</span>
+					<br />
+					<span class="mean">of sexual organs</span>
+					<br />
+					<span class="ex"> stiff and rigid</span>
+					<br />
+					<span class="mean">upright in position or posture</span>
+					<br />
+					<span class="ex"> "an erect stature"</span>
+					<br />
+					<span class="ex"> "erect flower stalks"</span>
+					<br />
+					<span class="ex"> "for a dog, an erect tail indicates
+						aggression"</span>
+					<br />
+					<span class="ex"> "a column still vertical amid the
+						ruins"</span>
+					<br />
+					<span class="ex"> "he sat bolt upright"</span>
+					<br />
+				</g:HTML>
+			</g:Tab>
+			<g:Tab text="CARD">
+				<g:HTMLPanel ui:field="htmlDefiTable"></g:HTMLPanel>
+			</g:Tab>
+		</g:TabPanel>
+
 	</g:HTMLPanel>
 </ui:UiBinder> 

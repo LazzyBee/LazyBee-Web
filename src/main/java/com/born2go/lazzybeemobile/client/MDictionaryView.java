@@ -46,8 +46,6 @@ public class MDictionaryView extends Widget {
 		String txbExam_id;
 	}
 
-	
-
 	public MDictionaryView() {
 		designView();
 		historyTokenHandler();
@@ -165,6 +163,7 @@ public class MDictionaryView extends Widget {
 	private void notfoundVoca() {
 		RootPanel.get("notfoundVoca").clear();
 		RootPanel.get("notfoundVoca").add(new Label("Không tìm thấy từ"));
+
 	}
 
 }

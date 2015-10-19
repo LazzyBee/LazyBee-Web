@@ -249,7 +249,6 @@ a {
 	margin-top: 10px;
 }
 /*mobile overides*/
-
 @media ( max-width : 319px) {
 	#inputsearch {
 		width: 60%;
@@ -344,7 +343,6 @@ a {
 }
 
 @media ( max-width : 767px) {
-	
 }
 
 @media ( min-width : 768px) {
@@ -459,4 +457,15 @@ a {
 
 .table-app {
 	margin: auto;
+}
+
+.tl {
+	font-size: 14px;
+	color: #0e74af;
+	font-weight: bold;
+}
+
+.ex {
+	color: gray;
+	margin-left: 15px;
 }
