@@ -44,7 +44,7 @@ public class MVocaView extends Composite {
 	HTML l_en;
 	@UiField
 	HTML l_vn;
-	private Voca voca;
+	 
 	private List<DefiContainer> list_defitranforms = new ArrayList<DefiContainer>();
 
 	public MVocaView() {
@@ -54,7 +54,7 @@ public class MVocaView extends Composite {
 
 	// get data from voca
 	public MVocaView setVoca(Voca voca) {
-		this.voca = voca;
+		 
 		if (!voca.getL_en().equals("")) {
 			l_en.setHTML(voca.getL_en());
 		} else {
