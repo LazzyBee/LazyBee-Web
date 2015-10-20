@@ -173,7 +173,7 @@
 		<g:HTMLPanel>
 			<g:Label styleName="{style.VocaEditorTool_Obj7}">LazzyBee Card</g:Label>
 			<g:HorizontalPanel styleName="{style.VocaEditorTool_Obj3}">
-				<g:Label styleName="{style.VocaEditorTool_Obj2}">Giải nghĩa cho</g:Label>
+				<g:Label ui:field="lbType" styleName="{style.VocaEditorTool_Obj2}">Giải nghĩa cho</g:Label>
 				<g:HTMLPanel ui:field="htmlType" width="400px">
 					<g:ListBox ui:field="lsbType" width="140px" height="30px" styleName="{style.VocaEditorTool_Obj4} {style.VocaEditorTool_Obj10}"></g:ListBox>
 				</g:HTMLPanel>

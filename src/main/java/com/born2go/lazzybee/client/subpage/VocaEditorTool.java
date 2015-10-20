@@ -58,6 +58,7 @@ public class VocaEditorTool extends Composite {
 	@UiField HTMLPanel defiTable;
 	@UiField HTMLPanel dictionaryTable;
 	@UiField ListBox lsbLevel;
+	@UiField Label lbType;
 	@UiField ListBox lsbType;
 	@UiField HTMLPanel htmlType;
 	@UiField TextArea txbMeaning;
@@ -986,6 +987,7 @@ public class VocaEditorTool extends Composite {
 		txbVocaDefi.getElement().setAttribute("style", "");
 		txbPronoun.setText("");
 		txbPronoun.getElement().setAttribute("style", "");
+		lbType.getElement().setAttribute("style", "");
 		lsbType.setSelectedIndex(0);
 		destroyCustomEditor(DEFI_TXBMEANING + "1");
 		destroyCustomEditor(DEFI_TXBEXPLAIN + "1");
@@ -1095,6 +1097,14 @@ public class VocaEditorTool extends Composite {
 	
 	boolean verifyField() {
 		boolean verify = true;
+		if(list_defi.get(0).types.isEmpty()) {
+			verify = false;
+			lbType.getElement().setAttribute("style", "border: 1px solid red;");
+			DOM.getElementById("content").setScrollTop(100);
+			LazzyBee.noticeBox.setNotice("");
+			LazzyBee.noticeBox.setNotice("Bạn cần chọn một phân loại cho phần giải nghĩa từ!");
+			LazzyBee.noticeBox.setAutoHide();
+		}
 		if(txbVocaDefi.getText().equals("")) {
 			verify = false;
 			txbVocaDefi.getElement().setAttribute("style", "border: 1px solid red;");

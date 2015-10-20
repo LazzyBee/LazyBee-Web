@@ -2,6 +2,7 @@ package com.born2go.lazzybee.gdatabase.server;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
@@ -16,6 +17,7 @@ public class DataRegister extends RemoteServiceServlet {
 		ObjectifyService.register(Voca.class);
 		ObjectifyService.register(VocaPreview.class);
 		ObjectifyService.register(User.class);
+		ObjectifyService.register(Blog.class);
 		
 //		for(int i = 1; i<=30; i++) {
 //			Voca v = new Voca();
