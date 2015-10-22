@@ -110,3 +110,15 @@ body {
 	display: flex;
 }
 
+.tl {
+	font-size: 14px;
+    color: #0e74af;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.ex {
+	color: gray;
+    margin-left: 15px;
+}
+

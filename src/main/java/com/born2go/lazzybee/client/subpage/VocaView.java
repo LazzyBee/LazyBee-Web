@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class VocaView extends Composite {
@@ -96,22 +97,36 @@ public class VocaView extends Composite {
 					}
 				}
 			}
-			readDefiTranforms();
 		}
+		readDefiTranforms();
 		return this;
 	}
 	
 	private void readDefiTranforms() {
+		// E-V Tab
+		HTML EVContent = new HTML();
+		EVContent.getElement().setAttribute("style", "padding-left: 5px; padding-top: 10px; padding-bottom: 20px; width: 588px");
+		if(voca.getL_vn() != null && !voca.getL_vn().isEmpty())
+			EVContent.setHTML(voca.getL_vn());
+		else
+			EVContent.setHTML("(Chưa có nội dung)");
+		// E-E Tab
+		HTML EEContent = new HTML();
+		EEContent.getElement().setAttribute("style", "padding-left: 5px; padding-top: 10px; padding-bottom: 20px; width: 588px; line-height: 1.6;");
+		if(voca.getL_en() != null && !voca.getL_en().isEmpty())
+			EEContent.setHTML(voca.getL_en());
+		else
+			EEContent.setHTML("(Chưa có nội dung)");
+		// Lazzybee meaning Tab
+		HTML LazzyBeeContent = new HTML();
+		LazzyBeeContent.getElement().setAttribute("style", "padding-left: 5px; padding-top: 10px; padding-bottom: 20px; width: 588px");
 		for(DefiContainer dc: list_defitranforms) {
-			HTMLPanel htmlDefi = new HTMLPanel("");
-			String dc_pac = "package: ";
-			for(String pac: dc.types) {
-				dc_pac = dc_pac + pac + ", ";
-			}
-			Label dcPac = new Label(dc_pac);
-			dcPac.setStyleName("VocaView_Obj5");
-			HTML dcContent = new HTML();
-			dcContent.getElement().setAttribute("style", "padding-left: 5px;");
+//			String dc_pac = "package: ";
+//			for(String pac: dc.types) {
+//				dc_pac = dc_pac + pac + ", ";
+//			}
+//			Label dcPac = new Label(dc_pac);
+//			dcPac.setStyleName("VocaView_Obj5");
 			String meaning = dc.txbMeaning_id.replaceAll("\"", "");
 			String explain = dc.txbExplain_id.replaceAll("\"", "");
 			String exam = dc.txbExam_id.replaceAll("\"", "").replace("<p>", "").replace("</p>", "");
@@ -121,12 +136,18 @@ public class VocaView extends Composite {
 				explain = "<p> " + explain + " </p>";
 			if(!exam.contains("<p>"))
 				exam = "<p> VD: " + exam + " </p>";
-			dcContent.setHTML(meaning + explain + "<span style='color: gray; font-style: italic;'>" + exam + "</span>");
-			//-----
-			htmlDefi.add(dcPac);
-			htmlDefi.add(dcContent);
-			htmlDefiTable.add(htmlDefi);
+			LazzyBeeContent.setHTML(meaning + explain + "<span style='color: gray; font-style: italic;'>" + exam + "</span>");
 		}
+		if(list_defitranforms.isEmpty())
+			LazzyBeeContent.setHTML("(Chưa có nội dung)");
+		// -----
+		TabPanel tab = new TabPanel();
+		tab.add(EVContent, "English - Tiếng Việt");
+		tab.add(EEContent, "English - English");
+		tab.add(LazzyBeeContent, "LazzyBee Card");
+		tab.selectTab(0);
+		tab.getElement().setAttribute("style", "margin-bottom: 10px");
+		htmlDefiTable.add(tab);
 	}
 	
 	@UiHandler("btnEdit")

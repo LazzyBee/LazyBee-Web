@@ -12,6 +12,9 @@
 		position: absolute;
 		z-index: 1;
 		top: 40px;
+		box-shadow: 0 4px 4px -2px #232323;
+    	-moz-box-shadow: 0 4px 4px -2px #232323;
+    	-webkit-box-shadow: 0 4px 4px -2px #232323;
 	}
 	
 	.NoticeBox_Obj2 {
