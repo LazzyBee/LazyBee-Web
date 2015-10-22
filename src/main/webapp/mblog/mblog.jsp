@@ -1,4 +1,8 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Date"%>
 <%@ page import="com.born2go.lazzybee.gdatabase.server.DataServiceImpl"%>
+<%@ page import="com.born2go.lazzybee.gdatabase.shared.Blog"%>
 <%!//Global functions
 	public void redirectHomeUrl(HttpServletResponse response) {
 		String site = new String("/mvdict/");
@@ -7,30 +11,30 @@
 	}%>
 <%
 	if (request.getPathInfo() == null
-			|| request.getPathInfo().length() <= 1) {
+			|| request.getPathInfo().length() <= 1)
 		redirectHomeUrl(response);
-	} else {
-		String blogId_s = request.getPathInfo().replaceAll("/", "");
-		Long blogId_l = null;
-		try {
-			blogId_l = Long.parseLong(blogId_s);
-		} catch (NumberFormatException e) {
-			blogId_l = null;
+	else {
+		String blogTitle = request.getPathInfo().replaceAll("/", "");
+		if (blogTitle == null || blogTitle.equals(""))
 			redirectHomeUrl(response);
-		}
-
-		if (blogId_l != null) {
+		else {
 			DataServiceImpl service = new DataServiceImpl();
-			/* Path path = service.findPart(blogId_l); */
-			String path = "hello";
-			if (path == null)
+			Blog blog = service.findBlogByTitle(blogTitle);
+			if (blog == null)
 				redirectHomeUrl(response);
 			else {
-				String url = "http://127.0.0.1:8888/mblog/1234";
-				String title = path;
+				SimpleDateFormat dateFormat = new SimpleDateFormat(
+						"d/MM/yyyy");
+				String title = blog.getTitle();
+				String url = "http://127.0.0.1:8888/mblog/" + title;
 				String pathPicture = "";
-				String description = "A  count noun is a noun that can be counted."
-						+ "	It can also be singular or plural, and it can be used with a singular or plural verb. A /noncount noun/ cannot be counted, cannot be plural, and cannot be used with a plural verb.";
+				String content = blog.getContent();
+
+				String dateCreate = "Ngày tạo "
+						+ dateFormat.format(new Date(blog
+								.getCreateDate()));
+				Long avatar = blog.getAvatar();
+				String urlAvatar = "";
 %>
 
 <!doctype html>
@@ -61,10 +65,10 @@
 <meta property="og:image" content="<%=pathPicture%>" />
 <meta property="og:url" content="<%=url%>" />
 <%
-	if (description != null) {
+	if (content != null) {
 %>
 <meta property="og:description"
-	content='<%=description.replaceAll("\'", "\"")
+	content='<%=content.replaceAll("\'", "\"")
 									.replace("\n", "").replace("\r", "")%>' />
 <%
 	;
@@ -115,33 +119,27 @@
 			<div class="nameBlog">
 				<h1>The difference between count and noncount nouns</h1>
 			</div>
-			<div class="mCenter">
-				<div>A "count noun" is a noun that can be counted. It can also
-					be singular or plural, and it can be used with a singular or plural
-					verb. A "noncount noun" cannot be counted, cannot be plural, and
-					cannot be used with a plural verb.</div>
-				<br /> <b>More about count nouns</b>
-				<div>The majority of English nouns are count nouns. Words like
-					tree, mile, and suggestion are all count nouns and can be plural.
-					You can say, "The trees are tall," or "Roger walked 10 miles," and
-					"Both of your suggestions are great."</div>
-
-				<br /> <b>More about noncount nouns</b>
-				<div>Things that cannot be separated into countable parts,
-					like fun, anger, and electricity, are noncount nouns and cannot be
-					plural. You cannot say, "We had funs yesterday" or "His angers were
-					powerful". You can only say, "We had fun yesterday," and "His anger
-					was powerful. It's not always predictable which nouns will be
-					noncount, and that is why all nouns are labeled in the Learner’s
-					Dictionary. If you’re not sure about a particular noun, look it up.</div>
+			<div class="publishdate"><%=dateCreate%></div>
+			<%
+				if (urlAvatar != "") {
+			%>
+			<div class="avatarBlog" id="avatarBlog">
+				<img alt="" src="<%=urlAvatar%>" height="200px">
 			</div>
-			<br />
-		</div>
-		<%
-			}
+			<%
 				}
-			}
-		%>
+			%>
+
+			<div class="mCenter">
+				<div><%=content%></div>
+				<br />
+			</div>
+			<%
+				}
+					}
+				}
+			%>
+		</div>
 	</div>
 </body>
 </html>

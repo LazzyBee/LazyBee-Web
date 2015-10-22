@@ -478,3 +478,14 @@ a {
 .nameBlog h1 {
 	font-size: 1.6rem;
 }
+
+.publishdate {
+	font: 13px/1.3 arial;
+	color: #888;
+	padding-bottom: 10px;
+}
+
+.avatarBlog {
+	
+	padding-bottom: 10px;
+}
