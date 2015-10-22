@@ -46,6 +46,15 @@
 		<url-pattern>/lazzybee/dataservice</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>PhotoUploadServlet</servlet-name>
+		<servlet-class>com.born2go.lazzybee.gdatabase.server.UploadService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PhotoUploadServlet</servlet-name>
+		<url-pattern>/photo_upload</url-pattern>
+	</servlet-mapping>
+	
 	<!-- DataStore service for mobile-->
 	<servlet>
 		<servlet-name>data_service1</servlet-name>

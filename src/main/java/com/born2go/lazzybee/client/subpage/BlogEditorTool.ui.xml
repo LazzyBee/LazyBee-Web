@@ -1,0 +1,124 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	@external .BlogEditorTool_Obj8;
+	.BlogEditorTool_Obj1 {
+		min-width: 1022px;
+	}
+	
+	.BlogEditorTool_Obj2 {
+		background: #009688;
+		padding: 7px 15px;
+		border: 1px silver solid;
+		color: white;
+		border-radius: 5px;
+		margin-right: 10px;
+	}
+	
+	.BlogEditorTool_Obj2:hover {
+		background: silver;
+		cursor: pointer;
+		color: #0e74af;
+	}
+	
+	.BlogEditorTool_Obj3 {
+		position: relative;
+		margin-top: 25px;
+	    border: 1px dotted;
+	    color: silver;
+	    width: 350px;
+	    height: 220px;
+	    text-align: center;
+	    font-size: 15px;
+	    line-height: 14;
+	    box-sizing: border-box;
+	    cursor: pointer;
+	}
+	
+	.BlogEditorTool_Obj4 {
+		margin-top: 15px;
+		width: 350px;
+	    min-height: 280px;
+	    max-height: 500px;
+	    border: 6px silver solid;
+	    box-sizing: border-box;
+	    -webkit-box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.75);
+		-moz-box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.75);
+		box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.75);
+		text-align: center;
+	}
+	
+	.BlogEditorTool_Obj5 {
+		border: 1px solid #b6b6b6;
+		box-shadow: 0 0 3px rgba(0,0,0,.15);
+		height: 40px;
+		padding-left: 5px;
+		width: 100%;
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+		box-sizing: border-box;         /* Opera/IE 8+ */
+	}
+	
+	.BlogEditorTool_Obj6 {
+		margin-left: 15px;
+	}
+	
+	.BlogEditorTool_Obj6:hover {
+		color: silver !important;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	
+	.BlogEditorTool_Obj7 {
+		position: absolute; 
+		top: 0; 
+		left: 0; 
+		width: 100%; 
+		height: 100%;
+	}
+	
+	.BlogEditorTool_Obj8 {
+		position: absolute;
+		top: 0;
+		z-index: -1;
+	}
+	</ui:style>
+	<g:HTMLPanel ui:field="vocaEditorTool" styleName="{style.BlogEditorTool_Obj1}">
+		<g:HTMLPanel ui:field="topToolbar">
+			<g:Anchor ui:field="btnSave" title="Save" styleName="{style.BlogEditorTool_Obj2}"><i class="fa fa-floppy-o fa-lg"></i></g:Anchor>
+			<g:Anchor ui:field="btnClear" title="Clear All" styleName="{style.BlogEditorTool_Obj2}"><i class="fa fa-refresh fa-lg"></i></g:Anchor>
+			<g:Anchor ui:field="btnDelete" title="Remove" styleName="{style.BlogEditorTool_Obj2}" visible="false"><i class="fa fa-trash-o fa-lg"></i></g:Anchor>
+		</g:HTMLPanel>
+		
+		<div style="width: 100%; overflow: hidden">
+			<div style="float:left; width: 350px;">
+				<g:HTMLPanel styleName="{style.BlogEditorTool_Obj3}" ui:field="container">
+					<span style="z-index:-2">Blog Avatar</span>
+					<g:Anchor styleName="{style.BlogEditorTool_Obj7}" ui:field="pick_files"></g:Anchor>
+					<div id="blogAvatar" style="position: absolute; top:0;"></div>
+				</g:HTMLPanel>
+				<g:HTMLPanel styleName="{style.BlogEditorTool_Obj4}">
+					<span style="font-size: 15px; color: silver; line-height: 17">Images Table</span>
+				</g:HTMLPanel>
+			</div>
+			
+			<div style="margin-left: 370px; margin-top: 20px; margin-right: 20px; min-width: 630px">
+				<span style="font-weight: 700;font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;font-size: 13px;">Tiêu đề</span>
+				<br/> <br/>
+				<g:TextBox styleName="{style.BlogEditorTool_Obj5}" ui:field="blogTitleBox"></g:TextBox>
+				<br/> <br/>
+				<span style="font-weight: 700;font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;font-size: 13px;">Nội dung</span>
+				<br/> <br/>
+				<g:TextArea ui:field="blogContent" styleName="{style.BlogEditorTool_Obj5}" height="372px"></g:TextArea>
+				<br/> <br/>
+				<div style="float: right; margin-bottom: 20px;">
+					<g:HorizontalPanel>
+						<g:Anchor ui:field="btnGoTop" styleName="{style.BlogEditorTool_Obj6}">Lên đầu trang <i class="fa fa-level-up fa-lg"></i></g:Anchor>
+						<g:Anchor ui:field="btnSaveB" styleName="{style.BlogEditorTool_Obj6}">Lưu <i class="fa fa-floppy-o fa-lg"></i></g:Anchor>
+					</g:HorizontalPanel>
+				</div>
+			</div>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

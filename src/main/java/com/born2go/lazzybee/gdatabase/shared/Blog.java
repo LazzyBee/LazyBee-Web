@@ -21,9 +21,12 @@ public class Blog implements Serializable {
 
 	@Index
 	String title;
+	@Index
+	Long createDate;
 	
 	String content;
 	Long avatar;
+	
 
 	public Blog() {
 		super();
@@ -43,6 +46,14 @@ public class Blog implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Long getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Long createDate) {
+		this.createDate = createDate;
 	}
 
 	public String getContent() {

@@ -1,20 +1,24 @@
 package com.born2go.lazzybee.client.mainpage;
 
 import com.born2go.lazzybee.client.LazzyBee;
+import com.born2go.lazzybee.client.subpage.BlogEditorTool;
 import com.born2go.lazzybee.client.subpage.VocaEditorTool;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -31,8 +35,8 @@ public class EditorTool extends Composite {
 	
 	@UiField HTMLPanel tabPanel;
 	@UiField Label trademarkLb;
-	
-	VocaEditorTool vocaTool = new VocaEditorTool();
+	@UiField Anchor vocaTab;
+	@UiField Anchor blogTab;
 	
 	String history_token;
 
@@ -63,17 +67,29 @@ public class EditorTool extends Composite {
 		if(history_token.isEmpty()) {
 			String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
 			Window.Location.replace(newURL);
+			vocaTab.addStyleName("EditorTool_Obj5");
+			VocaEditorTool vocaTool = new VocaEditorTool();
 			RootPanel.get("wt_editor").add(vocaTool);
 			vocaTool.replaceEditor();
 		}
+		else if (history_token.contains("blog")) {
+			blogTab.addStyleName("EditorTool_Obj5");
+			BlogEditorTool blogTool = new BlogEditorTool();
+			RootPanel.get("wt_editor").add(blogTool);
+			blogTool.replaceEditor();
+			blogTool.handlerUploadEvent();
+		}
 		else if (history_token.contains("vocabulary")) {
+			vocaTab.addStyleName("EditorTool_Obj5");
 			if(!history_token.contains("/")) {
+				VocaEditorTool vocaTool = new VocaEditorTool();
 				RootPanel.get("wt_editor").add(vocaTool);
 				vocaTool.replaceEditor();
 			}
 			else {
 				final String[] sub_token = history_token.split("/");
 				if(sub_token[1] == null || sub_token[1].isEmpty()) {
+					VocaEditorTool vocaTool = new VocaEditorTool();
 					RootPanel.get("wt_editor").add(vocaTool);
 					vocaTool.replaceEditor();
 				}
@@ -85,11 +101,13 @@ public class EditorTool extends Composite {
 							if(result == null) {
 								LazzyBee.noticeBox.setNotice("Không tìm thấy từ - " + sub_token[1]);
 								LazzyBee.noticeBox.setAutoHide();
+								VocaEditorTool vocaTool = new VocaEditorTool();
 								RootPanel.get("wt_editor").add(vocaTool);
 								vocaTool.replaceEditor();
 							}
 							else {
 								LazzyBee.noticeBox.hide();
+								VocaEditorTool vocaTool = new VocaEditorTool();
 								RootPanel.get("wt_editor").add(vocaTool);
 								vocaTool.replaceEditor();
 								vocaTool.setVoca(result);
@@ -100,6 +118,7 @@ public class EditorTool extends Composite {
 						public void onFailure(Throwable caught) {
 							LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
 							LazzyBee.noticeBox.setAutoHide();
+							VocaEditorTool vocaTool = new VocaEditorTool();
 							RootPanel.get("wt_editor").add(vocaTool);
 						}
 					});
@@ -114,6 +133,23 @@ public class EditorTool extends Composite {
 					Window.Location.reload();
 			}
 		});
+	}
+	
+	void removeTabStyle() {
+		vocaTab.removeStyleName("EditorTool_Obj5");
+		blogTab.removeStyleName("EditorTool_Obj5");
+	}
+	
+	@UiHandler("vocaTab")
+	void onVocaTabClick(ClickEvent e) {
+		Window.Location.assign("/editor/#vocabulary");
+		Window.Location.reload();
+	}
+	
+	@UiHandler("blogTab")
+	void onBlogTabClick(ClickEvent e) {
+		Window.Location.assign("/editor/#blog");
+		Window.Location.reload();
 	}
 
 }

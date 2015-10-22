@@ -102,20 +102,6 @@ public class VocaEditorTool extends Composite {
 	private List<ListBox> listLbType = new ArrayList<ListBox>();
 	private boolean isPreviewMode = false;
 	
-	public void replaceEditor() {
-		Timer t = new Timer() {
-			@Override
-			public void run() {
-				replaceTxbNote(DEFI_TXBMEANING + 1, vet);
-				replaceTxbNote(DEFI_TXBEXPLAIN + 1, vet);
-				replaceTxbNote(DEFI_TXBEXAM + 1, vet);
-				replaceTxbNote("dictionaryEV", vet);
-				replaceTxbNote("dictionaryEE", vet);
-			}
-		};
-		t.schedule(100);
-	}
-	
 	public interface EditorListener {
 		void onApproval(Voca v);
 		void onClose();
@@ -129,6 +115,7 @@ public class VocaEditorTool extends Composite {
 
 	public VocaEditorTool() {
 		initWidget(uiBinder.createAndBindUi(this));
+		DOM.getElementById("right_panel").setAttribute("style", "display:");
 		
 		lsbType.addItem("- Chọn phân loại -");
 		
@@ -283,6 +270,20 @@ public class VocaEditorTool extends Composite {
 		});
 	}
 	
+	public void replaceEditor() {
+		Timer t = new Timer() {
+			@Override
+			public void run() {
+				replaceTxbNote(DEFI_TXBMEANING + 1, vet);
+				replaceTxbNote(DEFI_TXBEXPLAIN + 1, vet);
+				replaceTxbNote(DEFI_TXBEXAM + 1, vet);
+				replaceTxbNote("dictionaryEV", vet);
+				replaceTxbNote("dictionaryEE", vet);
+			}
+		};
+		t.schedule(100);
+	}
+
 	public void setPreviewMode() {
 		isPreviewMode = true;
 		topToolbar.setVisible(false);
@@ -482,6 +483,8 @@ public class VocaEditorTool extends Composite {
 	  		contentsCss : 'body {overflow:hidden;}',
 	  		autoGrow_minHeight: 10,
 	  		toolbarStartupExpanded : false,
+	  		extraPlugins: 'autogrow,colorbutton',
+	  		removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,About',
 	  	});
 	  	
 	  	editor.on("instanceReady",function() {
