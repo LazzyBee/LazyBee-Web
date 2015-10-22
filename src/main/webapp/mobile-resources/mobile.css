@@ -469,3 +469,12 @@ a {
 	color: gray;
 	margin-left: 15px;
 }
+/* css for mblog*/
+.nameBlog {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.nameBlog h1 {
+	font-size: 1.6rem;
+}
