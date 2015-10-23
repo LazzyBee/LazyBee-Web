@@ -1,6 +1,7 @@
 package com.born2go.lazzybee.gdatabase.client.rpc;
 
 import com.born2go.lazzybee.gdatabase.shared.Blog;
+import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
@@ -23,6 +24,8 @@ public interface DataServiceAsync {
 	void insertBlog(Blog blog, AsyncCallback<Blog> callback);
 	void findBlogById(Long blogId, AsyncCallback<Blog> callback);
 	void findBlogByTitle(String blogTitle, AsyncCallback<Blog> callback);
+	
+	void findPicture(Long pictureId, AsyncCallback<Picture> callback);
 	
 	void getUploadUrl(AsyncCallback<String> callback);
 

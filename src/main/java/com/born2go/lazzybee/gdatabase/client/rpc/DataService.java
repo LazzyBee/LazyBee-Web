@@ -1,6 +1,7 @@
 package com.born2go.lazzybee.gdatabase.client.rpc;
 
 import com.born2go.lazzybee.gdatabase.shared.Blog;
+import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
@@ -25,6 +26,8 @@ public interface DataService extends RemoteService {
 	public Blog insertBlog(Blog blog);
 	public Blog findBlogById(Long blogId);
 	public Blog findBlogByTitle(String blogTitle);
+	
+	public Picture findPicture(Long pictureId);
 	
 	public String getUploadUrl();
 	

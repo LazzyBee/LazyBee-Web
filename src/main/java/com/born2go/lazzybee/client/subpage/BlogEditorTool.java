@@ -62,7 +62,7 @@ public class BlogEditorTool extends Composite {
 	 	var noteId = txbNoteId;
 	  	var editor = $wnd.CKEDITOR.replace( noteId, {
 	  		height: '300px',
-	  		contentsCss : 'body {overflow:hidden;}',
+	  		contentsCss : 'body {overflow:hidden;maxwidth:655px;}',
 	  		autoGrow_minHeight: 300,
 	  		toolbarStartupExpanded : false,
 	  		extraPlugins: 'autogrow,image,colorbutton',
@@ -234,7 +234,7 @@ public class BlogEditorTool extends Composite {
 	
 	private void saveBlog() {
 		Blog blog = new Blog();
-		blog.setTitle(blogTitleBox.getText());
+		blog.setTitle(blogTitleBox.getText().replaceAll(" ", "_"));
 		blog.setContent(getDataCustomEditor("blogContent"));
 		LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 		LazzyBee.data_service.insertBlog(blog, new AsyncCallback<Blog>() {

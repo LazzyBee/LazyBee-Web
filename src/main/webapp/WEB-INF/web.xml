@@ -80,6 +80,14 @@
 	</servlet-mapping>
 
 	<!-- JSP Servlet -->
+	<servlet>
+        <servlet-name>BlogJsp</servlet-name>
+        <jsp-file>/blog/blog.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+	    <servlet-name>BlogJsp</servlet-name>
+	    <url-pattern>/blog/*</url-pattern>   
+	</servlet-mapping>
 	
 	<!-- Appstats -->
 	<filter>

@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.shared.Blog;
+import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
@@ -221,6 +222,12 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		Blog blog = ofy().load().type(Blog.class).filter("title", blogTitle)
 				.first().now();
 		return blog;
+	}
+
+	@Override
+	public Picture findPicture(Long pictureId) {
+		Picture picture = ofy().load().type(Picture.class).id(pictureId).now();
+		return picture;
 	}
 
 	private BlobstoreService blobStoreService = BlobstoreServiceFactory

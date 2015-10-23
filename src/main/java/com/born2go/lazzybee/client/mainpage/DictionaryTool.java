@@ -185,7 +185,8 @@ public class DictionaryTool extends Composite {
 						"float: left; width: 60px; height: 100%; background: #009688; color: white; cursor: pointer;");
 		hor.add(searchBox);
 		hor.add(searchButton);
-		RootPanel.get("wt_search_tool").add(hor);
+		if(RootPanel.get("wt_search_tool") != null)
+			RootPanel.get("wt_search_tool").add(hor);
 		// -----
 		searchBox.addKeyPressHandler(new KeyPressHandler() {
 			@Override
