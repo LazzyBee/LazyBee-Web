@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
@@ -117,7 +118,7 @@
 	<div id="main">
 		<div id="content">
 			<div class="nameBlog">
-				<h1>The difference between count and noncount nouns</h1>
+				<h1><%=title %></h1>
 			</div>
 			<div class="publishdate"><%=dateCreate%></div>
 			<%
