@@ -3,7 +3,7 @@
 html {
 	font-size: 13px !important;
 	box-sizing: border-box;
-	min-width: 320px
+	min-width: 320px;
 }
 
 body {
@@ -18,47 +18,64 @@ body {
 	min-width: 320px !important;
 	overflow-x: hidden;
 }
-/* css for header*/
-.header {
+
+.header_w {
+	width: 100%;
 	height: 40px;
-	width: 98%;
-	display: inline-flex;
+	margin: auto;
+	padding: 4px 0;
 	background: #009688;
 	box-shadow: 0 0 3px #009688;
-	padding: 2px 1%;
 }
 
-/* .footer {
-	font-weight: bold;
-	padding-top: 10px;
-	height: 25px;
-	width: 100%;
-	text-align: center;
-	background-color: #009688;
-	color: white;
-} */
+.header {
+	padding: 0px 12px 0px 0;
+}
+
 .left_header {
-	width: 10%;
-	padding-top: 15px;
-	padding-left: 6px;
-	padding-right: 4px;
+	width: 45px;
+	float: left;
+}
+
+.right_header_w {
+	margin-left: 45px;
 }
 
 .right_header {
-	width: 85%;
 	border-radius: 10px;
 	height: 28px;
 	background-color: white;
 	box-shadow: 0 0 3px rgba(252, 250, 250, 0.7);
 	margin-top: 5px;
-	display: flex;
+}
+
+#menuBtn {
+	padding: 12px;
+	padding-top: 7px;
+	font-size: 1.5em;
+}
+
+#btsearch {
+	width: 40px;
+	float: right;
+	font-size: 1.1em;
+	text-align: center;
+	padding-top: 3px;
 }
 
 #inputsearch {
-	background-color: white;
-	border: none;
 	margin-left: 10px;
-	width: 90%;
+	width: 85%;
+	float: left;
+	margin-right: 10px;
+}
+
+#txt_valueSearch {
+	margin-top: 1px;
+	height: 27px;
+	color: white !important;
+	background-color: white;
+	border: 0;
 }
 
 input#txt_valueSearch {
@@ -69,32 +86,38 @@ input#txt_valueSearch {
 	width: 100%;
 }
 
-.btsearch {
-	margin-top: 5px;
-	margin-right: 10px;
-}
-
 button.fa.fa-search {
 	background-color: white;
 	border: none;
 	padding: 0px;
 }
 
-.main-title {
-	font-size: 1.3em;
-	line-height: 1.6em;
-	text-align: center;
-	padding-top: 8px;
+input.gwt-TextBox {
+	background-color: white;
+	border: none;
+	outline: none;
+}
+
+.txt_valueSearch input {
+	border: none;
+}
+
+.main_title {
+	margin-top: 4px;
+	font-size: 1.5em;
+	line-height: 1.3em;
 	color: white;
 }
 
 #main {
-	padding-top: 20px;
 	min-height: 300px;
+	height: 100%;
 }
 
 #content {
 	margin: 0px 10px;
+	height: 100%;
+	position: relative;
 }
 
 h1 {
@@ -132,7 +155,6 @@ a {
 
 #menu ul li a {
 	width: 100%;
-	padding: 0px 160px 0px 00px;
 	margin: 0px 10px;
 	color: white;
 }
@@ -146,9 +168,10 @@ a {
 }
 
 #menu li {
-	height: 40px;
-	line-height: 40px;
+	height: 50px;
+	line-height: 50px;
 	padding: 0px 20px 0px 10px;
+	line-height: 50px;
 }
 /* css for home*/
 .header_table {
@@ -188,6 +211,7 @@ a {
 .mainMTestTool {
 	width: 600px;
 	margin: auto;
+	margin-top: 20px;
 }
 
 .MTestTool_Obj5:hover {
@@ -208,16 +232,27 @@ a {
 
 .actionForm {
 	width: 100%;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+#mdic_introduction {
+	position: absolute;
+	right: 10px;
+	bottom: 20px;
+	left: 10px;
 }
 
 #notfoundVoca {
 	text-align: center;
+	margin-top: 10px;
 }
 /*mobile overides*/
 @media ( max-width : 319px) {
+	#inputsearch {
+		width: 60%;
+	}
 	.table-cell {
 		width: 120px;
 	}
@@ -234,17 +269,8 @@ a {
 }
 
 @media ( min-width : 320px) and (max-width: 420px) {
-	.left_header {
-		width: 8%;
-		font-size: 1.1em;
-	}
-	.right_header {
-		width: 88%;
-	}
-	.btsearch {
-		margin-top: 5px;
-		font-size: 1.2em;
-		margin-left: 10px;
+	#inputsearch {
+		width: 67%;
 	}
 	.mainMTestTool {
 		width: 300px;
@@ -256,18 +282,8 @@ a {
 }
 
 @media ( min-width : 421px) and (max-width: 520px) {
-	.left_header {
-		width: 7%;
-		font-size: 1.2em;
-		padding-top: 12px;
-	}
-	.right_header {
-		width: 90%;
-	}
-	.btsearch {
-		margin-top: 5px;
-		font-size: 1.2em;
-		margin-left: 10px;
+	#inputsearch {
+		width: 75%;
 	}
 	.table-cell {
 		width: 140px;
@@ -285,20 +301,8 @@ a {
 }
 
 @media ( min-width : 521px) and (max-width: 600px) {
-	.left_header {
-		width: 7%;
-		font-size: 1.3em;
-		padding-top: 12px;
-		padding-right: 0px;
-		padding-left: 8px;
-	}
-	.right_header {
-		width: 90%;
-	}
-	.btsearch {
-		margin-top: 5px;
-		font-size: 1.3em;
-		margin-left: 9px;
+	#inputsearch {
+		width: 80%;
 	}
 	.table-cell {
 		width: 150px;
@@ -318,21 +322,8 @@ a {
 }
 
 @media ( min-width : 601px) and (max-width: 767px) {
-	.left_header {
-		width: 5%;
-		font-size: 1.3em;
-		padding-top: 12px;
-	}
-	.right_header {
-		width: 93%;
-	}
-	.btsearch {
-		margin-top: 5px;
-		font-size: 1.2em;
-		margin-left: 13px;
-	}
 	#inputsearch {
-		width: 92%;
+		width: 84%;
 	}
 	.table-cell {
 		height: 70px;
@@ -355,21 +346,8 @@ a {
 }
 
 @media ( min-width : 768px) {
-	.left_header {
-		width: 5%;
-		font-size: 1.3em;
-		padding-top: 12px;
-	}
-	.right_header {
-		width: 93%;
-	}
-	.btsearch {
-		margin-top: 5px;
-		font-size: 1.2em;
-		margin-left: 13px;
-	}
 	#inputsearch {
-		width: 92%;
+		width: 88%;
 	}
 	.table-cell {
 		height: 70px;
@@ -479,4 +457,35 @@ a {
 
 .table-app {
 	margin: auto;
+}
+
+.tl {
+	font-size: 14px;
+	color: #0e74af;
+	font-weight: bold;
+}
+
+.ex {
+	color: gray;
+	margin-left: 15px;
+}
+/* css for mblog*/
+.nameBlog {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.nameBlog h1 {
+	font-size: 1.6rem;
+}
+
+.publishdate {
+	font: 13px/1.3 arial;
+	color: #888;
+	padding-bottom: 10px;
+}
+
+.avatarBlog {
+	
+	padding-bottom: 10px;
 }

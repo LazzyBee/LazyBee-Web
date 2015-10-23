@@ -2,10 +2,13 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.6.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.6.0/distro-source/core/src/gwt-module.dtd">
 <module rename-to='lazzybeemobile'>
 	<inherits name="com.google.gwt.user.User" />
+	<inherits name='com.google.gwt.user.theme.clean.Clean' />
 	<inherits name='com.born2go.lazzybee.gdatabase.GDatabase' />
 	<inherits name="com.google.gwt.json.JSON" />
+	<inherits name='com.googlecode.mgwt.MGWT' />
+
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.born2go.lazzybeemobile.client.LazzyBeeMobile' />
 	<source path="client" />
-	<set-property name="user.agent" value="gecko1_8,safari" />
+	<set-property name="user.agent" value="safari" />
 </module>

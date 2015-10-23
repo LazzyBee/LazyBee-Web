@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /*
@@ -37,17 +38,32 @@ public class MVocaView extends Composite {
 	Label lbVocaPronoun;
 	@UiField
 	HTMLPanel htmlDefiTable;
-
-	private Voca voca;
+	@UiField
+	TabPanel tabPanel;
+	@UiField
+	HTML l_en;
+	@UiField
+	HTML l_vn;
+	 
 	private List<DefiContainer> list_defitranforms = new ArrayList<DefiContainer>();
 
 	public MVocaView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		tabPanel.selectTab(0);
 	}
 
-	//get data from voca
+	// get data from voca
 	public MVocaView setVoca(Voca voca) {
-		this.voca = voca;
+		 
+		if (!voca.getL_en().equals("")) {
+			l_en.setHTML(voca.getL_en());
+		} else {
+			l_en.setHTML("Từ điển chưa có mục này.");
+		}
+		if (!voca.getL_vn().equals(""))
+			l_vn.setHTML(voca.getL_vn());
+		else
+			l_vn.setHTML("Vocabulary emtry");
 		// -----
 		lbVocaQ.setText(voca.getQ());
 		lbVocaLevel.setText("Level: " + voca.getLevel());
