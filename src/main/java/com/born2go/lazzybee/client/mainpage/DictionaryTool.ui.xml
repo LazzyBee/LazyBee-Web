@@ -44,6 +44,8 @@
 		color: white;
 		line-height: 1.5;
 		padding: 5px;
+   	 	width: 100%;
+    	box-sizing: border-box;
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.DictionaryTool_Obj3}">
@@ -58,7 +60,7 @@
 			<br/> <br/> <br/>
 			<g:Anchor ui:field="previewSite" visible="false" styleName="{style.DictionaryTool_Obj4}">Bảng từ mới</g:Anchor>
 			
-			<g:Label ui:field="trademarkLb" styleName="{style.DictionaryTool_Obj6}">Born2Go © 2015 All Rights Reserved | Privacy policy</g:Label>
+			<g:Label ui:field="trademarkLb" styleName="{style.DictionaryTool_Obj6}">Born2Go © 2015</g:Label>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

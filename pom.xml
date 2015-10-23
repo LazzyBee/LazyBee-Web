@@ -18,13 +18,6 @@
 
 	<dependencies>
 		<!-- Compile/runtime custom dependencies -->
-		<!-- mgwt for mobile -->
-		<dependency>
-			<groupId>com.googlecode.mgwt</groupId>
-			<artifactId>mgwt</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-
 		<!-- System libs -->
 		<dependency>
 			<groupId>com.google.appengine</groupId>
@@ -75,6 +68,12 @@
 			<version>2.4.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- mgwt for mobile -->
+		<dependency>
+			<groupId>com.googlecode.mgwt</groupId>
+			<artifactId>mgwt</artifactId>
+			<version>2.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -102,9 +101,9 @@
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
 				<version>${appengine.target.version}</version>
-				<configuration>
+				<!-- <configuration>
 					<address>0.0.0.0</address>
-				</configuration>
+				</configuration> -->
 			</plugin>
 
 			<plugin>
@@ -124,7 +123,7 @@
 					<execution>
 						<goals>
 							<goal>compile</goal>
-							<goal>test</goal>
+							<!-- <goal>test</goal> -->
 							<!-- <goal>generateAsync</goal> -->
 						</goals>
 					</execution>

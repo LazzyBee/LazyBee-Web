@@ -44,6 +44,8 @@
 		color: white;
 		line-height: 1.5;
 		padding: 5px;
+		width: 100%;
+    	box-sizing: border-box;
 	}
 	
 	.EditorTool_Obj7 {
@@ -56,7 +58,7 @@
 			<g:Anchor ui:field="vocaTab" styleName="{style.EditorTool_Obj4}">Soạn thảo từ vựng</g:Anchor>
 			<br/> <br/> <br/>
 			<g:Anchor ui:field="blogTab" styleName="{style.EditorTool_Obj4}">Soạn thảo bài viết</g:Anchor>
-			<g:Label ui:field="trademarkLb" styleName="{style.EditorTool_Obj6}">Born2Go © 2015 All Rights Reserved | Privacy policy</g:Label>
+			<g:Label ui:field="trademarkLb" styleName="{style.EditorTool_Obj6}">Born2Go © 2015</g:Label>
 		</g:HTMLPanel>
 		<!-- <g:ScrollPanel ui:field="tabContent" styleName="{style.EditorTool_Obj2}"></g:ScrollPanel> -->
 	</g:HTMLPanel>
