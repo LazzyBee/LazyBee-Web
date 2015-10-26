@@ -477,6 +477,7 @@ a {
 
 .nameBlog h1 {
 	font-size: 1.6rem;
+	color: #0e74af;
 }
 
 .publishdate {
@@ -486,6 +487,6 @@ a {
 }
 
 .avatarBlog {
-	
+	text-align: center;
 	padding-bottom: 10px;
 }
