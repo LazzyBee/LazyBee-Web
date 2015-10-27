@@ -44,7 +44,7 @@ public class MVocaView extends Composite {
 	HTML l_en;
 	@UiField
 	HTML l_vn;
-	 
+
 	private List<DefiContainer> list_defitranforms = new ArrayList<DefiContainer>();
 
 	public MVocaView() {
@@ -54,13 +54,14 @@ public class MVocaView extends Composite {
 
 	// get data from voca
 	public MVocaView setVoca(Voca voca) {
-		 
-		if (!voca.getL_en().equals("")) {
+		// set value l_en
+		if (voca.getL_en() != null && !voca.getL_en().isEmpty())
 			l_en.setHTML(voca.getL_en());
-		} else {
+		else
 			l_en.setHTML("Từ điển chưa có mục này.");
-		}
-		if (!voca.getL_vn().equals(""))
+		
+		// set value l_vn
+		if (voca.getL_vn() != null && !voca.getL_vn().isEmpty())
 			l_vn.setHTML(voca.getL_vn());
 		else
 			l_vn.setHTML("Vocabulary emtry");
