@@ -3,6 +3,7 @@ package com.born2go.lazzybee.client.mainpage;
 import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.client.subpage.BlogEditorTool;
 import com.born2go.lazzybee.client.subpage.VocaEditorTool;
+import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -74,10 +75,47 @@ public class EditorTool extends Composite {
 		}
 		else if (history_token.contains("blog")) {
 			blogTab.addStyleName("EditorTool_Obj5");
-			BlogEditorTool blogTool = new BlogEditorTool();
-			RootPanel.get("wt_editor").add(blogTool);
-			blogTool.replaceEditor();
-			blogTool.handlerUploadEvent();
+			if(!history_token.contains("/")) {
+				BlogEditorTool blogTool = new BlogEditorTool();
+				RootPanel.get("wt_editor").add(blogTool);
+				blogTool.replaceEditor();
+				blogTool.handlerUploadEvent();
+			}
+			else {
+				final String[] sub_token = history_token.split("/");
+				Long blog_id = Long.valueOf(sub_token[1]);
+				LazzyBee.noticeBox.setNotice("Đang tải...");
+				LazzyBee.data_service.findBlogById(blog_id, new AsyncCallback<Blog>() {
+					@Override
+					public void onSuccess(Blog result) {
+						if(result == null) {
+							LazzyBee.noticeBox.setNotice("! Không tìm thấy bài viết");
+							LazzyBee.noticeBox.setAutoHide();
+							BlogEditorTool blogTool = new BlogEditorTool();
+							RootPanel.get("wt_editor").add(blogTool);
+							blogTool.replaceEditor();
+							blogTool.handlerUploadEvent();
+						}
+						else {
+							LazzyBee.noticeBox.hide();
+							BlogEditorTool blogTool = new BlogEditorTool();
+							RootPanel.get("wt_editor").add(blogTool);
+							blogTool.replaceEditor();
+							blogTool.handlerUploadEvent();
+							blogTool.setBlog(result);
+						}
+					}
+					@Override
+					public void onFailure(Throwable caught) {
+						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
+						LazzyBee.noticeBox.setAutoHide();
+						BlogEditorTool blogTool = new BlogEditorTool();
+						RootPanel.get("wt_editor").add(blogTool);
+						blogTool.replaceEditor();
+						blogTool.handlerUploadEvent();
+					}
+				});
+			}
 		}
 		else if (history_token.contains("vocabulary")) {
 			vocaTab.addStyleName("EditorTool_Obj5");

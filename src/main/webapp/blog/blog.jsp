@@ -161,14 +161,16 @@
 			<div id="wt_dictionary"
 				style="padding: 20px 30px 30px 30px; width: 600px; float: left;">
 				<div style="text-align: left">
-					<span style="font-size: 20px;color: #0e74af;font-weight: bold;"><%= blog.getTitle().replaceAll("_", " ") %></span>
+					<span style="font-size: 20px;color: #0e74af;font-weight: bold;"><%= blog.getShowTitle()%></span>
 					<%-- <%if(blog_avatar != null) { %>
 					<br/>
 					<img style="margin-top:20px" alt="" src="<%= blog_avatar.getServeUrl()%>">
 					<% } %> --%>
-					<span style="padding:10px;margin-top:15px;background: #f2f1f1;width: 100%;display: block;">Bài viết được tạo: <%= df.format(new Date(blog.getCreateDate())) %></span>
+					<div style="overflow:hidden; margin-bottom:20px; padding:10px; margin-top:15px; background: #f2f1f1; width: 100%; display: block;">
+						<span style="float: left">Bài viết được tạo: <%= df.format(new Date(blog.getCreateDate())) %></span>
+						<a style="float:right" title="Soạn thảo" href="/editor/#blog/<%= blog.getId()%>"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+					</div>
 				</div>
-				<br/>
 				<div style="margin-bottom:30px"><%= blog.getContent() %></div>
 			</div>
 
@@ -178,12 +180,16 @@
 						style="width: 100%; height: 280px;">
 				</div>
 				<div style="float: left; margin-right: 10px; margin-top: 15px;">
-					<img alt="" src="/resources/appstore.png"
-						style="width: 140px; height: 50px; cursor: pointer;">
+					<a href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
+						<img alt="" src="/resources/appstore.png"
+							style="width: 140px; height: 50px; cursor: pointer;">
+					</a>
 				</div>
 				<div>
-					<img alt="" src="/resources/googleplay.jpg"
+					<a href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
+						<img alt="" src="/resources/googleplay.jpg"
 						style="width: 140px; height: 50px; cursor: pointer; margin-top: 15px;">
+					</a>
 				</div>
 				<div class="advertise" style="margin-top: 25px; height: 100px">
 					<span style="font-size: 15px; font-weight: bold;">Connect

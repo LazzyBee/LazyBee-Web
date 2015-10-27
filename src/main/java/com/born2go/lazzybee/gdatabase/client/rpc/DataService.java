@@ -1,5 +1,7 @@
 package com.born2go.lazzybee.gdatabase.client.rpc;
 
+import java.util.List;
+
 import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.User;
@@ -23,9 +25,12 @@ public interface DataService extends RemoteService {
 	
 	public void saveUser(User user);
 	
+	public boolean verifyBlog(String blogTitle);
 	public Blog insertBlog(Blog blog);
+	public Blog updateBlog(Blog blog);
 	public Blog findBlogById(Long blogId);
 	public Blog findBlogByTitle(String blogTitle);
+	public List<Blog> getListBlog();
 	
 	public Picture findPicture(Long pictureId);
 	

@@ -179,6 +179,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 
+	@Override
 	public boolean verifyBlog(String blogTitle) {
 		Blog blog = ofy().load().type(Blog.class).filter("title", blogTitle)
 				.first().now();
@@ -190,25 +191,35 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Blog insertBlog(Blog blog) {
-		String origin_title = blog.getTitle();
-		boolean verify_blog = false;
-		for (int i = 0; i <= 9; i++) {
-			if (!verifyBlog(blog.getTitle())) {
-				Random generator = new Random();
-				int random_title = generator.nextInt(100);
-				blog.setTitle(origin_title + "_" + random_title);
-			} else {
-				verify_blog = true;
-				break;
-			}
-		}
-		if (verify_blog) {
+//		String origin_title = blog.getTitle();
+//		boolean verify_blog = false;
+//		for (int i = 0; i <= 9; i++) {
+//			if (!verifyBlog(blog.getTitle())) {
+//				Random generator = new Random();
+//				int random_title = generator.nextInt(100);
+//				blog.setTitle(origin_title + "_" + random_title);
+//			} else {
+//				verify_blog = true;
+//				break;
+//			}
+//		}
+		if (verifyBlog(blog.getTitle())) {
 			blog.setCreateDate(System.currentTimeMillis());
 			Key<Blog> key = ofy().save().entity(blog).now();
 			Blog b = ofy().load().key(key).now();
 			return b;
 		} else
 			return null;
+	}
+
+	@Override
+	public Blog updateBlog(Blog blog) {
+		Blog old_blog = findBlogById(blog.getId());
+		if(old_blog != null) {
+			ofy().save().entity(blog);
+			return blog;
+		}
+		return null;
 	}
 
 	@Override
@@ -225,9 +236,21 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
+	public List<Blog> getListBlog() {
+		List<Blog> blogs = ofy().load().type(Blog.class).list();
+		List<Blog> result = new ArrayList<Blog>();
+		result.addAll(blogs);
+		return result;
+	}
+
+	@Override
 	public Picture findPicture(Long pictureId) {
-		Picture picture = ofy().load().type(Picture.class).id(pictureId).now();
-		return picture;
+		if(pictureId != null) {
+			Picture picture = ofy().load().type(Picture.class).id(pictureId).now();
+			return picture;
+		}
+		else 
+			return null;
 	}
 
 	private BlobstoreService blobStoreService = BlobstoreServiceFactory

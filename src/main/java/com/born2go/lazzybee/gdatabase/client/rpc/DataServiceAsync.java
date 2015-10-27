@@ -1,5 +1,7 @@
 package com.born2go.lazzybee.gdatabase.client.rpc;
 
+import java.util.List;
+
 import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.User;
@@ -21,9 +23,12 @@ public interface DataServiceAsync {
 	
 	void saveUser(User user, AsyncCallback<Void> callback);
 
+	void verifyBlog(String blogTitle, AsyncCallback<Boolean> callback);
 	void insertBlog(Blog blog, AsyncCallback<Blog> callback);
+	void updateBlog(Blog blog, AsyncCallback<Blog> callback);
 	void findBlogById(Long blogId, AsyncCallback<Blog> callback);
 	void findBlogByTitle(String blogTitle, AsyncCallback<Blog> callback);
+	void getListBlog(AsyncCallback<List<Blog>> callback);
 	
 	void findPicture(Long pictureId, AsyncCallback<Picture> callback);
 	
