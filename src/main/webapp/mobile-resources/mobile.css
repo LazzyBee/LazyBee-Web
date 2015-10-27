@@ -6,6 +6,13 @@ html {
 	min-width: 320px;
 }
 
+/* css for show image in content ckeditor */
+p img {
+	width: 100%;
+	text-align: center;
+	margin: auto;
+}
+
 body {
 	margin: 0 !important;
 	color: #404040 !important;
