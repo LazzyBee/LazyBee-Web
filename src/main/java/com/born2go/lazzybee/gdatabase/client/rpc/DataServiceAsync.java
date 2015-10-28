@@ -18,7 +18,9 @@ public interface DataServiceAsync {
 //	void getTotalVoca(AsyncCallback<Integer> callback);
 //	void getTotalPreviewVoca(AsyncCallback<Integer> callback);
 	void getListVoca(String cursorStr, AsyncCallback<VocaList> callback);
+
 	void getListPreviewVoca(String cursorStr, AsyncCallback<VocaList> callback);
+
 	void removeVoca(Voca voca, String userId, AsyncCallback<Void> callback);
 	
 	void saveUser(User user, AsyncCallback<User> callback);
@@ -27,6 +29,7 @@ public interface DataServiceAsync {
 	void insertBlog(Blog blog, String userId, AsyncCallback<Blog> callback);
 	void updateBlog(Blog blog, String userId, AsyncCallback<Blog> callback);
 	void findBlogById(Long blogId, AsyncCallback<Blog> callback);
+
 	void findBlogByTitle(String blogTitle, AsyncCallback<Blog> callback);
 	void getListBlog(AsyncCallback<List<Blog>> callback);
 	
