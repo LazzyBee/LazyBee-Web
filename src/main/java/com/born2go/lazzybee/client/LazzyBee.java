@@ -20,6 +20,7 @@ public class LazzyBee implements EntryPoint {
 	public static DataServiceAsync data_service = GWT.create(DataService.class);
 	public static LoginControl loginControl;
 
+	public static String userId = null;
 	// Google app id and api key
 	public static String gClientId = "1090254847247-hhq28qf96obdjm7c7pgr2qo2mt2o842l.apps.googleusercontent.com";
 	public static String gApiKey = "AIzaSyCvrB0pS2rE7hUB6N5N6F38Q2TRjvHME7M";

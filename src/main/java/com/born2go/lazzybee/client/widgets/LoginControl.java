@@ -45,6 +45,7 @@ public class LoginControl extends DialogBox {
 	}
 	
 	private static void saveNewUser(String userId, String userName) {
+		LazzyBee.userId = userId;
 		User u = new User();
 		if(userId.contains("_G")) {
 			u.setGoogle_id(userId);
