@@ -14,7 +14,7 @@
 		<welcome-file>dictionary.html</welcome-file>
 		<welcome-file>preview.html</welcome-file>
 
-		<welcome-file>mdictionary.html</welcome-file>
+		<welcome-file>mvdict.jsp</welcome-file>
 		<welcome-file>mhome.html</welcome-file>
 		<welcome-file>mtesttool.html</welcome-file>
 	</welcome-file-list>
@@ -54,8 +54,8 @@
 		<servlet-name>PhotoUploadServlet</servlet-name>
 		<url-pattern>/photo_upload</url-pattern>
 	</servlet-mapping>
-	
-	<!-- DataStore service for mobile-->
+
+	<!-- DataStore service for mobile -->
 	<servlet>
 		<servlet-name>data_service1</servlet-name>
 		<servlet-class>com.born2go.lazzybee.gdatabase.server.DataServiceImpl</servlet-class>
@@ -81,14 +81,14 @@
 
 	<!-- JSP Servlet -->
 	<servlet>
-        <servlet-name>BlogJsp</servlet-name>
-        <jsp-file>/blog/blog.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-	    <servlet-name>BlogJsp</servlet-name>
-	    <url-pattern>/blog/*</url-pattern>   
+		<servlet-name>BlogJsp</servlet-name>
+		<jsp-file>/blog/blog.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BlogJsp</servlet-name>
+		<url-pattern>/blog/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>PathMblog</servlet-name>
 		<jsp-file>/mblog/mblog.jsp</jsp-file>
@@ -97,7 +97,7 @@
 		<servlet-name>PathMblog</servlet-name>
 		<url-pattern>/mblog/*</url-pattern>
 	</servlet-mapping>
-	
+
 
 	<!-- Appstats -->
 	<filter>

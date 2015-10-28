@@ -238,4 +238,13 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		return blobStoreService.createUploadUrl("/photo_upload");
 	}
 
+	@Override
+	public List<Blog> findBlogs() {
+		List<Blog> result = new ArrayList<Blog>();
+		List<Blog> list = ofy().load().type(Blog.class).limit(5).list();
+		if (list != null && !list.isEmpty())
+			result.addAll(list);
+		return result;
+	}
+
 }

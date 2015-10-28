@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.client.rpc.DataServiceAsync;
+import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -96,14 +97,14 @@ public class MDictionaryView extends Widget {
 		if (path.contains("mvdict")) {
 			// -----
 			if (!History.getToken().isEmpty()) {
-				DOM.getElementById("mdic_introduction").setAttribute("style",
-						"display:none");
-				final String history_token = History.getToken();
-				txtSeach.setText(history_token);
-				searchVoca(history_token);
-			} else
+				loadVocaToken();
+			} else {
+				// block element 
 				DOM.getElementById("mdic_introduction").setAttribute("style",
 						"display:block");
+				DOM.getElementById("blogs").setAttribute("style",
+						"display:block");
+			}
 
 		} else if (path.contains("mtest")) {
 			if (RootPanel.get("gwt_contentMTestTool") != null) {
@@ -116,40 +117,39 @@ public class MDictionaryView extends Widget {
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
-				Window.Location.reload();
+				loadVocaToken();
 			}
 		});
 	}
 
-	/*
-	 * searchVoca in database
-	 */
-	private void searchVoca(String q) {
-
+	void loadVocaToken() {
+		RootPanel.get("gwt_contentMdic").clear();
 		DOM.getElementById("mdic_introduction").setAttribute("style",
 				"display:none");
-		dataService.findVoca(q, new AsyncCallback<Voca>() {
+		DOM.getElementById("blogs").setAttribute("style", "display:none");
+		final String history_token = History.getToken();
+		txtSeach.setText(history_token);
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-
+		LazzyBeeMobile.noticeBox.setNotice("Đang tải...");
+		dataService.findVoca(history_token, new AsyncCallback<Voca>() {
 			@Override
 			public void onSuccess(Voca result) {
-				DOM.getElementById("mdic_introduction").setAttribute("style",
-						"display:none");
-				if (result != null) {
+				if (result == null) {
+					notfoundVoca();
+				} else {
 					RootPanel.get("gwt_contentMdic").add(
 							new MVocaView().setVoca(result));
 					RootPanel.get("notfoundVoca").clear();
-				} else
-					notfoundVoca();
+				}
+			}
 
+			@Override
+			public void onFailure(Throwable caught) {
+				LazzyBeeMobile.noticeBox
+						.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
+				LazzyBeeMobile.noticeBox.setAutoHide();
 			}
 		});
-
 	}
 
 	/*
@@ -158,6 +158,25 @@ public class MDictionaryView extends Widget {
 	private void notfoundVoca() {
 		RootPanel.get("notfoundVoca").clear();
 		RootPanel.get("notfoundVoca").add(new Label("Không tìm thấy từ"));
+
+	}
+
+	private void loadBlog() {
+		String blogTitle = "";
+		dataService.findBlogByTitle(blogTitle, new AsyncCallback<Blog>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(Blog result) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 	}
 
