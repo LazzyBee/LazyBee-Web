@@ -25,17 +25,17 @@ public class LazzyBeeMobile implements EntryPoint {
 			MTestTool testTool = new MTestTool();
 			RootPanel.get("gwt_contentMTestTool").add(testTool);
 		}
-		DOM.getElementById("main").setAttribute("style",
-				"height:" + (Window.getClientHeight() - heightHeader) + "px");
-		
-		Window.addResizeHandler(new ResizeHandler() {
-			
-			@Override
-			public void onResize(ResizeEvent event) {
-				DOM.getElementById("main").setAttribute("style",
-						"height:" + (Window.getClientHeight() - heightHeader) + "px");
-			}
-		});
+//		DOM.getElementById("main").setAttribute("style",
+//				"height:" + (Window.getClientHeight() - heightHeader) + "px");
+//		
+//		Window.addResizeHandler(new ResizeHandler() {
+//			
+//			@Override
+//			public void onResize(ResizeEvent event) {
+//				DOM.getElementById("main").setAttribute("style",
+//						"height:" + (Window.getClientHeight() - heightHeader) + "px");
+//			}
+//		});
 		
 	}
 

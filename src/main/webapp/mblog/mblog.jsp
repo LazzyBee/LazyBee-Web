@@ -60,12 +60,6 @@
 				String dateCreate = "Ngày tạo "
 						+ dateFormat.format(new Date(blog
 								.getCreateDate()));
-				Long pictureId = blog.getAvatar();
-				Picture picture = service.findPicture(pictureId);
-				String urlPicture = "";
-				if (picture != null) {
-					urlPicture = picture.getServeUrl();
-				}
 %>
 
 <!doctype html>
@@ -157,16 +151,6 @@
 				<h1><%=title%></h1>
 			</div>
 			<div class="publishdate"><%=dateCreate%></div>
-			<%
-				if (urlPicture != "") {
-			%>
-			<div class="avatarBlog" id="avatarBlog">
-				<img alt="" src="<%=urlPicture%>" height="200px">
-			</div>
-			<%
-				}
-			%>
-
 			<div class="mCenter">
 				<div><%=content%></div>
 				<br />
