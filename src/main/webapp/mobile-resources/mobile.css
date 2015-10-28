@@ -148,7 +148,7 @@ h1 {
 	background-color: #80CBC4;
 	position: absolute;
 	right: -10px;
-	top: 40px;
+	top: 47px;
 	list-style-type: none;
 	z-index: 6;
 	padding: 0;
@@ -170,7 +170,7 @@ a {
 	width: 30px;
 }
 
-.m_menu_home,.m_menu_login,.m_menu_seach {
+.m_menu_home,.m_menu_help,.m_menu_seach {
 	border-bottom: solid 1px gray;
 }
 
