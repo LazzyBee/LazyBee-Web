@@ -138,6 +138,12 @@
 									href="/mtest/">Kiểm tra vốn từ</a>
 							</div>
 						</li>
+						<li>
+							<div class="m_menu_blog">
+								<i class="fa fa-book" style="color: white;"></i> <a
+									href="/mblog/">Blog</a>
+							</div>
+						</li>
 					</ul>
 				</nav>
 			</div>
