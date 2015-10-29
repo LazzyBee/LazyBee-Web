@@ -128,10 +128,11 @@
 						</td>
 					</tr>
 				</table>
-
 			</div>
 			<div id="blogs" class="blogs" style="display: block;">
-				<div class="headerBlogs"><h3>Những bài viết liên quan</h3></div>
+				<div class="headerBlogs">
+					<h3>Những bài viết liên quan</h3>
+				</div>
 				<%
 					if (blogs != null && !blogs.isEmpty() && isShortBlog == true) {
 						for (int i = 0; i < blogs.size(); i++) {
@@ -186,9 +187,10 @@
 					}
 				%>
 			</div>
-
 		</div>
-
+	</div>
+	<div class="mfooter" id="mfooter">
+		<center>© Copyright 2015, Born2Go.</center>
 	</div>
 </body>
 </html>
