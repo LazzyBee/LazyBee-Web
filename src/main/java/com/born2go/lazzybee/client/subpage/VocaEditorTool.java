@@ -117,6 +117,9 @@ public class VocaEditorTool extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		DOM.getElementById("right_panel").setAttribute("style", "display:");
 		
+		LazzyBee.noticeBox.setNotice("Tính năng này đang tạm khóa chỉ sử dụng cho admin!");
+		LazzyBee.noticeBox.setAutoHide();
+		
 		lsbType.addItem("- Chọn phân loại -");
 		
 		lsbLevel.addItem("1");
@@ -919,7 +922,7 @@ public class VocaEditorTool extends Composite {
 			v.setPackages(getPackages());
 			v.setL_vn(getDataCustomEditor("dictionaryEV"));
 			v.setL_en(getDataCustomEditor("dictionaryEE"));
-			LazzyBee.data_service.insertVoca(v, new AsyncCallback<Voca>() {
+			LazzyBee.data_service.insertVoca(v, LazzyBee.userId, new AsyncCallback<Voca>() {
 				@Override
 				public void onSuccess(Voca result) {
 					if(result != null) {
@@ -928,7 +931,8 @@ public class VocaEditorTool extends Composite {
 						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được thêm vào từ điển", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					} 
 					else {
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã có trong từ điển", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+						LazzyBee.noticeBox.setAutoHide();
 					}
 				}
 				
@@ -954,7 +958,7 @@ public class VocaEditorTool extends Composite {
 				v.setL_vn(getDataCustomEditor("dictionaryEV"));
 				v.setL_en(getDataCustomEditor("dictionaryEE"));
 			}
-			LazzyBee.data_service.updateVoca(v, isCheck, new AsyncCallback<Voca>() {
+			LazzyBee.data_service.updateVoca(v, isCheck, LazzyBee.userId, new AsyncCallback<Voca>() {
 				@Override
 				public void onSuccess(Voca result) {
 					if(result != null) {
@@ -966,7 +970,8 @@ public class VocaEditorTool extends Composite {
 						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
 					}
 					else {
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - cập nhật thất bại", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+						LazzyBee.noticeBox.setAutoHide();
 					}
 				}
 				
@@ -1058,7 +1063,7 @@ public class VocaEditorTool extends Composite {
 		if(Window.confirm("Bạn muốn xóa từ - " + voca.getQ() + " -?")) {
 			if(voca != null) {
 				final String voca_q = voca.getQ();
-				LazzyBee.data_service.removeVoca(voca, new AsyncCallback<Void>() {
+				LazzyBee.data_service.removeVoca(voca, LazzyBee.userId, new AsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {
 						formClean();

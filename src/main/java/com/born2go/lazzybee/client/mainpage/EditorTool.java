@@ -43,6 +43,7 @@ public class EditorTool extends Composite {
 
 	public EditorTool() {
 		initWidget(uiBinder.createAndBindUi(this));
+		blogTab.setVisible(false);
 		
 		Window.addResizeHandler(new ResizeHandler() {
 			  Timer resizeTimer = new Timer() {  
@@ -75,6 +76,7 @@ public class EditorTool extends Composite {
 		}
 		else if (history_token.contains("blog")) {
 			blogTab.addStyleName("EditorTool_Obj5");
+			blogTab.setVisible(true);
 			if(!history_token.contains("/")) {
 				BlogEditorTool blogTool = new BlogEditorTool();
 				RootPanel.get("wt_editor").add(blogTool);

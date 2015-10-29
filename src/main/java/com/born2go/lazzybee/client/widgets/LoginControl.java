@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.Window;
@@ -54,19 +55,18 @@ public class LoginControl extends DialogBox {
 			u.setFacebook_id(userId);
 		}
 		u.setUserName(userName);
-		LazzyBee.data_service.saveUser(u, new AsyncCallback<Void>() {
-			
+		LazzyBee.data_service.saveUser(u, new AsyncCallback<User>() {
 			@Override
-			public void onSuccess(Void result) {
-				// TODO Auto-generated method stub
-				
+			public void onSuccess(User result) {
+				if(result.isAdmin()) {
+					if(DOM.getElementById("blogEditorTool") != null)
+						DOM.getElementById("blogEditorTool").setAttribute("style", "display:");
+					if(DOM.getElementById("blogViewEdit") != null)
+						DOM.getElementById("blogViewEdit").setAttribute("style", "float:right; display:");
+				}
 			}
-			
 			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void onFailure(Throwable caught) {}
 		});
 	}
 

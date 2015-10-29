@@ -12,6 +12,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -45,8 +46,11 @@ public class LazzyBee implements EntryPoint {
 		});
 		RootPanel.get("menu_login").add(menuLogin);
 
-		RootPanel.get("wt_noticebox").add(noticeBox);
-		noticeBox.hide();
+		if(RootPanel.get("wt_noticebox") != null) {
+			RootPanel.get("wt_noticebox").add(noticeBox);
+			DOM.getElementById("wt_noticebox").setAttribute("style", "text-align: center;");
+			noticeBox.hide();
+		}
 
 		if (RootPanel.get("wt_editor_slide") != null)
 			RootPanel.get("wt_editor_slide").add(new EditorTool());

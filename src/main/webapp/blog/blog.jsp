@@ -176,7 +176,7 @@
 					<% } %> --%>
 					<div style="overflow:hidden; margin-bottom:20px; padding:10px; margin-top:15px; background: #f2f1f1; width: 100%; display: block; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
 						<span style="float: left">Bài viết được tạo: <%= df.format(new Date(blog.getCreateDate())) %></span>
-						<a style="float:right" title="Soạn thảo" href="/editor/#blog/<%= blog.getId()%>"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+						<a id="blogViewEdit" style="float:right; display: none;" title="Soạn thảo" href="/editor/#blog/<%= blog.getId()%>"><i class="fa fa-pencil-square-o fa-lg"></i></a>
 					</div>
 				</div>
 				<div style="margin-bottom:30px"><%= blog.getContent() %></div>

@@ -23,6 +23,25 @@ import com.googlecode.objectify.cmd.Query;
 @SuppressWarnings("serial")
 public class DataServiceImpl extends RemoteServiceServlet implements
 		DataService {
+	
+	private boolean verifyAdmin(String userId) {
+		if(userId != null && userId.contains("_G")) {
+			User u = ofy().load().type(User.class).filter("google_id", userId).first().now();
+			if(u != null && u.isAdmin())
+				return true;
+			else
+				return false;
+		}
+		else if(userId != null && userId.contains("_F")) {
+			User u = ofy().load().type(User.class).filter("facebook_id", userId).first().now();
+			if(u != null && u.isAdmin())
+				return true;
+			else
+				return false;
+		}
+		else
+			return false;
+	}
 
 	/**
 	 * Insert new vocabulary
@@ -30,14 +49,18 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 * @return inserted vocabulary
 	 */
 	@Override
-	public Voca insertVoca(final Voca voca) {
-		voca.setQ(voca.getQ().toLowerCase());
-		voca.setCheck(false);
-		if (verifyVoca(voca.getQ())) {
-			Key<Voca> key = ofy().save().entity(voca).now();
-			Voca v = ofy().load().key(key).now();
-			return v;
-		} else
+	public Voca insertVoca(final Voca voca, String userId) {
+		if(verifyAdmin(userId)) {
+			voca.setQ(voca.getQ().toLowerCase());
+			voca.setCheck(false);
+			if (verifyVoca(voca.getQ())) {
+				Key<Voca> key = ofy().save().entity(voca).now();
+				Voca v = ofy().load().key(key).now();
+				return v;
+			} else
+				return null;
+		}
+		else
 			return null;
 	}
 
@@ -75,20 +98,24 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 * @return updated vocabulary, null if update fail
 	 */
 	@Override
-	public Voca updateVoca(Voca voca, boolean isCheck) {
-		Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
-		if (v != null) {
-			if (voca.getQ().equals(v.getQ())) {
-				if (isCheck)
-					voca.setCheck(true);
-				ofy().save().entity(voca);
-				return voca;
-			} else {
-				voca.setGid(null);
-				return insertVoca(voca);
+	public Voca updateVoca(Voca voca, boolean isCheck, String userId) {
+		if(verifyAdmin(userId)) {
+			Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
+			if (v != null) {
+				if (voca.getQ().equals(v.getQ())) {
+					if (isCheck)
+						voca.setCheck(true);
+					ofy().save().entity(voca);
+					return voca;
+				} else {
+					voca.setGid(null);
+					return insertVoca(voca, userId);
+				}
 			}
+			return null;
 		}
-		return null;
+		else
+			return null;
 	}
 
 	/**
@@ -157,26 +184,38 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 * Remove a vocabulary
 	 */
 	@Override
-	public void removeVoca(Voca voca) {
-		Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
-		if (v != null)
-			ofy().delete().entity(v);
+	public void removeVoca(Voca voca, String userId) {
+		if(verifyAdmin(userId)) {
+			Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
+			if (v != null)
+				ofy().delete().entity(v);
+		}
 	}
 
 	@Override
-	public void saveUser(User user) {
+	public User saveUser(User user) {
 		if (user.getGoogle_id() != null) {
-			int i = ofy().load().type(User.class)
-					.filter("google_id", user.getGoogle_id()).count();
-			if (i == 0)
+			User old_user = ofy().load().type(User.class)
+					.filter("google_id", user.getGoogle_id()).first().now();
+			if (old_user == null) {
 				ofy().save().entity(user);
+				return user;
+			}
+			else
+				return old_user;
 		}
-		if (user.getFacebook_id() != null) {
-			int i = ofy().load().type(User.class)
-					.filter("facebook_id", user.getFacebook_id()).count();
-			if (i == 0)
+		else if (user.getFacebook_id() != null) {
+			User old_user = ofy().load().type(User.class)
+					.filter("facebook_id", user.getFacebook_id()).first().now();
+			if (old_user == null) {
 				ofy().save().entity(user);
+				return user;
+			}
+			else
+				return old_user;
 		}
+		else
+			return user;
 	}
 
 	@Override
@@ -190,7 +229,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public Blog insertBlog(Blog blog) {
+	public Blog insertBlog(Blog blog, String userId) {
 //		String origin_title = blog.getTitle();
 //		boolean verify_blog = false;
 //		for (int i = 0; i <= 9; i++) {
@@ -203,23 +242,31 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 //				break;
 //			}
 //		}
-		if (verifyBlog(blog.getTitle())) {
-			blog.setCreateDate(System.currentTimeMillis());
-			Key<Blog> key = ofy().save().entity(blog).now();
-			Blog b = ofy().load().key(key).now();
-			return b;
-		} else
+		if(verifyAdmin(userId)) {
+			if (verifyBlog(blog.getTitle())) {
+				blog.setCreateDate(System.currentTimeMillis());
+				Key<Blog> key = ofy().save().entity(blog).now();
+				Blog b = ofy().load().key(key).now();
+				return b;
+			} else
+				return null;
+			}
+		else
 			return null;
 	}
 
 	@Override
-	public Blog updateBlog(Blog blog) {
-		Blog old_blog = findBlogById(blog.getId());
-		if(old_blog != null) {
-			ofy().save().entity(blog);
-			return blog;
+	public Blog updateBlog(Blog blog, String userId) {
+		if(verifyAdmin(userId)) {
+			Blog old_blog = findBlogById(blog.getId());
+			if(old_blog != null) {
+				ofy().save().entity(blog);
+				return blog;
+			}
+			return null;
 		}
-		return null;
+		else
+			return null;
 	}
 
 	@Override
@@ -257,8 +304,12 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			.getBlobstoreService();
 
 	@Override
-	public String getUploadUrl() {
-		return blobStoreService.createUploadUrl("/photo_upload");
+	public String getUploadUrl(String userId) {
+		if(verifyAdmin(userId)) {		
+			return blobStoreService.createUploadUrl("/photo_upload");
+		}
+		else
+			return null;
 	}
 
 }

@@ -38,7 +38,7 @@ public class NoticeBox extends Composite {
 		Label notice_lb = new Label(notice);
 		lbNotice.add(notice_lb);
 		int left = (Window.getClientWidth() / 2) - (this.getOffsetWidth() / 2);
-		this.getElement().setAttribute("style", "left: " + left + "px; display:");
+		this.getElement().setAttribute("style", "position: relative; display:");
 	}
 	
 	public void setLoading() {

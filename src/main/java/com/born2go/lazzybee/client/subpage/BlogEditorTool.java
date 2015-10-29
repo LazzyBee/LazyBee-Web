@@ -198,8 +198,8 @@ public class BlogEditorTool extends Composite {
 		    
 		    //Enable resize
 		    resize: {
-				width: 1366,
-				height: 768
+				width: 800,
+				height: 600
 			},
 		    
 		    //Enable params
@@ -209,7 +209,7 @@ public class BlogEditorTool extends Composite {
 		     
 		    //Enable filter files
 		    filters : {
-		        max_file_size : '5mb',
+		        max_file_size : '1mb',
 		        mime_types: [
 		            {title : "Image files", extensions : "jpg,png"}  
 		        ]
@@ -347,7 +347,7 @@ public class BlogEditorTool extends Composite {
 			blog.setContent(getDataCustomEditor("blogContent"));
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			if(this.blog == null) {
-				LazzyBee.data_service.insertBlog(blog, new AsyncCallback<Blog>() {
+				LazzyBee.data_service.insertBlog(blog, LazzyBee.userId, new AsyncCallback<Blog>() {
 					@Override
 					public void onSuccess(Blog result) {
 						if(result != null) {
@@ -357,7 +357,8 @@ public class BlogEditorTool extends Composite {
 							formClean();
 						}
 						else {
-							LazzyBee.noticeBox.setNotice("URL bài viết không hợp lệ!");
+							LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+							LazzyBee.noticeBox.setAutoHide();
 						}
 					}
 					@Override
@@ -368,13 +369,19 @@ public class BlogEditorTool extends Composite {
 				});
 			}
 			else {
-				LazzyBee.data_service.updateBlog(blog, new AsyncCallback<Blog>() {
+				LazzyBee.data_service.updateBlog(blog, LazzyBee.userId, new AsyncCallback<Blog>() {
 					@Override
 					public void onSuccess(Blog result) {
-						checkPlupLoadQueue(result.getId());
-						LazzyBee.noticeBox.setNotice("Bài viết đã được sửa!");
-						LazzyBee.noticeBox.setAutoHide();
-						formClean();
+						if(result != null) {
+							checkPlupLoadQueue(result.getId());
+							LazzyBee.noticeBox.setNotice("Bài viết đã được sửa!");
+							LazzyBee.noticeBox.setAutoHide();
+							formClean();
+						}
+						else {
+							LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+							LazzyBee.noticeBox.setAutoHide();
+						}
 					}
 					@Override
 					public void onFailure(Throwable caught) {
@@ -387,7 +394,7 @@ public class BlogEditorTool extends Composite {
 	}
 	
 	private static void uploadPhoto(final Long blogId) {
-		LazzyBee.data_service.getUploadUrl(new AsyncCallback<String>() {	
+		LazzyBee.data_service.getUploadUrl(LazzyBee.userId, new AsyncCallback<String>() {	
 			@Override
 			public void onSuccess(String result) {
 				String blog_id = (blogId != null ? blogId.toString() : "");
