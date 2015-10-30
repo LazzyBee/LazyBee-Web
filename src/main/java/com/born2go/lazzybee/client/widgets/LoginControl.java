@@ -55,6 +55,7 @@ public class LoginControl extends DialogBox {
 			u.setFacebook_id(userId);
 		}
 		u.setUserName(userName);
+//		u.setAdmin(true);
 		LazzyBee.data_service.saveUser(u, new AsyncCallback<User>() {
 			@Override
 			public void onSuccess(User result) {

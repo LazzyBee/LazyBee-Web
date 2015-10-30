@@ -106,8 +106,12 @@ public class DictionaryTool extends Composite {
 			Label info = new Label("Phương pháp học thông qua flashcard chỉ có trên phiên bản mobile. Bạn hãy cài đặt App mobile để học từ vựng tốt hơn.");
 			info.getElement().setAttribute("style", "margin-bottom: 20px; margin-top: 20px; padding: 10px; background-color: lemonchiffon; line-height: 1.5;");
 			htmlPanel.add(info);
-//			loadBlog(htmlPanel);
 			RootPanel.get("wt_dictionary_content").add(htmlPanel);
+			
+			HTMLPanel wt_dictionary_blog = new HTMLPanel("");
+			loadBlog(wt_dictionary_blog);
+			RootPanel.get("wt_dictionary_blog").add(wt_dictionary_blog);
+			
 			defaultSite.addStyleName("DictionaryTool_Obj5");
 			// -----
 			if (!History.getToken().isEmpty()) {
@@ -131,35 +135,41 @@ public class DictionaryTool extends Composite {
 		});
 	}
 	
-	void loadBlog(final HTMLPanel wt_dictionary_content) {
+	void loadBlog(final HTMLPanel wt_dictionary_blog) {
 		LazzyBee.data_service.getListBlog(new AsyncCallback<List<Blog>>() {
 			@Override
 			public void onSuccess(List<Blog> result) {
 				HTMLPanel blogPanel = new HTMLPanel("");
-				wt_dictionary_content.add(blogPanel);
-				for(Blog blog: result) {
+				blogPanel.getElement().setAttribute("style", "border-top: 1px solid #E6E9EB");
+				wt_dictionary_blog.add(blogPanel);
+				for(final Blog blog: result) {
 					HTMLPanel blogp = new HTMLPanel("");
-					blogp.getElement().setAttribute("style", "overflow: hidden; margin-bottom: 20px; padding-top: 20px; border-top: 1px solid silver;");
+					blogp.getElement().setAttribute("style", "width: 183px; overflow: hidden; padding-top: 10px; float: left; margin-right: 15px; margin-left: 2px;");
 					final Image avatar = new Image();
-					avatar.getElement().setAttribute("style", "width: 280px; float: left; margin-right: 15px;"); 
+					avatar.setStyleName("DictionaryTool_Obj8");
 					LazzyBee.data_service.findPicture(blog.getAvatar(), new AsyncCallback<Picture>() {	
 						@Override
 						public void onSuccess(Picture result) {
-							avatar.setUrl(result.getServeUrl());
+							if(result != null)
+								avatar.setUrl(result.getServeUrl());
+							else
+								avatar.setUrl("/resources/1435838158_Mushroom - Bee.png");
 						}
 						@Override
 						public void onFailure(Throwable caught) {}
 					});
-					Anchor title = new Anchor(blog.getTitle());
+					Anchor title = new Anchor(blog.getShowTitle());
 					title.setHref("/blog/"+ blog.getTitle());
-					title.setStyleName("DictionaryTool_Obj7");
-					HTML content = new HTML(SafeHtmlUtils.fromString(blog.getContent()));
-					content.getElement().setAttribute("id", "blog" + blog.getId());
+					title.setStyleName("DictionaryTool_Obj7");	
 					blogp.add(avatar);
-					blogp.add(title);
-					blogp.add(content);
+					blogp.add(title);				
 					blogPanel.add(blogp);
-					getPlainText("blog" + blog.getId());
+					avatar.addClickHandler(new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							Window.Location.assign("/blog/"+ blog.getTitle());
+						}
+					});
 				}
 			}
 			@Override
@@ -167,13 +177,6 @@ public class DictionaryTool extends Composite {
 		});
 	}
 	
-	native void getPlainText(String bodyTextId) /*-{
-		var id = bodyTextId;
-		var body = $wnd.document.getElementById(id);
-		var textContent = body.textContent || body.innerText;
-		alert(textContent);
-	}-*/;
-
 	void loadVocaToken() {
 		RootPanel.get("wt_dictionary_content").clear();
 		final String history_token = History.getToken();

@@ -26,6 +26,7 @@ public class Blog implements Serializable {
 	
 	String showTitle;
 	String content;
+//	String shortDescription;
 	Long avatar;
 	
 
@@ -72,6 +73,14 @@ public class Blog implements Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+//	public String getShortDescription() {
+//		return shortDescription;
+//	}
+//
+//	public void setShortDescription(String shortDescription) {
+//		this.shortDescription = shortDescription;
+//	}
 
 	public Long getAvatar() {
 		return avatar;

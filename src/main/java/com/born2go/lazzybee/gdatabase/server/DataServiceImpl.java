@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.jsoup.Jsoup;
+
 import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
@@ -42,6 +44,13 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		else
 			return false;
 	}
+	
+//	private String getPlainText(String strSrc) {
+//		String resultStr = strSrc;
+//		resultStr = resultStr.replaceAll("<figcaption>.*</figcaption>", "");
+//		resultStr = resultStr.replaceAll("&nbsp;", " ");
+//		return resultStr;
+//	}
 
 	/**
 	 * Insert new vocabulary
@@ -194,6 +203,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public User saveUser(User user) {
+		user.setAdmin(false);
 		if (user.getGoogle_id() != null) {
 			User old_user = ofy().load().type(User.class)
 					.filter("google_id", user.getGoogle_id()).first().now();
@@ -260,6 +270,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		if(verifyAdmin(userId)) {
 			Blog old_blog = findBlogById(blog.getId());
 			if(old_blog != null) {
+//				String preshortHtml = getPlainText(blog.getContent());
+//				blog.setShortDescription(Jsoup.parse(preshortHtml).text());
 				ofy().save().entity(blog);
 				return blog;
 			}
@@ -284,7 +296,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<Blog> getListBlog() {
-		List<Blog> blogs = ofy().load().type(Blog.class).list();
+		List<Blog> blogs = ofy().load().type(Blog.class).limit(4).list();
 		List<Blog> result = new ArrayList<Blog>();
 		result.addAll(blogs);
 		return result;
