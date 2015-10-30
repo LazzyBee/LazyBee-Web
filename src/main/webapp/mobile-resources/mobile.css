@@ -25,6 +25,18 @@ body {
 	min-width: 320px !important;
 	overflow-x: hidden;
 }
+/* css for mfooter*/
+
+#mfooter {
+	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	height: 25px;
+	width: 100%;
+	text-align: center;
+	background-color: rgba(48, 27, 12, 1);
+	color: white;
+}
 
 .header_w {
 	width: 100%;
@@ -219,6 +231,7 @@ a {
 	width: 600px;
 	margin: auto;
 	margin-top: 20px;
+	margin-bottom: 60px;
 }
 
 .MTestTool_Obj5:hover {
