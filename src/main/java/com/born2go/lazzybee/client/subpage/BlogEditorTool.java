@@ -198,8 +198,8 @@ public class BlogEditorTool extends Composite {
 		    
 		    //Enable resize
 		    resize: {
-				width: 800,
-				height: 600
+				width: 350,
+				height: 220
 			},
 		    
 		    //Enable params
@@ -209,7 +209,7 @@ public class BlogEditorTool extends Composite {
 		     
 		    //Enable filter files
 		    filters : {
-		        max_file_size : '1mb',
+		        max_file_size : '5mb',
 		        mime_types: [
 		            {title : "Image files", extensions : "jpg,png"}  
 		        ]

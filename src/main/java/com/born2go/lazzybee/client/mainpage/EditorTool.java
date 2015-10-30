@@ -44,6 +44,7 @@ public class EditorTool extends Composite {
 	public EditorTool() {
 		initWidget(uiBinder.createAndBindUi(this));
 		blogTab.setVisible(false);
+		blogTab.getElement().setAttribute("id", "blogEditorTool");
 		
 		Window.addResizeHandler(new ResizeHandler() {
 			  Timer resizeTimer = new Timer() {  
