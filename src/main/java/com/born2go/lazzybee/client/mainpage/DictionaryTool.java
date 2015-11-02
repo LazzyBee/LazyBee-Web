@@ -140,11 +140,11 @@ public class DictionaryTool extends Composite {
 			@Override
 			public void onSuccess(List<Blog> result) {
 				HTMLPanel blogPanel = new HTMLPanel("");
-				blogPanel.getElement().setAttribute("style", "border-top: 1px solid #E6E9EB");
+				blogPanel.getElement().setAttribute("style", "border-top: 1px solid #E6E9EB; overflow: hidden; margin-bottom: 30px;");
 				wt_dictionary_blog.add(blogPanel);
 				for(final Blog blog: result) {
 					HTMLPanel blogp = new HTMLPanel("");
-					blogp.getElement().setAttribute("style", "width: 183px; overflow: hidden; padding-top: 10px; float: left; margin-right: 15px; margin-left: 2px;");
+					blogp.setStyleName("DictionaryTool_Obj9");
 					final Image avatar = new Image();
 					avatar.setStyleName("DictionaryTool_Obj8");
 					LazzyBee.data_service.findPicture(blog.getAvatar(), new AsyncCallback<Picture>() {	

@@ -296,7 +296,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<Blog> getListBlog() {
-		List<Blog> blogs = ofy().load().type(Blog.class).limit(4).list();
+		List<Blog> blogs = ofy().load().type(Blog.class).limit(6).list();
 		List<Blog> result = new ArrayList<Blog>();
 		result.addAll(blogs);
 		return result;

@@ -485,6 +485,7 @@ public class VocaEditorTool extends Composite {
 	  		height: '50px',
 	  		contentsCss : 'body {overflow:hidden;}',
 	  		autoGrow_minHeight: 10,
+	  		autoGrow_maxHeight: 300,
 	  		toolbarStartupExpanded : false,
 	  		extraPlugins: 'autogrow,colorbutton',
 	  		removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,About',
