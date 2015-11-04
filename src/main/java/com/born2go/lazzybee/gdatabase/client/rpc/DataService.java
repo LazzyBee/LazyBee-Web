@@ -14,7 +14,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface DataService extends RemoteService {
 
 	public boolean verifyVoca(String voca_q);
-
 	public Voca insertVoca(Voca voca, String userId);
 	public Voca findVoca(String voca_q);
 	public Voca updateVoca(Voca voca, boolean isCheck, String userId);
@@ -37,5 +36,4 @@ public interface DataService extends RemoteService {
 	public Picture findPicture(Long pictureId);
 	
 	public String getUploadUrl(String userId);
-
 }

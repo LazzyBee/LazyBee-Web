@@ -23,7 +23,7 @@ public class DataRegister extends RemoteServiceServlet {
 		ObjectifyService.register(User.class);
 		ObjectifyService.register(Blog.class);
 		ObjectifyService.register(Picture.class);
-
+		
 		// Blog blog = new Blog();
 		// blog.setTitle("Tạo blog mới");
 		// blog.setCreateDate(new Date().getTime());

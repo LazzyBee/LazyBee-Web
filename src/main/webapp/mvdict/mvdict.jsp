@@ -115,15 +115,20 @@
 				<table class="table-app" cellspacing="5">
 					<tr>
 						<td>
-							<div style="float: left; margin-top: 15px;">
-								<img alt="" src="/resources/appstore.png"
-									style="width: 130px; height: 50px; cursor: pointer;">
+							<div style="float: left; margin-right: 10px; margin-top: 15px;">
+								<a href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
+									<img alt="" src="/resources/appstore.png"
+										style="width: 130px; height: 50px; cursor: pointer;">
+								</a>
+
 							</div>
 						</td>
 						<td>
 							<div>
-								<img alt="" src="/resources/googleplay.jpg"
+								<a href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
+									<img alt="" src="/resources/googleplay.jpg"
 									style="width: 130px; height: 50px; cursor: pointer; margin-top: 15px;">
+								</a>
 							</div>
 						</td>
 					</tr>
