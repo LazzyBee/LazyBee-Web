@@ -33,5 +33,4 @@ public interface DataServiceAsync {
 	void findPicture(Long pictureId, AsyncCallback<Picture> callback);
 	
 	void getUploadUrl(String userId, AsyncCallback<String> callback);
-
 }
