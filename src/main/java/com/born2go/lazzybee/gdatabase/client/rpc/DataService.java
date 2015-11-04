@@ -21,9 +21,7 @@ public interface DataService extends RemoteService {
 //	public Integer getTotalVoca();
 //	public Integer getTotalPreviewVoca();
 	public VocaList getListVoca(String cursorStr);
-
 	public VocaList getListPreviewVoca(String cursorStr);
-
 	public void removeVoca(Voca voca, String userId);
 	
 	public User saveUser(User user);
@@ -32,11 +30,8 @@ public interface DataService extends RemoteService {
 	public Blog insertBlog(Blog blog, String userId);
 	public Blog updateBlog(Blog blog, String userId);
 	public Blog findBlogById(Long blogId);
-
 	public List<Blog> findBlogs();
-
 	public Blog findBlogByTitle(String blogTitle);
-
 	public List<Blog> getListBlog();
 	
 	public Picture findPicture(Long pictureId);
