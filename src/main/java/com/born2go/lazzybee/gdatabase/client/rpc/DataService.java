@@ -29,7 +29,6 @@ public interface DataService extends RemoteService {
 	public Blog insertBlog(Blog blog, String userId);
 	public Blog updateBlog(Blog blog, String userId);
 	public Blog findBlogById(Long blogId);
-	public List<Blog> findBlogs();
 	public Blog findBlogByTitle(String blogTitle);
 	public List<Blog> getListBlog();
 	
