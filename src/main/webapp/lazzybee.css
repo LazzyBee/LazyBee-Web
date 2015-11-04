@@ -2,6 +2,11 @@ body {
 	margin: 0px !important;
 }
 
+h1 {
+	font-size: 20px;
+	color: #0e74af;
+}
+
 #header {
 	background: #009688;
 	height: 40px;
@@ -121,4 +126,3 @@ body {
 	color: gray;
     margin-left: 15px;
 }
-

@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	@external .DictionaryTool_Obj5;
+	@external .DictionaryTool_Obj5, .DictionaryTool_Obj7, .DictionaryTool_Obj8, .DictionaryTool_Obj9;
 	.DictionaryTool_Obj1 {
 		float: left;
 		width: 100%;
@@ -46,6 +46,37 @@
 		padding: 5px;
    	 	width: 100%;
     	box-sizing: border-box;
+	}
+	
+	.DictionaryTool_Obj7 {
+		color: #333 !important;
+   	 	font-weight: bold;
+   	 	font-size: 13px;
+    	margin-top: 10px;
+    	display: block;
+    	height: 35px;
+	}
+	
+	.DictionaryTool_Obj7:hover {
+		color: #0e74af !important;
+		cursor: pointer;
+		text-decoration: none !important;
+	}
+	
+	.DictionaryTool_Obj8 {
+		cursor: pointer;
+		width: 180px; 
+		height: 130px;
+	}
+	
+	.DictionaryTool_Obj9 {
+		width: 183px; 
+		overflow: hidden; 
+		padding-top: 15px; 
+		float: left; 
+		margin-right: 15px; 
+		margin-left: 2px; 
+		margin-bottom: 10px;
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.DictionaryTool_Obj3}">

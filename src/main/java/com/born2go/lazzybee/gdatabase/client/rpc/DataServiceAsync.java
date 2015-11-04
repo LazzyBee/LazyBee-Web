@@ -12,33 +12,25 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface DataServiceAsync {
 
 	void verifyVoca(String voca_q, AsyncCallback<Boolean> callback);
-
-	void insertVoca(Voca voca, AsyncCallback<Voca> callback);
-
+	void insertVoca(Voca voca, String userId, AsyncCallback<Voca> callback);
 	void findVoca(String voca_q, AsyncCallback<Voca> callback);
-
-	void updateVoca(Voca voca, boolean isCheck, AsyncCallback<Voca> callback);
-
-	// void getTotalVoca(AsyncCallback<Integer> callback);
-	// void getTotalPreviewVoca(AsyncCallback<Integer> callback);
+	void updateVoca(Voca voca, boolean isCheck, String userId, AsyncCallback<Voca> callback);
+//	void getTotalVoca(AsyncCallback<Integer> callback);
+//	void getTotalPreviewVoca(AsyncCallback<Integer> callback);
 	void getListVoca(String cursorStr, AsyncCallback<VocaList> callback);
-
 	void getListPreviewVoca(String cursorStr, AsyncCallback<VocaList> callback);
+	void removeVoca(Voca voca, String userId, AsyncCallback<Void> callback);
+	
+	void saveUser(User user, AsyncCallback<User> callback);
 
-	void removeVoca(Voca voca, AsyncCallback<Void> callback);
-
-	void saveUser(User user, AsyncCallback<Void> callback);
-
-	void insertBlog(Blog blog, AsyncCallback<Blog> callback);
-
+	void verifyBlog(String blogTitle, AsyncCallback<Boolean> callback);
+	void insertBlog(Blog blog, String userId, AsyncCallback<Blog> callback);
+	void updateBlog(Blog blog, String userId, AsyncCallback<Blog> callback);
 	void findBlogById(Long blogId, AsyncCallback<Blog> callback);
-
 	void findBlogByTitle(String blogTitle, AsyncCallback<Blog> callback);
-
-	void findBlogs(AsyncCallback<List<Blog>> callback);
-
+	void getListBlog(AsyncCallback<List<Blog>> callback);
+	
 	void findPicture(Long pictureId, AsyncCallback<Picture> callback);
-
-	void getUploadUrl(AsyncCallback<String> callback);
-
+	
+	void getUploadUrl(String userId, AsyncCallback<String> callback);
 }

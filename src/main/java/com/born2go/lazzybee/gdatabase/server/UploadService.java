@@ -40,10 +40,10 @@ public class UploadService extends HttpServlet implements Servlet {
 
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
 		List<BlobKey> blobKeys = blobs.get("file");
-		System.out.println("Blog Id: " + req.getParameter("blogId")
-				+ "-----------------------------------");
+//		System.out.println("Blog Id: " + req.getParameter("blogId")
+//				+ "-----------------------------------");
 
-		if (blobKeys != null) {
+		if (blobKeys != null && !blobKeys.isEmpty()) {
 			for (BlobKey key : blobKeys) {
 				// get file name on blob info
 				BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(key);
@@ -75,5 +75,8 @@ public class UploadService extends HttpServlet implements Servlet {
 				}
 			}
 		}
+		
+		else
+			return;
 	}
 }

@@ -68,6 +68,11 @@
 			<version>2.4.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.8.2</version>
+		</dependency>
 		<!-- mgwt for mobile -->
 		<dependency>
 			<groupId>com.googlecode.mgwt</groupId>

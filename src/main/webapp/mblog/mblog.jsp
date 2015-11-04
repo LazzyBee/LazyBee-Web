@@ -51,7 +51,7 @@
 
 				SimpleDateFormat dateFormat = new SimpleDateFormat(
 						"d/MM/yyyy");
-				String title = blog.getTitle().replaceAll("_", " ");
+				String title = blog.getShowTitle();
 				String url = "http://127.0.0.1:8888/mblog/" + title;
 				String pathPicture = "";
 				String content = blog.getContent();
@@ -79,6 +79,7 @@
 	href="/mobile-resources/mobile.css">
 <link rel="stylesheet"
 	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
+<link rel="icon" type="image/png" href="/favicon.png" />
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

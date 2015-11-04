@@ -42,7 +42,7 @@
 	//Global variable
 	java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/YYYY HH:mm");
 	Blog blog;
-	Picture blog_avatar;
+	Picture blog_avatar = null;
 	
 	if (request.getPathInfo() == null
 			|| request.getPathInfo().length() < 1) {
@@ -76,7 +76,16 @@
 <link rel="stylesheet"
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-<title>Lazzy Bee</title>
+<title><%= blog.getShowTitle() %></title>
+
+<meta property="og:type" content=website />
+<% if(blog_avatar != null) {%>
+<meta property="og:image" content="<%= blog_avatar.getServeUrl() %>" />
+<% }  else {%>
+<meta property="og:image" content="http://www.lazzybee.com/resources/1435838158_Mushroom - Bee.png" />
+<% } %>
+<meta property="og:title" content="<%= blog.getShowTitle().replaceAll("\"", "\'") %>" />
+<meta property="og:url" content="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" />
 
 <script type="text/javascript" language="javascript"
 	src="../lazzybee/lazzybee.nocache.js"></script>
@@ -104,7 +113,7 @@
 <body style="overflow: hidden;">
 
 	<div id="fb-root"></div>
-	<script>
+	<!-- <script>
 		(function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
 			if (d.getElementById(id))
@@ -114,7 +123,7 @@
 			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=754889477966743";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
-	</script>
+	</script> -->
 
 	<!-- OPTIONAL: include this if you want history support -->
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
@@ -137,10 +146,22 @@
 		</div>
 		<div class="header_menu">
 			<!-- <a class="header_menu_item">Bộ Flash Cards</a> -->
-			<a href="/vdict/" class="header_menu_item"
-				style="color: rgb(234, 253, 116) !important;">Thư Viện</a> <a
-				id="menu_editor" href="/editor/" class="header_menu_item">Soạn
-				Thảo</a>
+			<% if(blog.getTitle().equals("feedback")) {%>
+			<a href="/vdict/" class="header_menu_item">Thư Viện</a> 
+			<a href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a> 
+			<a id="menu_editor" href="/editor/" class="header_menu_item">Soạn Thảo</a>
+			<a style="color: rgb(234, 253, 116) !important;" href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
+			<% } else if(blog.getTitle().equals("user_guide")) { %>
+			<a href="/vdict/" class="header_menu_item">Thư Viện</a> 
+			<a style="color: rgb(234, 253, 116) !important;" href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a> 
+			<a id="menu_editor" href="/editor/" class="header_menu_item">Soạn Thảo</a>
+			<a href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
+			<% } else { %>
+			<a style="color: rgb(234, 253, 116) !important;" href="/vdict/" class="header_menu_item">Thư Viện</a>
+			<a href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a>  
+			<a id="menu_editor" href="/editor/" class="header_menu_item">Soạn Thảo</a>
+			<a href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
+			<% } %>
 		</div>
 		<div class="header_accPro">
 			<div id="menu_login"></div>
@@ -161,29 +182,42 @@
 			<div id="wt_dictionary"
 				style="padding: 20px 30px 30px 30px; width: 600px; float: left;">
 				<div style="text-align: left">
-					<span style="font-size: 20px;color: #0e74af;font-weight: bold;"><%= blog.getTitle().replaceAll("_", " ") %></span>
+					<h1><%= blog.getShowTitle()%></h1>
 					<%-- <%if(blog_avatar != null) { %>
 					<br/>
 					<img style="margin-top:20px" alt="" src="<%= blog_avatar.getServeUrl()%>">
 					<% } %> --%>
-					<span style="padding:10px;margin-top:15px;background: #f2f1f1;width: 100%;display: block;">Bài viết được tạo: <%= df.format(new Date(blog.getCreateDate())) %></span>
+					<div style="overflow:hidden; margin-bottom:20px; padding:10px; margin-top:15px; background: #f2f1f1; width: 100%; display: block; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+						<span style="float: left; margin-top: 3px;">Bài viết được tạo: <%= df.format(new Date(blog.getCreateDate())) %></span>
+						<a id="blogViewEdit" style="display: none;" title="Soạn thảo" href="/editor/#blog/<%= blog.getId()%>"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+						<div style="float: right">
+							<div class="fb-like" data-href="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+						</div>
+					</div>
 				</div>
-				<br/>
 				<div style="margin-bottom:30px"><%= blog.getContent() %></div>
+				
+				<br/> <br/>
+				<div class="fb-comments" data-width="100%" data-href="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" data-numposts="5" data-colorscheme="light" data-order-by="reverse_time" data-version="v2.3"></div>
+				<br/><br/>
 			</div>
 
 			<div id="right_panel">
-				<div>
-					<img alt="" src="/resources/right-panel-pic.jpg"
-						style="width: 100%; height: 280px;">
+				<div style="text-align: center;">
+					<img alt="" src="/resources/2015-11-01.png"
+						style="width: 100%; height: 300px;">
 				</div>
 				<div style="float: left; margin-right: 10px; margin-top: 15px;">
-					<img alt="" src="/resources/appstore.png"
-						style="width: 140px; height: 50px; cursor: pointer;">
+					<a href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
+						<img alt="" src="/resources/appstore.png"
+							style="width: 140px; height: 50px; cursor: pointer;">
+					</a>
 				</div>
 				<div>
-					<img alt="" src="/resources/googleplay.jpg"
+					<a href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
+						<img alt="" src="/resources/googleplay.jpg"
 						style="width: 140px; height: 50px; cursor: pointer; margin-top: 15px;">
+					</a>
 				</div>
 				<div class="advertise" style="margin-top: 25px; height: 100px">
 					<span style="font-size: 15px; font-weight: bold;">Connect

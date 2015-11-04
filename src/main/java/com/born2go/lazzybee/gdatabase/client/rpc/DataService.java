@@ -14,33 +14,25 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface DataService extends RemoteService {
 
 	public boolean verifyVoca(String voca_q);
-
-	public Voca insertVoca(Voca voca);
-
+	public Voca insertVoca(Voca voca, String userId);
 	public Voca findVoca(String voca_q);
-
-	public Voca updateVoca(Voca voca, boolean isCheck);
-
-	// public Integer getTotalVoca();
-	// public Integer getTotalPreviewVoca();
+	public Voca updateVoca(Voca voca, boolean isCheck, String userId);
+//	public Integer getTotalVoca();
+//	public Integer getTotalPreviewVoca();
 	public VocaList getListVoca(String cursorStr);
-
 	public VocaList getListPreviewVoca(String cursorStr);
-
-	public void removeVoca(Voca voca);
-
-	public void saveUser(User user);
-
-	public Blog insertBlog(Blog blog);
-
+	public void removeVoca(Voca voca, String userId);
+	
+	public User saveUser(User user);
+	
+	public boolean verifyBlog(String blogTitle);
+	public Blog insertBlog(Blog blog, String userId);
+	public Blog updateBlog(Blog blog, String userId);
 	public Blog findBlogById(Long blogId);
-
-	public List<Blog> findBlogs();
-
 	public Blog findBlogByTitle(String blogTitle);
-
+	public List<Blog> getListBlog();
+	
 	public Picture findPicture(Long pictureId);
-
-	public String getUploadUrl();
-
+	
+	public String getUploadUrl(String userId);
 }

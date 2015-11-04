@@ -42,7 +42,7 @@
 <body style="overflow: hidden;">
 
 	<div id="fb-root"></div>
-	<script>
+	<!-- <script>
 		(function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
 			if (d.getElementById(id))
@@ -52,7 +52,7 @@
 			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=754889477966743";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
-	</script>
+	</script> -->
 
 	<!-- OPTIONAL: include this if you want history support -->
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
@@ -75,9 +75,10 @@
 		</div>
 		<div class="header_menu">
 			<!-- <a class="header_menu_item">Bộ Flash Cards</a> -->
-			<a href="/vdict/" class="header_menu_item">Thư Viện</a> <a
-				id="menu_editor" href="/editor/" class="header_menu_item"
-				style="color: rgb(234, 253, 116) !important;">Soạn Thảo</a>
+			<a href="/vdict/" class="header_menu_item">Thư Viện</a> 
+			<a href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a> 
+			<a id="menu_editor" href="/editor/" class="header_menu_item" style="color: rgb(234, 253, 116) !important;">Soạn Thảo</a>
+			<a href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
 		</div>
 		<div class="header_accPro">
 			<div id="menu_login"></div>
@@ -103,17 +104,21 @@
 			</div>
 
 			<div id="right_panel">
-				<div>
-					<img alt="" src="/resources/right-panel-pic.jpg"
-						style="width: 100%; height: 280px;">
+				<div style="text-align: center;">
+					<img alt="" src="/resources/2015-11-01.png"
+						style="width: 100%; height: 300px;">
 				</div>
 				<div style="float: left; margin-right: 10px; margin-top: 15px;">
-					<img alt="" src="/resources/appstore.png"
-						style="width: 140px; height: 50px; cursor: pointer;">
+					<a href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
+						<img alt="" src="/resources/appstore.png"
+							style="width: 140px; height: 50px; cursor: pointer;">
+					</a>
 				</div>
 				<div>
-					<img alt="" src="/resources/googleplay.jpg"
+					<a href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
+						<img alt="" src="/resources/googleplay.jpg"
 						style="width: 140px; height: 50px; cursor: pointer; margin-top: 15px;">
+					</a>
 				</div>
 				<div class="advertise" style="margin-top: 25px; height: 100px">
 					<span style="font-size: 15px; font-weight: bold;">Connect

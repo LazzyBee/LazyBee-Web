@@ -1,10 +1,14 @@
 package com.born2go.lazzybee.client.mainpage;
 
+import java.util.List;
+
 import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.client.subpage.ListVocaView;
 import com.born2go.lazzybee.client.subpage.TestTool;
 import com.born2go.lazzybee.client.subpage.VocaPreview;
 import com.born2go.lazzybee.client.subpage.VocaView;
+import com.born2go.lazzybee.gdatabase.shared.Blog;
+import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -16,6 +20,7 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -26,7 +31,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -95,14 +102,16 @@ public class DictionaryTool extends Composite {
 	void historyTokenHandler() {
 		String path = Window.Location.getPath();
 		if (path.contains("vdict")) {
-			HTMLPanel htmlPanel = new HTMLPanel(
-					"<span>Phương pháp học thông qua flashcard chỉ có trên phiên bản mobile. Bạn hãy cài đặt App mobile để học từ vựng tốt hơn.</span>");
-			htmlPanel
-					.getElement()
-					.setAttribute(
-							"style",
-							"margin-top: 20px; padding: 10px; background-color: lemonchiffon; line-height: 1.5;");
+			HTMLPanel htmlPanel = new HTMLPanel("");
+			Label info = new Label("Phương pháp học thông qua flashcard chỉ có trên phiên bản mobile. Bạn hãy cài đặt App mobile để học từ vựng tốt hơn.");
+			info.getElement().setAttribute("style", "margin-bottom: 20px; margin-top: 20px; padding: 10px; background-color: lemonchiffon; line-height: 1.5;");
+			htmlPanel.add(info);
 			RootPanel.get("wt_dictionary_content").add(htmlPanel);
+			
+			HTMLPanel wt_dictionary_blog = new HTMLPanel("");
+			loadBlog(wt_dictionary_blog);
+			RootPanel.get("wt_dictionary_blog").add(wt_dictionary_blog);
+			
 			defaultSite.addStyleName("DictionaryTool_Obj5");
 			// -----
 			if (!History.getToken().isEmpty()) {
@@ -125,7 +134,49 @@ public class DictionaryTool extends Composite {
 			}
 		});
 	}
-
+	
+	void loadBlog(final HTMLPanel wt_dictionary_blog) {
+		LazzyBee.data_service.getListBlog(new AsyncCallback<List<Blog>>() {
+			@Override
+			public void onSuccess(List<Blog> result) {
+				HTMLPanel blogPanel = new HTMLPanel("");
+				blogPanel.getElement().setAttribute("style", "border-top: 1px solid #E6E9EB; overflow: hidden; margin-bottom: 30px;");
+				wt_dictionary_blog.add(blogPanel);
+				for(final Blog blog: result) {
+					HTMLPanel blogp = new HTMLPanel("");
+					blogp.setStyleName("DictionaryTool_Obj9");
+					final Image avatar = new Image();
+					avatar.setStyleName("DictionaryTool_Obj8");
+					LazzyBee.data_service.findPicture(blog.getAvatar(), new AsyncCallback<Picture>() {	
+						@Override
+						public void onSuccess(Picture result) {
+							if(result != null)
+								avatar.setUrl(result.getServeUrl());
+							else
+								avatar.setUrl("/resources/1435838158_Mushroom - Bee.png");
+						}
+						@Override
+						public void onFailure(Throwable caught) {}
+					});
+					Anchor title = new Anchor(blog.getShowTitle());
+					title.setHref("/blog/"+ blog.getTitle());
+					title.setStyleName("DictionaryTool_Obj7");	
+					blogp.add(avatar);
+					blogp.add(title);				
+					blogPanel.add(blogp);
+					avatar.addClickHandler(new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							Window.Location.assign("/blog/"+ blog.getTitle());
+						}
+					});
+				}
+			}
+			@Override
+			public void onFailure(Throwable caught) {}
+		});
+	}
+	
 	void loadVocaToken() {
 		RootPanel.get("wt_dictionary_content").clear();
 		final String history_token = History.getToken();

@@ -39,4 +39,6 @@ CKEDITOR.editorConfig = function( config ) {
 //	config.extraPlugins = 'floatpanel';
 //	config.extraPlugins = 'colorbutton';
 	config.extraPlugins = 'autogrow';
+	
+//	config.extraAllowedContent = 'div(*)';
 };

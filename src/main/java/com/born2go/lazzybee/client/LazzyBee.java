@@ -12,6 +12,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -20,6 +21,7 @@ public class LazzyBee implements EntryPoint {
 	public static DataServiceAsync data_service = GWT.create(DataService.class);
 	public static LoginControl loginControl;
 
+	public static String userId = null;
 	// Google app id and api key
 	public static String gClientId = "1090254847247-hhq28qf96obdjm7c7pgr2qo2mt2o842l.apps.googleusercontent.com";
 	public static String gApiKey = "AIzaSyCvrB0pS2rE7hUB6N5N6F38Q2TRjvHME7M";
@@ -44,8 +46,11 @@ public class LazzyBee implements EntryPoint {
 		});
 		RootPanel.get("menu_login").add(menuLogin);
 
-		RootPanel.get("wt_noticebox").add(noticeBox);
-		noticeBox.hide();
+		if(RootPanel.get("wt_noticebox") != null) {
+			RootPanel.get("wt_noticebox").add(noticeBox);
+			DOM.getElementById("wt_noticebox").setAttribute("style", "text-align: center;");
+			noticeBox.hide();
+		}
 
 		if (RootPanel.get("wt_editor_slide") != null)
 			RootPanel.get("wt_editor_slide").add(new EditorTool());

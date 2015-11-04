@@ -153,6 +153,8 @@
 				<br />
 				<g:Label ui:field="lbTest2">Bạn có thể tiếp tục làm bài test khác hoặc
 					bắt đầu học ở level này.</g:Label>
+				<br />
+				<g:Anchor href="http://www.lazzybee.com/blog/which_level_to_start">Hướng dẫn chọn level để học trên App mobile</g:Anchor>
 			</g:HTMLPanel>
 			<g:Anchor ui:field="btnNextTesting" styleName="{style.TestTool_Obj2}">Tiếp Tục</g:Anchor>
 			<g:Anchor ui:field="btnAgainTesting"
