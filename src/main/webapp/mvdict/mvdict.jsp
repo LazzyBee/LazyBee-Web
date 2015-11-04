@@ -16,8 +16,8 @@
 		isShortBlog = true;
 		
 		blogs.clear();
-		if(service.findBlogs() != null && ! service.findBlogs().isEmpty())
-	blogs.addAll(service.findBlogs());
+		if(service.getListBlog() != null && ! service.getListBlog().isEmpty())
+	blogs.addAll(service.getListBlog());
 		
 	}
 %>

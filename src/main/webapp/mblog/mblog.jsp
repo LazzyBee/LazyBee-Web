@@ -55,8 +55,6 @@
 				String url = "http://127.0.0.1:8888/mblog/" + title;
 				String pathPicture = "";
 				String content = blog.getContent();
-				content = content.replaceAll("<p>&nbsp;</p>", "");
-
 				String dateCreate = "Ngày tạo "
 						+ dateFormat.format(new Date(blog
 								.getCreateDate()));
