@@ -76,14 +76,15 @@
 <link rel="stylesheet"
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-<title>Lazzy Bee</title>
-<meta property="og:title" content="<%= blog.getShowTitle().replaceAll("\"", "\'") %>" />
-<meta property="og:type" content="article" />
+<title><%= blog.getShowTitle() %></title>
+
+<meta property="og:type" content=website />
 <% if(blog_avatar != null) {%>
 <meta property="og:image" content="<%= blog_avatar.getServeUrl() %>" />
 <% }  else {%>
 <meta property="og:image" content="http://www.lazzybee.com/resources/1435838158_Mushroom - Bee.png" />
 <% } %>
+<meta property="og:title" content="<%= blog.getShowTitle().replaceAll("\"", "\'") %>" />
 <meta property="og:url" content="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" />
 
 <script type="text/javascript" language="javascript"
@@ -145,14 +146,21 @@
 		</div>
 		<div class="header_menu">
 			<!-- <a class="header_menu_item">Bộ Flash Cards</a> -->
-			<% if(!blog.getTitle().equals("feedback")) {%>
-			<a href="/vdict/" class="header_menu_item" style="color: rgb(234, 253, 116) !important;">Thư Viện</a> 
+			<% if(blog.getTitle().equals("feedback")) {%>
+			<a href="/vdict/" class="header_menu_item">Thư Viện</a> 
+			<a href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a> 
+			<a id="menu_editor" href="/editor/" class="header_menu_item">Soạn Thảo</a>
+			<a style="color: rgb(234, 253, 116) !important;" href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
+			<% } else if(blog.getTitle().equals("user_guide")) { %>
+			<a href="/vdict/" class="header_menu_item">Thư Viện</a> 
+			<a style="color: rgb(234, 253, 116) !important;" href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a> 
 			<a id="menu_editor" href="/editor/" class="header_menu_item">Soạn Thảo</a>
 			<a href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
 			<% } else { %>
-			<a href="/vdict/" class="header_menu_item">Thư Viện</a> 
+			<a style="color: rgb(234, 253, 116) !important;" href="/vdict/" class="header_menu_item">Thư Viện</a>
+			<a href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a>  
 			<a id="menu_editor" href="/editor/" class="header_menu_item">Soạn Thảo</a>
-			<a style="color: rgb(234, 253, 116) !important;" href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
+			<a href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
 			<% } %>
 		</div>
 		<div class="header_accPro">
@@ -174,20 +182,23 @@
 			<div id="wt_dictionary"
 				style="padding: 20px 30px 30px 30px; width: 600px; float: left;">
 				<div style="text-align: left">
-					<span style="font-size: 20px;color: #0e74af;font-weight: bold;"><%= blog.getShowTitle()%></span>
+					<h1><%= blog.getShowTitle()%></h1>
 					<%-- <%if(blog_avatar != null) { %>
 					<br/>
 					<img style="margin-top:20px" alt="" src="<%= blog_avatar.getServeUrl()%>">
 					<% } %> --%>
 					<div style="overflow:hidden; margin-bottom:20px; padding:10px; margin-top:15px; background: #f2f1f1; width: 100%; display: block; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
-						<span style="float: left">Bài viết được tạo: <%= df.format(new Date(blog.getCreateDate())) %></span>
-						<a id="blogViewEdit" style="float:right; display: none;" title="Soạn thảo" href="/editor/#blog/<%= blog.getId()%>"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+						<span style="float: left; margin-top: 3px;">Bài viết được tạo: <%= df.format(new Date(blog.getCreateDate())) %></span>
+						<a id="blogViewEdit" style="display: none;" title="Soạn thảo" href="/editor/#blog/<%= blog.getId()%>"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+						<div style="float: right">
+							<div class="fb-like" data-href="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+						</div>
 					</div>
 				</div>
 				<div style="margin-bottom:30px"><%= blog.getContent() %></div>
 				
 				<br/> <br/>
-				<div class="fb-comments" data-width="100%" data-href="http://www.lazzybee.com/blog/"<%= blog.getTitle() %> data-numposts="5" data-colorscheme="light" data-order-by="reverse_time" data-version="v2.3"></div>
+				<div class="fb-comments" data-width="100%" data-href="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" data-numposts="5" data-colorscheme="light" data-order-by="reverse_time" data-version="v2.3"></div>
 				<br/><br/>
 			</div>
 

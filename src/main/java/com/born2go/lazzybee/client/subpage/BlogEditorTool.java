@@ -145,8 +145,8 @@ public class BlogEditorTool extends Composite {
 	  		autoGrow_minHeight: 280,
 	  		autoGrow_maxHeight: 450,
 	  		toolbarStartupExpanded : false,
-	  		extraPlugins: 'autogrow,image,colorbutton,justify,horizontalrule,embed,sourcearea,div',
-	  		removeButtons: 'Subscript,Superscript,About',
+	  		extraPlugins: 'autogrow,image2,colorbutton,justify,horizontalrule,oembed,sourcearea,div,stylescombo',
+	  		removeButtons: 'Cut,Copy,Paste,Subscript,Superscript,About',
 	  	});
 	  	
 	  	editor.on("instanceReady",function() {
@@ -198,8 +198,8 @@ public class BlogEditorTool extends Composite {
 		    
 		    //Enable resize
 		    resize: {
-				width: 350,
-				height: 220
+				width: 600,
+				height: 315
 			},
 		    
 		    //Enable params
@@ -287,7 +287,7 @@ public class BlogEditorTool extends Composite {
 	            },
 		 
 		        Error: function(up, err) {
-		            $wnd.document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+//		            $wnd.document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 		        }
 		    }
 		});
