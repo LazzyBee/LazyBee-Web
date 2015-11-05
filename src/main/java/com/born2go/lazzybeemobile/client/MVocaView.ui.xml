@@ -69,7 +69,7 @@
 
 		<g:TabPanel height="" width="100%" ui:field="tabPanel"
 			styleName="{style.MVocaView_Obj7}">
-			<g:Tab text="EV">
+			<g:Tab text="Eng-Việt">
 				<g:HTML ui:field="l_vn">
 					<span class="tl">tính từ</span>
 					<ul>
@@ -126,7 +126,7 @@
 					</ul>
 				</g:HTML>
 			</g:Tab>
-			<g:Tab text="EN">
+			<g:Tab text="Eng-Eng">
 				<g:HTML ui:field="l_en">
 					<span class="tl">Verb</span>
 					<br />

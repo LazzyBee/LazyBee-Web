@@ -162,7 +162,7 @@
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">
-		<center>© Copyright 2015, Born2Go.</center>
+		<center>Born2Go©2015</center>
 	</div>
 </body>
 </html>

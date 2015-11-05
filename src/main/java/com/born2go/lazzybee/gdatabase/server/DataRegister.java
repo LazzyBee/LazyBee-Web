@@ -24,6 +24,12 @@ public class DataRegister extends RemoteServiceServlet {
 		ObjectifyService.register(Blog.class);
 		ObjectifyService.register(Picture.class);
 		
+//		User user = new User();
+//		user.setAdmin(true);
+//		user.setFacebook_id("536617819821814_F");
+//		user.setUserName("Lệ Nguyễn");
+//		ofy().save().entity(user);
+		
 		// Blog blog = new Blog();
 		// blog.setTitle("Tạo blog mới");
 		// blog.setCreateDate(new Date().getTime());

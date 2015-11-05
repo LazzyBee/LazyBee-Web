@@ -41,6 +41,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <script type="text/javascript" language="javascript"
 	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
+<link rel="icon" type="image/png" href="/favicon.png" />
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
 <link type="text/css" rel="stylesheet"
@@ -52,7 +53,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="/mobile-resources/menu.js"></script>
 
-<title>Insert title here</title>
+<title>Học từ vựng tiếng Anh, từ điển - LazzyBee</title>
+<meta name="description"
+	content="Lazzy Bee cung cấp ứng dụng học từ vựng tiếng Anh hiệu quả, giúp xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
 </head>
 <body>
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
@@ -116,16 +119,18 @@
 					<tr>
 						<td>
 							<div style="float: left; margin-right: 10px; margin-top: 15px;">
-								<a href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
+								<a
+									href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
 									<img alt="" src="/resources/appstore.png"
-										style="width: 130px; height: 50px; cursor: pointer;">
+									style="width: 130px; height: 50px; cursor: pointer;">
 								</a>
 
 							</div>
 						</td>
 						<td>
 							<div>
-								<a href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
+								<a
+									href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
 									<img alt="" src="/resources/googleplay.jpg"
 									style="width: 130px; height: 50px; cursor: pointer; margin-top: 15px;">
 								</a>
@@ -135,9 +140,6 @@
 				</table>
 			</div>
 			<div id="blogs" class="blogs" style="display: block;">
-				<div class="headerBlogs">
-					<h3>Những bài viết liên quan</h3>
-				</div>
 				<%
 					if (blogs != null && !blogs.isEmpty() && isShortBlog == true) {
 						for (int i = 0; i < blogs.size(); i++) {
@@ -195,7 +197,7 @@
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">
-		<center>© Copyright 2015, Born2Go.</center>
+		<center>Born2Go©2015</center>
 	</div>
 </body>
 </html>

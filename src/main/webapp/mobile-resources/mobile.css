@@ -26,7 +26,6 @@ body {
 	overflow-x: hidden;
 }
 /* css for mfooter*/
-
 #mfooter {
 	font-weight: bold;
 	padding-top: 10px;
@@ -182,7 +181,7 @@ a {
 	width: 30px;
 }
 
-.m_menu_home,.m_menu_help,.m_menu_seach {
+.m_menu_home, .m_menu_help, .m_menu_seach {
 	border-bottom: solid 1px gray;
 }
 
@@ -558,13 +557,6 @@ p {
 	font-size: 17px;
 	/* white-space: pre-line; */
 	margin-top: 0px;
-}
-
-.headerBlogs h3 {
-	font-size: 20px;
-	padding: 10px;
-	border: solid 1px lightskyblue;
-	background-color: lightskyblue;
 }
 
 .mparagraptext {
