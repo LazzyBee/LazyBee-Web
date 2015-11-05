@@ -55,8 +55,6 @@
 				String url = "http://127.0.0.1:8888/mblog/" + title;
 				String pathPicture = "";
 				String content = blog.getContent();
-				content = content.replaceAll("<p>&nbsp;</p>", "");
-
 				String dateCreate = "Ngày tạo "
 						+ dateFormat.format(new Date(blog
 								.getCreateDate()));
@@ -164,7 +162,7 @@
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">
-		<center>© Copyright 2015, Born2Go.</center>
+		<center>Born2Go©2015</center>
 	</div>
 </body>
 </html>
