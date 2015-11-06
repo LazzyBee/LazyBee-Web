@@ -35,6 +35,7 @@
 		response.setHeader("Location", site);
 	}%>
 <%
+	Picture blog_avatar = null;
 	if (request.getPathInfo() == null
 			|| request.getPathInfo().length() <= 1)
 		redirectHomeUrl(response);
@@ -48,13 +49,15 @@
 			if (blog == null)
 				redirectHomeUrl(response);
 			else {
-
+				if (blog.getAvatar() != null)
+					blog_avatar = service.findPicture(blog.getAvatar());
 				SimpleDateFormat dateFormat = new SimpleDateFormat(
 						"d/MM/yyyy");
 				String title = blog.getShowTitle();
 				String url = "http://127.0.0.1:8888/mblog/" + title;
 				String pathPicture = "";
 				String content = blog.getContent();
+				content = content.replaceAll("<p>&nbsp;</p>", "");
 				String dateCreate = "Ngày tạo "
 						+ dateFormat.format(new Date(blog
 								.getCreateDate()));
@@ -82,25 +85,42 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="/mobile-resources/menu.js"></script>
+<script src="https://connect.facebook.net/en_US/all.js"></script>
 
 <title><%=title%></title>
-<meta property="og:title" content="<%=title.replaceAll("\"", "\'")%>" />
-<meta property="og:type" content="article" />
-<meta property="og:image" content="<%=pathPicture%>" />
-<meta property="og:url" content="<%=url%>" />
+<meta property="og:type" content=website />
 <%
-	if (content != null) {
+	if (blog_avatar != null) {
 %>
-<meta property="og:description"
-	content='<%=content.replaceAll("\'", "\"")
-									.replace("\n", "").replace("\r", "")%>' />
+<meta property="og:image" content="<%=blog_avatar.getServeUrl()%>" />
 <%
-	;
-				}
+	} else {
 %>
+<meta property="og:image"
+	content="http://www.lazzybee.com/resources/1435838158_Mushroom - Bee.png" />
+<%
+	}
+%>
+<meta property="og:title"
+	content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
+<meta property="og:url"
+	content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
 </head>
 
 <body>
+
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=754889477966743";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
 	<!-- OPTIONAL: include this if you want history support -->
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
 		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
@@ -133,7 +153,13 @@
 						<li>
 							<div class="m_menu_blog">
 								<i class="fa fa-book" style="color: white;"></i> <a
-									href="/mblog/">Blog</a>
+									href="/blog/user_guide">Hưỡng dẫn sử dụng</a>
+							</div>
+						</li>
+						<li>
+							<div class="m_menu_feedback">
+								<i class="fa fa-comment" style="color: white;"></i> <a
+									href="/blog/feedback">Ý kiến phản hồi</a>
 							</div>
 						</li>
 					</ul>
@@ -154,6 +180,12 @@
 				<div><%=content%></div>
 				<br />
 			</div>
+			 <br />
+			<div class="fb-comments" data-width="100%"
+				data-href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>"
+				data-numposts="5" data-colorscheme="light"
+				data-order-by="reverse_time" data-version="v2.3"></div>
+			<br /> <br />
 			<%
 				}
 					}

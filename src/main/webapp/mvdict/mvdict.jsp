@@ -90,7 +90,13 @@
 					<li>
 						<div class="m_menu_blog">
 							<i class="fa fa-book" style="color: white;"></i> <a
-								href="/mblog/">Blog</a>
+								href="/blog/user_guide">Hưỡng dẫn sử dụng</a>
+						</div>
+					</li>
+					<li>
+						<div class="m_menu_feedback">
+							<i class="fa fa-comment" style="color: white;"></i> <a
+								href="/blog/feedback">Ý kiến phản hồi</a>
 						</div>
 					</li>
 				</ul>
@@ -145,24 +151,8 @@
 						for (int i = 0; i < blogs.size(); i++) {
 							Blog blog = blogs.get(i);
 							if (blog != null) {
-
 								String hrefShow = "/mblog/" + blog.getTitle();
-								String shortContent;
-								String des = blog.getContent();
-								if (des != null && des.length() != 0) {
-									if (des.length() < 200)
-										shortContent = des;
-									else
-										shortContent = des.substring(0, 200) + "...";
-								}
-								shortContent = "Thêm vài dòng vào đây cho nó thật dài xem nào...";
-
 								String title = blog.getTitle().replaceAll("_", " ");
-								SimpleDateFormat dateFormat = new SimpleDateFormat(
-										"d/MM/yyyy");
-								String dateCreate = "Ngày tạo "
-										+ dateFormat.format(new Date(blog
-												.getCreateDate()));
 								Long pictureId = blog.getAvatar();
 								Picture picture = service.findPicture(pictureId);
 								String urlPicture = "";
@@ -177,13 +167,11 @@
 								<a href=<%=hrefShow%>><%=title%></a>
 							</h1>
 						</div>
-						<div class="publishdate">
-							<%=dateCreate%></div>
 						<div class="imgdefault">
 							<a><img alt="" class="avatar" src="<%=urlPicture%>"
 								style="color: rgb(56, 119, 127);" /></a>
 							<p class="mparagraptext">
-								<%=shortContent%>
+								<%=title%>
 							</p>
 						</div>
 					</li>
