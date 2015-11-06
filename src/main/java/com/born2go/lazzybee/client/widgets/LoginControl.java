@@ -59,8 +59,10 @@ public class LoginControl extends DialogBox {
 			@Override
 			public void onSuccess(User result) {
 				if(result.isAdmin()) {
-					if(DOM.getElementById("blogEditorTool") != null)
+					if(DOM.getElementById("blogEditorTool") != null) {
 						DOM.getElementById("blogEditorTool").setAttribute("style", "display:");
+						LazzyBee.noticeBox.setAutoHide();
+					}
 					if(DOM.getElementById("blogViewEdit") != null)
 						DOM.getElementById("blogViewEdit").setAttribute("style", "float:right; margin-top: 2px; margin-left: 20px;");
 				}

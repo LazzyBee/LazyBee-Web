@@ -118,7 +118,6 @@ public class VocaEditorTool extends Composite {
 		DOM.getElementById("right_panel").setAttribute("style", "display:");
 		
 		LazzyBee.noticeBox.setNotice("Tính năng này đang tạm khóa chỉ sử dụng cho admin!");
-		LazzyBee.noticeBox.setAutoHide();
 		
 		lsbType.addItem("- Chọn phân loại -");
 		
@@ -245,7 +244,7 @@ public class VocaEditorTool extends Composite {
 			public void onBlur(BlurEvent event) {
 				if(!txbVocaDefi.getText().isEmpty()) {
 					checkVocaImg.setVisible(true);
-					LazzyBee.data_service.verifyVoca(txbVocaDefi.getText(), new AsyncCallback<Boolean>() {
+					LazzyBee.data_service.verifyVoca(txbVocaDefi.getText().toLowerCase(), new AsyncCallback<Boolean>() {
 						@Override
 						public void onSuccess(Boolean result) {
 							checkVocaImg.setVisible(false);
