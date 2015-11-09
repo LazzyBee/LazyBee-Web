@@ -74,8 +74,10 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <script type="text/javascript" language="javascript"
 	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
+<!-- for view mobile -->
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
+<!-- add css -->
 <link type="text/css" rel="stylesheet"
 	href="/mobile-resources/mobile.css">
 <link rel="stylesheet"
@@ -84,8 +86,11 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- plugin facebook -->
 <script type="text/javascript" src="/mobile-resources/menu.js"></script>
 <script src="https://connect.facebook.net/en_US/all.js"></script>
+
+<meta property="fb:app_id" content="754889477966743" />
 
 <title><%=title%></title>
 <meta property="og:type" content=website />
@@ -111,26 +116,26 @@
 
 	<!-- Google Tag Manager -->
 	<noscript>
-	<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
-	height="0" width="0" style="display: none; visibility: hidden"></iframe>
+		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
+			height="0" width="0" style="display: none; visibility: hidden"></iframe>
 	</noscript>
 	<script>
-	(function(w, d, s, l, i) {
-	w[l] = w[l] || [];
-	w[l].push({
-	'gtm.start' : new Date().getTime(),
-	event : 'gtm.js'
-	});
-	var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
-	+ l
-	: '';
-	j.async = true;
-	j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-	f.parentNode.insertBefore(j, f);
-	})(window, document, 'script', 'dataLayer', 'GTM-KZBFX5');
+		(function(w, d, s, l, i) {
+			w[l] = w[l] || [];
+			w[l].push({
+				'gtm.start' : new Date().getTime(),
+				event : 'gtm.js'
+			});
+			var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
+					+ l
+					: '';
+			j.async = true;
+			j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KZBFX5');
 	</script>
 	<!-- End Google Tag Manager -->
-	
+
 	<div id="fb-root"></div>
 	<script>
 		(function(d, s, id) {
@@ -203,7 +208,7 @@
 				<div><%=content%></div>
 				<br />
 			</div>
-			 <br />
+			<br />
 			<div class="fb-comments" data-width="100%"
 				data-href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>"
 				data-numposts="5" data-colorscheme="light"
