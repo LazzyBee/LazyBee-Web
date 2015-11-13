@@ -301,6 +301,18 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		result.addAll(blogs);
 		return result;
 	}
+	
+	public Blog getPreviousBlog(Blog currentBlog) {
+		Blog blog = ofy().load().type(Blog.class).
+				filter("createDate <", currentBlog.getCreateDate()).order("-createDate").first().now();
+		return blog;
+	}
+	
+	public Blog getNextBlog(Blog currentBlog) {
+		Blog blog = ofy().load().type(Blog.class).
+				filter("createDate >", currentBlog.getCreateDate()).order("createDate").first().now();
+		return blog;
+	}
 
 	@Override
 	public Picture findPicture(Long pictureId) {
