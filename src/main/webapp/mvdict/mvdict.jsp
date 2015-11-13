@@ -39,48 +39,46 @@
 	}
 </script>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<script type="text/javascript" language="javascript"
-	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
-<link rel="icon" type="image/png" href="/favicon.png" />
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
+<title>Học từ vựng tiếng Anh, từ điển - LazzyBee</title>
+<meta name="description"
+	content="Lazzy Bee cung cấp ứng dụng học từ vựng tiếng Anh hiệu quả, giúp xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
 <link type="text/css" rel="stylesheet"
 	href="/mobile-resources/mobile.css">
 <link rel="stylesheet"
 	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
+<link rel="icon" type="image/png" href="/favicon.png" />
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="/mobile-resources/menu.js"></script>
-
-<title>Học từ vựng tiếng Anh, từ điển - LazzyBee</title>
-<meta name="description"
-	content="Lazzy Bee cung cấp ứng dụng học từ vựng tiếng Anh hiệu quả, giúp xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
+<script type="text/javascript" language="javascript"
+	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
 </head>
 <body>
-
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript" src="/mobile-resources/menu.js"></script>
 	<!-- Google Tag Manager -->
 	<noscript>
-	<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
-	height="0" width="0" style="display: none; visibility: hidden"></iframe>
+		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
+			height="0" width="0" style="display: none; visibility: hidden"></iframe>
 	</noscript>
 	<script>
-	(function(w, d, s, l, i) {
-	w[l] = w[l] || [];
-	w[l].push({
-	'gtm.start' : new Date().getTime(),
-	event : 'gtm.js'
-	});
-	var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
-	+ l
-	: '';
-	j.async = true;
-	j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-	f.parentNode.insertBefore(j, f);
-	})(window, document, 'script', 'dataLayer', 'GTM-KZBFX5');
+		(function(w, d, s, l, i) {
+			w[l] = w[l] || [];
+			w[l].push({
+				'gtm.start' : new Date().getTime(),
+				event : 'gtm.js'
+			});
+			var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
+					+ l
+					: '';
+			j.async = true;
+			j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KZBFX5');
 	</script>
 	<!-- End Google Tag Manager -->
-	
+
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
 		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
 
@@ -175,7 +173,7 @@
 							Blog blog = blogs.get(i);
 							if (blog != null) {
 								String hrefShow = "/mblog/" + blog.getTitle();
-								String title = blog.getTitle().replaceAll("_", " ");
+								String title = blog.getShowTitle();
 								Long pictureId = blog.getAvatar();
 								Picture picture = service.findPicture(pictureId);
 								String urlPicture = "";

@@ -72,26 +72,9 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<script type="text/javascript" language="javascript"
-	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
 <!-- for view mobile -->
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
-<!-- add css -->
-<link type="text/css" rel="stylesheet"
-	href="/mobile-resources/mobile.css">
-<link rel="stylesheet"
-	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
-<link rel="icon" type="image/png" href="/favicon.png" />
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- plugin facebook -->
-<script type="text/javascript" src="/mobile-resources/menu.js"></script>
-<script src="https://connect.facebook.net/en_US/all.js"></script>
-
-<meta property="fb:app_id" content="754889477966743" />
-
 <title><%=title%></title>
 <meta property="og:type" content=website />
 <%
@@ -110,8 +93,22 @@
 	content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
 <meta property="og:url"
 	content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
-</head>
 
+<!-- add css -->
+<link type="text/css" rel="stylesheet"
+	href="/mobile-resources/mobile.css">
+<link rel="stylesheet"
+	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
+<link rel="icon" type="image/png" href="/favicon.png" />
+<!-- java scrip -->
+<script type="text/javascript" language="javascript"
+	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- plugin facebook -->
+<script type="text/javascript" src="/mobile-resources/menu.js"></script>
+<script src="https://connect.facebook.net/en_US/all.js"></script>
+</head>
 <body>
 
 	<!-- Google Tag Manager -->
@@ -204,6 +201,15 @@
 				<h1><%=title%></h1>
 			</div>
 			<div class="publishdate"><%=dateCreate%></div>
+			<%
+				if (blog_avatar != null) {
+			%>
+			<div class="avatarBlog" id="avatarBlog">
+				<img alt="" src="<%=blog_avatar.getServeUrl()%>" height="200px">
+			</div>
+			<%
+				}
+			%>
 			<div class="mCenter">
 				<div><%=content%></div>
 				<br />
