@@ -4,90 +4,80 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
-<link type="text/css" rel="stylesheet"
-	href="../mobile-resources/mobile.css">
-<link rel="stylesheet"
-	href="../resources/font-awesome-4.2.0/css/font-awesome.min.css">
+
 <title>LazzyBee</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="../mobile-resources/menu.js"></script>
+<link rel="icon" type="image/png" href="favicon.png" />
+<style type="text/css">
+html {
+	background: url(/resources/bg2.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 100%;
+}
+
+body {
+	margin: 0px;
+	overflow-x: hidden;
+	height: 100%;
+}
+
+.menu_button {
+	display: inline-block;
+	padding: 8px 20px;
+	background: -moz-linear-gradient(#21b506, #009688);
+	background: -o-linear-gradient(#21b506, #009688);
+	background: -webkit-linear-gradient(#21b506, #009688);
+	background: linear-gradient(#21b506, #009688);
+	border-radius: 999px;
+	color: #fff;
+	font: normal 700 20px/1 "Komika", cursive;
+	text-align: center;
+	text-shadow: 1px 1px 0 #000;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.menu_button:hover {
+	background: silver;
+}
+
+.table-menu {
+	margin: auto;
+	margin-top: 20px;
+}
+
+.mfooter {
+	background: none;
+	text-align: center;
+}
+
+.main_home {
+	min-height: calc(100% - 25px);
+}
+</style>
 </head>
 <body>
-	<!-- OPTIONAL: include this if you want history support -->
-	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
-		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
 
-	<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
-	<noscript>
-		<div
-			style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-			Your web browser must have JavaScript enabled in order for this
-			application to display correctly.</div>
-	</noscript>
-	<div class="header">
-		<div class="left_header">
-			<i class="fa fa-bars fa-lg" style="color: white;" id="menuBtn"></i>
-			<nav id="menu">
-			<ul>
-				<li>
-					<div class="m_menu_seach">
-						<i class="fa fa-search fa-1x" style="color: white;"></i> <a
-							href="/mvdict/">Từ điển</a>
-					</div>
-				</li>
-
-				<li>
-					<div class="m_menu_help">
-						<i class="fa fa-question fa-lg" style="color: white;"></i> <a
-							href="/mtest/">Kiểm tra vốn từ</a>
-					</div>
-				</li>
-				<li>
-					<div class="m_menu_blog">
-						<i class="fa fa-book" style="color: white;"></i> <a
-							href="/blog/user_guide">Hưỡng dẫn sử dụng</a>
-					</div>
-				</li>
-				<li>
-					<div class="m_menu_feedback">
-						<i class="fa fa-comment" style="color: white;"></i> <a
-							href="/blog/feedback">Ý kiến phản hồi</a>
-					</div>
-				</li>
-			</ul>
-			</nav>
-		</div>
-		<div class="toppest">
-			<div class="main-title">Lazzy's Dictionary</div>
-		</div>
-
-	</div>
-	<div id="main">
-		<div id="content">
-
-			<div class="header_table">Option Card</div>
-			<table class="skill-table" cellspacing="10">
+	<div style="text-align: center" class="main_home">
+		<img style="width: 70%; margin-top: 20px" alt=""
+			src="/resources/cooltext147756264040586.png"> <br /> <img
+			style="width: 70%;" alt="Lazzybee" src="/resources/2015-11-01.png">
+		<br /> <br />
+		<div>
+			<table class="table-menu" cellspacing="5">
 				<tr>
-					<td>
-						<div class="table-cell">English for IT</div>
-					</td>
-					<td>
-						<div class="table-cell">English for Marketing</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="table-cell">English for Doctor</div>
-					</td>
-					<td>
-						<div class="table-cell">English for baby</div>
-					</td>
+					<td><a class="menu_button" href="/mvdict/">Từ điển</a></td>
+					<td><a class="menu_button" href="/mtest/">Test từ</a></td>
 				</tr>
 			</table>
 		</div>
-
 	</div>
+	<div class="mfooter" id="mfooter">
+		<span style="color: white; line-height: 1.5">Born2Go © 2015</span>
+	</div>
+
 
 </body>
 </html>
