@@ -41,8 +41,10 @@
 <%
 	//Global variable
 	java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/YYYY HH:mm");
-	Blog blog;
 	Picture blog_avatar = null;
+	Blog blog;
+	Blog previous_blog;
+	Blog next_blog;
 	
 	if (request.getPathInfo() == null
 			|| request.getPathInfo().length() < 1) {
@@ -53,6 +55,8 @@
 		String blogTitle = request.getPathInfo().replaceAll("/", "");
 		DataServiceImpl dataService = new DataServiceImpl();
 		blog = dataService.findBlogByTitle(blogTitle);
+		previous_blog = dataService.getPreviousBlog(blog);
+		next_blog = dataService.getNextBlog(blog);
 		if (blog == null) {
 			redirectHomeUrl(response);
 			return;
@@ -86,6 +90,7 @@
 <% } %>
 <meta property="og:title" content="<%= blog.getShowTitle().replaceAll("\"", "\'") %>" />
 <meta property="og:url" content="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" />
+<meta property="fb:app_id" content="754889477966743"/>
 
 <script type="text/javascript" language="javascript"
 	src="../lazzybee/lazzybee.nocache.js"></script>
@@ -205,9 +210,8 @@
 				style="padding: 20px 30px 30px 30px; width: 600px; float: left;">
 				<div style="text-align: left">
 					<h1><%= blog.getShowTitle()%></h1>
-					<%-- <%if(blog_avatar != null) { %>
-					<br/>
-					<img style="margin-top:20px" alt="" src="<%= blog_avatar.getServeUrl()%>">
+					<%-- <% if(blog_avatar != null) { %>
+					<img style="margin-top:20px; width: 100%; margin: auto; display: block;" alt="" src="<%= blog_avatar.getServeUrl()%>">
 					<% } %> --%>
 					<div style="overflow:hidden; margin-bottom:20px; padding:10px; margin-top:15px; background: #f2f1f1; width: 100%; display: block; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
 						<span style="float: left; margin-top: 3px;">Bài viết được tạo: <%= df.format(new Date(blog.getCreateDate())) %></span>
@@ -218,6 +222,20 @@
 					</div>
 				</div>
 				<div style="margin-bottom:30px"><%= blog.getContent() %></div>
+				
+				<div>
+					<%if(previous_blog != null) {%>
+					<a style="float: left; cursor: pointer;" href="/blog/<%= previous_blog.getTitle() %>"><i class="fa fa-angle-double-left"></i> Trang trước</a>
+					<% } else { %>
+					<a style="float: left; cursor: default; color: silver !important"><i class="fa fa-angle-double-left"></i> Trang trước</a>
+					<% } %>
+					
+					<%if(next_blog != null) {%>
+					<a style="float: right; cursor: pointer;" href="/blog/<%= next_blog.getTitle() %>">Trang sau <i class="fa fa-angle-double-right"></i></a>
+					<% } else { %>
+					<a style="float: right; cursor: default; color: silver !important"">Trang sau <i class="fa fa-angle-double-right"></i></a>
+					<% } %>
+				</div>
 				
 				<br/> <br/>
 				<div class="fb-comments" data-width="100%" data-href="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" data-numposts="5" data-colorscheme="light" data-order-by="reverse_time" data-version="v2.3"></div>
