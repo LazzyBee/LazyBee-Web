@@ -24,7 +24,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	if (navigator.userAgent.match(/Android/i)
 			|| navigator.userAgent.match(/webOS/i)
 			|| navigator.userAgent.match(/iPhone/i)
@@ -37,7 +37,7 @@
 		var ourLocation = window.location.hash;
 		window.location = "/vdict/" + ourLocation;
 	}
-</script>
+</script> -->
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
@@ -49,14 +49,33 @@
 <link rel="stylesheet"
 	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
 <link rel="icon" type="image/png" href="/favicon.png" />
-
 <script type="text/javascript" language="javascript"
 	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
+
 </head>
 <body>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="/mobile-resources/menu.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			size_li = $("#myList li").size();
+			x = 2;
+			$('#myList li:lt(' + x + ')').show();
+			if (x == size_li) {
+				$('#loadMore').hide();
+			} else {
+				$('#loadMore').show();
+			}
+			$('#loadMore').click(function() {
+				x = (x + 5 <= size_li) ? x + 5 : size_li;
+				$('#myList li:lt(' + x + ')').show();
+				if (x == size_li) {
+					$('#loadMore').hide();
+				}
+			});
+
+		});
+	</script>
 	<!-- Google Tag Manager -->
 	<noscript>
 		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
@@ -167,42 +186,55 @@
 				</table>
 			</div>
 			<div id="blogs" class="blogs" style="display: block;">
-				<%
-					if (blogs != null && !blogs.isEmpty() && isShortBlog == true) {
+				<ul id="myList">
+					<%
+						if (blogs != null && !blogs.isEmpty() && isShortBlog == true) {
+					%>
+
+					<%
 						for (int i = 0; i < blogs.size(); i++) {
-							Blog blog = blogs.get(i);
-							if (blog != null) {
-								String hrefShow = "/mblog/" + blog.getTitle();
-								String title = blog.getShowTitle();
-								Long pictureId = blog.getAvatar();
-								Picture picture = service.findPicture(pictureId);
-								String urlPicture = "";
-								if (picture != null) {
-									urlPicture = picture.getServeUrl();
-								}
-				%>
-				<ul>
-					<li>
-						<div class="titleBlog">
-							<h1>
-								<a href=<%=hrefShow%>><%=title%></a>
-							</h1>
-						</div>
-						<div class="imgdefault">
-							<a><img alt="" class="avatar" src="<%=urlPicture%>"
-								style="color: rgb(56, 119, 127);" /></a>
-							<p class="mparagraptext">
-								<%=title%>
-							</p>
+								Blog blog = blogs.get(i);
+								if (blog != null) {
+									String hrefShow = "/mblog/" + blog.getTitle();
+									String title = blog.getShowTitle();
+									Long pictureId = blog.getAvatar();
+									Picture picture = service.findPicture(pictureId);
+									String urlPicture = "";
+									if (picture != null) {
+										urlPicture = picture.getServeUrl();
+									}
+					%>
+					<li style="display: none;">
+						<div>
+							<div class="titleBlog">
+								<h1>
+									<a href=<%=hrefShow%>><%=title%></a>
+								</h1>
+							</div>
+							<div class="imgdefault">
+								<a><img alt="" class="avatar" src="<%=urlPicture%>"
+									style="color: rgb(56, 119, 127);" /></a>
+								<p class="mparagraptext">
+									<%=title%>
+								</p>
+							</div>
 						</div>
 					</li>
-				</ul>
-				<%
-					}
+
+					<%
 						}
-					}
-				%>
+
+							}
+					%>
+
+					<%
+						}
+					%>
+				</ul>
+
+				<div id="loadMore">Load more</div>
 			</div>
+
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">

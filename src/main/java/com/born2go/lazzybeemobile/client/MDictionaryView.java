@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.client.rpc.DataServiceAsync;
-import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -92,28 +91,21 @@ public class MDictionaryView extends Widget {
 
 	}
 
-	void historyTokenHandler() {
+	private void historyTokenHandler() {
 		String path = Window.Location.getPath();
 		if (path.contains("mvdict")) {
 			// -----
 			if (!History.getToken().isEmpty()) {
 				loadVocaToken();
 			} else {
-				// block element 
+				// block element
 				DOM.getElementById("mdic_introduction").setAttribute("style",
 						"display:block");
 				DOM.getElementById("blogs").setAttribute("style",
 						"display:block");
 			}
 
-		} else if (path.contains("mtest")) {
-			if (RootPanel.get("gwt_contentMTestTool") != null) {
-				MTestTool testTool = new MTestTool();
-				RootPanel.get("gwt_contentMTestTool").add(testTool);
-			}
-
 		}
-
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
@@ -122,7 +114,7 @@ public class MDictionaryView extends Widget {
 		});
 	}
 
-	void loadVocaToken() {
+	private void loadVocaToken() {
 		RootPanel.get("gwt_contentMdic").clear();
 		DOM.getElementById("mdic_introduction").setAttribute("style",
 				"display:none");
@@ -158,25 +150,6 @@ public class MDictionaryView extends Widget {
 	private void notfoundVoca() {
 		RootPanel.get("notfoundVoca").clear();
 		RootPanel.get("notfoundVoca").add(new Label("Không tìm thấy từ"));
-
-	}
-
-	private void loadBlog() {
-		String blogTitle = "";
-		dataService.findBlogByTitle(blogTitle, new AsyncCallback<Blog>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(Blog result) {
-				// TODO Auto-generated method stub
-
-			}
-		});
 
 	}
 

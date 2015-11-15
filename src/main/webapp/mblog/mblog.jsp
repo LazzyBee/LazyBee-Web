@@ -6,7 +6,7 @@
 <%@ page import="com.born2go.lazzybee.gdatabase.server.DataServiceImpl"%>
 <%@ page import="com.born2go.lazzybee.gdatabase.shared.Blog"%>
 
-<%
+<%-- <%
 	//Check if we serve mobile or not?
 	String ua = request.getHeader("User-Agent").toLowerCase();
 	if (ua.matches("(?i).*((android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\\.(browser|link)|vodafone|wap|windows ce|xda|xiino).*")
@@ -26,7 +26,7 @@
 		}
 		return;
 	}
-%>
+%> --%>
 
 <%!//Global functions
 	public void redirectHomeUrl(HttpServletResponse response) {

@@ -130,8 +130,6 @@ input.gwt-TextBox {
 
 #main {
 	min-height: calc(100% - 88px);
-	 
-	
 }
 
 #content {
@@ -524,7 +522,7 @@ a {
 	color: #888;
 	padding-bottom: 10px;
 }
- 
+
 .avatarBlog {
 	text-align: center;
 	padding-bottom: 10px;
@@ -601,3 +599,17 @@ p {
 	width: 100%;
 	height: 100%;
 }
+
+#loadMore {
+	color: #009688;
+	cursor: pointer;
+	padding-bottom: 10px;
+	font-style: italic;
+	font-weight: bold;
+}
+
+#loadMore:hover {
+	color: black;
+}
+
+ 
