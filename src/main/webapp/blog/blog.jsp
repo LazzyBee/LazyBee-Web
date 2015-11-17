@@ -16,27 +16,26 @@
 		String blogId = request.getPathInfo().replaceAll("/", "");
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/mblog/"+ blogId);
 		if (rd != null){
-			rd.forward(request, response);
+	rd.forward(request, response);
 		}
 		else {
-			response.setStatus(response.SC_OK);
-			redirectHomeUrl(response);
+	response.setStatus(response.SC_OK);
+	redirectHomeUrl(response);
 		} 
 		return;
 	}
 %>
 
-<%!
-	//Global function
+<%!//Global function
 	public void redirectHomeUrl(HttpServletResponse response) {
-		String site = new String("/");	
+		String site = new String("/");
 		try {
 			response.getWriter().print("<h1>NOT_FOUND</h1>");
-		} catch(IOException e) {}
+		} catch (IOException e) {
+		}
 		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		response.setHeader("Location", site);
-	}
-%>
+	}%>
 
 <%
 	//Global variable
@@ -45,9 +44,9 @@
 	Blog blog;
 	Blog previous_blog;
 	Blog next_blog;
-	
+	List<Blog> blogs_older  ;
 	if (request.getPathInfo() == null
-			|| request.getPathInfo().length() < 1) {
+	|| request.getPathInfo().length() < 1) {
 		redirectHomeUrl(response);
 		return;
 	} 
@@ -58,15 +57,18 @@
 		previous_blog = dataService.getPreviousBlog(blog);
 		next_blog = dataService.getNextBlog(blog);
 		if (blog == null) {
-			redirectHomeUrl(response);
-			return;
+	redirectHomeUrl(response);
+	return;
 		} 
 		else {
-			if(blog.getAvatar() != null)
-				blog_avatar = dataService.findPicture(blog.getAvatar());
+		if(blog.getAvatar() != null)
+		blog_avatar = dataService.findPicture(blog.getAvatar());
 		}
+		blogs_older = new ArrayList<Blog>();
+		blogs_older = dataService.getBlogsOlder(blog);
+		 
 	}
-%>		
+%>
 
 <!doctype html>
 <html>
@@ -80,17 +82,26 @@
 <link rel="stylesheet"
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-<title><%= blog.getShowTitle() %></title>
+<title><%=blog.getShowTitle()%></title>
 
 <meta property="og:type" content=website />
-<% if(blog_avatar != null) {%>
-<meta property="og:image" content="<%= blog_avatar.getServeUrl() %>" />
-<% }  else {%>
-<meta property="og:image" content="http://www.lazzybee.com/resources/1435838158_Mushroom - Bee.png" />
-<% } %>
-<meta property="og:title" content="<%= blog.getShowTitle().replaceAll("\"", "\'") %>" />
-<meta property="og:url" content="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" />
-<meta property="fb:app_id" content="754889477966743"/>
+<%
+	if(blog_avatar != null) {
+%>
+<meta property="og:image" content="<%=blog_avatar.getServeUrl()%>" />
+<%
+	}  else {
+%>
+<meta property="og:image"
+	content="http://www.lazzybee.com/resources/1435838158_Mushroom - Bee.png" />
+<%
+	}
+%>
+<meta property="og:title"
+	content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
+<meta property="og:url"
+	content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
+<meta property="fb:app_id" content="754889477966743" />
 
 <script type="text/javascript" language="javascript"
 	src="../lazzybee/lazzybee.nocache.js"></script>
@@ -114,26 +125,26 @@
 </head>
 
 <body style="overflow: hidden;">
-	
+
 	<!-- Google Tag Manager -->
 	<noscript>
-	<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
-	height="0" width="0" style="display: none; visibility: hidden"></iframe>
+		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
+			height="0" width="0" style="display: none; visibility: hidden"></iframe>
 	</noscript>
 	<script>
-	(function(w, d, s, l, i) {
-	w[l] = w[l] || [];
-	w[l].push({
-	'gtm.start' : new Date().getTime(),
-	event : 'gtm.js'
-	});
-	var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
-	+ l
-	: '';
-	j.async = true;
-	j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-	f.parentNode.insertBefore(j, f);
-	})(window, document, 'script', 'dataLayer', 'GTM-KZBFX5');
+		(function(w, d, s, l, i) {
+			w[l] = w[l] || [];
+			w[l].push({
+				'gtm.start' : new Date().getTime(),
+				event : 'gtm.js'
+			});
+			var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
+					+ l
+					: '';
+			j.async = true;
+			j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KZBFX5');
 	</script>
 	<!-- End Google Tag Manager -->
 
@@ -171,22 +182,34 @@
 		</div>
 		<div class="header_menu">
 			<!-- <a class="header_menu_item">Bộ Flash Cards</a> -->
-			<% if(blog.getTitle().equals("feedback")) {%>
-			<a href="/vdict/" class="header_menu_item">Thư Viện</a> 
-			<a href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a> 
-			<a id="menu_editor" href="/editor/" class="header_menu_item">Soạn Thảo</a>
-			<a style="color: rgb(234, 253, 116) !important;" href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
-			<% } else if(blog.getTitle().equals("user_guide")) { %>
-			<a href="/vdict/" class="header_menu_item">Thư Viện</a> 
-			<a style="color: rgb(234, 253, 116) !important;" href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a> 
-			<a id="menu_editor" href="/editor/" class="header_menu_item">Soạn Thảo</a>
-			<a href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
-			<% } else { %>
-			<a style="color: rgb(234, 253, 116) !important;" href="/vdict/" class="header_menu_item">Thư Viện</a>
-			<a href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a>  
-			<a id="menu_editor" href="/editor/" class="header_menu_item">Soạn Thảo</a>
-			<a href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
-			<% } %>
+			<%
+				if(blog.getTitle().equals("feedback")) {
+			%>
+			<a href="/vdict/" class="header_menu_item">Thư Viện</a> <a
+				href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a> <a
+				id="menu_editor" href="/editor/" class="header_menu_item">Soạn
+				Thảo</a> <a style="color: rgb(234, 253, 116) !important;"
+				href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
+			<%
+				} else if(blog.getTitle().equals("user_guide")) {
+			%>
+			<a href="/vdict/" class="header_menu_item">Thư Viện</a> <a
+				style="color: rgb(234, 253, 116) !important;"
+				href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a> <a
+				id="menu_editor" href="/editor/" class="header_menu_item">Soạn
+				Thảo</a> <a href="/blog/feedback" class="header_menu_item">Ý kiến
+				phản hồi</a>
+			<%
+				} else {
+			%>
+			<a style="color: rgb(234, 253, 116) !important;" href="/vdict/"
+				class="header_menu_item">Thư Viện</a> <a href="/blog/user_guide"
+				class="header_menu_item">Hướng dẫn</a> <a id="menu_editor"
+				href="/editor/" class="header_menu_item">Soạn Thảo</a> <a
+				href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
+			<%
+				}
+			%>
 		</div>
 		<div class="header_accPro">
 			<div id="menu_login"></div>
@@ -207,21 +230,28 @@
 			<div id="wt_dictionary"
 				style="padding: 20px 30px 30px 30px; width: 600px; float: left;">
 				<div style="text-align: left">
-					<h1><%= blog.getShowTitle()%></h1>
+					<h1><%=blog.getShowTitle()%></h1>
 					<%-- <% if(blog_avatar != null) { %>
 					<img style="margin-top:20px; width: 100%; margin: auto; display: block;" alt="" src="<%= blog_avatar.getServeUrl()%>">
 					<% } %> --%>
-					<div style="overflow:hidden; margin-bottom:20px; padding:10px; margin-top:15px; background: #f2f1f1; width: 100%; display: block; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
-						<span style="float: left; margin-top: 3px;">Bài viết được tạo: <%= df.format(new Date(blog.getCreateDate())) %></span>
-						<a id="blogViewEdit" style="display: none;" title="Soạn thảo" href="/editor/#blog/<%= blog.getId()%>"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+					<div
+						style="overflow: hidden; margin-bottom: 20px; padding: 10px; margin-top: 15px; background: #f2f1f1; width: 100%; display: block; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+						<span style="float: left; margin-top: 3px;">Bài viết được
+							tạo: <%=df.format(new Date(blog.getCreateDate()))%></span> <a
+							id="blogViewEdit" style="display: none;" title="Soạn thảo"
+							href="/editor/#blog/<%=blog.getId()%>"><i
+							class="fa fa-pencil-square-o fa-lg"></i></a>
 						<div style="float: right">
-							<div class="fb-like" data-href="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+							<div class="fb-like"
+								data-href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>"
+								data-layout="button_count" data-action="like"
+								data-show-faces="true" data-share="true"></div>
 						</div>
 					</div>
 				</div>
-				<div style="margin-bottom:30px"><%= blog.getContent() %></div>
-				
-				<div>
+				<div style="margin-bottom: 30px"><%=blog.getContent()%></div>
+
+				<%-- <div>
 					<%if(previous_blog != null) {%>
 					<a style="float: left; cursor: pointer;" href="/blog/<%= previous_blog.getTitle() %>"><i class="fa fa-angle-double-left"></i> Trang trước</a>
 					<% } else { %>
@@ -233,11 +263,37 @@
 					<% } else { %>
 					<a style="float: right; cursor: default; color: silver !important"">Trang sau <i class="fa fa-angle-double-right"></i></a>
 					<% } %>
+				</div> --%>
+				<%
+					if (blogs_older.size() > 0) {
+				%>
+				<div class="fon39">
+					<h5>Các bài đã đăng</h5>
 				</div>
-				
-				<br/> <br/>
-				<div class="fb-comments" data-width="100%" data-href="http://www.lazzybee.com/blog/<%= blog.getTitle() %>" data-numposts="5" data-colorscheme="light" data-order-by="reverse_time" data-version="v2.3"></div>
-				<br/><br/>
+				<ul class="blogs_exist">
+					<%
+						for (int i = 0; i < blogs_older.size(); i++) {
+								Blog blog_exist = blogs_older.get(i);
+								String hrefShow = "/blog/" + blog_exist.getTitle();
+								String name_blog = blog_exist.getShowTitle();
+					%>
+					<li><a style="text-decoration: none; color: #333;"
+						href=<%=hrefShow%>><%=name_blog%></a></li>
+
+					<%
+						}
+					%>
+				</ul>
+				<%
+					}
+				%>
+
+				<br /> <br />
+				<div class="fb-comments" data-width="100%"
+					data-href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>"
+					data-numposts="5" data-colorscheme="light"
+					data-order-by="reverse_time" data-version="v2.3"></div>
+				<br /> <br />
 			</div>
 
 			<div id="right_panel">
@@ -246,13 +302,15 @@
 						style="width: 100%; height: 300px;">
 				</div>
 				<div style="float: left; margin-right: 10px; margin-top: 15px;">
-					<a href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
+					<a
+						href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
 						<img alt="" src="/resources/appstore.png"
-							style="width: 140px; height: 50px; cursor: pointer;">
+						style="width: 140px; height: 50px; cursor: pointer;">
 					</a>
 				</div>
 				<div>
-					<a href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
+					<a
+						href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
 						<img alt="" src="/resources/googleplay.jpg"
 						style="width: 140px; height: 50px; cursor: pointer; margin-top: 15px;">
 					</a>
@@ -264,7 +322,8 @@
 						data-href="http://www.lazzybee.com/" data-width="260"
 						data-layout="button_count" data-action="like"
 						data-show-faces="true" data-share="false"></div>
-					<a	target="_blank" href="https://www.facebook.com/lazzybees?fref=ts"
+					<a target="_blank"
+						href="https://www.facebook.com/lazzybees?fref=ts"
 						style="float: left; color: #09f; cursor: pointer; margin-left: 20px; text-decoration: none;"><i
 						class="fa fa-hand-o-right fa-lg"></i> Follow LazzyBee </a>
 				</div>

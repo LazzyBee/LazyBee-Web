@@ -126,3 +126,18 @@ h1 {
 	color: gray;
     margin-left: 15px;
 }
+.fon39 h5 {
+	color: #0e74af;
+	font-size: 16px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+ul.blogs_exist {
+	padding-left: 20px;
+	margin-left: 10px;
+}
+
+.fon39 {
+	border-top: solid 1px silver;
+}
