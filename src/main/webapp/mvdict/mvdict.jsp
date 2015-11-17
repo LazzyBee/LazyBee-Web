@@ -18,7 +18,6 @@
 		blogs.clear();
 		if(service.getListBlog() != null && ! service.getListBlog().isEmpty())
 	blogs.addAll(service.getListBlog());
-		
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -61,7 +60,7 @@
 			size_li = $("#myList li").size();
 			x = 2;
 			$('#myList li:lt(' + x + ')').show();
-			if (x == size_li) {
+			if (x == size_li || size_li == 0) {
 				$('#loadMore').hide();
 			} else {
 				$('#loadMore').show();

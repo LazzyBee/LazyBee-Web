@@ -612,4 +612,24 @@ p {
 	color: black;
 }
 
- 
+.mblog_install_app {
+	font-style: italic;
+	font-size: inherit;
+	padding-top: 10px;
+}
+
+.fon39 h5 {
+	color: #009688;
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+ul.blogs_exist {
+	padding-left: 20px;
+	margin-left: 10px;
+}
+
+.fon39 {
+	border-top: solid 1px silver;
+}

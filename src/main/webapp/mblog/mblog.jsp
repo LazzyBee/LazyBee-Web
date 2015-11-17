@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="com.born2go.lazzybee.gdatabase.shared.Picture"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -37,30 +39,29 @@
 <%
 	Picture blog_avatar = null;
 	if (request.getPathInfo() == null
-			|| request.getPathInfo().length() <= 1)
+	|| request.getPathInfo().length() <= 1)
 		redirectHomeUrl(response);
 	else {
 		String blogTitle = request.getPathInfo().replaceAll("/", "");
 		if (blogTitle == null || blogTitle.equals(""))
-			redirectHomeUrl(response);
+	redirectHomeUrl(response);
 		else {
-			DataServiceImpl service = new DataServiceImpl();
-			Blog blog = service.findBlogByTitle(blogTitle);
-			if (blog == null)
-				redirectHomeUrl(response);
-			else {
-				if (blog.getAvatar() != null)
-					blog_avatar = service.findPicture(blog.getAvatar());
-				SimpleDateFormat dateFormat = new SimpleDateFormat(
-						"d/MM/yyyy");
-				String title = blog.getShowTitle();
-				String url = "http://127.0.0.1:8888/mblog/" + title;
-				String pathPicture = "";
-				String content = blog.getContent();
-				content = content.replaceAll("<p>&nbsp;</p>", "");
-				String dateCreate = "Ngày tạo "
-						+ dateFormat.format(new Date(blog
-								.getCreateDate()));
+	DataServiceImpl service = new DataServiceImpl();
+	Blog currentBlog = service.findBlogByTitle(blogTitle);
+	if (currentBlog == null)
+		redirectHomeUrl(response);
+	else {
+		if (currentBlog.getAvatar() != null)
+	blog_avatar = service.findPicture(currentBlog.getAvatar());
+	SimpleDateFormat dateFormat = new SimpleDateFormat("d/MM/yyyy");
+	String title = currentBlog.getShowTitle();
+	String url = "http://127.0.0.1:8888/mblog/" + title;
+	String pathPicture = "";
+	String content = currentBlog.getContent();
+	content = content.replaceAll("<p>&nbsp;</p>", "");
+	String dateCreate = "Ngày tạo "+ dateFormat.format(new Date(currentBlog.getCreateDate()));
+	List<Blog> blogs_exsist = new ArrayList<Blog>();
+	blogs_exsist = service.getBlogsOlder(currentBlog);
 %>
 
 <!doctype html>
@@ -90,9 +91,9 @@
 	}
 %>
 <meta property="og:title"
-	content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
+	content="<%=currentBlog.getShowTitle().replaceAll("\"", "\'")%>" />
 <meta property="og:url"
-	content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
+	content="http://www.lazzybee.com/blog/<%=currentBlog.getTitle()%>" />
 
 <!-- add css -->
 <link type="text/css" rel="stylesheet"
@@ -214,17 +215,48 @@
 				<div><%=content%></div>
 				<br />
 			</div>
-			<br />
 			<div class="fb-comments" data-width="100%"
-				data-href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>"
+				data-href="http://www.lazzybee.com/blog/<%=currentBlog.getTitle()%>"
 				data-numposts="5" data-colorscheme="light"
 				data-order-by="reverse_time" data-version="v2.3"></div>
 			<br /> <br />
+
+			<%
+				if (blogs_exsist.size() > 0) {
+			%>
+			<div class="fon39">
+				<h5>Các bài đã đăng</h5>
+			</div>
+			<ul class="blogs_exist">
+				<%
+					for (int i = 0; i < blogs_exsist.size(); i++) {
+										Blog blog_exist = blogs_exsist.get(i);
+										String hrefShow = "/blog/"
+												+ blog_exist.getTitle();
+										String name_blog = blog_exist.getShowTitle();
+				%>
+				<li><a style="text-decoration: none; color: #333;"
+					href=<%=hrefShow%>><%=name_blog%></a></li>
+
+				<%
+					}
+				%>
+			</ul>
+			<%
+				}
+			%>
 			<%
 				}
 					}
 				}
 			%>
+			<h2 class="mblog_install_app">
+				Tải ứng dụng <a href="http://www.lazzybee.com/">Lazzybee</a> cho <a
+					href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8"
+					style="cursor: none;">iOS</a> và <a
+					href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee"
+					style="cursor: none;">Android</a>
+			</h2>
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">
