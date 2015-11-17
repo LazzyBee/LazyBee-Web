@@ -18,13 +18,12 @@
 		blogs.clear();
 		if(service.getListBlog() != null && ! service.getListBlog().isEmpty())
 	blogs.addAll(service.getListBlog());
-		
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	if (navigator.userAgent.match(/Android/i)
 			|| navigator.userAgent.match(/webOS/i)
 			|| navigator.userAgent.match(/iPhone/i)
@@ -37,50 +36,67 @@
 		var ourLocation = window.location.hash;
 		window.location = "/vdict/" + ourLocation;
 	}
-</script>
+</script> -->
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<script type="text/javascript" language="javascript"
-	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
-<link rel="icon" type="image/png" href="/favicon.png" />
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
+<title>Học từ vựng tiếng Anh, từ điển - LazzyBee</title>
+<meta name="description"
+	content="Lazzy Bee cung cấp ứng dụng học từ vựng tiếng Anh hiệu quả, giúp xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
 <link type="text/css" rel="stylesheet"
 	href="/mobile-resources/mobile.css">
 <link rel="stylesheet"
 	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
+<link rel="icon" type="image/png" href="/favicon.png" />
+<script type="text/javascript" language="javascript"
+	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="/mobile-resources/menu.js"></script>
-
-<title>Học từ vựng tiếng Anh, từ điển - LazzyBee</title>
-<meta name="description"
-	content="Lazzy Bee cung cấp ứng dụng học từ vựng tiếng Anh hiệu quả, giúp xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
 </head>
 <body>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="/mobile-resources/menu.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			size_li = $("#myList li").size();
+			x = 2;
+			$('#myList li:lt(' + x + ')').show();
+			if (x == size_li || size_li == 0) {
+				$('#loadMore').hide();
+			} else {
+				$('#loadMore').show();
+			}
+			$('#loadMore').click(function() {
+				x = (x + 5 <= size_li) ? x + 5 : size_li;
+				$('#myList li:lt(' + x + ')').show();
+				if (x == size_li) {
+					$('#loadMore').hide();
+				}
+			});
 
+		});
+	</script>
 	<!-- Google Tag Manager -->
 	<noscript>
-	<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
-	height="0" width="0" style="display: none; visibility: hidden"></iframe>
+		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
+			height="0" width="0" style="display: none; visibility: hidden"></iframe>
 	</noscript>
 	<script>
-	(function(w, d, s, l, i) {
-	w[l] = w[l] || [];
-	w[l].push({
-	'gtm.start' : new Date().getTime(),
-	event : 'gtm.js'
-	});
-	var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
-	+ l
-	: '';
-	j.async = true;
-	j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-	f.parentNode.insertBefore(j, f);
-	})(window, document, 'script', 'dataLayer', 'GTM-KZBFX5');
+		(function(w, d, s, l, i) {
+			w[l] = w[l] || [];
+			w[l].push({
+				'gtm.start' : new Date().getTime(),
+				event : 'gtm.js'
+			});
+			var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
+					+ l
+					: '';
+			j.async = true;
+			j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KZBFX5');
 	</script>
 	<!-- End Google Tag Manager -->
-	
+
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
 		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
 
@@ -169,42 +185,55 @@
 				</table>
 			</div>
 			<div id="blogs" class="blogs" style="display: block;">
-				<%
-					if (blogs != null && !blogs.isEmpty() && isShortBlog == true) {
+				<ul id="myList">
+					<%
+						if (blogs != null && !blogs.isEmpty() && isShortBlog == true) {
+					%>
+
+					<%
 						for (int i = 0; i < blogs.size(); i++) {
-							Blog blog = blogs.get(i);
-							if (blog != null) {
-								String hrefShow = "/mblog/" + blog.getTitle();
-								String title = blog.getTitle().replaceAll("_", " ");
-								Long pictureId = blog.getAvatar();
-								Picture picture = service.findPicture(pictureId);
-								String urlPicture = "";
-								if (picture != null) {
-									urlPicture = picture.getServeUrl();
-								}
-				%>
-				<ul>
-					<li>
-						<div class="titleBlog">
-							<h1>
-								<a href=<%=hrefShow%>><%=title%></a>
-							</h1>
-						</div>
-						<div class="imgdefault">
-							<a><img alt="" class="avatar" src="<%=urlPicture%>"
-								style="color: rgb(56, 119, 127);" /></a>
-							<p class="mparagraptext">
-								<%=title%>
-							</p>
+								Blog blog = blogs.get(i);
+								if (blog != null) {
+									String hrefShow = "/mblog/" + blog.getTitle();
+									String title = blog.getShowTitle();
+									Long pictureId = blog.getAvatar();
+									Picture picture = service.findPicture(pictureId);
+									String urlPicture = "";
+									if (picture != null) {
+										urlPicture = picture.getServeUrl();
+									}
+					%>
+					<li style="display: none;">
+						<div>
+							<div class="titleBlog">
+								<h1>
+									<a href=<%=hrefShow%>><%=title%></a>
+								</h1>
+							</div>
+							<div class="imgdefault">
+								<a><img alt="" class="avatar" src="<%=urlPicture%>"
+									style="color: rgb(56, 119, 127);" /></a>
+								<p class="mparagraptext">
+									<%=title%>
+								</p>
+							</div>
 						</div>
 					</li>
-				</ul>
-				<%
-					}
+
+					<%
 						}
-					}
-				%>
+
+							}
+					%>
+
+					<%
+						}
+					%>
+				</ul>
+
+				<div id="loadMore">Load more</div>
 			</div>
+
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">
