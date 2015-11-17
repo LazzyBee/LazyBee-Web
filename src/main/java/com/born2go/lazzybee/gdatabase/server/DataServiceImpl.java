@@ -313,6 +313,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 				filter("createDate >", currentBlog.getCreateDate()).order("createDate").first().now();
 		return blog;
 	}
+	
 	/*
 	 * Get list blog older than currentBlog
 	 */
@@ -326,9 +327,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 					.limit(6).list();
 		}
 		return result;
-
 	}
-
 
 	@Override
 	public Picture findPicture(Long pictureId) {

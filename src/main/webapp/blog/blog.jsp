@@ -16,11 +16,11 @@
 		String blogId = request.getPathInfo().replaceAll("/", "");
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/mblog/"+ blogId);
 		if (rd != null){
-	rd.forward(request, response);
+			rd.forward(request, response);
 		}
 		else {
-	response.setStatus(response.SC_OK);
-	redirectHomeUrl(response);
+			response.setStatus(response.SC_OK);
+			redirectHomeUrl(response);
 		} 
 		return;
 	}
@@ -66,7 +66,6 @@
 		}
 		blogs_older = new ArrayList<Blog>();
 		blogs_older = dataService.getBlogsOlder(blog);
-		 
 	}
 %>
 
@@ -75,37 +74,30 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-<link type="text/css" rel="stylesheet" href="../lazzybee.css">
-
 <link rel="icon" type="image/png" href="../favicon.png" />
 
-<link rel="stylesheet"
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link type="text/css" rel="stylesheet" href="../lazzybee.css">
+<link rel="stylesheet" href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
 
 <title><%=blog.getShowTitle()%></title>
 
 <meta property="og:type" content=website />
 <%
-	if(blog_avatar != null) {
+if(blog_avatar != null) {
 %>
 <meta property="og:image" content="<%=blog_avatar.getServeUrl()%>" />
 <%
-	}  else {
+}  else {
 %>
-<meta property="og:image"
-	content="http://www.lazzybee.com/resources/1435838158_Mushroom - Bee.png" />
+<meta property="og:image" content="http://www.lazzybee.com/resources/1435838158_Mushroom - Bee.png" />
 <%
-	}
+}
 %>
-<meta property="og:title"
-	content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
-<meta property="og:url"
-	content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
+<meta property="og:title" content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
+<meta property="og:url" content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
 <meta property="fb:app_id" content="754889477966743" />
 
-<script type="text/javascript" language="javascript"
-	src="../lazzybee/lazzybee.nocache.js"></script>
-<script src="../resources/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" language="javascript" src="../lazzybee/lazzybee.nocache.js"></script>
 
 <script type="text/javascript">
 	function handleClientLoad() {
@@ -120,9 +112,8 @@
 	}
 </script>
 
-<script
-	src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-<script src="https://connect.facebook.net/en_US/all.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad" async></script>
+<script src="https://connect.facebook.net/en_US/all.js" async></script>
 
 </head>
 
@@ -177,10 +168,12 @@
 
 	<div id="header">
 		<div class="header_logo">
+			<a href="/" style="text-decoration: none">
 			<img alt="" src="../resources/1435838158_Mushroom - Bee.png"
 				style="height: 100%; margin-right: 5px;"> <span
 				style="position: relative; top: -4px; color: rgb(234, 253, 116);">Lazzy
 				Bee</span>
+			</a>
 		</div>
 		<div class="header_menu">
 			<!-- <a class="header_menu_item">Bộ Flash Cards</a> -->
