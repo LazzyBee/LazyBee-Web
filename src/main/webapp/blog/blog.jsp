@@ -94,7 +94,6 @@
 
 <script type="text/javascript" language="javascript"
 	src="../lazzybee/lazzybee.nocache.js"></script>
-<script src="../resources/ckeditor/ckeditor.js"></script>
 
 <script type="text/javascript">
 	function handleClientLoad() {
@@ -109,9 +108,8 @@
 	}
 </script>
 
-<script
-	src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-<script src="https://connect.facebook.net/en_US/all.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad" async></script>
+<script src="https://connect.facebook.net/en_US/all.js" async></script>
 
 </head>
 
