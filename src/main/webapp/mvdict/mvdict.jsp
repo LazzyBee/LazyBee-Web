@@ -50,11 +50,17 @@
 <link rel="icon" type="image/png" href="/favicon.png" />
 <script type="text/javascript" language="javascript"
 	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
-
+<script type="text/javascript">
+	
+<%@include file="/mobile-resources/jquery-1.11.3.min.js" %>
+	
+<%@include file="/mobile-resources/menu.js" %>
+	
+</script>
 </head>
 <body>
-	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="/mobile-resources/menu.js"></script>
+	<!-- <script src="/mobile-resources/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="/mobile-resources/menu.js"></script> -->
 	<script type="text/javascript">
 		$(document).ready(function() {
 			size_li = $("#myList li").size();
