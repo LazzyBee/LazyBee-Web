@@ -1,16 +1,24 @@
-@CHARSET "ISO-8859-1";
+body, html, #content, .avatarBlog img {
+	height: 100%
+}
+
+#btsearch, #mfooter, #notfoundVoca, .header_table, .VocaEditorTool_Obj11,
+	.actionForm, .avatarBlog, .table-cell, figure, p img {
+	text-align: center
+}
+
+a, a:active, .VocaEditorTool_Obj6:hover {
+	text-decoration: none !important;
+}
 
 html {
 	font-size: 13px !important;
-	box-sizing: border-box;
-	height: 100%;
+	box-sizing: border-box
 }
 
-/* css for show image in content ckeditor */
 p img {
 	width: 100% !important;
-	text-align: center;
-	margin: auto;
+	margin: auto
 }
 
 body {
@@ -19,153 +27,147 @@ body {
 	font-family: Arial, Helvetica, sans-serif !important;
 	font-size: 15px !important;
 	line-height: 1.5em !important;
-	background: white !important;
+	background: #fff !important;
 	min-width: 320px !important;
-	overflow-x: hidden;
-	height: 100%;
+	overflow-x: hidden
 }
-/* css for mfooter*/
+
+.VocaEditorTool_Obj2, .VocaEditorTool_Obj7 {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-weight: 700
+}
+
+#mfooter, .header_w, .actionForm, .cssDialogBox_clean {
+	width: 100%
+}
+
 #mfooter {
-	font-weight: bold;
+	font-weight: 700;
 	padding-top: 10px;
 	padding-bottom: 5px;
 	height: 25px;
-	width: 100%;
-	text-align: center;
 	background-color: rgba(48, 27, 12, 1);
-	color: white;
+	color: #fff
 }
 
 .header_w {
-	width: 100%;
 	height: 40px;
-	margin: auto;
 	padding: 4px 0;
 	background: #009688;
-	box-shadow: 0 0 3px #009688;
+	box-shadow: 0 0 3px #009688
 }
 
 .header {
-	padding: 0px 12px 0px 0;
+	padding: 0 12px 0 0
 }
 
 .left_header {
 	width: 45px;
-	float: left;
+	float: left
 }
 
 .right_header_w {
-	margin-left: 45px;
+	margin-left: 45px
 }
 
 .right_header {
 	border-radius: 10px;
 	height: 28px;
-	background-color: white;
-	box-shadow: 0 0 3px rgba(252, 250, 250, 0.7);
-	margin-top: 5px;
+	background-color: #fff;
+	box-shadow: 0 0 3px rgba(252, 250, 250, .7);
+	margin-top: 5px
 }
 
 #menuBtn {
-	padding: 12px;
-	padding-top: 7px;
-	font-size: 1.5em;
+	padding: 7px 12px 12px;
+	color: white;
+	font-size: 1.5em
 }
 
 #btsearch {
 	width: 40px;
 	float: right;
 	font-size: 1.1em;
-	text-align: center;
-	padding-top: 6px;
+	padding-top: 6px
 }
 
 #inputsearch {
 	margin-left: 10px;
 	width: 85%;
-	float: left;
-	margin-right: 10px;
+	margin-right: 10px
 }
 
 #txt_valueSearch {
 	margin-top: 1px;
 	height: 27px;
-	color: white !important;
-	background-color: white;
-	border: 0;
+	color: #fff !important;
+	background-color: #fff;
+	border: 0
 }
 
 input#txt_valueSearch {
 	border: none;
-	padding: 1px;
+	padding: 1px 1px 0;
 	height: 27px !important;
-	padding-bottom: 0px;
-	width: 100%;
+	width: 100%
 }
 
 button.fa.fa-search {
-	background-color: white;
+	background-color: #fff;
 	border: none;
-	padding: 0px;
+	padding: 0
 }
 
 input.gwt-TextBox {
-	background-color: white;
+	background-color: #fff;
 	border: none;
-	outline: none;
+	outline: 0
 }
 
 .txt_valueSearch input {
-	border: none;
+	border: none
 }
 
 .main_title {
 	margin-top: 4px;
 	font-size: 1.5em;
 	line-height: 1.3em;
-	color: white;
+	color: #fff
 }
 
 #main {
-	min-height: calc(100% - 88px);
+	min-height: calc(100% - 88px)
 }
 
 #content {
-	margin: 0px 10px;
-	height: 100%;
+	margin: 0 10px;
 	position: relative;
-	overflow: hidden;
+	overflow: hidden
 }
 
-figure {
-	text-align: center;
-	margin: auto;
+figure, .header_w, .table-app {
+	margin: auto
 }
 
 figure.image img {
 	width: 100% !important;
-	height: auto !important;
+	height: auto !important
 }
-/* 
-figcaption {
-	size: 10px !important;
-	font-size: 10px;
-	
-} */
+
 h1 {
 	font-size: 1.8rem;
 	line-height: 1.8rem;
 	display: inline-block;
-	margin: 0 10px 0 0;
+	margin: 0 10px 0 0
 }
 
 .list-mean {
-	padding-left: 10px;
+	padding-left: 10px
 }
 
 #menu {
 	display: none;
-	padding-top: 46px;
+	padding-top: 46px
 }
 
 #menu ul {
@@ -179,256 +181,229 @@ h1 {
 	z-index: 6;
 	padding: 0;
 	margin: 0;
-	box-shadow: 0 12px 12px -4px gray;
-}
-
-a {
-	text-decoration: none;
-}
-
-a:active {
-	text-decoration: none;
+	box-shadow: 0 12px 12px -4px gray
 }
 
 #menu ul li a {
 	width: 90%;
-	color: white;
-	display: block;
+	color: #fff;
+	display: block
+}
+
+.MTestTool_Obj5, .table-cell {
+	display: inline-block;
+	cursor: pointer
 }
 
 #menu ul li a i {
-	color: white;
-	margin-right: 10px;
+	color: #fff;
+	margin-right: 10px
 }
 
 .m_menu_help_b {
-	border-bottom: solid 1px gray;
+	border-bottom: solid 1px gray
 }
 
 #menu li {
 	height: 50px;
-	padding: 0px 20px 0px 10px;
-	line-height: 50px;
+	padding: 0 20px 0 10px;
+	line-height: 50px
 }
-/* css for home*/
+
 .header_table {
 	position: relative;
 	font-size: 22px;
 	font-weight: 700;
-	text-align: center;
 }
 
 .skill-table {
-	margin: 20px auto 0px;
-	padding: 0;
+	margin: 20px auto 0;
+	padding: 0
 }
 
 .skill-table tr {
-	width: 100%;
+	width: 100%
 }
 
 .table-cell {
 	height: 50px;
-	text-align: center;
 	width: 130px;
 	background: #009688;
-	cursor: pointer;
 	border-radius: 3px;
-	color: white;
+	color: #fff;
 	padding: 10px 5px;
-	display: inline-block;
 	white-space: normal;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24)
 }
 
 .table-cell:hover {
-	background: #0066c
+	background: 0 0
 }
 
 .mainMTestTool {
 	width: 600px;
-	margin: auto;
-	margin-top: 20px;
-	margin-bottom: 60px;
+	margin: 20px auto 60px
 }
 
 .MTestTool_Obj5:hover {
-	background: tomato;
+	background: tomato
 }
 
 .MTestTool_Obj5 {
 	width: 140px;
-	cursor: pointer;
-	padding: 10px 20px 15px 20px;
+	padding: 10px 20px 15px;
 	background: gray;
 	margin-top: 20px;
 	margin-bottom: 10px;
-	display: inline-block;
 	margin-right: 15px;
-	position: relative;
+	position: relative
 }
 
 .actionForm {
-	width: 100%;
-	text-align: center;
 	margin-top: 20px;
-	margin-bottom: 30px;
+	margin-bottom: 30px
 }
 
-/* #mdic_introduction {
-	position: absolute;
-	right: 10px;
-	bottom: 20px;
-	left: 10px;
-	
-} */
 #notfoundVoca {
-	text-align: center;
-	margin-top: 10px;
+	margin-top: 10px
 }
-/*mobile overides*/
-@media ( max-width : 319px) {
+
+@media ( max-width :319px) {
 	#inputsearch {
-		width: 60%;
+		width: 60%
 	}
 	.table-cell {
-		width: 120px;
+		width: 120px
 	}
 	.mainMTestTool {
-		width: 300px;
+		width: 300px
 	}
 	a.MTestTool_Obj2 {
-		margin-bottom: 20px;
+		margin-bottom: 20px
 	}
 	.MTestTool_Obj5 {
 		width: 90px;
-		margin: 10px 5px;
+		margin: 10px 5px
 	}
 }
 
-@media ( min-width : 320px) and (max-width: 420px) {
+@media ( min-width :320px) and (max-width:420px) {
 	#inputsearch {
-		width: 67%;
+		width: 67%
 	}
 	.mainMTestTool {
-		width: 300px;
+		width: 300px
 	}
 	.MTestTool_Obj5 {
 		width: 90px;
-		margin: 10px 5px;
+		margin: 10px 5px
 	}
 }
 
-@media ( min-width : 421px) and (max-width: 520px) {
+@media ( min-width :421px) and (max-width:520px) {
 	#inputsearch {
-		width: 75%;
+		width: 75%
 	}
 	.table-cell {
-		width: 140px;
+		width: 140px
 	}
 	.skill-table {
-		border-spacing: 30px 20px;
+		border-spacing: 30px 20px
 	}
 	.mainMTestTool {
-		width: 400px;
+		width: 400px
 	}
 	.MTestTool_Obj5 {
 		width: 120px;
-		margin: 10px 20px;
+		margin: 10px 20px
 	}
 }
 
-@media ( min-width : 521px) and (max-width: 600px) {
+@media ( min-width :521px) and (max-width:600px) {
 	#inputsearch {
-		width: 80%;
+		width: 80%
 	}
 	.table-cell {
 		width: 150px;
 		font-size: 16px;
-		height: 60px;
+		height: 60px
 	}
 	.skill-table {
-		border-spacing: 30px 10px;
+		border-spacing: 30px 10px
 	}
 	.mainMTestTool {
-		width: 500px;
+		width: 500px
 	}
 	.MTestTool_Obj5 {
 		width: 100px;
-		margin: 10px 10px;
+		margin: 10px
 	}
 }
 
-@media ( min-width : 601px) and (max-width: 767px) {
+@media ( min-width :601px) and (max-width:767px) {
 	#inputsearch {
-		width: 84%;
+		width: 84%
 	}
 	.table-cell {
 		height: 70px;
 		width: 200px;
-		font-size: 17px;
+		font-size: 17px
 	}
 	.skill-table {
-		border-spacing: 40px 20px;
+		border-spacing: 40px 20px
 	}
 	.mainMTestTool {
-		width: 590px;
+		width: 590px
 	}
 	.MTestTool_Obj5 {
 		width: 130px;
-		margin: 10px 10px;
+		margin: 10px
 	}
 }
 
-@media ( max-width : 767px) {
-}
-
-@media ( min-width : 768px) {
+@media ( min-width :768px) {
 	#inputsearch {
-		width: 88%;
+		width: 88%
 	}
 	.table-cell {
 		height: 70px;
 		width: 200px;
-		font-size: 17px;
+		font-size: 17px
 	}
 	.skill-table {
-		border-spacing: 40px 20px;
+		border-spacing: 40px 20px
 	}
 	.mainMTestTool {
-		width: 590px;
+		width: 590px
 	}
 	.MTestTool_Obj5 {
 		width: 130px;
-		margin: 10px 10px;
+		margin: 10px
 	}
 }
 
 .VocaEditorTool_Obj1 {
 	background: #009688;
 	padding: 7px 15px;
-	border: 1px silver solid;
-	color: white;
+	border: 1px solid silver;
+	color: #fff;
 	border-radius: 5px;
-	margin-right: 10px;
+	margin-right: 10px
 }
 
 .VocaEditorTool_Obj1:hover {
 	background: silver;
-	cursor: pointer;
-	color: #009688;
+	cursor: pointer
 }
 
 .VocaEditorTool_Obj2 {
-	font-weight: 700;
-	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	margin-right: 20px;
-	width: 150px;
+	width: 150px
 }
 
 .VocaEditorTool_Obj3 {
-	margin-bottom: 10px;
+	margin-bottom: 10px
 }
 
 .VocaEditorTool_Obj4 {
@@ -436,125 +411,109 @@ a:active {
 	height: 26px;
 	padding-left: 5px;
 	border: 1px solid #b6b6b6;
-	box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+	box-shadow: 0 0 3px rgba(0, 0, 0, .15)
 }
 
 .VocaEditorTool_Obj5 {
 	position: relative;
-	top: 10px;
-}
-
-.VocaEditorTool_Obj6 {
-	
+	top: 10px
 }
 
 .VocaEditorTool_Obj6:hover {
 	color: silver !important;
-	text-decoration: none;
-	cursor: pointer;
+	cursor: pointer
 }
 
 .VocaEditorTool_Obj7 {
-	font-weight: 700;
-	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 	font-size: 15px;
-	margin-bottom: 24px;
+	margin-bottom: 24px
 }
 
 .VocaEditorTool_Obj8 {
 	width: 400px;
-	margin-left: -5px;
+	margin-left: -5px
 }
 
 .VocaEditorTool_Obj9 {
-	margin-top: 20px;
+	margin-top: 20px
 }
 
 .VocaEditorTool_Obj10 {
-	color: gray;
+	color: gray
 }
 
 .VocaEditorTool_Obj11 {
 	width: 130px;
-	text-align: center;
 	padding: 5px;
 	background: silver;
 	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 5px
 }
 
 .VocaEditorTool_Obj11:hover {
 	background: tomato;
-	color: white;
-	cursor: pointer;
+	color: #fff;
+	cursor: pointer
 }
 
 .VocaEditorTool_Obj12 {
-	padding-bottom: 30px;
+	padding-bottom: 30px
 }
 
-.table-app {
-	margin: auto;
+#blogs ul, .avatarBlog, .nameBlog, .publishdate {
+	padding-bottom: 10px
+}
+
+.table-app div, .avatar, #inputsearch {
+	float: left;
 }
 
 .table-app div {
-	float: left;
 	margin-right: 10px;
-	margin-top: 15px;
+	margin-top: 15px
 }
 
 .appstore {
 	width: 130px;
 	height: 50px;
-	cursor: pointer;
+	cursor: pointer
 }
 
 .tl {
 	font-size: 14px;
 	color: #0e74af;
-	font-weight: bold;
+	font-weight: 700
 }
 
 .ex {
 	color: gray;
-	margin-left: 15px;
+	margin-left: 15px
 }
-/* css for mblog*/
+
 .nameBlog {
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 10px
 }
 
 .nameBlog h1 {
-	font-size: 1.6rem;
-	color: #009688;
+	font-size: 1.6rem
 }
 
 .publishdate {
 	font: 13px/1.3 arial;
-	color: #888;
-	padding-bottom: 10px;
+	color: #888
 }
 
-.avatarBlog {
-	text-align: center;
-	padding-bottom: 10px;
+.avatarBlog img {
+	width: 50%
 }
 
-.titleBlog h1 {
-	font-size: 22px;
-	color: rgb(56, 119, 127);
-}
-
-.titleBlog h1 a {
-	color: #009688;
-	text-decoration: none;
+.nameBlog h1, .fon39 h5, .VocaEditorTool_Obj1:hover {
+	color: #009688
 }
 
 #blogs ul {
-	padding-left: 0px !important;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #E6E9EB;
+	padding-left: 0 !important;
+	border-bottom: 1px solid #E6E9EB
 }
 
 #blogs ul li {
@@ -562,23 +521,26 @@ a:active {
 	overflow: hidden;
 	padding: 5px 0;
 	margin-top: 10px;
-	border-top: 1px solid silver;
+	border-top: 1px solid silver
 }
 
-.imgdefault {
-	width: 100%
-}
-
-.avatar {
-	float: left;
-	padding: 10px 10px 10px 0px;
-	height: 140px;
-	width: 140px;
-}
-
-.imgdefault a {
-	display: inline;
+.vdict_avatar {
+	display: block;
 	overflow: hidden;
+	color: black !important;
+}
+
+.vdict_avatar img {
+	float: left;
+	width: 85px;
+	height: 85px;
+	margin-right: 10px;
+	margin-top: 5px;
+}
+
+.vdict_avatar h3 {
+	margin: 0;
+	margin-bottom: 15px
 }
 
 p {
@@ -586,14 +548,9 @@ p {
 	color: #333;
 	line-height: 150%;
 	font-size: 17px;
-	/* white-space: pre-line; */
-	margin-top: 0px;
+	margin-top: 0
 }
 
-.mparagraptext {
-	padding-top: 5px;
-}
-/*css for video */
 .embeddedContent {
 	position: relative;
 	padding-bottom: 56.25%;
@@ -602,10 +559,10 @@ p {
 	overflow: hidden;
 	float: none !important;
 	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 5px
 }
 
-.embeddedContent iframe, .embeddedContent object, .embeddedContent embed
+.embeddedContent embed, .embeddedContent iframe, .embeddedContent object
 	{
 	position: absolute;
 	top: 0;
@@ -617,26 +574,40 @@ p {
 .mblog_install_app {
 	font-style: italic;
 	font-size: medium;
-	padding-top: 10px;
+	padding-top: 10px
 }
 
 .fon39 h5 {
-	color: #009688;
 	font-size: 18px;
 	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 10px
 }
 
 ul.blogs_exist {
 	padding-left: 20px;
-	margin-left: 10px;
+	margin-left: 10px
 }
 
 .fon39 {
-	border-top: solid 1px silver;
+	border-top: solid 1px silver
 }
 
 .cssDialogBox_clean {
-	width: 100%;
-	position: inherit !important;
+	position: inherit !important
+}
+
+.gwt-TabBarItem-wrapper {
+	width: 34%;
+}
+
+.gwt-TabBar {
+	background: #80CBC4 !important;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+	background: #009688 !important;
+}
+
+.gwt-TabBar .gwt-TabBarItem-selected {
+	background: white !important;
 }

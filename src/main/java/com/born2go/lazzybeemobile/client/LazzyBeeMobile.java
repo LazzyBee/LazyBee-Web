@@ -2,7 +2,9 @@ package com.born2go.lazzybeemobile.client;
 
 import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.client.rpc.DataServiceAsync;
+import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
@@ -16,6 +18,8 @@ public class LazzyBeeMobile implements EntryPoint {
 	public static NoticeBox noticeBox = new NoticeBox("");
 	private final int heightHeader = 44;
 	MenuMobile menu = new MenuMobile();
+	// Facebook app id test lent 1224795884217031
+	public static String fClientId = "754889477966743";
 
 	@Override
 	public void onModuleLoad() {
@@ -56,6 +60,45 @@ public class LazzyBeeMobile implements EntryPoint {
 		// "height:" + (Window.getClientHeight() - heightHeader) + "px");
 		// }
 		// });
+		// fb-root
+		
+		if (RootPanel.get("fb-root") != null) {
+			facebookInit(fClientId);
+	//	lazyInitJsFaceBook();
 
+		}
 	}
+
+	void lazyInitJsFaceBook() {
+		// Load Google Map
+		ScriptInjector.fromUrl("https://connect.facebook.net/en_US/all.js")
+				.setWindow(ScriptInjector.TOP_WINDOW)
+				.setCallback(new Callback<Void, Exception>() {
+					public void onFailure(Exception reason) {
+					}
+
+					public void onSuccess(Void result) {
+					}
+				}).inject();
+	}
+
+	native void facebookInit(String fClientId) /*-{
+												var clientId = fClientId;
+												$wnd.FB._https = true;
+												$wnd.FB.init({
+												appId      : clientId,
+												cookie	 : true,
+												xfbml      : true,
+												version    : 'v2.3'
+												});
+												
+												(function(d, s, id){
+												var js, fjs = d.getElementsByTagName(s)[0];
+												if (d.getElementById(id)) {return;}
+												js = d.createElement(s); js.id = id;
+												js.src = "//connect.facebook.net/en_US/sdk.js";
+												fjs.parentNode.insertBefore(js, fjs);
+												}(document, 'script', 'facebook-jssdk'));
+												}-*/;
+
 }

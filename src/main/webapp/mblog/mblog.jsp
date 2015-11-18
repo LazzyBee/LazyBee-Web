@@ -30,16 +30,14 @@
 	else {
 		if (currentBlog.getAvatar() != null)
 	blog_avatar = service.findPicture(currentBlog.getAvatar());
-	SimpleDateFormat dateFormat = new SimpleDateFormat("d/MM/yyyy");
+	SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
 	String title = currentBlog.getShowTitle();
-	String pathPicture = "";
-	String content = currentBlog.getContent();
-	content = content.replaceAll("<p>&nbsp;</p>", "");
-	String dateCreate = "Ngày tạo "+ dateFormat.format(new Date(currentBlog.getCreateDate()));
+//	String content = currentBlog.getContent();
+//	content = content.replaceAll("<p>&nbsp;</p>", "");
+	 
 	List<Blog> blogs_exsist = new ArrayList<Blog>();
 	blogs_exsist = service.getBlogsOlder(currentBlog);
 %>
-
 <!doctype html>
 <!-- The DOCTYPE declaration above will set the    -->
 <!-- browser's rendering engine into               -->
@@ -63,7 +61,6 @@
 <script src="https://connect.facebook.net/en_US/all.js" async></script>
 </head>
 <body>
-
 	<!-- Google Tag Manager -->
 	<noscript>
 		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
@@ -87,22 +84,9 @@
 	<!-- End Google Tag Manager -->
 
 	<div id="fb-root"></div>
-	<script async>
-		(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id))
-				return;
-			js = d.createElement(s);
-			js.id = id;
-			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=754889477966743";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-	</script>
-
 	<!-- OPTIONAL: include this if you want history support -->
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
 		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
-
 	<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
 	<noscript>
 		<div
@@ -113,10 +97,10 @@
 	<div class="header_w">
 		<div class="header">
 			<div class="left_header">
-				<i class="fa fa-bars fa-lg" style="color: white;" id="menuBtn"></i>
+				<i class="fa fa-bars fa-lg" id="menuBtn"></i>
 			</div>
 			<div class="toppest">
-				<div class="main_title">Lazzybee</div>
+				<div class="main_title">Lazzybee Blogs</div>
 			</div>
 		</div>
 	</div>
@@ -125,26 +109,28 @@
 			<div class="nameBlog">
 				<h1><%=title%></h1>
 			</div>
-			<div class="publishdate"><%=dateCreate%></div>
+			<i class="fa fa-clock-o">&nbsp;</i><i class="publishdate"><%=df.format(new Date(currentBlog
+								.getCreateDate()))%></i>
+
 			<%
 				if (blog_avatar != null) {
 			%>
 			<div class="avatarBlog" id="avatarBlog">
-				<img alt="" src="<%=blog_avatar.getServeUrl()%>" height="200px">
+				<img alt="hoc cung lazzybee"
+					src="<%=blog_avatar.getServeUrl() + "=s200"%>" height="200px">
 			</div>
 			<%
 				}
 			%>
 			<div class="mCenter">
-				<div><%=content%></div>
+				<div><%=currentBlog.getContent()%></div>
 				<br />
 			</div>
 			<div class="fb-comments" data-width="100%"
-				data-href="http://www.lazzybee.com/blog/<%=currentBlog.getTitle()%>"
+				data-href="http://www.lazzybee.com/blog/<%=title%>"
 				data-numposts="5" data-colorscheme="light"
 				data-order-by="reverse_time" data-version="v2.3"></div>
 			<br /> <br />
-
 			<%
 				if (blogs_exsist.size() > 0) {
 			%>
@@ -155,13 +141,9 @@
 				<%
 					for (int i = 0; i < blogs_exsist.size(); i++) {
 										Blog blog_exist = blogs_exsist.get(i);
-										String hrefShow = "/blog/"
-												+ blog_exist.getTitle();
-										String name_blog = blog_exist.getShowTitle();
 				%>
-				<li><a style="text-decoration: none; color: #333;"
-					href=<%=hrefShow%>><%=name_blog%></a></li>
-
+				<li><a style="color: #333; line-height: 2;"
+					href=<%="/blog/" + blog_exist.getTitle()%>><%=blog_exist.getShowTitle()%></a></li>
 				<%
 					}
 				%>

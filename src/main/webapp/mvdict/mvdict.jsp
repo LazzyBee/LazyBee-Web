@@ -73,7 +73,7 @@
 	<div class="header_w">
 		<div class="header">
 			<div class="left_header">
-				<i class="fa fa-bars fa-lg" style="color: white;" id="menuBtn"></i>
+				<i class="fa fa-bars fa-lg" id="menuBtn"></i>
 			</div>
 			<div id="gwt_header_mdic"></div>
 			<div class="right_header_w">
@@ -100,18 +100,17 @@
 							<div style="float: left; margin-right: 10px; margin-top: 15px;">
 								<a
 									href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
-									<img alt="download lazzybee" src="/resources/appstore.png"
-									class="appstore">
+									<img alt="download lazzybee"
+									src="/mobile-resources/appstore_m.png" class="appstore">
 								</a>
-
 							</div>
 						</td>
 						<td>
 							<div>
 								<a
 									href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
-									<img alt="download lazzybee" src="/resources/googleplay.jpg"
-									class="appstore">
+									<img alt="download lazzybee"
+									src="/mobile-resources/googleplay_m.jpg" class="appstore">
 								</a>
 							</div>
 						</td>
@@ -123,38 +122,29 @@
 					<%
 						if (blogs != null && !blogs.isEmpty() && isShortBlog == true) {
 					%>
-
 					<%
-						for (int i = 0; i < blogs.size(); i++) {
+						SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
+							String title = null;
+							Picture picture = null;
+							for (int i = 0; i < blogs.size(); i++) {
 								Blog blog = blogs.get(i);
 								if (blog != null) {
-									String hrefShow = "/mblog/" + blog.getTitle();
-									String title = blog.getShowTitle();
-									Long pictureId = blog.getAvatar();
-									Picture picture = service.findPicture(pictureId);
+									title = blog.getShowTitle();
+									picture = service.findPicture(blog.getAvatar());
 									String urlPicture = "";
 									if (picture != null)
-										urlPicture = picture.getServeUrl();
+										urlPicture = picture.getServeUrl() + "=s100";
 									else
-										urlPicture = "/resources/1435838158_Mushroom - Bee.png";
+										urlPicture = "/mobile-resources/lazzybee_m.png";
 					%>
-					<li>
-						<div>
-							<div class="titleBlog">
-								<h1>
-									<a href=<%=hrefShow%>><%=title%></a>
-								</h1>
+					<li><a class="vdict_avatar"
+						href=<%="/mblog/" + blog.getTitle()%> title=<%=title%>> <img
+							alt=<%=title%> src="<%=urlPicture%>">
+							<h3><%=title%></h3>
+							<div class="ovh time">
+								<i class="fa fa-clock-o">&nbsp;</i><i class="publishdate"><%=df.format(new Date(blog.getCreateDate()))%></i>
 							</div>
-							<div class="imgdefault">
-								<a><img alt="" class="avatar" src="<%=urlPicture%>"
-									style="color: rgb(56, 119, 127);" /></a>
-								<p class="mparagraptext">
-									<%=title%>
-								</p>
-							</div>
-						</div>
-					</li>
-
+					</a> </li>
 					<%
 						}
 
@@ -165,10 +155,7 @@
 						}
 					%>
 				</ul>
-
-
 			</div>
-
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">

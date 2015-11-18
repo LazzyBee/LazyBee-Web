@@ -138,8 +138,6 @@
 			<g:HTMLPanel styleName="{style.MTestTool_Obj1}">
 				<g:HTMLPanel styleName="{style.MTestTool_Obj7}"
 					ui:field="testgood" visible="false">
-					<!-- <i class="fa fa-check" style="color: green; font-size: 24px; margin-bottom: 
-						20px;"> Good</i> -->
 					<div
 						style="float:left; color: green; font-size: 24px; margin-bottom: 15px;">
 						<g:Label ui:field="resultTestGood"></g:Label>
