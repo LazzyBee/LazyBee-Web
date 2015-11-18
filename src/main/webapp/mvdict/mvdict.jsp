@@ -23,20 +23,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<!-- <script type="text/javascript">
-	if (navigator.userAgent.match(/Android/i)
-			|| navigator.userAgent.match(/webOS/i)
-			|| navigator.userAgent.match(/iPhone/i)
-			|| navigator.userAgent.match(/iPad/i)
-			|| navigator.userAgent.match(/iPod/i)
-			|| navigator.userAgent.match(/BlackBerry/i)
-			|| navigator.userAgent.match(/Windows Phone/i)) {
-
-	} else {
-		var ourLocation = window.location.hash;
-		window.location = "/vdict/" + ourLocation;
-	}
-</script> -->
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
@@ -114,8 +100,8 @@
 							<div style="float: left; margin-right: 10px; margin-top: 15px;">
 								<a
 									href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
-									<img alt="" src="/resources/appstore.png"
-									style="width: 130px; height: 50px; cursor: pointer;">
+									<img alt="download lazzybee" src="/resources/appstore.png"
+									class="appstore">
 								</a>
 
 							</div>
@@ -124,8 +110,8 @@
 							<div>
 								<a
 									href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
-									<img alt="" src="/resources/googleplay.jpg"
-									style="width: 130px; height: 50px; cursor: pointer; margin-top: 15px;">
+									<img alt="download lazzybee" src="/resources/googleplay.jpg"
+									class="appstore">
 								</a>
 							</div>
 						</td>
@@ -147,11 +133,12 @@
 									Long pictureId = blog.getAvatar();
 									Picture picture = service.findPicture(pictureId);
 									String urlPicture = "";
-									if (picture != null) {
+									if (picture != null)
 										urlPicture = picture.getServeUrl();
-									}
+									else
+										urlPicture = "/resources/1435838158_Mushroom - Bee.png";
 					%>
-					<li style="display: none;">
+					<li>
 						<div>
 							<div class="titleBlog">
 								<h1>

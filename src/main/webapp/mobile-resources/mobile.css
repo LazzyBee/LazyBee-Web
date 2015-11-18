@@ -20,8 +20,6 @@ body {
 	font-size: 15px !important;
 	line-height: 1.5em !important;
 	background: white !important;
-	-webkit-text-size-adjust: 100% !important;
-	-ms-text-size-adjust: none !important;
 	min-width: 320px !important;
 	overflow-x: hidden;
 	height: 100%;
@@ -148,13 +146,12 @@ figure.image img {
 	width: 100% !important;
 	height: auto !important;
 }
-
+/* 
 figcaption {
-	/* size: 10px !important; */
-	/* font-size: 10px; */
+	size: 10px !important;
+	font-size: 10px;
 	
-}
-
+} */
 h1 {
 	font-size: 1.8rem;
 	line-height: 1.8rem;
@@ -189,23 +186,27 @@ a {
 	text-decoration: none;
 }
 
+a:active {
+	text-decoration: none;
+}
+
 #menu ul li a {
-	width: 100%;
-	margin: 0px 10px;
+	width: 90%;
 	color: white;
+	display: block;
 }
 
-#menu ul li img {
-	width: 30px;
+#menu ul li a i {
+	color: white;
+	margin-right: 10px;
 }
 
-.m_menu_help, .m_menu_blog, .m_menu_seach {
+.m_menu_help_b {
 	border-bottom: solid 1px gray;
 }
 
 #menu li {
 	height: 50px;
-	line-height: 50px;
 	padding: 0px 20px 0px 10px;
 	line-height: 50px;
 }
@@ -274,14 +275,13 @@ a {
 	margin-bottom: 30px;
 }
 
-#mdic_introduction {
-	/* position: absolute;
+/* #mdic_introduction {
+	position: absolute;
 	right: 10px;
 	bottom: 20px;
-	left: 10px; */
+	left: 10px;
 	
-}
-
+} */
 #notfoundVoca {
 	text-align: center;
 	margin-top: 10px;
@@ -497,6 +497,18 @@ a {
 	margin: auto;
 }
 
+.table-app div {
+	float: left;
+	margin-right: 10px;
+	margin-top: 15px;
+}
+
+.appstore {
+	width: 130px;
+	height: 50px;
+	cursor: pointer;
+}
+
 .tl {
 	font-size: 14px;
 	color: #0e74af;
@@ -550,6 +562,7 @@ a {
 	overflow: hidden;
 	padding: 5px 0;
 	margin-top: 10px;
+	border-top: 1px solid silver;
 }
 
 .imgdefault {
@@ -603,7 +616,7 @@ p {
 
 .mblog_install_app {
 	font-style: italic;
-	font-size: inherit;
+	font-size: medium;
 	padding-top: 10px;
 }
 

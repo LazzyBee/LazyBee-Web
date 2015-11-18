@@ -9,28 +9,35 @@
 			<nav id="menu">
 				<ul>
 					<li>
-						<div class="m_menu_seach">
-							<i class="fa fa-search fa-1x" style="color: white;"></i>
-							<a href="/mvdict/">Từ điển</a>
-						</div>
-					</li>
-
-					<li>
-						<div class="m_menu_help">
-							<i class="fa fa-question fa-lg" style="color: white;"></i>
-							<a href="/mtest/">Kiểm tra vốn từ</a>
+						<div class="m_menu_help_b">
+							<a href="/mvdict/">
+								<i class="fa fa-search fa-1x"></i>
+								Từ điển
+							</a>
 						</div>
 					</li>
 					<li>
-						<div class="m_menu_blog">
-							<i class="fa fa-book" style="color: white;"></i>
-							<a href="/blog/user_guide">Hưỡng dẫn sử dụng</a>
+						<div class="m_menu_help_b">
+							<a href="/mtest/">
+								<i class="fa fa-question fa-lg"></i>
+								Kiểm tra vốn từ
+							</a>
 						</div>
 					</li>
 					<li>
-						<div class="m_menu_feedback">
-							<i class="fa fa-comment" style="color: white;"></i>
-							<a href="/blog/feedback">Ý kiến phản hồi</a>
+						<div class="m_menu_help_b">
+							<a href="/blog/user_guide">
+								<i class="fa fa-book"></i>
+								Hưỡng dẫn sử dụng
+							</a>
+						</div>
+					</li>
+					<li>
+						<div>
+							<a href="/blog/feedback">
+								<i class="fa fa-comment"></i>
+								Ý kiến phản hồi
+							</a>
 						</div>
 					</li>
 				</ul>

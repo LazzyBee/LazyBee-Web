@@ -1,21 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<!-- <script type="text/javascript">
-	if (navigator.userAgent.match(/Android/i)
-			|| navigator.userAgent.match(/webOS/i)
-			|| navigator.userAgent.match(/iPhone/i)
-			|| navigator.userAgent.match(/iPad/i)
-			|| navigator.userAgent.match(/iPod/i)
-			|| navigator.userAgent.match(/BlackBerry/i)
-			|| navigator.userAgent.match(/Windows Phone/i)) {
-
-	} else {
-		window.location = "/test/";
-	}
-</script> -->
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
 <link type="text/css" rel="stylesheet"
@@ -27,18 +13,15 @@
 <meta name="description"
 	content="Bài tự kiểm tra giúp bạn nhanh chóng đánh giá vốn từ vựng của mình để sử dụng Lazzy Bee hiệu quả hơn.">
 <script type="text/javascript"
-	src="../lazzybeemobile/lazzybeemobile.nocache.js"></script>
+	src="../lazzybeemobile/lazzybeemobile.nocache.js" async></script>
 </head>
 <body>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script type="text/javascript" src="../mobile-resources/menu.js"></script>
 	<!-- Google Tag Manager -->
 	<noscript>
 		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
 			height="0" width="0" style="display: none; visibility: hidden"></iframe>
 	</noscript>
-	<script>
+	<script async>
 		(function(w, d, s, l, i) {
 			w[l] = w[l] || [];
 			w[l].push({
@@ -70,34 +53,6 @@
 		<div class="header">
 			<div class="left_header">
 				<i class="fa fa-bars fa-lg" style="color: white;" id="menuBtn"></i>
-				<nav id="menu">
-					<ul>
-						<li>
-							<div class="m_menu_seach">
-								<i class="fa fa-search fa-1x" style="color: white;"></i> <a
-									href="/mvdict/">Từ điển</a>
-							</div>
-						</li>
-						<li>
-							<div class="m_menu_help">
-								<i class="fa fa-question fa-lg" style="color: white;"></i> <a
-									href="/mtest/">Kiểm tra vốn từ</a>
-							</div>
-						</li>
-						<li>
-							<div class="m_menu_blog">
-								<i class="fa fa-book" style="color: white;"></i> <a
-									href="/blog/user_guide">Hưỡng dẫn sử dụng</a>
-							</div>
-						</li>
-						<li>
-							<div class="m_menu_feedback">
-								<i class="fa fa-comment" style="color: white;"></i> <a
-									href="/blog/feedback">Ý kiến phản hồi</a>
-							</div>
-						</li>
-					</ul>
-				</nav>
 			</div>
 			<div class="toppest">
 				<div class="main_title">Lazzybee</div>
@@ -119,21 +74,20 @@
 				<table class="table-app" cellspacing="5">
 					<tr>
 						<td>
-							<div style="float: left; margin-right: 10px; margin-top: 15px;">
+							<div>
 								<a
 									href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
-									<img alt="" src="/resources/appstore.png"
-									style="width: 130px; height: 50px; cursor: pointer;">
+									<img alt="download lazzybee" src="/resources/appstore.png"
+									class="appstore">
 								</a>
-
 							</div>
 						</td>
 						<td>
 							<div>
 								<a
 									href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
-									<img alt="" src="/resources/googleplay.jpg"
-									style="width: 130px; height: 50px; cursor: pointer; margin-top: 15px;">
+									<img alt="download lazzybee" src="/resources/googleplay.jpg"
+									class="appstore">
 								</a>
 							</div>
 						</td>
