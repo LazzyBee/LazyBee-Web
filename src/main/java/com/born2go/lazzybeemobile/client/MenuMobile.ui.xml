@@ -1,0 +1,40 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+
+	</ui:style>
+	<g:VerticalPanel ui:field="verMenu">
+		<g:HTML ui:field="htmlMenu">
+			<nav id="menu">
+				<ul>
+					<li>
+						<div class="m_menu_seach">
+							<i class="fa fa-search fa-1x" style="color: white;"></i>
+							<a href="/mvdict/">Từ điển</a>
+						</div>
+					</li>
+
+					<li>
+						<div class="m_menu_help">
+							<i class="fa fa-question fa-lg" style="color: white;"></i>
+							<a href="/mtest/">Kiểm tra vốn từ</a>
+						</div>
+					</li>
+					<li>
+						<div class="m_menu_blog">
+							<i class="fa fa-book" style="color: white;"></i>
+							<a href="/blog/user_guide">Hưỡng dẫn sử dụng</a>
+						</div>
+					</li>
+					<li>
+						<div class="m_menu_feedback">
+							<i class="fa fa-comment" style="color: white;"></i>
+							<a href="/blog/feedback">Ý kiến phản hồi</a>
+						</div>
+					</li>
+				</ul>
+			</nav>
+		</g:HTML>
+	</g:VerticalPanel>
+</ui:UiBinder> 

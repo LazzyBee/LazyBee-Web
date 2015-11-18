@@ -168,6 +168,7 @@ h1 {
 
 #menu {
 	display: none;
+	padding-top: 46px;
 }
 
 #menu ul {
@@ -600,18 +601,6 @@ p {
 	height: 100%;
 }
 
-#loadMore {
-	color: #009688;
-	cursor: pointer;
-	padding-bottom: 10px;
-	font-style: italic;
-	font-weight: bold;
-}
-
-#loadMore:hover {
-	color: black;
-}
-
 .mblog_install_app {
 	font-style: italic;
 	font-size: inherit;
@@ -632,4 +621,9 @@ ul.blogs_exist {
 
 .fon39 {
 	border-top: solid 1px silver;
+}
+
+.cssDialogBox_clean {
+	width: 100%;
+	position: inherit !important;
 }

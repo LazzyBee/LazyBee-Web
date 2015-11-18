@@ -12,6 +12,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
@@ -225,6 +226,8 @@ public class MTestTool extends Composite {
 		container.clear();
 		container.add(htmlResultTest);
 		htmlResultTest.setVisible(true);
+		DOM.getElementById("table-app").setAttribute("style", "display:block;");
+
 		testgood.setVisible(false);
 		testmedium.setVisible(false);
 		testbad.setVisible(false);

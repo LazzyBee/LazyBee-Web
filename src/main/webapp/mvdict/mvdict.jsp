@@ -49,44 +49,15 @@
 	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
 <link rel="icon" type="image/png" href="/favicon.png" />
 <script type="text/javascript" language="javascript"
-	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
-<script type="text/javascript">
-	
-<%@include file="/mobile-resources/jquery-1.11.3.min.js" %>
-	
-<%@include file="/mobile-resources/menu.js" %>
-	
-</script>
+	src="/lazzybeemobile/lazzybeemobile.nocache.js" async></script>
 </head>
 <body>
-	<!-- <script src="/mobile-resources/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="/mobile-resources/menu.js"></script> -->
-	<script type="text/javascript">
-		$(document).ready(function() {
-			size_li = $("#myList li").size();
-			x = 2;
-			$('#myList li:lt(' + x + ')').show();
-			if (x == size_li || size_li == 0) {
-				$('#loadMore').hide();
-			} else {
-				$('#loadMore').show();
-			}
-			$('#loadMore').click(function() {
-				x = (x + 5 <= size_li) ? x + 5 : size_li;
-				$('#myList li:lt(' + x + ')').show();
-				if (x == size_li) {
-					$('#loadMore').hide();
-				}
-			});
-
-		});
-	</script>
 	<!-- Google Tag Manager -->
 	<noscript>
 		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
 			height="0" width="0" style="display: none; visibility: hidden"></iframe>
 	</noscript>
-	<script>
+	<script async>
 		(function(w, d, s, l, i) {
 			w[l] = w[l] || [];
 			w[l].push({
@@ -117,35 +88,6 @@
 		<div class="header">
 			<div class="left_header">
 				<i class="fa fa-bars fa-lg" style="color: white;" id="menuBtn"></i>
-				<nav id="menu">
-				<ul>
-					<li>
-						<div class="m_menu_seach">
-							<i class="fa fa-search fa-1x" style="color: white;"></i> <a
-								href="/mvdict/">Từ điển</a>
-						</div>
-					</li>
-
-					<li>
-						<div class="m_menu_help">
-							<i class="fa fa-question fa-lg" style="color: white;"></i> <a
-								href="/mtest/">Kiểm tra vốn từ</a>
-						</div>
-					</li>
-					<li>
-						<div class="m_menu_blog">
-							<i class="fa fa-book" style="color: white;"></i> <a
-								href="/blog/user_guide">Hưỡng dẫn sử dụng</a>
-						</div>
-					</li>
-					<li>
-						<div class="m_menu_feedback">
-							<i class="fa fa-comment" style="color: white;"></i> <a
-								href="/blog/feedback">Ý kiến phản hồi</a>
-						</div>
-					</li>
-				</ul>
-				</nav>
 			</div>
 			<div id="gwt_header_mdic"></div>
 			<div class="right_header_w">
@@ -237,7 +179,7 @@
 					%>
 				</ul>
 
-				<div id="loadMore">Load more</div>
+
 			</div>
 
 		</div>
