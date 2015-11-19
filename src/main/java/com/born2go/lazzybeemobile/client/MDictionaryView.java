@@ -7,26 +7,24 @@ import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.client.rpc.DataServiceAsync;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyDownEvent;
-import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.googlecode.mgwt.dom.client.event.tap.TapEvent;
-import com.googlecode.mgwt.dom.client.event.tap.TapHandler;
 import com.googlecode.mgwt.ui.client.MGWT;
-import com.googlecode.mgwt.ui.client.widget.button.Button;
 import com.googlecode.mgwt.ui.client.widget.input.MTextBox;
 
 /*
@@ -36,7 +34,7 @@ import com.googlecode.mgwt.ui.client.widget.input.MTextBox;
 public class MDictionaryView extends Widget {
 	private MTextBox txtSeach;
 
-	private Button btSearch;
+	// private Button btSearch;
 	public final DataServiceAsync dataService = GWT.create(DataService.class);
 
 	public static class DefiContainer {
@@ -58,6 +56,7 @@ public class MDictionaryView extends Widget {
 	 */
 	int divHeight;
 	int heightMdic_intro;
+	Element btSearch;
 
 	private void designView() {
 
@@ -69,16 +68,16 @@ public class MDictionaryView extends Widget {
 		RootPanel.get("inputsearch").add(txtSeach);
 		// add button search by element id
 
-		btSearch = new Button();
-		btSearch.getElement().setClassName("fa fa-search");
-		RootPanel.get("btsearch").add(btSearch);
+		// btSearch = new Button();
+		// btSearch.getElement().setClassName("fa fa-search");
+		// RootPanel.get("btsearch").add(btSearch);
 		txtSeach.setFocus(true);
-		txtSeach.addFocusHandler( new FocusHandler() {
-			
+		txtSeach.addFocusHandler(new FocusHandler() {
+
 			@Override
 			public void onFocus(FocusEvent event) {
 				txtSeach.selectAll();
-				
+
 			}
 		});
 		txtSeach.addKeyPressHandler(new KeyPressHandler() {
@@ -93,17 +92,30 @@ public class MDictionaryView extends Widget {
 				}
 			}
 		});
-
-		btSearch.addTapHandler(new TapHandler() {
+		btSearch = RootPanel.get("btsearch").getElement();
+		Event.sinkEvents(btSearch, Event.ONCLICK);
+		Event.setEventListener(btSearch, new EventListener() {
 
 			@Override
-			public void onTap(TapEvent event) {
-				MGWT.hideKeyBoard();
-				if (!txtSeach.getText().equals(""))
-					Window.Location.assign("/mvdict/#" + txtSeach.getText());
+			public void onBrowserEvent(Event event) {
+				if (Event.ONCLICK == event.getTypeInt()) {
+					MGWT.hideKeyBoard();
+					if (!txtSeach.getText().equals(""))
+						Window.Location.assign("/mvdict/#" + txtSeach.getText());
+				}
 
 			}
 		});
+		// btSearch.addTapHandler(new TapHandler() {
+		//
+		// @Override
+		// public void onTap(TapEvent event) {
+		// if (!txtSeach.getText().equals(""))
+		// Window.Location.assign("/mvdict/#" + txtSeach.getText());
+		// MGWT.hideKeyBoard();
+		//
+		// }
+		// });
 
 	}
 
@@ -138,12 +150,11 @@ public class MDictionaryView extends Widget {
 		final String history_token = History.getToken();
 		txtSeach.setText(history_token);
 
-		LazzyBeeMobile.noticeBox.setNotice("Đang tải...");
 		dataService.findVoca(history_token, new AsyncCallback<Voca>() {
 			@Override
 			public void onSuccess(Voca result) {
 				if (result == null) {
-					notfoundVoca();
+					showMessage("Không tìm thấy từ");
 				} else {
 					RootPanel.get("gwt_contentMdic").add(
 							new MVocaView().setVoca(result));
@@ -153,9 +164,7 @@ public class MDictionaryView extends Widget {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				LazzyBeeMobile.noticeBox
-						.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
-				LazzyBeeMobile.noticeBox.setAutoHide();
+				showMessage("Đã có lỗi xảy ra trong quá trình tải, bấm F5 để thử lại.");
 			}
 		});
 	}
@@ -163,9 +172,9 @@ public class MDictionaryView extends Widget {
 	/*
 	 * when do not find any question in data, show notification for user
 	 */
-	private void notfoundVoca() {
+	private void showMessage(String show) {
 		RootPanel.get("notfoundVoca").clear();
-		RootPanel.get("notfoundVoca").add(new Label("Không tìm thấy từ"));
+		RootPanel.get("notfoundVoca").add(new Label(show));
 
 	}
 

@@ -15,7 +15,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class LazzyBeeMobile implements EntryPoint {
 	public static DataServiceAsync data_service = GWT.create(DataService.class);
-	public static NoticeBox noticeBox = new NoticeBox("");
 	private final int heightHeader = 44;
 	MenuMobile menu = new MenuMobile();
 	// Facebook app id test lent 1224795884217031
