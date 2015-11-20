@@ -142,7 +142,7 @@
 					for (int i = 0; i < blogs_exsist.size(); i++) {
 										Blog blog_exist = blogs_exsist.get(i);
 				%>
-				<li><a style="color: #333; line-height: 2;"
+				<li><a style="color: #004175; line-height: 2;"
 					href=<%="/blog/" + blog_exist.getTitle()%>><%=blog_exist.getShowTitle()%></a></li>
 				<%
 					}
