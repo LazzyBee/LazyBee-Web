@@ -7,7 +7,11 @@ import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.client.rpc.DataServiceAsync;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -21,6 +25,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.googlecode.mgwt.dom.client.event.tap.TapEvent;
 import com.googlecode.mgwt.dom.client.event.tap.TapHandler;
+import com.googlecode.mgwt.ui.client.MGWT;
 import com.googlecode.mgwt.ui.client.widget.button.Button;
 import com.googlecode.mgwt.ui.client.widget.input.MTextBox;
 
@@ -58,6 +63,7 @@ public class MDictionaryView extends Widget {
 
 		// add textbox input search by element id
 		txtSeach = new MTextBox();
+
 		txtSeach.getElement().setId("txt_valueSearch");
 		txtSeach.setPlaceHolder("Nhập từ muốn tìm...");
 		RootPanel.get("inputsearch").add(txtSeach);
@@ -66,23 +72,33 @@ public class MDictionaryView extends Widget {
 		btSearch = new Button();
 		btSearch.getElement().setClassName("fa fa-search");
 		RootPanel.get("btsearch").add(btSearch);
-
+		txtSeach.setFocus(true);
+		txtSeach.addFocusHandler( new FocusHandler() {
+			
+			@Override
+			public void onFocus(FocusEvent event) {
+				txtSeach.selectAll();
+				
+			}
+		});
 		txtSeach.addKeyPressHandler(new KeyPressHandler() {
 			@Override
 			public void onKeyPress(KeyPressEvent event_) {
 				boolean enterPressed = KeyCodes.KEY_ENTER == event_
 						.getNativeEvent().getKeyCode();
-
 				if (enterPressed) {
+					MGWT.hideKeyBoard();
 					if (!txtSeach.getText().equals(""))
 						Window.Location.assign("/mvdict/#" + txtSeach.getText());
 				}
 			}
 		});
+
 		btSearch.addTapHandler(new TapHandler() {
 
 			@Override
 			public void onTap(TapEvent event) {
+				MGWT.hideKeyBoard();
 				if (!txtSeach.getText().equals(""))
 					Window.Location.assign("/mvdict/#" + txtSeach.getText());
 
