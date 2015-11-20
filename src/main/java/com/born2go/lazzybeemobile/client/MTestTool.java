@@ -7,18 +7,22 @@ import java.util.Map;
 
 import com.born2go.lazzybee.gdatabase.shared.nonentity.Test;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MTestTool extends Composite {
@@ -31,8 +35,6 @@ public class MTestTool extends Composite {
 
 	@UiField
 	HTMLPanel container;
-	@UiField
-	HTMLPanel htmlIntroTest;
 	@UiField
 	HTMLPanel htmlResultTest;
 	@UiField
@@ -73,12 +75,28 @@ public class MTestTool extends Composite {
 	private Map<String, Boolean> testMap = new HashMap<String, Boolean>();
 
 	private int current_random;
+	Element btnStartTesting;
 
 	public MTestTool() {
 		initWidget(uiBinder.createAndBindUi(this));
 		container.setStyleName("mainMTestTool");
 		actionForm.setStyleName("actionForm");
 		shareForm.setStyleName("actionForm");
+		btnStartTesting = RootPanel.get("btnStartTesting").getElement();
+		Event.sinkEvents(btnStartTesting, Event.ONCLICK);
+		Event.setEventListener(btnStartTesting, new EventListener() {
+
+			@Override
+			public void onBrowserEvent(Event event) {
+				if (Event.ONCLICK == event.getTypeInt()) {
+					DOM.getElementById("htmlIntroTest").setAttribute("style",
+							"display:none");
+					getTestByLevel(testLevel);
+				}
+
+			}
+		});
+
 	}
 
 	private void getTestByLevel(int level) {
@@ -126,17 +144,11 @@ public class MTestTool extends Composite {
 		form.add(vocaQ);
 		form.add(vocaLv);
 		form.setStyleName("MTestTool_Obj5");
-		vocaQ.getElement()
-				.setAttribute(
-						"style",
-						"float: left; display: block; font-size: 14px; font-weight: bold; color: #eafd74");
-		vocaLv.getElement().setAttribute("style",
-				"font-weight: bold; color: white; margin-top: 30px");
+		vocaQ.setStyleName("itesttool_vocaq");
+		vocaLv.setStyleName("i_testtool_vocaLv");
 		vocaShowPanel.add(form);
 		Anchor btnForm = new Anchor();
-		btnForm.getElement()
-				.setAttribute("style",
-						"position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;");
+		btnForm.setStyleName("i_testtool_btnForm");
 		form.add(btnForm);
 		// -----
 		btnForm.addClickHandler(new ClickHandler() {
@@ -177,14 +189,8 @@ public class MTestTool extends Composite {
 		checkTotal = new Label("B: " + totalCheck + " / 20");
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
-		info.getElement()
-				.setAttribute(
-						"style",
-						"margin-left: 20px;color: #009688;font-weight: bold;margin-top: 25px; text-align: center;");
-		checkTotal
-				.getElement()
-				.setAttribute("style",
-						"float: right; font-weight:bold; color: forestgreen; margin-right: 0px;");
+		info.setStyleName("i_testtool_info");
+		checkTotal.setStyleName("i_testtool_checkTotal");
 		testInfoPanel.add(total);
 		testInfoPanel.add(checkTotal);
 		testInfoPanel.add(info);
@@ -192,10 +198,7 @@ public class MTestTool extends Composite {
 		Anchor btnQuit = new Anchor("Dừng Bài Test");
 		controlPanel.add(btnComplete);
 		controlPanel.add(btnQuit);
-		controlPanel
-				.getElement()
-				.setAttribute("style",
-						"text-align: center; white-space: nowrap; margin-bottom: 60px;");
+		controlPanel.setStyleName("i_testt_controlPanel");
 		btnComplete.setStyleName("MTestTool_Obj3");
 		btnQuit.setStyleName("MTestTool_Obj4");
 		vocaShowPanel.getElement().setAttribute("style",
@@ -217,7 +220,8 @@ public class MTestTool extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				container.clear();
-				container.add(htmlIntroTest);
+				DOM.getElementById("htmlIntroTest").setAttribute("style",
+						"display:block");
 			}
 		});
 	}
@@ -276,11 +280,10 @@ public class MTestTool extends Composite {
 		}
 	}
 
-	@UiHandler("btnStartTesting")
-	void onBtnStartTestingClick(ClickEvent e) {
-		getTestByLevel(testLevel);
-	}
-
+	/*
+	 * @UiHandler("btnStartTesting") void onBtnStartTestingClick(ClickEvent e) {
+	 * getTestByLevel(testLevel); }
+	 */
 	@UiHandler("btnAgainTesting")
 	void onBtnAgainTestingClick(ClickEvent e) {
 		getTestByLevel(testLevel);

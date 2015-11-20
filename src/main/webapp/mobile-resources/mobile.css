@@ -192,6 +192,30 @@ h1 {
 	cursor: pointer
 }
 
+.htmlIntroTest {
+	margin-top: 20px
+}
+
+
+.MTestTool_Obj11 {
+	margin-top: 10px !important;
+	float: right;
+	background: #009688;
+	padding: 10px 0px;
+	border-right: 1px silver solid;
+	color: white;
+	width: 100%;
+	margin: auto;
+	text-align: center;
+}
+
+.MTestTool_Obj11:hover {
+	background: silver;
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
+}
+
 .i_testtool_vocaq {
 	display: block;
 	font-size: 14px;

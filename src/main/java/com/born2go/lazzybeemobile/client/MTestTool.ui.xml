@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		@external .MTestTool_Obj1, .MTestTool_Obj2,.MTestTool_Obj3,.MTestTool_Obj4;
+		@external .MTestTool_Obj1,.MTestTool_Obj2,.MTestTool_Obj3,.MTestTool_Obj4;
 
 
 		.MTestTool_Obj1 {
@@ -30,7 +30,8 @@
 		.MTestTool_Obj3:hover {
 		background: silver;
 		cursor: pointer;
-		color: white;
+		color:
+		white;
 		text-decoration:
 		none;
 		}
@@ -47,7 +48,8 @@
 
 		.MTestTool_Obj4:hover {
 		background: silver;
-		cursor: pointer;
+		cursor:
+		pointer;
 		color: white;
 		text-decoration:
 		none;
@@ -67,7 +69,8 @@
 		10px;
 		}
 
-		.MTestTool_Obj9 {
+		.MTestTool_Obj9
+		{
 		float: none !important;
 		padding: 10px 10px
 		!important;
@@ -87,53 +90,15 @@
 		.MTestTool_Obj10:hover {
 		background: silver;
 		cursor: pointer;
-		color: white;
+		color:
+		white;
 		text-decoration:
 		none;
 		}
 
-		.MTestTool_Obj11 {
-		margin-top: 10px
-		!important;
-		float: right;
-		background: #009688;
-		padding: 10px 0px;
-		border-right: 1px silver solid;
-		color: white;
-		width: 100%;
-		margin: auto;
-		text-align: center;
-		}
 
-		.MTestTool_Obj11:hover {
-		background:
-		silver;
-		cursor:
-		pointer;
-		color: white;
-		text-decoration:
-		none;
-		}
 	</ui:style>
 	<g:HTMLPanel ui:field="container">
-		<g:HTMLPanel ui:field="htmlIntroTest" visible="true">
-			<g:HTML styleName="{style.MTestTool_Obj1}">
-				<span style="font-weight: bold">Bài TỰ kiểm tra này sẽ giúp các bạn kiểm tra vốn từ
-					của mình để chọn level tối ưu nhất, tránh việc gặp nhiều từ đã biết
-					cũng như gặp các từ quá khó so với trình độ của mình. Nội dung bài
-					kiểm tra như sau:</span>
-				<ul style="width: 90%; line-height: 1.6">
-					<li>Bài kiểm tra này sẽ cho bạn một số từ dựa theo Level, bạn chỉ
-						cần click vào những từ nào đã biết.</li>
-					<li>Bạn có thể tiếp tục làm bài test tiếp theo. Độ khó của bài test
-						sẽ được tăng hoặc giảm dựa theo kết quả của bài test trước.</li>
-					<li>Dựa vào kết quả kiểm tra, bạn chọn level tương ứng trong phần
-						setting của ứng dụng LazzyBee trên mobile và bắt đầu học</li>
-				</ul>
-			</g:HTML>
-			<g:Anchor ui:field="btnStartTesting" styleName="{style.MTestTool_Obj11}">Bắt Đầu</g:Anchor>
-		</g:HTMLPanel>
-
 		<g:HTMLPanel ui:field="htmlResultTest" visible="false">
 			<g:HTMLPanel styleName="{style.MTestTool_Obj1}">
 				<g:HTMLPanel styleName="{style.MTestTool_Obj7}"
@@ -149,8 +114,6 @@
 				</g:HTMLPanel>
 				<g:HTMLPanel styleName="{style.MTestTool_Obj7}"
 					ui:field="testmedium" visible="true">
-					<!-- <i class="fa fa-exclamation" style="color: #D4E157; font-size: 
-						24px; margin-bottom: 20px;"> Medium</i> -->
 					<div
 						style="float:left; color: #D4E157; font-size: 24px; margin-bottom: 15px;">
 						<g:Label ui:field="resultTestMedium"></g:Label>
@@ -162,8 +125,6 @@
 				</g:HTMLPanel>
 				<g:HTMLPanel styleName="{style.MTestTool_Obj7}"
 					ui:field="testbad" visible="false">
-					<!-- <i class="fa fa-times" style="color: red; font-size: 24px; margin-bottom: 
-						20px;"> Bad</i> -->
 					<div
 						style="float:left; color: red; font-size: 24px; margin-bottom: 15px;">
 						<g:Label ui:field="resultTestBad"></g:Label>
