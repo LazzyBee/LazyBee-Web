@@ -1,21 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<!-- <script type="text/javascript">
-	if (navigator.userAgent.match(/Android/i)
-			|| navigator.userAgent.match(/webOS/i)
-			|| navigator.userAgent.match(/iPhone/i)
-			|| navigator.userAgent.match(/iPad/i)
-			|| navigator.userAgent.match(/iPod/i)
-			|| navigator.userAgent.match(/BlackBerry/i)
-			|| navigator.userAgent.match(/Windows Phone/i)) {
-
-	} else {
-		window.location = "/test/";
-	}
-</script> -->
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
 <link type="text/css" rel="stylesheet"
@@ -27,18 +13,15 @@
 <meta name="description"
 	content="Bài tự kiểm tra giúp bạn nhanh chóng đánh giá vốn từ vựng của mình để sử dụng Lazzy Bee hiệu quả hơn.">
 <script type="text/javascript"
-	src="../lazzybeemobile/lazzybeemobile.nocache.js"></script>
+	src="../lazzybeemobile/lazzybeemobile.nocache.js" async></script>
 </head>
 <body>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script type="text/javascript" src="../mobile-resources/menu.js"></script>
 	<!-- Google Tag Manager -->
 	<noscript>
 		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
 			height="0" width="0" style="display: none; visibility: hidden"></iframe>
 	</noscript>
-	<script>
+	<script async>
 		(function(w, d, s, l, i) {
 			w[l] = w[l] || [];
 			w[l].push({
@@ -69,35 +52,7 @@
 	<div class="header_w">
 		<div class="header">
 			<div class="left_header">
-				<i class="fa fa-bars fa-lg" style="color: white;" id="menuBtn"></i>
-				<nav id="menu">
-					<ul>
-						<li>
-							<div class="m_menu_seach">
-								<i class="fa fa-search fa-1x" style="color: white;"></i> <a
-									href="/mvdict/">Từ điển</a>
-							</div>
-						</li>
-						<li>
-							<div class="m_menu_help">
-								<i class="fa fa-question fa-lg" style="color: white;"></i> <a
-									href="/mtest/">Kiểm tra vốn từ</a>
-							</div>
-						</li>
-						<li>
-							<div class="m_menu_blog">
-								<i class="fa fa-book" style="color: white;"></i> <a
-									href="/blog/user_guide">Hưỡng dẫn sử dụng</a>
-							</div>
-						</li>
-						<li>
-							<div class="m_menu_feedback">
-								<i class="fa fa-comment" style="color: white;"></i> <a
-									href="/blog/feedback">Ý kiến phản hồi</a>
-							</div>
-						</li>
-					</ul>
-				</nav>
+				<i class="fa fa-bars fa-lg" id="menuBtn"></i>
 			</div>
 			<div class="toppest">
 				<div class="main_title">Lazzybee</div>
@@ -106,7 +61,57 @@
 	</div>
 	<div id="main">
 		<div id="content">
+			<div class="htmlIntroTest" id="htmlIntroTest">
+				<div class="MTestTool_Obj1 ">
+					<span style="font-weight: bold">Bài TỰ kiểm tra này sẽ giúp
+						các bạn kiểm tra vốn từ của mình để chọn level tối ưu nhất, tránh
+						việc gặp nhiều từ đã biết cũng như gặp các từ quá khó so với trình
+						độ của mình. Nội dung bài kiểm tra như sau:</span>
+					<ul style="width: 90%; line-height: 1.6">
+						<li>Bài kiểm tra này sẽ cho bạn một số từ dựa theo Level, bạn
+							chỉ cần click vào những từ nào đã biết.</li>
+						<li>Bạn có thể tiếp tục làm bài test tiếp theo. Độ khó của
+							bài test sẽ được tăng hoặc giảm dựa theo kết quả của bài test
+							trước.</li>
+						<li>Dựa vào kết quả kiểm tra, bạn chọn level tương ứng trong
+							phần setting của ứng dụng LazzyBee trên mobile và bắt đầu học</li>
+					</ul>
+				</div>
+				<a id="btnStartTesting" class="MTestTool_Obj11">Bắt đầu</a>
+			</div>
 			<div id="gwt_contentMTestTool"></div>
+			<div id="table-app" style="display: none;">
+				<hr>
+				<h2 class="mblog_install_app" style="padding-top: 0px;">
+					Tải ứng dụng <a href="http://www.lazzybee.com/">Lazzybee</a> cho <a
+						href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8"
+						style="cursor: none;">iOS</a> và <a
+						href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee"
+						style="cursor: none;">Android</a>
+				</h2>
+				<table class="table-app" cellspacing="5">
+					<tr>
+						<td>
+							<div>
+								<a
+									href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
+									<img alt="download lazzybee"
+									src="/mobile-resources/appstore_m.png" class="appstore">
+								</a>
+							</div>
+						</td>
+						<td>
+							<div>
+								<a
+									href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
+									<img alt="download lazzybee"
+									src="/mobile-resources/googleplay_m.jpg" class="appstore">
+								</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">
