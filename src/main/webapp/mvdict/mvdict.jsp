@@ -79,7 +79,9 @@
 			<div class="right_header_w">
 				<div class="right_header">
 					<div id="inputsearch" class="inputsearch"></div>
-					<div class="btsearch" id="btsearch"></div>
+					<div class="btsearch">
+						<i class="fa fa-search" id="btsearch"></i>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -144,7 +146,7 @@
 							<div class="ovh time">
 								<i class="fa fa-clock-o">&nbsp;</i><i class="publishdate"><%=df.format(new Date(blog.getCreateDate()))%></i>
 							</div>
-					</a> </li>
+					</a></li>
 					<%
 						}
 
