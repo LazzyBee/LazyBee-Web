@@ -15,28 +15,31 @@
 	}%>
 <%
 	Picture blog_avatar = null;
+   String title = "";
+   Blog currentBlog = null;
+   List<Blog> blogs_exsist = new ArrayList<Blog>();
+   
 	if (request.getPathInfo() == null
 	|| request.getPathInfo().length() <= 1)
 		redirectHomeUrl(response);
 	else {
 		String blogTitle = request.getPathInfo().replaceAll("/", "");
-		if (blogTitle == null || blogTitle.equals(""))
-	redirectHomeUrl(response);
+			if (blogTitle == null || blogTitle.equals(""))
+redirectHomeUrl(response);
 		else {
-	DataServiceImpl service = new DataServiceImpl();
-	Blog currentBlog = service.findBlogByTitle(blogTitle);
+	        DataServiceImpl service = new DataServiceImpl();
+	  currentBlog = service.findBlogByTitle(blogTitle);
 	if (currentBlog == null)
 		redirectHomeUrl(response);
 	else {
 		if (currentBlog.getAvatar() != null)
-	blog_avatar = service.findPicture(currentBlog.getAvatar());
-	SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
-	String title = currentBlog.getShowTitle();
-//	String content = currentBlog.getContent();
+			blog_avatar = service.findPicture(currentBlog.getAvatar());
+	 title = currentBlog.getShowTitle();
 //	content = content.replaceAll("<p>&nbsp;</p>", "");
-	 
-	List<Blog> blogs_exsist = new ArrayList<Blog>();
 	blogs_exsist = service.getBlogsOlder(currentBlog);
+	}
+		}
+	}
 %>
 <!doctype html>
 <!-- The DOCTYPE declaration above will set the    -->
@@ -109,8 +112,10 @@
 			<div class="nameBlog">
 				<h1><%=title%></h1>
 			</div>
-			<i class="fa fa-clock-o">&nbsp;</i><i class="publishdate"><%=df.format(new Date(currentBlog
-								.getCreateDate()))%></i>
+			<%
+				SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
+			%>
+			<i class="fa fa-clock-o">&nbsp;</i><i class="publishdate"><%=df.format(new Date(currentBlog.getCreateDate()))%></i>
 
 			<%
 				if (blog_avatar != null) {
@@ -126,11 +131,7 @@
 				<div><%=currentBlog.getContent()%></div>
 				<br />
 			</div>
-			<div class="fb-comments" data-width="100%"
-				data-href="http://www.lazzybee.com/blog/<%=title%>"
-				data-numposts="5" data-colorscheme="light"
-				data-order-by="reverse_time" data-version="v2.3"></div>
-			<br /> <br />
+
 			<%
 				if (blogs_exsist.size() > 0) {
 			%>
@@ -140,7 +141,7 @@
 			<ul class="blogs_exist">
 				<%
 					for (int i = 0; i < blogs_exsist.size(); i++) {
-										Blog blog_exist = blogs_exsist.get(i);
+							Blog blog_exist = blogs_exsist.get(i);
 				%>
 				<li><a style="color: #004175; line-height: 2;"
 					href=<%="/blog/" + blog_exist.getTitle()%>><%=blog_exist.getShowTitle()%></a></li>
@@ -151,11 +152,7 @@
 			<%
 				}
 			%>
-			<%
-				}
-					}
-				}
-			%>
+
 			<h2 class="mblog_install_app">
 				Tải ứng dụng <a href="http://www.lazzybee.com/">Lazzybee</a> cho <a
 					href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8"
@@ -163,6 +160,12 @@
 					href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee"
 					style="cursor: none;">Android</a>
 			</h2>
+			<br /> <br />
+			<div class="fb-comments" data-width="100%"
+				data-href="http://www.lazzybee.com/blog/<%=title%>"
+				data-numposts="5" data-colorscheme="light"
+				data-order-by="reverse_time" data-version="v2.3"></div>
+			<br /> <br />
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">
