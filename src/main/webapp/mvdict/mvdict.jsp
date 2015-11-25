@@ -23,20 +23,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<!-- <script type="text/javascript">
-	if (navigator.userAgent.match(/Android/i)
-			|| navigator.userAgent.match(/webOS/i)
-			|| navigator.userAgent.match(/iPhone/i)
-			|| navigator.userAgent.match(/iPad/i)
-			|| navigator.userAgent.match(/iPod/i)
-			|| navigator.userAgent.match(/BlackBerry/i)
-			|| navigator.userAgent.match(/Windows Phone/i)) {
-
-	} else {
-		var ourLocation = window.location.hash;
-		window.location = "/vdict/" + ourLocation;
-	}
-</script> -->
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
@@ -49,38 +35,15 @@
 	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
 <link rel="icon" type="image/png" href="/favicon.png" />
 <script type="text/javascript" language="javascript"
-	src="/lazzybeemobile/lazzybeemobile.nocache.js"></script>
-
+	src="/lazzybeemobile/lazzybeemobile.nocache.js" async></script>
 </head>
 <body>
-	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="/mobile-resources/menu.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			size_li = $("#myList li").size();
-			x = 2;
-			$('#myList li:lt(' + x + ')').show();
-			if (x == size_li || size_li == 0) {
-				$('#loadMore').hide();
-			} else {
-				$('#loadMore').show();
-			}
-			$('#loadMore').click(function() {
-				x = (x + 5 <= size_li) ? x + 5 : size_li;
-				$('#myList li:lt(' + x + ')').show();
-				if (x == size_li) {
-					$('#loadMore').hide();
-				}
-			});
-
-		});
-	</script>
 	<!-- Google Tag Manager -->
 	<noscript>
 		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
 			height="0" width="0" style="display: none; visibility: hidden"></iframe>
 	</noscript>
-	<script>
+	<script async>
 		(function(w, d, s, l, i) {
 			w[l] = w[l] || [];
 			w[l].push({
@@ -110,42 +73,15 @@
 	<div class="header_w">
 		<div class="header">
 			<div class="left_header">
-				<i class="fa fa-bars fa-lg" style="color: white;" id="menuBtn"></i>
-				<nav id="menu">
-				<ul>
-					<li>
-						<div class="m_menu_seach">
-							<i class="fa fa-search fa-1x" style="color: white;"></i> <a
-								href="/mvdict/">Từ điển</a>
-						</div>
-					</li>
-
-					<li>
-						<div class="m_menu_help">
-							<i class="fa fa-question fa-lg" style="color: white;"></i> <a
-								href="/mtest/">Kiểm tra vốn từ</a>
-						</div>
-					</li>
-					<li>
-						<div class="m_menu_blog">
-							<i class="fa fa-book" style="color: white;"></i> <a
-								href="/blog/user_guide">Hưỡng dẫn sử dụng</a>
-						</div>
-					</li>
-					<li>
-						<div class="m_menu_feedback">
-							<i class="fa fa-comment" style="color: white;"></i> <a
-								href="/blog/feedback">Ý kiến phản hồi</a>
-						</div>
-					</li>
-				</ul>
-				</nav>
+				<i class="fa fa-bars fa-lg" id="menuBtn"></i>
 			</div>
 			<div id="gwt_header_mdic"></div>
 			<div class="right_header_w">
 				<div class="right_header">
 					<div id="inputsearch" class="inputsearch"></div>
-					<div class="btsearch" id="btsearch"></div>
+					<div class="btsearch">
+						<i class="fa fa-search" id="btsearch"></i>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -166,18 +102,17 @@
 							<div style="float: left; margin-right: 10px; margin-top: 15px;">
 								<a
 									href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
-									<img alt="" src="/resources/appstore.png"
-									style="width: 130px; height: 50px; cursor: pointer;">
+									<img alt="download lazzybee"
+									src="/mobile-resources/appstore_m.png" class="appstore">
 								</a>
-
 							</div>
 						</td>
 						<td>
 							<div>
 								<a
 									href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
-									<img alt="" src="/resources/googleplay.jpg"
-									style="width: 130px; height: 50px; cursor: pointer; margin-top: 15px;">
+									<img alt="download lazzybee"
+									src="/mobile-resources/googleplay_m.jpg" class="appstore">
 								</a>
 							</div>
 						</td>
@@ -189,37 +124,29 @@
 					<%
 						if (blogs != null && !blogs.isEmpty() && isShortBlog == true) {
 					%>
-
 					<%
-						for (int i = 0; i < blogs.size(); i++) {
+						SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
+							String title = null;
+							Picture picture = null;
+							for (int i = 0; i < blogs.size(); i++) {
 								Blog blog = blogs.get(i);
 								if (blog != null) {
-									String hrefShow = "/mblog/" + blog.getTitle();
-									String title = blog.getShowTitle();
-									Long pictureId = blog.getAvatar();
-									Picture picture = service.findPicture(pictureId);
+									title = blog.getShowTitle();
+									picture = service.findPicture(blog.getAvatar());
 									String urlPicture = "";
-									if (picture != null) {
-										urlPicture = picture.getServeUrl();
-									}
+									if (picture != null)
+										urlPicture = picture.getServeUrl() + "=s100";
+									else
+										urlPicture = "/mobile-resources/lazzybee_m.png";
 					%>
-					<li style="display: none;">
-						<div>
-							<div class="titleBlog">
-								<h1>
-									<a href=<%=hrefShow%>><%=title%></a>
-								</h1>
+					<li><a class="vdict_avatar"
+						href=<%="/mblog/" + blog.getTitle()%> title=<%=title%>> <img
+							alt=<%=title%> src="<%=urlPicture%>">
+							<h3><%=title%></h3>
+							<div class="ovh time">
+								<i class="fa fa-clock-o">&nbsp;</i><i class="publishdate"><%=df.format(new Date(blog.getCreateDate()))%></i>
 							</div>
-							<div class="imgdefault">
-								<a><img alt="" class="avatar" src="<%=urlPicture%>"
-									style="color: rgb(56, 119, 127);" /></a>
-								<p class="mparagraptext">
-									<%=title%>
-								</p>
-							</div>
-						</div>
-					</li>
-
+					</a></li>
 					<%
 						}
 
@@ -230,10 +157,7 @@
 						}
 					%>
 				</ul>
-
-				<div id="loadMore">Load more</div>
 			</div>
-
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">

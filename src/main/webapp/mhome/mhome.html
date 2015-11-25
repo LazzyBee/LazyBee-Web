@@ -14,25 +14,23 @@ html {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	height: 100%;
 }
 
 body {
 	margin: 0px;
 	overflow-x: hidden;
-	height: 100%;
+}
+
+body, html {
+	height: 100%
 }
 
 .menu_button {
 	display: inline-block;
-	padding: 8px 20px;
-	background: -moz-linear-gradient(#21b506, #009688);
-	background: -o-linear-gradient(#21b506, #009688);
-	background: -webkit-linear-gradient(#21b506, #009688);
+	padding: 10px 30px;
 	background: linear-gradient(#21b506, #009688);
 	border-radius: 999px;
 	color: #fff;
-	font: normal 700 20px/1 "Komika", cursive;
 	text-align: center;
 	text-shadow: 1px 1px 0 #000;
 	cursor: pointer;
@@ -46,6 +44,7 @@ body {
 .table-menu {
 	margin: auto;
 	margin-top: 20px;
+	width: 100%;
 }
 
 .mfooter {
@@ -66,12 +65,15 @@ body {
 			style="width: 70%;" alt="Lazzybee" src="/resources/2015-11-01.png">
 		<br /> <br />
 		<div>
-			<table class="table-menu" cellspacing="5">
+			<table class="table-menu" cellspacing="10">
 				<tr>
 					<td><a class="menu_button" href="/mvdict/">Từ điển</a></td>
 					<td><a class="menu_button" href="/mtest/">Test từ</a></td>
 				</tr>
 			</table>
+			<div style="margin: 10px 0px 20px;">
+				<a class="menu_button" href="/blog/user_guide">Hướng dẫn sử dụng</a>
+			</div>
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">

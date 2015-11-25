@@ -89,7 +89,7 @@ if(blog_avatar != null) {
 <%
 }  else {
 %>
-<meta property="og:image" content="http://www.lazzybee.com/resources/1435838158_Mushroom - Bee.png" />
+<meta property="og:image" content="http://www.lazzybee.com/resources/2015-11-01.png" />
 <%
 }
 %>
