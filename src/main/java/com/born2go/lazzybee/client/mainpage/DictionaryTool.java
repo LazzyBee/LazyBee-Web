@@ -140,7 +140,7 @@ public class DictionaryTool extends Composite {
 			@Override
 			public void onSuccess(List<Blog> result) {
 				HTMLPanel blogPanel = new HTMLPanel("");
-				blogPanel.getElement().setAttribute("style", "border-top: 1px solid #E6E9EB; overflow: hidden; margin-bottom: 30px;");
+				blogPanel.getElement().setAttribute("style", "/* border-top: 1px solid #E6E9EB; */ overflow: hidden; margin-bottom: 30px;");
 				wt_dictionary_blog.add(blogPanel);
 				for(final Blog blog: result) {
 					HTMLPanel blogp = new HTMLPanel("");

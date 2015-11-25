@@ -24,6 +24,8 @@ public class LoginControl extends DialogBox {
 
 	interface LoginDialogUiBinder extends UiBinder<Widget, LoginControl> {
 	}
+	
+	public static User user = null;
 
 	public LoginControl() {
 		setWidget(uiBinder.createAndBindUi(this));
@@ -58,6 +60,7 @@ public class LoginControl extends DialogBox {
 		LazzyBee.data_service.saveUser(u, new AsyncCallback<User>() {
 			@Override
 			public void onSuccess(User result) {
+				user = result;
 				if(result.isAdmin()) {
 					if(DOM.getElementById("blogEditorTool") != null) {
 						DOM.getElementById("blogEditorTool").setAttribute("style", "display:");

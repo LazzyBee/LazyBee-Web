@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.born2go.lazzybee.client.LazzyBee;
+import com.born2go.lazzybee.client.widgets.LoginControl;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.Category;
 import com.google.gwt.core.client.GWT;
@@ -115,9 +116,12 @@ public class VocaEditorTool extends Composite {
 
 	public VocaEditorTool() {
 		initWidget(uiBinder.createAndBindUi(this));
-		DOM.getElementById("right_panel").setAttribute("style", "display:");
 		
-		LazzyBee.noticeBox.setNotice("Tính năng này đang tạm khóa chỉ sử dụng cho admin!");
+		if(DOM.getElementById("right_panel") != null)
+			DOM.getElementById("right_panel").setAttribute("style", "display:");
+		
+		if(LoginControl.user == null || !LoginControl.user.isAdmin())
+			LazzyBee.noticeBox.setNotice("Tính năng này đang tạm khóa chỉ sử dụng cho admin!");
 		
 		lsbType.addItem("- Chọn phân loại -");
 		

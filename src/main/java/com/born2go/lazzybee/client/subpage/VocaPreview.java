@@ -27,6 +27,7 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
@@ -63,7 +64,7 @@ public class VocaPreview extends Composite {
 	public VocaPreview() {
 		initWidget(uiBinder.createAndBindUi(this));
 		DOM.getElementById("wt_search_tool").setAttribute("style", "display: none");
-		DOM.getElementById("right_panel").setAttribute("style", "display: none");
+//		DOM.getElementById("right_panel").setAttribute("style", "display: none");
 		DOM.getElementById("wt_dictionary").setAttribute("style", "padding: 30px; width: 100%; float: left;");
 
 		TextColumn<Voca> vocaQColumn = new TextColumn<Voca>() {
@@ -135,6 +136,20 @@ public class VocaPreview extends Composite {
 			}
 		});
 		
+		Column<Voca, String> deleteVocaColumn = new Column<Voca, String>(
+				new ClickableTextCell(anchorRenderer)) {
+			@Override
+			public String getValue(Voca object) {
+				return "Xóa";
+			}
+		};
+		deleteVocaColumn.setFieldUpdater(new FieldUpdater<Voca, String>() {
+			@Override
+			public void update(int index, Voca object, String value) {
+				deleteVoca(object);
+			}
+		});
+		
 //		Column<Voca, String> editVocaColumn = new Column<Voca, String>(
 //				new ClickableTextCell(anchorRenderer)) {
 //			@Override
@@ -154,8 +169,10 @@ public class VocaPreview extends Composite {
 			public void onCellPreview(CellPreviewEvent<Voca> event) {
 				if (BrowserEvents.CLICK
 						.equals(event.getNativeEvent().getType())) {
-					Voca v = event.getValue();
-					onVocaPreview(v);
+					if(event.getColumn() != 5) {
+						Voca v = event.getValue();
+						onVocaPreview(v);
+					}
 				}
 			}
 		});
@@ -166,10 +183,12 @@ public class VocaPreview extends Composite {
 		vocaTable.addColumn(vocaPronounColumn, "Phiên âm");
 		vocaTable.addColumn(vocaMeaningColumn, "Nghĩa");
 		vocaTable.addColumn(viewVocaColumn, "");
+		vocaTable.addColumn(deleteVocaColumn, "");
 //		vocaTable.addColumn(editVocaColumn, "");
 		
 		vocaTable.setColumnWidth(vocaLevelColumn, "80px");
 		vocaTable.setColumnWidth(viewVocaColumn, "50px");
+		vocaTable.setColumnWidth(deleteVocaColumn, "50px");
 //		vocaTable.setColumnWidth(editVocaColumn, "50px");
 		
 		vocaTable.setRowStyles(new RowStyles<Voca>() {
@@ -215,6 +234,30 @@ public class VocaPreview extends Composite {
 				refreshData(v);
 			}
 		});
+	}
+	
+	void deleteVoca(final Voca voca) {
+		if(Window.confirm("Bạn muốn xóa từ - " + voca.getQ() + " -?")) {
+			if(voca != null) {
+				final String voca_q = voca.getQ();
+				LazzyBee.data_service.removeVoca(voca, LazzyBee.userId, new AsyncCallback<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						listVoca.remove(voca);
+						listDisplayVoca.remove(voca);
+						LazzyBee.noticeBox.setNotice("- "+ voca_q + " - đã bị xóa");
+						LazzyBee.noticeBox.setAutoHide();
+						presentIndex--;
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+						LazzyBee.noticeBox.setAutoHide();
+					}
+				});
+			}
+		}
 	}
 	
 	void refreshData(Voca v) {
