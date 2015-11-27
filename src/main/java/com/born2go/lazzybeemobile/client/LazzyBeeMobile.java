@@ -1,12 +1,17 @@
 package com.born2go.lazzybeemobile.client;
 
+import org.timepedia.exporter.client.ExporterUtil;
+
 import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.client.rpc.DataServiceAsync;
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
@@ -19,11 +24,13 @@ public class LazzyBeeMobile implements EntryPoint {
 	MenuMobile menu = new MenuMobile();
 	// Facebook app id test lent 1224795884217031
 	public static String fClientId = "754889477966743";
+	private static LazzyBeeMobile onlyOne;
 
 	@Override
 	public void onModuleLoad() {
 		// add MdictionaryView for mdictionnay.html and show it
 		// MGWT.applySettings(MGWTSettings.getAppSetting());
+		onlyOne = this;
 
 		if (RootPanel.get("gwt_header_mdic") != null) {
 			MDictionaryView m = new MDictionaryView();
@@ -60,23 +67,44 @@ public class LazzyBeeMobile implements EntryPoint {
 		// }
 		// });
 		// fb-root
-		
+
 		if (RootPanel.get("fb-root") != null) {
-			facebookInit(fClientId);
-	//	lazyInitJsFaceBook();
+			lazyInitJsFaceBook();
+			exportGwtClass();
+			//  facebookInit(fClientId);
+			// lazyInitJsFaceBook();
 
 		}
 	}
 
+	// export gwt class
+	void exportGwtClass() {
+		ExporterUtil.exportAll();
+	}
+
+	public static void loadFaceBook() {
+		Scheduler.get().scheduleDeferred(new Command() {
+			public void execute() {
+				onlyOne.processingFB();
+			}
+		});
+	}
+
+	void processingFB() {
+	 	facebookInit(fClientId);
+	}
+
 	void lazyInitJsFaceBook() {
-		// Load Google Map
+		// Load facebook api
 		ScriptInjector.fromUrl("https://connect.facebook.net/en_US/all.js")
 				.setWindow(ScriptInjector.TOP_WINDOW)
 				.setCallback(new Callback<Void, Exception>() {
 					public void onFailure(Exception reason) {
+						Window.alert("not success");
 					}
 
 					public void onSuccess(Void result) {
+						Window.alert("success");
 					}
 				}).inject();
 	}
