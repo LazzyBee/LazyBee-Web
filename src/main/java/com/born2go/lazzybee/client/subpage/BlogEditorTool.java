@@ -145,7 +145,7 @@ public class BlogEditorTool extends Composite {
 	  		autoGrow_minHeight: 280,
 	  		autoGrow_maxHeight: 450,
 	  		toolbarStartupExpanded : false,
-	  		extraPlugins: 'autogrow,image2,colorbutton,justify,horizontalrule,oembed,sourcearea,div,stylescombo,removeformat',
+	  		extraPlugins: 'autogrow,image2,colorbutton,justify,horizontalrule,oembed,sourcearea,div,stylescombo,removeformat,pastefromword,table',
 	  		removeButtons: 'Cut,Copy,Paste,Subscript,Superscript,About',
 	  	});
 	  	
