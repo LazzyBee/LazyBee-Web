@@ -100,11 +100,11 @@ public class LazzyBeeMobile implements EntryPoint {
 				.setWindow(ScriptInjector.TOP_WINDOW)
 				.setCallback(new Callback<Void, Exception>() {
 					public void onFailure(Exception reason) {
-						Window.alert("not success");
+						 
 					}
 
 					public void onSuccess(Void result) {
-						Window.alert("success");
+						 
 					}
 				}).inject();
 	}
