@@ -49,9 +49,7 @@ CKEDITOR.editorConfig = function(config) {
 
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
-	config.pasteFromWordRemoveFontStyles = false;
-	config.pasteFromWordRemoveStyles = false;
-
+	 
 	// Add extra plugin
 	// config.extraPlugins = 'button';
 	// config.extraPlugins = 'panel';
