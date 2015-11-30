@@ -2,14 +2,15 @@ package com.born2go.lazzybee.gdatabase.server;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.shared.Voca;
+import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
+import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 
 /** An endpoint class we are exposing */
@@ -31,8 +32,10 @@ public class DataServiceApi {
         	String message = "No entity exists with ID: " + id;
         	throw new NotFoundException(message);
         }
-        else
+        else {
+        	voca.setCheck(true);
         	return voca;
+        }
     }
     
     /** Get a vocabulary by question 
@@ -44,8 +47,10 @@ public class DataServiceApi {
         	String message = "No entity exists with question: " + q;
         	throw new NotFoundException(message);
         }
-        else
+        else {
+        	voca.setCheck(true);
         	return voca;
+        }
     }
  
     
@@ -53,50 +58,159 @@ public class DataServiceApi {
     @ApiMethod(name = "listVoca")
     public List<Voca> listVoca() {
         List<Voca> list_voca = ofy().load().type(Voca.class).list();
-
         return list_voca;
     }
 
     
     /** Save a vocabulary */
     @ApiMethod(name = "saveVoca")
-    public void saveVoca(Voca voca) throws IOException{
+    public void saveVoca(Voca voca) throws ConflictException{
     	voca.setQ(voca.getQ().toLowerCase());
-    	Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ()).first().now();
-		if(v == null) 
+    	Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ()).first().now(); 
+    	VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", voca.getQ()).first().now();
+    	if(v == null && vp == null)
     		ofy().save().entity(voca).now();
-		else {
-			if((v.getL_en() == null && v.getL_vn() == null) || (v.getL_en().isEmpty() && v.getL_vn().isEmpty())) {
-				if(voca.getL_en() != null && !voca.getL_en().isEmpty())
-					v.setL_en(voca.getL_en());
-				if(voca.getL_vn() != null && !voca.getL_vn().isEmpty())
-					v.setL_vn(voca.getL_vn());
-				ofy().save().entity(v).now();
-				
-				throw new IOException("INFO: vocabulary - Updated.");
-			}
-			else
-				throw new IOException("INFO: vocabulary - Existed.");
-		}
+    	else {
+    		String message = voca.getQ() + " already existed";
+    		throw new ConflictException(message);
+    	}
     }
     
     /** update answer a vocabulary */
-    @ApiMethod(name = "updateA")
-    public void updateA(Voca voca) throws IOException{
+    @ApiMethod(name = "updateA", path="update_A")
+    public void updateA(Voca voca) throws NotFoundException{
     	voca.setQ(voca.getQ().toLowerCase());
-    	Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ()).first().now();
-		if(v != null && v.isCheck() == false) {
-			v.setA(voca.getA());
-			ofy().save().entity(v);
+    	VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", voca.getQ()).first().now();
+		if(vp != null) {
+			vp.setA(voca.getA());
+			ofy().save().entity(vp);
+		}
+		else {
+			String message = voca.getQ() + " not found";
+        	throw new NotFoundException(message);
 		}
     }
     
-    boolean verifyVoca(String voca_q) {
-		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q).first().now();
-		if(voca == null)
-			return true;
-		else
-			return false;
-	}
+    /** update dictionary a vocabulary */
+    @ApiMethod(name = "updateD", path="update_D")
+    public void updateD(Voca voca) throws NotFoundException{
+    	voca.setQ(voca.getQ().toLowerCase());
+    	VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", voca.getQ()).first().now();
+		if(vp != null) {
+			vp.setL_en(voca.getL_en());
+			vp.setL_vn(voca.getL_vn());
+			ofy().save().entity(vp);
+		}
+		else {
+			String message = voca.getQ() + " not found";
+        	throw new NotFoundException(message);
+		}
+    }
+    
+    /**
+     * Find Voca by id
+     * @param id
+     * @param orderSearch <b>true</b> Voca -> VocaPreview, <b>false</b> VocaPreview -> Voca
+     * @return
+     * @throws NotFoundException
+     */
+    @ApiMethod(name = "findVocaById", path="find_voca_byId")
+    public Voca findVocaById(@Named("id") Long id, @Named("orderSearch") Boolean orderSearch) throws NotFoundException {
+       if(orderSearch) {
+    	   Voca v = ofy().load().type(Voca.class).id(id).now();
+    	   if(v != null) {
+    		   v.setCheck(true);
+    		   return v;
+    	   }
+    	   else {
+    		   VocaPreview vp = ofy().load().type(VocaPreview.class).id(id).now();
+    		   if(vp != null) {
+    			   Voca voca = new Voca();
+    			   voca.getVocaPreviewContent(vp);
+    			   voca.setGid(vp.getGid());
+    			   voca.setCheck(false);
+    			   return voca;
+    		   }
+    		   else {
+    			   String message = "No voca match with id: " + id;
+    			   throw new NotFoundException(message);
+    		   }
+    	   }
+       }
+       else {
+    	   VocaPreview vp = ofy().load().type(VocaPreview.class).id(id).now();
+		   if(vp != null) {
+			   Voca voca = new Voca();
+			   voca.getVocaPreviewContent(vp);
+			   voca.setGid(vp.getGid());
+			   voca.setCheck(false);
+			   return voca;
+		   }
+		   else {
+			   Voca v = ofy().load().type(Voca.class).id(id).now();
+			   if(v != null) {
+				   v.setCheck(true);
+	    		   return v;
+			   }
+			   else {
+				   String message = "No voca match with id: " + id;
+    			   throw new NotFoundException(message);
+			   }
+		   }
+       }
+    }
+    
+    /**
+     * Find Voca by Q
+     * @param q
+     * @param orderSearch <b>true</b> Voca -> VocaPreview, <b>false</b> VocaPreview -> Voca
+     * @return
+     * @throws NotFoundException
+     */
+    @ApiMethod(name = "findVocaByQ", path="find_voca_byQ")
+    public Voca findVocaByQ(@Named("q") String q, @Named("orderSearch") Boolean orderSearch) throws NotFoundException {
+       if(orderSearch) {
+    	   Voca v = ofy().load().type(Voca.class).filter("q", q).first().now();
+    	   if(v != null) {
+    		   v.setCheck(true);
+    		   return v;
+    	   }
+    	   else {
+    		   VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", q).first().now();
+    		   if(vp != null) {
+    			   Voca voca = new Voca();
+    			   voca.getVocaPreviewContent(vp);
+    			   voca.setGid(vp.getGid());
+    			   voca.setCheck(false);
+    			   return voca;
+    		   }
+    		   else {
+    			   String message = q + " not found";
+    			   throw new NotFoundException(message);
+    		   }
+    	   }
+       }
+       else {
+    	   VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", q).first().now();
+		   if(vp != null) {
+			   Voca voca = new Voca();
+			   voca.getVocaPreviewContent(vp);
+			   voca.setGid(vp.getGid());
+			   voca.setCheck(false);
+			   return voca;
+		   }
+		   else {
+			   Voca v = ofy().load().type(Voca.class).filter("q", q).first().now();
+			   if(v != null) {
+				   v.setCheck(true);
+	    		   return v;
+			   }
+			   else {
+				   String message = q + " not found";
+    			   throw new NotFoundException(message);
+			   }
+		   }
+       }
+    }
 
 }

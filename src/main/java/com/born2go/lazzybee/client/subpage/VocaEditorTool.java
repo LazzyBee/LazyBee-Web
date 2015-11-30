@@ -6,6 +6,7 @@ import java.util.List;
 import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.client.widgets.LoginControl;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
+import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.Category;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
@@ -14,6 +15,8 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.json.client.JSONObject;
@@ -120,8 +123,8 @@ public class VocaEditorTool extends Composite {
 		if(DOM.getElementById("right_panel") != null)
 			DOM.getElementById("right_panel").setAttribute("style", "display:");
 		
-		if(LoginControl.user == null || !LoginControl.user.isAdmin())
-			LazzyBee.noticeBox.setNotice("Tính năng này đang tạm khóa chỉ sử dụng cho admin!");
+//		if(LoginControl.user == null || !LoginControl.user.isAdmin())
+//			LazzyBee.noticeBox.setNotice("Tính năng này đang tạm khóa chỉ sử dụng cho admin!");
 		
 		lsbType.addItem("- Chọn phân loại -");
 		
@@ -246,7 +249,12 @@ public class VocaEditorTool extends Composite {
 		txbVocaDefi.addBlurHandler(new BlurHandler() {
 			@Override
 			public void onBlur(BlurEvent event) {
-				if(!txbVocaDefi.getText().isEmpty()) {
+				if(voca != null && !voca.getQ().toLowerCase().equals(txbVocaDefi.getText().toLowerCase())) {
+					voca = null;
+					btnDelete.setVisible(false);
+					htmlVocaNote.setVisible(false);
+				}
+				if(voca == null && !txbVocaDefi.getText().isEmpty()) {
 					checkVocaImg.setVisible(true);
 					LazzyBee.data_service.verifyVoca(txbVocaDefi.getText().toLowerCase(), new AsyncCallback<Boolean>() {
 						@Override
@@ -272,6 +280,13 @@ public class VocaEditorTool extends Composite {
 						}
 					});
 				}
+			}
+		});
+		
+		txbVocaDefi.addAttachHandler(new Handler() {
+			@Override
+			public void onAttachOrDetach(AttachEvent event) {
+				txbVocaDefi.setFocus(true);
 			}
 		});
 	}
@@ -919,14 +934,15 @@ public class VocaEditorTool extends Composite {
 	private void saveNewVoca() {
 		if(verifyField()) {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
-			final Voca v = new Voca();
+			final VocaPreview v = new VocaPreview();
 			v.setQ(txbVocaDefi.getText());
 			v.setLevel(lsbLevel.getValue(lsbLevel.getSelectedIndex()));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
 			v.setL_vn(getDataCustomEditor("dictionaryEV"));
 			v.setL_en(getDataCustomEditor("dictionaryEE"));
-			LazzyBee.data_service.insertVoca(v, LazzyBee.userId, new AsyncCallback<Voca>() {
+			v.setCreator(LazzyBee.userName);
+			LazzyBee.data_service.insertVoca(v, new AsyncCallback<Voca>() {
 				@Override
 				public void onSuccess(Voca result) {
 					if(result != null) {
@@ -949,11 +965,11 @@ public class VocaEditorTool extends Composite {
 		}
 	}
 	
-	private void updateVoca(boolean isCheck) {
+	private void updateVoca() {
 		if(verifyField()) {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final Voca v = voca;
-			v.setGid(voca.getGid());
+			/*v.setGid(voca.getGid());*/
 			v.setQ(txbVocaDefi.getText());
 			v.setLevel(lsbLevel.getValue(lsbLevel.getSelectedIndex()));
 			v.setA(getJsonData());
@@ -962,7 +978,46 @@ public class VocaEditorTool extends Composite {
 				v.setL_vn(getDataCustomEditor("dictionaryEV"));
 				v.setL_en(getDataCustomEditor("dictionaryEE"));
 			}
-			LazzyBee.data_service.updateVoca(v, isCheck, LazzyBee.userId, new AsyncCallback<Voca>() {
+			LazzyBee.data_service.updateVoca(v, LazzyBee.userId, new AsyncCallback<Voca>() {
+				@Override
+				public void onSuccess(Voca result) {
+					if(result != null) {
+						if(!isPreviewMode)
+							formClean();
+						else
+							if(listener != null)
+								listener.onApproval(result);
+						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
+					}
+					else {
+						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+						LazzyBee.noticeBox.setAutoHide();
+					}
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+					LazzyBee.noticeBox.setAutoHide();
+				}
+			});
+		}
+	}
+	
+	private void verifyUpdateVoca() {
+		if(verifyField()) {
+			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
+			final Voca v = voca;
+			/*v.setGid(voca.getGid());*/
+			v.setQ(txbVocaDefi.getText());
+			v.setLevel(lsbLevel.getValue(lsbLevel.getSelectedIndex()));
+			v.setA(getJsonData());
+			v.setPackages(getPackages());
+			if(!isPreviewMode) {
+				v.setL_vn(getDataCustomEditor("dictionaryEV"));
+				v.setL_en(getDataCustomEditor("dictionaryEE"));
+			}
+			LazzyBee.data_service.verifyUpdateVoca(v, LazzyBee.userId, new AsyncCallback<Voca>() {
 				@Override
 				public void onSuccess(Voca result) {
 					if(result != null) {
@@ -1045,7 +1100,7 @@ public class VocaEditorTool extends Composite {
 		if(voca == null)
 			saveNewVoca();
 		else
-			updateVoca(false);
+			updateVoca();
 	}
 	
 	@UiHandler("btnSaveB")
@@ -1053,13 +1108,13 @@ public class VocaEditorTool extends Composite {
 		if(voca == null)
 			saveNewVoca();
 		else
-			updateVoca(false);
+			updateVoca();
 	}
 	
 	@UiHandler("btnVerifySaveB")
 	void onBtnVerifySaveBClick(ClickEvent e) {
 		if(voca != null)
-			updateVoca(true);
+			verifyUpdateVoca();
 	}
 	
 	@UiHandler("btnDelete")
@@ -1109,6 +1164,12 @@ public class VocaEditorTool extends Composite {
 	
 	boolean verifyField() {
 		boolean verify = true;
+		if(LazzyBee.userName == null) {
+			verify = false;
+			DOM.getElementById("content").setScrollTop(0);
+			LazzyBee.noticeBox.setNotice("Bạn cần đăng nhập trước!");
+			LazzyBee.noticeBox.setAutoHide();
+		}
 		if(list_defi.get(0).types.isEmpty()) {
 			verify = false;
 			lbType.getElement().setAttribute("style", "border: 1px solid red;");

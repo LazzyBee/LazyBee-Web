@@ -6,15 +6,17 @@ import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
+import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface DataServiceAsync {
 
 	void verifyVoca(String voca_q, AsyncCallback<Boolean> callback);
-	void insertVoca(Voca voca, String userId, AsyncCallback<Voca> callback);
+	void insertVoca(VocaPreview voca, AsyncCallback<Voca> callback);
 	void findVoca(String voca_q, AsyncCallback<Voca> callback);
-	void updateVoca(Voca voca, boolean isCheck, String userId, AsyncCallback<Voca> callback);
+	void updateVoca(Voca voca, String userId, AsyncCallback<Voca> callback);
+	void verifyUpdateVoca(Voca voca, String userId, AsyncCallback<Voca> callback);
 //	void getTotalVoca(AsyncCallback<Integer> callback);
 //	void getTotalPreviewVoca(AsyncCallback<Integer> callback);
 	void getListVoca(String cursorStr, AsyncCallback<VocaList> callback);
