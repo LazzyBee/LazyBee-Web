@@ -22,7 +22,8 @@ public class Voca implements Serializable {
 	@Index
 	String q;
 	String a;
-	String level;
+	@Index
+	int level;
 	String packages;
 	String l_en;
 	String l_vn;
@@ -61,11 +62,11 @@ public class Voca implements Serializable {
 		this.a = a;
 	}
 
-	public String getLevel() {
+	public int getLevel() {
 		return level;
 	}
 
-	public void setLevel(String level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
 

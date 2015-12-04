@@ -71,7 +71,7 @@ public class ListVocaView extends Composite {
 		TextColumn<Voca> vocaLevelColumn = new TextColumn<Voca>() {
 			@Override
 			public String getValue(Voca v) {
-				return v.getLevel();
+				return v.getLevel() + "";
 			}
 		};
 

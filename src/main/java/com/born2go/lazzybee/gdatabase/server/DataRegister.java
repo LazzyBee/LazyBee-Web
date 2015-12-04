@@ -3,6 +3,7 @@ package com.born2go.lazzybee.gdatabase.server;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
+import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
@@ -23,12 +24,6 @@ public class DataRegister extends RemoteServiceServlet {
 		ObjectifyService.register(User.class);
 		ObjectifyService.register(Blog.class);
 		ObjectifyService.register(Picture.class);
-		
-//		User user = new User();
-//		user.setAdmin(true);
-//		user.setFacebook_id("536617819821814_F");
-//		user.setUserName("Lệ Nguyễn");
-//		ofy().save().entity(user);
 		
 		// Blog blog = new Blog();
 		// blog.setTitle("Tạo blog mới");

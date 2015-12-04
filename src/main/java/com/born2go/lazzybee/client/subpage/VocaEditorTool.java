@@ -328,7 +328,7 @@ public class VocaEditorTool extends Composite {
 		//-----
 		txbVocaDefi.setText(voca.getQ());
 		//-----
-		lsbLevel.setSelectedIndex(Integer.parseInt(voca.getLevel()) - 1);
+		lsbLevel.setSelectedIndex(voca.getLevel() - 1);
 		//-----
 		String[] packages = voca.getPackages().split(",");
 		if(packages.length > 1) 
@@ -936,7 +936,7 @@ public class VocaEditorTool extends Composite {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final VocaPreview v = new VocaPreview();
 			v.setQ(txbVocaDefi.getText());
-			v.setLevel(lsbLevel.getValue(lsbLevel.getSelectedIndex()));
+			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel.getSelectedIndex())));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
 			v.setL_vn(getDataCustomEditor("dictionaryEV"));
@@ -971,7 +971,7 @@ public class VocaEditorTool extends Composite {
 			final Voca v = voca;
 			/*v.setGid(voca.getGid());*/
 			v.setQ(txbVocaDefi.getText());
-			v.setLevel(lsbLevel.getValue(lsbLevel.getSelectedIndex()));
+			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel.getSelectedIndex())));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
 			if(!isPreviewMode) {
@@ -1010,7 +1010,7 @@ public class VocaEditorTool extends Composite {
 			final Voca v = voca;
 			/*v.setGid(voca.getGid());*/
 			v.setQ(txbVocaDefi.getText());
-			v.setLevel(lsbLevel.getValue(lsbLevel.getSelectedIndex()));
+			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel.getSelectedIndex())));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
 			if(!isPreviewMode) {
