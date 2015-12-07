@@ -5,7 +5,7 @@ import java.util.List;
 import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.client.subpage.ListVocaView;
 import com.born2go.lazzybee.client.subpage.TestTool;
-import com.born2go.lazzybee.client.subpage.VocaPreview;
+import com.born2go.lazzybee.client.subpage.VocaPreviewTool;
 import com.born2go.lazzybee.client.subpage.VocaView;
 import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
@@ -124,7 +124,7 @@ public class DictionaryTool extends Composite {
 			RootPanel.get("wt_dictionary_content").add(new ListVocaView());
 		} else if (path.contains("preview")) {
 			// previewSite.addStyleName("DictionaryTool_Obj5");
-			RootPanel.get("wt_dictionary_content").add(new VocaPreview());
+			RootPanel.get("wt_dictionary_content").add(new VocaPreviewTool());
 		}
 
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {

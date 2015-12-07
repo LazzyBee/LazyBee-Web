@@ -39,12 +39,12 @@ import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
 import com.google.gwt.view.client.ListDataProvider;
 
-public class VocaPreview extends Composite {
+public class VocaPreviewTool extends Composite {
 
 	private static VocaPreviewUiBinder uiBinder = GWT
 			.create(VocaPreviewUiBinder.class);
 
-	interface VocaPreviewUiBinder extends UiBinder<Widget, VocaPreview> {
+	interface VocaPreviewUiBinder extends UiBinder<Widget, VocaPreviewTool> {
 	}
 	
 	@UiField CellTable<Voca> vocaTable;
@@ -61,7 +61,7 @@ public class VocaPreview extends Composite {
 	private List<Voca> listVoca = new ArrayList<Voca>();
 	private List<Voca> listDisplayVoca = new ArrayList<Voca>();
 
-	public VocaPreview() {
+	public VocaPreviewTool() {
 		initWidget(uiBinder.createAndBindUi(this));
 		DOM.getElementById("wt_search_tool").setAttribute("style", "display: none");
 //		DOM.getElementById("right_panel").setAttribute("style", "display: none");
@@ -77,7 +77,7 @@ public class VocaPreview extends Composite {
 		TextColumn<Voca> vocaLevelColumn = new TextColumn<Voca>() {
 			@Override
 			public String getValue(Voca v) {
-				return v.getLevel();
+				return v.getLevel() + "";
 			}
 		};
 

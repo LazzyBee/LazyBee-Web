@@ -22,11 +22,14 @@ public class Voca implements Serializable {
 	@Index
 	String q;
 	String a;
-	String level;
+	@Index
+	int level;
 	String packages;
 	String l_en;
 	String l_vn;
 	String note;
+	String creator;
+	String user_comment;
 	
 	@Index
 	boolean isCheck = false;
@@ -59,11 +62,11 @@ public class Voca implements Serializable {
 		this.a = a;
 	}
 
-	public String getLevel() {
+	public int getLevel() {
 		return level;
 	}
 
-	public void setLevel(String level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
 
@@ -90,7 +93,31 @@ public class Voca implements Serializable {
 	public void setL_vn(String l_vn) {
 		this.l_vn = l_vn;
 	}
+	
+	public String getNote() {
+		return note;
+	}
 
+	public void setNote(String note) {
+		this.note = note;
+	}
+	
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	public String getUser_comment() {
+		return user_comment;
+	}
+
+	public void setUser_comment(String user_comment) {
+		this.user_comment = user_comment;
+	}
+	
 	public boolean isCheck() {
 		return isCheck;
 	}
@@ -99,12 +126,16 @@ public class Voca implements Serializable {
 		this.isCheck = isCheck;
 	}
 	
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
+	public void getVocaPreviewContent(VocaPreview v) {
+		this.q = v.getQ();
+		this.a = v.getA();
+		this.level = v.getLevel();
+		this.packages = v.getPackages();
+		this.l_en = v.getL_en();
+		this.l_vn = v.getL_vn();
+		this.note = v.getNote();
+		this.creator = v.getCreator();
+		this.user_comment = v.getUser_comment();
 	}
 
 	@Override

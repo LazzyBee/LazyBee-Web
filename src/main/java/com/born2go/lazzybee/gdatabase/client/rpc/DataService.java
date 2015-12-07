@@ -6,6 +6,7 @@ import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
+import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -14,9 +15,10 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface DataService extends RemoteService {
 
 	public boolean verifyVoca(String voca_q);
-	public Voca insertVoca(Voca voca, String userId);
+	public Voca insertVoca(VocaPreview voca);
 	public Voca findVoca(String voca_q);
-	public Voca updateVoca(Voca voca, boolean isCheck, String userId);
+	public Voca updateVoca(Voca voca, String userId);
+	public Voca verifyUpdateVoca(Voca voca, String userId);
 //	public Integer getTotalVoca();
 //	public Integer getTotalPreviewVoca();
 	public VocaList getListVoca(String cursorStr);
