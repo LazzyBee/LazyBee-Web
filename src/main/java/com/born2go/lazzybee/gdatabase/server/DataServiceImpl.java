@@ -174,8 +174,11 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			if(vp != null) {
 				ofy().delete().entity(vp);
 				voca.setQ(voca.getQ().toLowerCase());
-				voca.setCheck(true);
+				Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ().toLowerCase()).first().now();
+				if(v != null)
+					voca.setGid(v.getGid());
 				ofy().save().entity(voca);
+				voca.setCheck(true);
 				return voca;
 			}
 			else
@@ -358,7 +361,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<Blog> getListBlog() {
-		List<Blog> blogs = ofy().load().type(Blog.class).limit(6).list();
+		List<Blog> blogs = ofy().load().type(Blog.class).limit(6).order("-createDate").list();
 		List<Blog> result = new ArrayList<Blog>();
 		result.addAll(blogs);
 		return result;

@@ -115,7 +115,18 @@
 	</div>
 
 	<div id="bodyy">
-		<div id="wt_dictionary_slide" class="slidebar"></div>
+		<div id="wt_dictionary_slide_dummy" class="slidebar">
+			<div class="slidebar_background">
+				<br/> <br/>
+				<span class="slidebar_anchor">Tra cứu từ vựng</span>
+				<br/> <br/> <br/>
+				<span class="slidebar_anchor">Kiểm tra vốn từ</span>
+				<br/> <br/> <br/>
+				<span class="slidebar_trademark">Born2Go © 2015</span>
+			</div>
+		</div>
+
+		<div id="wt_dictionary_slide" class="slidebar" style="display: none"></div>
 
 		<div id="content" class="content">
 
@@ -123,12 +134,14 @@
 				var ec_height = window.innerHeight - 40;
 				document.getElementById("content").setAttribute("style",
 						"height:" + ec_height + "px");
+				document.getElementById("wt_dictionary_slide_dummy").setAttribute("style",
+						"height:" + ec_height + "px");
 			</script>
 
 			<div id="wt_dictionary"
 				style="padding: 30px; min-width: 600px; float: left;">
 				<div id="wt_search_tool"></div>
-				<div id="wt_dictionary_content" style="min-height: 280px"></div>
+				<div id="wt_dictionary_content" style="min-height: 180px"></div>
 				<div id="wt_dictionary_blog"></div>
 			</div>
 

@@ -158,7 +158,12 @@ public class DictionaryTool extends Composite {
 						@Override
 						public void onFailure(Throwable caught) {}
 					});
-					Anchor title = new Anchor(blog.getShowTitle());
+					String t = blog.getShowTitle();
+//					if(t.length() > 45) {
+//						t = t.substring(0, 44);
+//						t = t + "...";
+//					}
+					Anchor title = new Anchor(t);
 					title.setHref("/blog/"+ blog.getTitle());
 					title.setStyleName("DictionaryTool_Obj7");	
 					blogp.add(avatar);

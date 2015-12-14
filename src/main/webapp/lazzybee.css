@@ -1,5 +1,7 @@
 body {
 	margin: 0px !important;
+	font-family: Arial Unicode MS, Arial, sans-serif;
+	font-size: small;
 }
 
 h1 {
@@ -96,11 +98,11 @@ h1 {
 
 .header_accPro_img {
 	border-radius: 20px;
-    width: 32px;
-    /* border: 1px silver solid; */
-    float: left;
-    margin-right: 8px;
-    margin-top: 3px;
+	width: 32px;
+	/* border: 1px silver solid; */
+	float: left;
+	margin-right: 8px;
+	margin-top: 3px;
 }
 
 .slidebar {
@@ -108,7 +110,34 @@ h1 {
 	width: 330px;
 }
 
-.content{
+.slidebar_background {
+	float: left;
+	width: 100%;
+	height: 603px; 
+	background : #009688;
+	text-align: center;
+	position: relative;
+	background: #009688;
+}
+
+.slidebar_anchor {
+	color: white !important;
+	cursor: pointer;
+	margin-top: 40px;
+}
+
+.slidebar_trademark {
+	color: white;
+	line-height: 1.5;
+	padding: 5px;
+	width: 100%;
+	box-sizing: border-box;
+	position: absolute; bottom : 20px;
+	left: 0px;
+	bottom: 20px;
+}
+
+.content {
 	float: left;
 	width: 100%;
 	overflow: auto;
@@ -117,15 +146,16 @@ h1 {
 
 .tl {
 	font-size: 14px;
-    color: #0e74af;
-    font-weight: bold;
-    text-transform: uppercase;
+	color: #0e74af;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .ex {
 	color: gray;
-    margin-left: 15px;
+	margin-left: 15px;
 }
+
 .fon39 h5 {
 	color: #0e74af;
 	font-size: 16px;
