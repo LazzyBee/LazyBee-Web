@@ -342,7 +342,7 @@ public class BlogEditorTool extends Composite {
 				blog.setAvatar(this.blog.getAvatar());
 				blog.setCreateDate(this.blog.getCreateDate());
 			}
-			blog.setTitle(txbBlogUrl.getText().replaceAll(" ", "_"));
+			blog.setTitle(txbBlogUrl.getText().replaceAll(" ", "_").toLowerCase());
 			blog.setShowTitle(txbShowTitle.getText());
 			blog.setContent(getDataCustomEditor("blogContent"));
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");

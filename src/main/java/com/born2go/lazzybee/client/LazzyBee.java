@@ -53,11 +53,19 @@ public class LazzyBee implements EntryPoint {
 			noticeBox.hide();
 		}
 
-		if (RootPanel.get("wt_editor_slide") != null)
+		if (RootPanel.get("wt_editor_slide") != null) {
+			if(DOM.getElementById("wt_editor_slide_dummy") != null)
+				DOM.getElementById("wt_editor_slide_dummy").setAttribute("style", "display: none");
+			DOM.getElementById("wt_editor_slide").setAttribute("style", "");
 			RootPanel.get("wt_editor_slide").add(new EditorTool());
-
-		if (RootPanel.get("wt_dictionary_slide") != null)
+		}
+		
+		if (RootPanel.get("wt_dictionary_slide") != null) {
+			if(DOM.getElementById("wt_dictionary_slide_dummy") != null)
+				DOM.getElementById("wt_dictionary_slide_dummy").setAttribute("style", "display: none");
+			DOM.getElementById("wt_dictionary_slide").setAttribute("style", "");
 			RootPanel.get("wt_dictionary_slide").add(new DictionaryTool());
+		}
 
 		ExporterUtil.exportAll();
 		onLoadImpl();

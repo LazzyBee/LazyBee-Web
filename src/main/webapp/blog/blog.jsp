@@ -51,7 +51,7 @@
 		return;
 	} 
 	else {
-		String blogTitle = request.getPathInfo().replaceAll("/", "");
+		String blogTitle = request.getPathInfo().replaceAll("/", "").toLowerCase();
 		DataServiceImpl dataService = new DataServiceImpl();
 		blog = dataService.findBlogByTitle(blogTitle);
 		previous_blog = dataService.getPreviousBlog(blog);
@@ -213,12 +213,26 @@ if(blog_avatar != null) {
 	</div>
 
 	<div id="bodyy">
-		<div id="wt_dictionary_slide" class="slidebar"></div>
+		<div id="wt_dictionary_slide_dummy" class="slidebar">
+			<div class="slidebar_background">
+				<br/> <br/>
+				<span class="slidebar_anchor">Tra cứu từ vựng</span>
+				<br/> <br/> <br/>
+				<span class="slidebar_anchor">Kiểm tra vốn từ</span>
+				<br/> <br/> <br/>
+				<span class="slidebar_trademark">Born2Go © 2015</span>
+			</div>
+		</div>
+	
+		<div id="wt_dictionary_slide" class="slidebar" style="display: none"></div>
 
 		<div id="content" class="content">
+		
 			<script type="text/javascript">
 				var ec_height = window.innerHeight - 40;
 				document.getElementById("content").setAttribute("style",
+						"height:" + ec_height + "px");
+				document.getElementById("wt_dictionary_slide_dummy").setAttribute("style",
 						"height:" + ec_height + "px");
 			</script>
 
