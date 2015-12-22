@@ -118,15 +118,19 @@ public class VocaView extends Composite {
 		else
 			EEContent.setHTML("(Chưa có nội dung)");
 		// Lazzybee meaning Tab
-		HTML LazzyBeeContent = new HTML();
+		HTMLPanel LazzyBeeContent = new HTMLPanel("");
 		LazzyBeeContent.getElement().setAttribute("style", "padding-left: 5px; padding-top: 10px; padding-bottom: 20px; width: 588px");
 		for(DefiContainer dc: list_defitranforms) {
-//			String dc_pac = "package: ";
-//			for(String pac: dc.types) {
-//				dc_pac = dc_pac + pac + ", ";
-//			}
-//			Label dcPac = new Label(dc_pac);
-//			dcPac.setStyleName("VocaView_Obj5");
+			HTMLPanel pacContainer = new HTMLPanel("");
+			//-----
+			String dc_pac = "package: ";
+			for(String pac: dc.types) {
+				dc_pac = dc_pac + pac + ", ";
+			}
+			Label dcPac = new Label(dc_pac);
+			dcPac.setStyleName("VocaView_Obj5");
+			//-----
+			HTML pacContent = new HTML();
 			String meaning = dc.txbMeaning_id.replaceAll("\"", "");
 			String explain = dc.txbExplain_id.replaceAll("\"", "");
 			String exam = dc.txbExam_id.replaceAll("\"", "").replace("<p>", "").replace("</p>", "");
@@ -136,10 +140,14 @@ public class VocaView extends Composite {
 				explain = "<p> " + explain + " </p>";
 			if(!exam.contains("<p>"))
 				exam = "<p> VD: " + exam + " </p>";
-			LazzyBeeContent.setHTML(meaning + explain + "<span style='color: gray; font-style: italic;'>" + exam + "</span>");
+			pacContent.setHTML(meaning + explain + "<span style='color: gray; font-style: italic;'>" + exam + "</span>");
+			//-----
+			pacContainer.add(dcPac);
+			pacContainer.add(pacContent);
+			LazzyBeeContent.add(pacContainer);
 		}
 		if(list_defitranforms.isEmpty())
-			LazzyBeeContent.setHTML("(Chưa có nội dung)");
+			LazzyBeeContent.add(new Label("Chưa có nội dung"));
 		// -----
 		TabPanel tab = new TabPanel();
 		tab.add(EVContent, "English - Tiếng Việt");
