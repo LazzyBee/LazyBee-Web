@@ -141,7 +141,7 @@ redirectHomeUrl(response);
 			<ul class="blogs_exist">
 				<%
 					for (int i = 0; i < blogs_exsist.size(); i++) {
-																			Blog blog_exist = blogs_exsist.get(i);
+																					Blog blog_exist = blogs_exsist.get(i);
 				%>
 				<li><a style="color: #004175; line-height: 2;"
 					href=<%="/blog/" + blog_exist.getTitle()%>><%=blog_exist.getShowTitle()%></a></li>
@@ -173,7 +173,7 @@ redirectHomeUrl(response);
 				}
 			</script>
 			<!-- hide/show fb-comments -->
-			<a id="showComment" href="#"
+			<a id="showComment" href="#" class="MTestTool_Obj11"
 				onclick="showmap('fb_comments', this.id);">Hiển thị comment</a>
 			<div id="fb_comments" style="display: none">
 				<div class="fb-comments" data-width="100%"
