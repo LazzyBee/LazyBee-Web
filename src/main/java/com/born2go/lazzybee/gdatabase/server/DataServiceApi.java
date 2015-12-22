@@ -42,15 +42,13 @@ public class DataServiceApi {
      * @throws NotFoundException */
     @ApiMethod(name = "getVocaByQ", path="get_voca_byQ")
     public Voca getVocaByQ(@Named("q") String q) throws NotFoundException {
-        Voca voca = ofy().load().type(Voca.class).filter("q", q).first().now();
-        if(voca == null) {
-        	String message = "No entity exists with question: " + q;
-        	throw new NotFoundException(message);
-        }
-        else {
-        	voca.setCheck(true);
-        	return voca;
-        }
+		Voca result = dataService.findVoca(q);
+		if (result != null)
+			return result;
+		else {
+			String message = "No entity exists with question: " + q;
+			throw new NotFoundException(message);
+		}
     }
  
     
@@ -159,7 +157,7 @@ public class DataServiceApi {
 		   }
        }
     }
-    
+    private DataServiceImpl dataService = new DataServiceImpl();
     /**
      * Find Voca by Q
      * @param q
@@ -169,48 +167,79 @@ public class DataServiceApi {
      */
     @ApiMethod(name = "findVocaByQ", path="find_voca_byQ")
     public Voca findVocaByQ(@Named("q") String q, @Named("orderSearch") Boolean orderSearch) throws NotFoundException {
-       if(orderSearch) {
-    	   Voca v = ofy().load().type(Voca.class).filter("q", q).first().now();
-    	   if(v != null) {
-    		   v.setCheck(true);
-    		   return v;
-    	   }
-    	   else {
-    		   VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", q).first().now();
-    		   if(vp != null) {
-    			   Voca voca = new Voca();
-    			   voca.getVocaPreviewContent(vp);
-    			   voca.setGid(vp.getGid());
-    			   voca.setCheck(false);
-    			   return voca;
-    		   }
-    		   else {
-    			   String message = q + " not found";
-    			   throw new NotFoundException(message);
-    		   }
-    	   }
-       }
-       else {
-    	   VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", q).first().now();
+    	Voca result = null;
+		if (orderSearch)  
+			result = dataService.findVoca(q);
+		  else  
+			result = searchVocaPreview_Voca(q);
+
+		 
+		if (result != null)
+			return result;
+		else {
+			String message = q + " not found";
+			throw new NotFoundException(message);
+		}
+    }
+    /**
+     * this method search voca in table VocaPreview fist, if voca = null, this method will search in Voca;
+     * if value voca continue = null; find derivatives of q, and continue find voca by derivatives of q
+     * @param q: q match voca in gdatabase
+     * @return voca
+     */
+    String q_Der;
+
+	private Voca searchVocaPreview_Voca(String q) {
+		Voca result = null;
+		VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", q)
+				.first().now();
+		if (vp != null) {
+			result = new Voca();
+			result.getVocaPreviewContent(vp);
+			result.setGid(vp.getGid());
+			result.setCheck(false);
+
+		} else {
+			result = ofy().load().type(Voca.class).filter("q", q).first().now();
+			if (result != null) {
+				result.setCheck(true);
+
+			} else
+				result = null;
+
+		}
+		if (result == null) {
+			q_Der = dataService.getQ_Derivatives(q);
+			result = findVoca_DerAPI(q_Der);
+		}
+
+		return result;
+	}
+    /**
+	 * 
+	 * @param q_Der
+	 *            : question derivatives
+	 * @return the vocabulary match to q_Der
+	 */
+	private Voca findVoca_DerAPI(String q_Der) {
+		Voca result = null;
+    	VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", q_Der).first().now();
 		   if(vp != null) {
-			   Voca voca = new Voca();
-			   voca.getVocaPreviewContent(vp);
-			   voca.setGid(vp.getGid());
-			   voca.setCheck(false);
-			   return voca;
+			   result = new Voca();
+			   result.getVocaPreviewContent(vp);
+			   result.setGid(vp.getGid());
+			   result.setCheck(false);
 		   }
 		   else {
-			   Voca v = ofy().load().type(Voca.class).filter("q", q).first().now();
-			   if(v != null) {
-				   v.setCheck(true);
-	    		   return v;
+			   result = ofy().load().type(Voca.class).filter("q", q_Der).first().now();
+			   if(result != null) {
+				   result.setCheck(true);
 			   }
-			   else {
-				   String message = q + " not found";
-    			   throw new NotFoundException(message);
-			   }
+			   else
+				   result = null;
 		   }
-       }
-    }
+		   return result;
+	}
+    
 
 }
