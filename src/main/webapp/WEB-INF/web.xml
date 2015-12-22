@@ -17,6 +17,7 @@
 		<welcome-file>mvdict.jsp</welcome-file>
 		<welcome-file>mhome.html</welcome-file>
 		<welcome-file>mtesttool.html</welcome-file>
+		<welcome-file>chart.html</welcome-file>
 	</welcome-file-list>
 
 	<!-- Register objectify entity -->
