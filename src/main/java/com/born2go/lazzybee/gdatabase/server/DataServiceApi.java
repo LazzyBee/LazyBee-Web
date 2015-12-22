@@ -57,7 +57,7 @@ public class DataServiceApi {
     /** Get list all of vocabulary */
     @ApiMethod(name = "listVoca")
     public List<Voca> listVoca() {
-        List<Voca> list_voca = ofy().load().type(Voca.class).list();
+        List<Voca> list_voca = ofy().load().type(Voca.class).filter("level <", 7).list();
         return list_voca;
     }
 
@@ -80,10 +80,10 @@ public class DataServiceApi {
     @ApiMethod(name = "updateA", path="update_A")
     public void updateA(Voca voca) throws NotFoundException{
     	voca.setQ(voca.getQ().toLowerCase());
-    	VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", voca.getQ()).first().now();
-		if(vp != null) {
-			vp.setA(voca.getA());
-			ofy().save().entity(vp);
+    	Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ()).first().now();
+		if(v != null) {
+			v.setA(voca.getA());
+			ofy().save().entity(v);
 		}
 		else {
 			String message = voca.getQ() + " not found";
@@ -95,11 +95,11 @@ public class DataServiceApi {
     @ApiMethod(name = "updateD", path="update_D")
     public void updateD(Voca voca) throws NotFoundException{
     	voca.setQ(voca.getQ().toLowerCase());
-    	VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", voca.getQ()).first().now();
-		if(vp != null) {
-			vp.setL_en(voca.getL_en());
-			vp.setL_vn(voca.getL_vn());
-			ofy().save().entity(vp);
+    	Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ()).first().now();
+		if(v != null) {
+			v.setL_en(voca.getL_en());
+			v.setL_vn(voca.getL_vn());
+			ofy().save().entity(v);
 		}
 		else {
 			String message = voca.getQ() + " not found";

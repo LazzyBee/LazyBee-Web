@@ -145,7 +145,7 @@ public class BlogEditorTool extends Composite {
 	  		autoGrow_minHeight: 280,
 	  		autoGrow_maxHeight: 450,
 	  		toolbarStartupExpanded : false,
-	  		extraPlugins: 'autogrow,image2,colorbutton,justify,horizontalrule,oembed,sourcearea,div,stylescombo,removeformat',
+	  		extraPlugins: 'autogrow,image2,colorbutton,justify,horizontalrule,oembed,sourcearea,div,stylescombo,removeformat,pastefromword,table',
 	  		removeButtons: 'Cut,Copy,Paste,Subscript,Superscript,About',
 	  	});
 	  	
@@ -342,7 +342,7 @@ public class BlogEditorTool extends Composite {
 				blog.setAvatar(this.blog.getAvatar());
 				blog.setCreateDate(this.blog.getCreateDate());
 			}
-			blog.setTitle(txbBlogUrl.getText().replaceAll(" ", "_"));
+			blog.setTitle(txbBlogUrl.getText().replaceAll(" ", "_").toLowerCase());
 			blog.setShowTitle(txbShowTitle.getText());
 			blog.setContent(getDataCustomEditor("blogContent"));
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");

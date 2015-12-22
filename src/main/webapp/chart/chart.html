@@ -1,0 +1,68 @@
+<html>
+<head>
+<!--Load the AJAX API-->
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Quá trình học với LazzyBee</title>
+<link rel="icon" type="image/png" href="favicon.png" />
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("visualization", "1", {
+		packages : [ "corechart" ]
+	});
+	google.setOnLoadCallback(drawChart);
+	/* var pathName = window.location.hash.split('#')[1];
+	var value1 = pathName.split('&')[1];
+	var value1 = pathName.split('&')[2];
+	window.alert("hehee");
+	window.alert(pathName); */
+	function drawChart() {
+		var data = google.visualization.arrayToDataTable([
+				[ "Element", "Voca đã học", {
+					role : "style"
+				} ], [ "Level 1", 300, "#EC7063" ],
+				[ "Level 2", 200, "#58D68D" ], [ "Level 3", 100, "#F1C40F" ],
+				[ "Level 4", 400, "color: #3498DB" ],
+				[ "Level 5", 600, "color: #E74C3C" ],
+				[ "Level 6", 700, "color: #A569BD" ] ]);
+
+		var view = new google.visualization.DataView(data);
+		view.setColumns([ 0, 1, {
+			calc : "stringify",
+			sourceColumn : 1,
+			type : "string",
+			role : "annotation"
+		}, 2 ]);
+
+		var options = {
+			title : "Tóm tắt quá trình học với Lazzybee",
+			width : 600,
+			height : 400,
+			bar : {
+				groupWidth : "50%"
+			},
+			legend : {
+				position : "none"
+			},
+			vAxis : {
+				gridlines : {
+					count : 6
+				},
+				viewWindow : {
+					min : 0,
+					max : 800
+				}
+			}
+
+		};
+		var chart = new google.visualization.ColumnChart(document
+				.getElementById("columnchart_values"));
+		chart.draw(view, options);
+	}
+</script>
+</head>
+
+<body>
+
+	<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+</body>
+</html>

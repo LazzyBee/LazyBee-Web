@@ -98,14 +98,67 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Voca findVoca(String voca_q) {
 		Voca result = null;
-		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q.toLowerCase()).first().now();
-		if(voca != null) {
+		Voca voca = ofy().load().type(Voca.class)
+				.filter("q", voca_q.toLowerCase()).first().now();
+		if (voca != null) {
 			result = voca;
 			result.setCheck(true);
+		} else {
+			VocaPreview voca_preview = ofy().load().type(VocaPreview.class)
+					.filter("q", voca_q.toLowerCase()).first().now();
+			if (voca_preview != null) {
+				result = new Voca();
+				result.getVocaPreviewContent(voca_preview);
+				result.setCheck(false);
+			}
 		}
-		else {
-			VocaPreview voca_preview = ofy().load().type(VocaPreview.class).filter("q", voca_q.toLowerCase()).first().now();
-			if(voca_preview != null) {
+		if (result == null) {
+			String q_Der = getQ_Derivatives(voca_q);
+			result = findVoca_Derivatives(q_Der);
+		}
+		return result;
+	}
+
+	/**
+	 * check derivatives of one vocabulary:(ed, s, es, ing...)
+	 * 
+	 * @param q
+	 */
+	String q_ing = "ing";
+	String q_ed = "ed";
+	String q_s = "s";
+	String q_es = "es";
+
+	private String getQ_Derivatives(String q) {
+		if (q.endsWith(q_ed)) {
+			q = q.substring(0, q.lastIndexOf(q_ed));
+		} else if (q.endsWith(q_ing)) {
+			q = q.substring(0, q.lastIndexOf(q_ing));
+		} else if (q.endsWith(q_es)) {
+			q = q.substring(0, q.lastIndexOf(q_es));
+		} else if (q.endsWith(q_s)) {
+			q = q.substring(0, q.lastIndexOf(q_s));
+		}
+		return q;
+	}
+
+	/**
+	 * 
+	 * @param q_Der
+	 *            : question derivatives
+	 * @return the vocabulary match to q_Der
+	 */
+	private Voca findVoca_Derivatives(String q_Der) {
+		Voca result = null;
+		Voca voca = ofy().load().type(Voca.class)
+				.filter("q", q_Der.toLowerCase()).first().now();
+		if (voca != null) {
+			result = voca;
+			result.setCheck(true);
+		} else {
+			VocaPreview voca_preview = ofy().load().type(VocaPreview.class)
+					.filter("q", q_Der.toLowerCase()).first().now();
+			if (voca_preview != null) {
 				result = new Voca();
 				result.getVocaPreviewContent(voca_preview);
 				result.setCheck(false);
@@ -113,6 +166,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		}
 		return result;
 	}
+
 
 	/**
 	 * Update an exist vocabulary
@@ -174,8 +228,11 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			if(vp != null) {
 				ofy().delete().entity(vp);
 				voca.setQ(voca.getQ().toLowerCase());
-				voca.setCheck(true);
+				Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ().toLowerCase()).first().now();
+				if(v != null)
+					voca.setGid(v.getGid());
 				ofy().save().entity(voca);
+				voca.setCheck(true);
 				return voca;
 			}
 			else
@@ -358,7 +415,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<Blog> getListBlog() {
-		List<Blog> blogs = ofy().load().type(Blog.class).limit(6).list();
+		List<Blog> blogs = ofy().load().type(Blog.class).limit(6).order("-createDate").list();
 		List<Blog> result = new ArrayList<Blog>();
 		result.addAll(blogs);
 		return result;

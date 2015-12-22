@@ -1183,11 +1183,11 @@ public class VocaEditorTool extends Composite {
 			txbVocaDefi.getElement().setAttribute("style", "border: 1px solid red;");
 			DOM.getElementById("content").setScrollTop(0);
 		}
-		if(txbPronoun.getText().equals("")) {
-			verify = false;
-			txbPronoun.getElement().setAttribute("style", "border: 1px solid red;");
-			DOM.getElementById("content").setScrollTop(0);
-		}
+//		if(txbPronoun.getText().equals("")) {
+//			verify = false;
+//			txbPronoun.getElement().setAttribute("style", "border: 1px solid red;");
+//			DOM.getElementById("content").setScrollTop(0);
+//		}
 		return verify;
 	}
 

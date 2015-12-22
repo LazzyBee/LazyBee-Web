@@ -24,7 +24,7 @@
 		redirectHomeUrl(response);
 	else {
 		String blogTitle = request.getPathInfo().replaceAll("/", "");
-			if (blogTitle == null || blogTitle.equals(""))
+	if (blogTitle == null || blogTitle.equals(""))
 redirectHomeUrl(response);
 		else {
 	        DataServiceImpl service = new DataServiceImpl();
@@ -33,7 +33,7 @@ redirectHomeUrl(response);
 		redirectHomeUrl(response);
 	else {
 		if (currentBlog.getAvatar() != null)
-			blog_avatar = service.findPicture(currentBlog.getAvatar());
+	blog_avatar = service.findPicture(currentBlog.getAvatar());
 	 title = currentBlog.getShowTitle();
 //	content = content.replaceAll("<p>&nbsp;</p>", "");
 	blogs_exsist = service.getBlogsOlder(currentBlog);
@@ -61,7 +61,7 @@ redirectHomeUrl(response);
 <link rel="icon" type="image/png" href="/favicon.png" />
 <script type="text/javascript"
 	src="/lazzybeemobile/lazzybeemobile.nocache.js" async></script>
-<script src="https://connect.facebook.net/en_US/all.js" async></script>
+<!-- <script src="https://connect.facebook.net/en_US/all.js" async></script> -->
 </head>
 <body>
 	<!-- Google Tag Manager -->
@@ -141,7 +141,7 @@ redirectHomeUrl(response);
 			<ul class="blogs_exist">
 				<%
 					for (int i = 0; i < blogs_exsist.size(); i++) {
-							Blog blog_exist = blogs_exsist.get(i);
+																					Blog blog_exist = blogs_exsist.get(i);
 				%>
 				<li><a style="color: #004175; line-height: 2;"
 					href=<%="/blog/" + blog_exist.getTitle()%>><%=blog_exist.getShowTitle()%></a></li>
@@ -152,7 +152,35 @@ redirectHomeUrl(response);
 			<%
 				}
 			%>
-
+			<script>
+				function onFBReady() {
+					var fbApi = new faceBookAPI();
+					fbApi.OnloadFaceBook();
+				}
+			</script>
+			<script type="text/javascript">
+				function showmap(id, linkid) {
+					var divid = document.getElementById(id);
+					var toggleLink = document.getElementById(linkid);
+					if (divid.style.display == 'block') {
+						toggleLink.innerHTML = 'Hiển thị comments FB';
+						divid.style.display = 'none';
+					} else {
+						toggleLink.innerHTML = 'Ẩn comments FB';
+						divid.style.display = 'block';
+						onFBReady();
+					}
+				}
+			</script>
+			<!-- hide/show fb-comments -->
+			<a id="showComment" href="#" class="MTestTool_Obj11"
+				onclick="showmap('fb_comments', this.id);">Hiển thị comment</a>
+			<div id="fb_comments" style="display: none">
+				<div class="fb-comments" data-width="100%"
+					data-href="http://www.lazzybee.com/blog/<%=title%>"
+					data-numposts="5" data-colorscheme="light"
+					data-order-by="reverse_time" data-version="v2.3"></div>
+			</div>
 			<h2 class="mblog_install_app">
 				Tải ứng dụng <a href="http://www.lazzybee.com/">Lazzybee</a> cho <a
 					href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8"
@@ -160,11 +188,7 @@ redirectHomeUrl(response);
 					href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee"
 					style="cursor: none;">Android</a>
 			</h2>
-			<br /> <br />
-			<div class="fb-comments" data-width="100%"
-				data-href="http://www.lazzybee.com/blog/<%=title%>"
-				data-numposts="5" data-colorscheme="light"
-				data-order-by="reverse_time" data-version="v2.3"></div>
+
 			<br /> <br />
 		</div>
 	</div>

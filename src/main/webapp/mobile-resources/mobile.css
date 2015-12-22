@@ -196,7 +196,6 @@ h1 {
 	margin-top: 20px
 }
 
-
 .MTestTool_Obj11 {
 	margin-top: 10px !important;
 	float: right;
@@ -620,6 +619,11 @@ p {
 	overflow: hidden;
 	float: none !important;
 	margin: 5px 0
+}
+
+a#showComment {
+	border-radius: 10px;
+	margin-bottom: 20px;
 }
 
 .embeddedContent embed, .embeddedContent iframe, .embeddedContent object
