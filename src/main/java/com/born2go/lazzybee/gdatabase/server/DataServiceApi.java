@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
+import com.born2go.lazzybee.gdatabase.shared.nonentity.UploadTarget;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -223,8 +224,10 @@ public class DataServiceApi {
      * @return
      */
     @ApiMethod(name = "getUploadUrl")
-    public String getUploadUrl() {
-    	return blobStoreService.createUploadUrl("/photo_upload");
+    public UploadTarget getUploadUrl() {
+    	UploadTarget ut = new UploadTarget();
+    	ut.setUrl(blobStoreService.createUploadUrl("/photo_upload"));
+    	return ut;
     }
 
 }
