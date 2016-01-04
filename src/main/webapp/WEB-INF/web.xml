@@ -57,11 +57,11 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>PhotoUploadServlet</servlet-name>
+		<servlet-name>TestUploadServlet</servlet-name>
 		<servlet-class>com.born2go.lazzybee.gdatabase.server.TestUpload</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>PhotoUploadServlet</servlet-name>
+		<servlet-name>TestUploadServlet</servlet-name>
 		<url-pattern>/test_upload</url-pattern>
 	</servlet-mapping>
 
