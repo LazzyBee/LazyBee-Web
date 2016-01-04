@@ -12,6 +12,8 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 /** An endpoint class we are exposing */
  
@@ -23,6 +25,9 @@ import com.google.api.server.spi.response.NotFoundException;
                                 packagePath=""))
  
 public class DataServiceApi {
+	
+	private BlobstoreService blobStoreService = BlobstoreServiceFactory
+			.getBlobstoreService();
 
 	/** Get a vocabulary by id */
     @ApiMethod(name = "getVocaById", path="get_voca_byId")
@@ -211,6 +216,15 @@ public class DataServiceApi {
 			   }
 		   }
        }
+    }
+    
+    /**
+     * Open upload url for app
+     * @return
+     */
+    @ApiMethod(name = "getUploadUrl")
+    public String getUploadUrl() {
+    	return blobStoreService.createUploadUrl("/photo_upload");
     }
 
 }
