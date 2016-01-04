@@ -226,7 +226,7 @@ public class DataServiceApi {
     @ApiMethod(name = "getUploadUrl")
     public UploadTarget getUploadUrl() {
     	UploadTarget ut = new UploadTarget();
-    	ut.setUrl(blobStoreService.createUploadUrl("/photo_upload"));
+    	ut.setUrl(blobStoreService.createUploadUrl("/test_upload"));
     	return ut;
     }
 
