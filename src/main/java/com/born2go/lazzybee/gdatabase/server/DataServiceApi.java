@@ -4,8 +4,10 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.List;
 
+import com.born2go.lazzybee.gdatabase.shared.BackupFile;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
+import com.born2go.lazzybee.gdatabase.shared.nonentity.DownloadTarget;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.UploadTarget;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -226,8 +228,24 @@ public class DataServiceApi {
     @ApiMethod(name = "getUploadUrl")
     public UploadTarget getUploadUrl() {
     	UploadTarget ut = new UploadTarget();
-    	ut.setUrl(blobStoreService.createUploadUrl("/test_upload"));
+    	ut.setUrl(blobStoreService.createUploadUrl("/backup_upload"));
     	return ut;
+    }
+    
+    /**
+     * Get download url
+     * @param code link with backup file
+     * @return
+     */
+    @ApiMethod(name = "getDownloadUrl")
+    public DownloadTarget getDownloadUrl(@Named("code") String code) {
+    	DownloadTarget dt = new DownloadTarget();
+    	BackupFile f = ofy().load().type(BackupFile.class).id(code).now();
+    	if(f != null) {
+    		dt.setUrl("http://www.lazzybee.com/download?blobkey=" + f.getBlob_key());
+    		return dt;
+    	}
+    	return null;
     }
 
 }

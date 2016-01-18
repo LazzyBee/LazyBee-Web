@@ -127,6 +127,7 @@ public class Voca implements Serializable {
 	}
 	
 	public void getVocaPreviewContent(VocaPreview v) {
+		this.gid = v.getGid();
 		this.q = v.getQ();
 		this.a = v.getA();
 		this.level = v.getLevel();
