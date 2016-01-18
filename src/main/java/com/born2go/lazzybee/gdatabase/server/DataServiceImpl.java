@@ -59,26 +59,13 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			return false;
 	}
 	
-	private String getQ_Derivatives(String q) {
-		if (q.endsWith(q_ed)) {
-			q = q.substring(0, q.lastIndexOf(q_ed));
-		} else if (q.endsWith(q_ing)) {
-			q = q.substring(0, q.lastIndexOf(q_ing));
-		} else if (q.endsWith(q_es)) {
-			q = q.substring(0, q.lastIndexOf(q_es));
-		} else if (q.endsWith(q_s)) {
-			q = q.substring(0, q.lastIndexOf(q_s));
-		}
-		return q;
-	}
-
 	/*private String getPlainText(String strSrc) {
 		String resultStr = strSrc;
 		resultStr = resultStr.replaceAll("<figcaption>.*</figcaption>", "");
 		resultStr = resultStr.replaceAll("&nbsp;", " ");
 		return resultStr;
 	}*/
-
+	
 	/**
 	 * 
 	 * @param q_Der
@@ -102,6 +89,19 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			}
 		}
 		return result;
+	}
+
+	protected String getQ_Derivatives(String q) {
+		if (q.endsWith(q_ed)) {
+			q = q.substring(0, q.lastIndexOf(q_ed));
+		} else if (q.endsWith(q_ing)) {
+			q = q.substring(0, q.lastIndexOf(q_ing));
+		} else if (q.endsWith(q_es)) {
+			q = q.substring(0, q.lastIndexOf(q_es));
+		} else if (q.endsWith(q_s)) {
+			q = q.substring(0, q.lastIndexOf(q_s));
+		}
+		return q;
 	}
 
 	/**
@@ -161,6 +161,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 				result = new Voca();
 				result.getVocaPreviewContent(voca_preview);
 				result.setCheck(false);
+				result.setGid(voca_preview.getGid());
 			}
 		}
 		if (result == null) {
