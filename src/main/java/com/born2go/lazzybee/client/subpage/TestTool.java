@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class TestTool extends Composite {
@@ -60,6 +61,8 @@ public class TestTool extends Composite {
 	Anchor btnAgainTesting;
 	@UiField
 	Anchor btnNextTesting;
+	@UiField 
+	ListBox lsbLevel;
 
 	Label checkTotal;
 
@@ -71,6 +74,15 @@ public class TestTool extends Composite {
 
 	public TestTool() {
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		lsbLevel.addItem("1");
+		lsbLevel.addItem("2");
+		lsbLevel.addItem("3");
+		lsbLevel.addItem("4");
+		lsbLevel.addItem("5");
+		lsbLevel.addItem("6");
+		
+		lsbLevel.setSelectedIndex(1);
 
 		DOM.getElementById("wt_search_tool").setAttribute("style",
 				"display: none");
@@ -268,6 +280,7 @@ public class TestTool extends Composite {
 
 	@UiHandler("btnStartTesting")
 	void onBtnStartTestingClick(ClickEvent e) {
+		testLevel = lsbLevel.getSelectedIndex() + 1;
 		getTestByLevel(testLevel);
 	}
 
