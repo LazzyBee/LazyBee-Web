@@ -32,6 +32,8 @@ public class LoginControl extends DialogBox {
 		setAutoHideEnabled(true);
 		setGlassEnabled(true);
 		setStyleName("LoginControl_clean");
+		
+		// Init facebook plugin
 		facebookInit(LazzyBee.fClientId);
 	}
 	
@@ -81,8 +83,7 @@ public class LoginControl extends DialogBox {
 	}
 	
 	public void onGoogleJSLoad() {
-		if(!LazzyBee.isGoogleInit)
-			LazzyBee.isGoogleInit = googleInit(LazzyBee.gApiKey, LazzyBee.gClientId, LazzyBee.gScopes, this);
+		googleLoad();
 	}
 	
 	@UiHandler("googleLogin")
@@ -95,6 +96,10 @@ public class LoginControl extends DialogBox {
 		facebookLogin(this);
 	}
 	
+	void googleLoad() {
+		googleInit(LazzyBee.gApiKey, LazzyBee.gClientId, LazzyBee.gScopes, this);
+	}
+	
 	native boolean googleInit(String gApiKey, String gClientId, String gScopes, LoginControl c) /*-{
 		if(typeof $wnd.gapi.client != 'undefined') {
 			var apiKey = gApiKey;
@@ -105,7 +110,7 @@ public class LoginControl extends DialogBox {
 			$wnd.window.setTimeout(checkAuth,1);
 			
 			function checkAuth() {
-	  			$wnd.gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true, cookie_policy: 'single_host_origin'}, handleAuthResult);
+	  			$wnd.gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true, cookie_policy: 'single_host_origin'}, handleAuthResult) return false;
 			}
 			
 			 function handleAuthResult(authResult) {
@@ -117,7 +122,7 @@ public class LoginControl extends DialogBox {
 	          			$wnd.document.getElementById("wt_editor").style.display = "";
 	          		}
 	        	} else {
-					c.@com.born2go.lazzybee.client.widgets.LoginControl::facebookLoad()();
+	        		c.@com.born2go.lazzybee.client.widgets.LoginControl::facebookLoad()();
 	        	}
 	      	}
 	      	return true;
@@ -213,14 +218,8 @@ public class LoginControl extends DialogBox {
       			$wnd.document.getElementById("wt_editor").style.display = "";
       		}
 		} 
-		else if (response.status === 'not_authorized') {
-//			if($wnd.document.getElementById("wt_editor") != null)
-//        		$wnd.document.location = "/dictionary/";
-		} 
-		else {
-//			if($wnd.document.getElementById("wt_editor") != null)
-//        		$wnd.document.location = "/dictionary/";
-		}
+		else if (response.status === 'not_authorized') {} 
+		else {}
 		}, true);
 	}-*/;
 	

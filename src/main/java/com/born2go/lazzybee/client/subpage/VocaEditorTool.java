@@ -85,6 +85,7 @@ public class VocaEditorTool extends Composite {
 	@UiField CheckBox cbTypeIt;
 	@UiField CheckBox cbTypeScience;
 	@UiField CheckBox cbTypeMedicine;
+	@UiField CheckBox cbTypeToeic;
 	@UiField CheckBox cbTypeOther;
 	
 	int defi_count = 1;
@@ -207,6 +208,13 @@ public class VocaEditorTool extends Composite {
 				checkTypeListEvent(cbTypeMedicine.getValue(), Category.MEDICINE, true);
 			}
 		});
+		cbTypeToeic.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+			
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				checkTypeListEvent(cbTypeToeic.getValue(), Category.TOEIC, true);
+			}
+		});
 		cbTypeOther.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 			
 			@Override
@@ -306,8 +314,13 @@ public class VocaEditorTool extends Composite {
 	}
 
 	public void setPreviewMode() {
+		Label header = new Label("---------- Verify Voca ----------");
+		header.getElement().setAttribute("style", "color: #0066cc; text-align: center; font-size: 20px; font-weight: bold;");
+		topToolbar.clear();
+		topToolbar.add(header);
+		topToolbar.getElement().setAttribute("style", "margin-top: 25px");
 		isPreviewMode = true;
-		topToolbar.setVisible(false);
+		topToolbar.setVisible(true);
 		btnGoTop.setVisible(false);
 //		btnSaveB.setVisible(false);
 		btnVerifySaveB.setVisible(true);
@@ -368,6 +381,10 @@ public class VocaEditorTool extends Composite {
 				if(packages[i].equals(Category.MEDICINE)) {
 					cbTypeMedicine.setValue(true);
 					checkTypeListEvent(true, Category.MEDICINE, false);
+				}
+				if(packages[i].equals(Category.TOEIC)) {
+					cbTypeToeic.setValue(true);
+					checkTypeListEvent(true, Category.TOEIC, false);
 				}
 				if(packages[i].equals(Category.OTHER)) {
 					cbTypeOther.setValue(true);
@@ -1070,6 +1087,7 @@ public class VocaEditorTool extends Composite {
 		cbTypeIt.setValue(false);
 		cbTypeScience.setValue(false);
 		cbTypeMedicine.setValue(false);
+		cbTypeToeic.setValue(false);
 		cbTypeOther.setValue(false);
 		htmlType.clear();
 		packages.clear();

@@ -162,6 +162,7 @@
 					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeMedicine">medicine</g:CheckBox></g:AbsolutePanel>
 				</g:HorizontalPanel>
 				<g:HorizontalPanel>
+					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeToeic">toeic</g:CheckBox></g:AbsolutePanel>
 					<g:AbsolutePanel width="150px"><g:CheckBox ui:field="cbTypeOther">other</g:CheckBox></g:AbsolutePanel>
 				</g:HorizontalPanel>
 			</g:HTMLPanel>
