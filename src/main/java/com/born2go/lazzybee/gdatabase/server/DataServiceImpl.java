@@ -421,11 +421,18 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public List<Blog> getListBlog() {
-		List<Blog> blogs = ofy().load().type(Blog.class).limit(6).order("-createDate").list();
-		List<Blog> result = new ArrayList<Blog>();
-		result.addAll(blogs);
-		return result;
+	public List<Blog> getListBlog(boolean isLimited) {
+		if(isLimited) {
+			List<Blog> blogs = ofy().load().type(Blog.class).limit(6).order("-createDate").list();
+			List<Blog> result = new ArrayList<Blog>();
+			result.addAll(blogs);
+			return result;
+		} else {
+			List<Blog> blogs = ofy().load().type(Blog.class).order("-createDate").list();
+			List<Blog> result = new ArrayList<Blog>();
+			result.addAll(blogs);
+			return result;
+		}
 	}
 	
 	public Blog getPreviousBlog(Blog currentBlog) {

@@ -41,31 +41,28 @@
 	//Global variable
 	java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/YYYY HH:mm");
 	Picture blog_avatar = null;
-	Blog blog;
+	Blog blog = null;
 	Blog previous_blog;
 	Blog next_blog;
-	List<Blog> blogs_older  ;
+	List<Blog> blogs_older = null;
 	if (request.getPathInfo() == null
-	|| request.getPathInfo().length() < 1) {
-		redirectHomeUrl(response);
-		return;
-	} 
+	|| request.getPathInfo().length() <= 1) {} 
 	else {
 		String blogTitle = request.getPathInfo().replaceAll("/", "").toLowerCase();
 		DataServiceImpl dataService = new DataServiceImpl();
 		blog = dataService.findBlogByTitle(blogTitle);
-		previous_blog = dataService.getPreviousBlog(blog);
-		next_blog = dataService.getNextBlog(blog);
-		if (blog == null) {
-	redirectHomeUrl(response);
-	return;
-		} 
-		else {
-		if(blog.getAvatar() != null)
-		blog_avatar = dataService.findPicture(blog.getAvatar());
-		}
 		blogs_older = new ArrayList<Blog>();
-		blogs_older = dataService.getBlogsOlder(blog);
+		if(blog != null) {
+			previous_blog = dataService.getPreviousBlog(blog);
+			next_blog = dataService.getNextBlog(blog);
+			if(blog.getAvatar() != null)
+				blog_avatar = dataService.findPicture(blog.getAvatar());
+			blogs_older = dataService.getBlogsOlder(blog);
+		}
+		else {
+			redirectHomeUrl(response);
+			return;
+		}
 	}
 %>
 
@@ -79,23 +76,23 @@
 <link type="text/css" rel="stylesheet" href="../lazzybee.css">
 <link rel="stylesheet" href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
 
+<%if(blog != null) {%>
 <title><%=blog.getShowTitle()%></title>
+<%} else { %>
+<title>Thư viện</title>
+<% } %>
 
+<%if(blog != null) {%>
 <meta property="og:type" content=website />
-<%
-if(blog_avatar != null) {
-%>
+<%if(blog_avatar != null) {%>
 <meta property="og:image" content="<%=blog_avatar.getServeUrl()%>" />
-<%
-}  else {
-%>
+<%}  else {%>
 <meta property="og:image" content="http://www.lazzybee.com/resources/2015-11-01.png" />
-<%
-}
-%>
+<%}%>
 <meta property="og:title" content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
 <meta property="og:url" content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
 <meta property="fb:app_id" content="754889477966743" />
+<%}%>
 
 <script type="text/javascript" language="javascript" src="../lazzybee/lazzybee.nocache.js"></script>
 
@@ -178,7 +175,7 @@ if(blog_avatar != null) {
 		<div class="header_menu">
 			<!-- <a class="header_menu_item">Bộ Flash Cards</a> -->
 			<%
-				if(blog.getTitle().equals("feedback")) {
+				if(blog != null && blog.getTitle().equals("feedback")) {
 			%>
 			<a href="/vdict/" class="header_menu_item">Thư Viện</a> <a
 				href="/blog/user_guide" class="header_menu_item">Hướng dẫn</a> <a
@@ -186,7 +183,7 @@ if(blog_avatar != null) {
 				Thảo</a> <a style="color: rgb(234, 253, 116) !important;"
 				href="/blog/feedback" class="header_menu_item">Ý kiến phản hồi</a>
 			<%
-				} else if(blog.getTitle().equals("user_guide")) {
+				} else if(blog != null && blog.getTitle().equals("user_guide")) {
 			%>
 			<a href="/vdict/" class="header_menu_item">Thư Viện</a> <a
 				style="color: rgb(234, 253, 116) !important;"
@@ -236,6 +233,7 @@ if(blog_avatar != null) {
 						"height:" + ec_height + "px");
 			</script>
 
+			<%if(blog != null) { %>
 			<div id="wt_dictionary"
 				style="padding: 20px 30px 30px 30px; width: 600px; float: left;">
 				<div style="text-align: left">
@@ -293,6 +291,7 @@ if(blog_avatar != null) {
 						}
 					%>
 				</ul>
+				<a href="/blog/" style="display: block; color: #0e74af; cursor: pointer; margin-top: 30px;"><i class="fa fa-hand-o-right fa-lg" style="margin-right: 10px;"></i>Xem tất cả</a>
 				<%
 					}
 				%>
@@ -304,6 +303,9 @@ if(blog_avatar != null) {
 					data-order-by="reverse_time" data-version="v2.3"></div>
 				<br /> <br />
 			</div>
+			<%} else {%>
+				<div id="wt_bloglist" style="padding: 20px 30px 30px 30px; width: 600px"></div>
+			<%} %>
 
 			<div id="right_panel">
 				<div style="text-align: center;">

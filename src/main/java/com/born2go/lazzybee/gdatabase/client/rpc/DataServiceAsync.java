@@ -30,7 +30,7 @@ public interface DataServiceAsync {
 	void updateBlog(Blog blog, String userId, AsyncCallback<Blog> callback);
 	void findBlogById(Long blogId, AsyncCallback<Blog> callback);
 	void findBlogByTitle(String blogTitle, AsyncCallback<Blog> callback);
-	void getListBlog(AsyncCallback<List<Blog>> callback);
+	void getListBlog(boolean isLimited, AsyncCallback<List<Blog>> callback);
 	
 	void findPicture(Long pictureId, AsyncCallback<Picture> callback);
 	

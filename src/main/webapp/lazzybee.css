@@ -27,6 +27,7 @@ h1 {
 }
 
 #right_panel {
+	position: fixed;
 	float: right;
 	margin-left: 40px;
 	margin-right: 70px;
