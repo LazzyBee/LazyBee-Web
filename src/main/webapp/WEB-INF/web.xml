@@ -57,12 +57,21 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>TestUploadServlet</servlet-name>
-		<servlet-class>com.born2go.lazzybee.gdatabase.server.TestUpload</servlet-class>
+		<servlet-name>BackupUploadServlet</servlet-name>
+		<servlet-class>com.born2go.lazzybee.gdatabase.server.BackupUploadService</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>TestUploadServlet</servlet-name>
-		<url-pattern>/test_upload</url-pattern>
+		<servlet-name>BackupUploadServlet</servlet-name>
+		<url-pattern>/backup_upload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FileDownloadServlet</servlet-name>
+		<servlet-class>com.born2go.lazzybee.gdatabase.server.DownloadService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileDownloadServlet</servlet-name>
+		<url-pattern>/download</url-pattern>
 	</servlet-mapping>
 
 	<!-- DataStore service for mobile -->

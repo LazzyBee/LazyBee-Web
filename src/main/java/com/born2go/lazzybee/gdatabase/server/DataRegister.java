@@ -5,6 +5,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.util.Date;
 import java.util.List;
 
+import com.born2go.lazzybee.gdatabase.shared.BackupFile;
 import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.User;
@@ -24,6 +25,7 @@ public class DataRegister extends RemoteServiceServlet {
 		ObjectifyService.register(User.class);
 		ObjectifyService.register(Blog.class);
 		ObjectifyService.register(Picture.class);
+		ObjectifyService.register(BackupFile.class);
 		
 		// Blog blog = new Blog();
 		// blog.setTitle("Tạo blog mới");

@@ -85,6 +85,7 @@ public class VocaEditorTool extends Composite {
 	@UiField CheckBox cbTypeIt;
 	@UiField CheckBox cbTypeScience;
 	@UiField CheckBox cbTypeMedicine;
+	@UiField CheckBox cbTypeToeic;
 	@UiField CheckBox cbTypeOther;
 	
 	int defi_count = 1;
@@ -207,6 +208,13 @@ public class VocaEditorTool extends Composite {
 				checkTypeListEvent(cbTypeMedicine.getValue(), Category.MEDICINE, true);
 			}
 		});
+		cbTypeToeic.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+			
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				checkTypeListEvent(cbTypeToeic.getValue(), Category.TOEIC, true);
+			}
+		});
 		cbTypeOther.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 			
 			@Override
@@ -298,16 +306,21 @@ public class VocaEditorTool extends Composite {
 				replaceTxbNote(DEFI_TXBMEANING + 1, vet);
 				replaceTxbNote(DEFI_TXBEXPLAIN + 1, vet);
 				replaceTxbNote(DEFI_TXBEXAM + 1, vet);
-				replaceTxbNote("dictionaryEV", vet);
-				replaceTxbNote("dictionaryEE", vet);
+				replaceTxbNoteWithSourceEdit("dictionaryEV", vet);
+				replaceTxbNoteWithSourceEdit("dictionaryEE", vet);
 			}
 		};
 		t.schedule(100);
 	}
 
 	public void setPreviewMode() {
+		Label header = new Label("---------- Verify Voca ----------");
+		header.getElement().setAttribute("style", "color: #0066cc; text-align: center; font-size: 20px; font-weight: bold;");
+		topToolbar.clear();
+		topToolbar.add(header);
+		topToolbar.getElement().setAttribute("style", "margin-top: 25px");
 		isPreviewMode = true;
-		topToolbar.setVisible(false);
+		topToolbar.setVisible(true);
 		btnGoTop.setVisible(false);
 //		btnSaveB.setVisible(false);
 		btnVerifySaveB.setVisible(true);
@@ -368,6 +381,10 @@ public class VocaEditorTool extends Composite {
 				if(packages[i].equals(Category.MEDICINE)) {
 					cbTypeMedicine.setValue(true);
 					checkTypeListEvent(true, Category.MEDICINE, false);
+				}
+				if(packages[i].equals(Category.TOEIC)) {
+					cbTypeToeic.setValue(true);
+					checkTypeListEvent(true, Category.TOEIC, false);
 				}
 				if(packages[i].equals(Category.OTHER)) {
 					cbTypeOther.setValue(true);
@@ -501,7 +518,7 @@ public class VocaEditorTool extends Composite {
 	  	var editor = $wnd.CKEDITOR.replace( noteId, {
 	  		width: '405px',
 	  		height: '50px',
-	  		contentsCss : 'body {overflow:hidden;}',
+	  		contentsCss : '',
 	  		autoGrow_minHeight: 10,
 	  		autoGrow_maxHeight: 300,
 	  		toolbarStartupExpanded : false,
@@ -520,6 +537,33 @@ public class VocaEditorTool extends Composite {
 	   
 	    editor.on('blur', function(){	       
 //	        $wnd.document.getElementById(editor.id+'_top').style.display = "none";
+	    });
+	}-*/;
+	
+	public static native void replaceTxbNoteWithSourceEdit(String txbNoteId, VocaEditorTool vet) /*-{
+	 	var noteId = txbNoteId;
+	  	var editor = $wnd.CKEDITOR.replace( noteId, {
+	  		width: '405px',
+	  		height: '50px',
+	  		contentsCss : '',
+	  		autoGrow_minHeight: 10,
+	  		autoGrow_maxHeight: 300,
+	  		toolbarStartupExpanded : false,
+	  		extraPlugins: 'autogrow,colorbutton,sourcearea',
+	  		removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,About,Link,Unlink',
+	  	});
+	  	
+	  	editor.on("instanceReady",function() {
+	//		$wnd.document.getElementById(editor.id+'_top').style.display = "none";
+				vet.@com.born2go.lazzybee.client.subpage.VocaEditorTool::onCkEditorInstanceReady(Ljava/lang/String;)(noteId);
+		});
+	  	
+	  	editor.on('focus', function(){	 
+	//        $wnd.document.getElementById(editor.id+'_top').style.display = "block";
+	    });
+	   
+	    editor.on('blur', function(){	       
+	//        $wnd.document.getElementById(editor.id+'_top').style.display = "none";
 	    });
 	}-*/;
 	
@@ -1070,6 +1114,7 @@ public class VocaEditorTool extends Composite {
 		cbTypeIt.setValue(false);
 		cbTypeScience.setValue(false);
 		cbTypeMedicine.setValue(false);
+		cbTypeToeic.setValue(false);
 		cbTypeOther.setValue(false);
 		htmlType.clear();
 		packages.clear();

@@ -32,7 +32,7 @@ public interface DataService extends RemoteService {
 	public Blog updateBlog(Blog blog, String userId);
 	public Blog findBlogById(Long blogId);
 	public Blog findBlogByTitle(String blogTitle);
-	public List<Blog> getListBlog(); 
+	public List<Blog> getListBlog(boolean isLimited); 
 	
 	public Picture findPicture(Long pictureId);
 	

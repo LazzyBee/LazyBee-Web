@@ -11,6 +11,7 @@ public class Category {
 	public static final String VOAENGLISH = "voaenglish";	//1500 tu chon loc
 	public static final String IELTS = "ielts";	//Tu vung cho IELTS
 	public static final String TOEFL = "toefl";	//Tu vung cho TOEFL
+	public static final String TOEIC = "toeic";	//Tu vung cho TOEIC
 	public static final String OTHER = "other";	//Cac linh vuc khac
 	
 }

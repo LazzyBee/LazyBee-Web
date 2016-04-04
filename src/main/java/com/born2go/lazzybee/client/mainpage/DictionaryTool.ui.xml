@@ -57,6 +57,7 @@
     	/* height: 35px; */
     	position: absolute;
     	top: 165px;
+    	padding-bottom: 10px;
 	}
 	
 	.DictionaryTool_Obj7:hover {
@@ -68,13 +69,13 @@
 	.DictionaryTool_Obj8 {
 		cursor: pointer;
 		width: 180px; 
-		height: 130px;
+		height: 150px;
 		padding-bottom: 57px;
 	}
 	
 	.DictionaryTool_Obj9 {
 		width: 183px; 
-		overflow: hidden; 
+		/* overflow: hidden;  */
 		padding-top: 15px; 
 		float: left; 
 		margin-right: 15px; 

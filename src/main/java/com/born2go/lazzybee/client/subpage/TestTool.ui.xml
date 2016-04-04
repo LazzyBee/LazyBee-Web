@@ -86,6 +86,14 @@
 	.TestTool_Obj8 {
 		margin-right: 10px;
 	}
+	
+	.TestTool_Obj9 {
+		float: left;
+	    margin-top: 35px;
+	    margin-right: 10px;
+	    font-weight: bold;
+	    line-height: 1.8;
+	}
 	</ui:style>
 	<g:HTMLPanel width="600px" ui:field="container">
 		<g:HTMLPanel ui:field="htmlIntroTest" visible="true">
@@ -103,7 +111,11 @@
 						setting của ứng dụng LazzyBee trên mobile và bắt đầu học</li>
 				</ul>
 			</g:HTML>
-			<g:Anchor ui:field="btnStartTesting" styleName="{style.TestTool_Obj2}">Bắt Đầu</g:Anchor>
+			<g:HTMLPanel>
+				<g:Label styleName="{style.TestTool_Obj9}">Chọn Level:</g:Label>
+				<g:ListBox ui:field="lsbLevel" styleName="{style.TestTool_Obj9}" width="50px"></g:ListBox>
+				<g:Anchor ui:field="btnStartTesting" styleName="{style.TestTool_Obj2}">Bắt Đầu</g:Anchor>
+			</g:HTMLPanel>
 		</g:HTMLPanel>
 
 		<g:HTMLPanel ui:field="htmlResultTest" visible="false">

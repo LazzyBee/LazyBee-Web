@@ -101,6 +101,11 @@ public class DictionaryTool extends Composite {
 
 	void historyTokenHandler() {
 		String path = Window.Location.getPath();
+		if(path.contains("/")) {
+			String paths[] = path.split("/");
+			path = paths[1];
+		}
+		
 		if (path.contains("vdict")) {
 			HTMLPanel htmlPanel = new HTMLPanel("");
 			Label info = new Label("Phương pháp học thông qua flashcard chỉ có trên phiên bản mobile. Bạn hãy cài đặt App mobile để học từ vựng tốt hơn.");
@@ -109,7 +114,7 @@ public class DictionaryTool extends Composite {
 			RootPanel.get("wt_dictionary_content").add(htmlPanel);
 			
 			HTMLPanel wt_dictionary_blog = new HTMLPanel("");
-			loadBlog(wt_dictionary_blog);
+			loadBlog(wt_dictionary_blog, true);
 			RootPanel.get("wt_dictionary_blog").add(wt_dictionary_blog);
 			
 			defaultSite.addStyleName("DictionaryTool_Obj5");
@@ -125,6 +130,12 @@ public class DictionaryTool extends Composite {
 		} else if (path.contains("preview")) {
 			// previewSite.addStyleName("DictionaryTool_Obj5");
 			RootPanel.get("wt_dictionary_content").add(new VocaPreviewTool());
+		} else if (path.contains("blog")) {
+			if(RootPanel.get("wt_bloglist") != null) {
+				HTMLPanel wt_dictionary_blog = new HTMLPanel("");
+				loadBlog(wt_dictionary_blog, false);
+				RootPanel.get("wt_bloglist").add(wt_dictionary_blog);
+			}
 		}
 
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
@@ -135,13 +146,22 @@ public class DictionaryTool extends Composite {
 		});
 	}
 	
-	void loadBlog(final HTMLPanel wt_dictionary_blog) {
-		LazzyBee.data_service.getListBlog(new AsyncCallback<List<Blog>>() {
+	void loadBlog(final HTMLPanel wt_dictionary_blog, boolean isLimited) {
+		if(!isLimited) {
+			LazzyBee.noticeBox.setLoading();
+		}
+		
+		LazzyBee.data_service.getListBlog(isLimited, new AsyncCallback<List<Blog>>() {
 			@Override
 			public void onSuccess(List<Blog> result) {
 				HTMLPanel blogPanel = new HTMLPanel("");
 				blogPanel.getElement().setAttribute("style", "/* border-top: 1px solid #E6E9EB; */ overflow: hidden; margin-bottom: 30px;");
 				wt_dictionary_blog.add(blogPanel);
+				//-----
+				HTMLPanel faq = new HTMLPanel("------------------------------ FAQ ------------------------------");
+				faq.getElement().setAttribute("style", "text-align:center; margin-top:15px; margin-bottom:20px; color: #009688; font-weight: bold;");
+				blogPanel.add(faq);
+				//-----
 				for(final Blog blog: result) {
 					HTMLPanel blogp = new HTMLPanel("");
 					blogp.setStyleName("DictionaryTool_Obj9");
@@ -176,9 +196,13 @@ public class DictionaryTool extends Composite {
 						}
 					});
 				}
+				LazzyBee.noticeBox.hide();
 			}
 			@Override
-			public void onFailure(Throwable caught) {}
+			public void onFailure(Throwable caught) {
+				LazzyBee.noticeBox.setNotice("Đã có lỗi xảy ra!");
+				LazzyBee.noticeBox.setAutoHide();
+			}
 		});
 	}
 	
