@@ -110,7 +110,7 @@ public class LoginControl extends DialogBox {
 			$wnd.window.setTimeout(checkAuth,1);
 			
 			function checkAuth() {
-	  			$wnd.gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true, cookie_policy: 'single_host_origin'}, handleAuthResult) return false;
+	  			$wnd.gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true, cookie_policy: 'single_host_origin'}, handleAuthResult);
 			}
 			
 			 function handleAuthResult(authResult) {

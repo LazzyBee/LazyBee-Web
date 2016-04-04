@@ -306,8 +306,8 @@ public class VocaEditorTool extends Composite {
 				replaceTxbNote(DEFI_TXBMEANING + 1, vet);
 				replaceTxbNote(DEFI_TXBEXPLAIN + 1, vet);
 				replaceTxbNote(DEFI_TXBEXAM + 1, vet);
-				replaceTxbNote("dictionaryEV", vet);
-				replaceTxbNote("dictionaryEE", vet);
+				replaceTxbNoteWithSourceEdit("dictionaryEV", vet);
+				replaceTxbNoteWithSourceEdit("dictionaryEE", vet);
 			}
 		};
 		t.schedule(100);
@@ -518,7 +518,7 @@ public class VocaEditorTool extends Composite {
 	  	var editor = $wnd.CKEDITOR.replace( noteId, {
 	  		width: '405px',
 	  		height: '50px',
-	  		contentsCss : 'body {overflow:hidden;}',
+	  		contentsCss : '',
 	  		autoGrow_minHeight: 10,
 	  		autoGrow_maxHeight: 300,
 	  		toolbarStartupExpanded : false,
@@ -537,6 +537,33 @@ public class VocaEditorTool extends Composite {
 	   
 	    editor.on('blur', function(){	       
 //	        $wnd.document.getElementById(editor.id+'_top').style.display = "none";
+	    });
+	}-*/;
+	
+	public static native void replaceTxbNoteWithSourceEdit(String txbNoteId, VocaEditorTool vet) /*-{
+	 	var noteId = txbNoteId;
+	  	var editor = $wnd.CKEDITOR.replace( noteId, {
+	  		width: '405px',
+	  		height: '50px',
+	  		contentsCss : '',
+	  		autoGrow_minHeight: 10,
+	  		autoGrow_maxHeight: 300,
+	  		toolbarStartupExpanded : false,
+	  		extraPlugins: 'autogrow,colorbutton,sourcearea',
+	  		removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,About,Link,Unlink',
+	  	});
+	  	
+	  	editor.on("instanceReady",function() {
+	//		$wnd.document.getElementById(editor.id+'_top').style.display = "none";
+				vet.@com.born2go.lazzybee.client.subpage.VocaEditorTool::onCkEditorInstanceReady(Ljava/lang/String;)(noteId);
+		});
+	  	
+	  	editor.on('focus', function(){	 
+	//        $wnd.document.getElementById(editor.id+'_top').style.display = "block";
+	    });
+	   
+	    editor.on('blur', function(){	       
+	//        $wnd.document.getElementById(editor.id+'_top').style.display = "none";
 	    });
 	}-*/;
 	
