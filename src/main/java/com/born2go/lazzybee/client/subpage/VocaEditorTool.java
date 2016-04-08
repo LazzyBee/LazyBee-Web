@@ -87,6 +87,7 @@ public class VocaEditorTool extends Composite {
 	@UiField CheckBox cbTypeMedicine;
 	@UiField CheckBox cbTypeToeic;
 	@UiField CheckBox cbTypeOther;
+	@UiField CheckBox cbTypeIdioms;
 	
 	int defi_count = 1;
 	final String DEFI_TXBMEANING = "txbMeaning_";
@@ -213,6 +214,13 @@ public class VocaEditorTool extends Composite {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				checkTypeListEvent(cbTypeToeic.getValue(), Category.TOEIC, true);
+			}
+		});
+       cbTypeIdioms.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+			
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				checkTypeListEvent(cbTypeIdioms.getValue(), Category.IDIOMS, true);
 			}
 		});
 		cbTypeOther.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
@@ -389,6 +397,10 @@ public class VocaEditorTool extends Composite {
 				if(packages[i].equals(Category.OTHER)) {
 					cbTypeOther.setValue(true);
 					checkTypeListEvent(true, Category.OTHER, false);
+				}
+				if(packages[i].equals(Category.IDIOMS)) {
+					cbTypeIdioms.setValue(true);
+					checkTypeListEvent(true, Category.IDIOMS, false);
 				}
 			}
 		//-----
