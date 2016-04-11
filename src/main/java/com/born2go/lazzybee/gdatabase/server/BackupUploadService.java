@@ -42,7 +42,7 @@ public class BackupUploadService extends HttpServlet implements Servlet {
 		else {
 			for(BlobKey key: blobKeys) {
 				BackupFile f = new BackupFile();
-				f.setId(device_id.substring(device_id.length() - 6, device_id.length()));
+				f.setId(device_id.substring(device_id.length() - 6, device_id.length()).toLowerCase());
 				f.setBlob_key(key.getKeyString());
 				ofy().save().entity(f);
 			}
