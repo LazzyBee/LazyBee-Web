@@ -135,5 +135,14 @@
 		<servlet-name>appstats</servlet-name>
 		<url-pattern>/appstats/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+    	<servlet-name>TestVocaServlet</servlet-name>
+    	<servlet-class>com.born2go.lazzybee.gdatabase.server.TestVocaServlet</servlet-class>
+  	</servlet>
+ 	 <servlet-mapping>
+   	 	<servlet-name>TestVocaServlet</servlet-name>
+   		<url-pattern>/mtest/TestVocaServlet</url-pattern>
+  	</servlet-mapping>
 
 </web-app>

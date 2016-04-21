@@ -1,5 +1,6 @@
 package com.born2go.lazzybee.gdatabase.client.rpc;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.shared.Blog;
@@ -37,4 +38,9 @@ public interface DataService extends RemoteService {
 	public Picture findPicture(Long pictureId);
 	
 	public String getUploadUrl(String userId);
+	
+	
+	public List<String> getTestVocaStep_One();
+	public List<String> getTestVocaStep_Two(HashMap<String, String> hashMap);
+	public List<String> getTestVocaStep_Three(HashMap<String, String> hashMap, String cookie);
 }

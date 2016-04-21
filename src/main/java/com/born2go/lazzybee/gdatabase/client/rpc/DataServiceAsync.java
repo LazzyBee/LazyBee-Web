@@ -1,5 +1,6 @@
 package com.born2go.lazzybee.gdatabase.client.rpc;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.shared.Blog;
@@ -35,4 +36,8 @@ public interface DataServiceAsync {
 	void findPicture(Long pictureId, AsyncCallback<Picture> callback);
 	
 	void getUploadUrl(String userId, AsyncCallback<String> callback);
+	
+	void getTestVocaStep_One(AsyncCallback<List<String>> callback);
+	void getTestVocaStep_Two(HashMap<String, String> hashMap,AsyncCallback<List<String>> callback);
+	void getTestVocaStep_Three(HashMap<String, String> hashMap, String cookie, AsyncCallback<List<String>> callback);
 }
