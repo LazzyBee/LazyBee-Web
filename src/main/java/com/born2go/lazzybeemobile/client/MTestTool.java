@@ -10,11 +10,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
@@ -33,43 +31,11 @@ public class MTestTool extends Composite {
 
 	@UiField
 	HTMLPanel container;
-	@UiField
-	HTMLPanel htmlResultTest;
-	@UiField
-	HTMLPanel testgood;
-	@UiField
-	HTMLPanel testmedium;
-	@UiField
-	HTMLPanel testbad;
-	@UiField
-	HTMLPanel actionForm;
-	@UiField
-	HTMLPanel shareForm;
-	@UiField
-	Label testgoodlv;
-	@UiField
-	Label testmediumlv;
-	@UiField
-	Label testbadlv;
-	@UiField
-	Label lbTest1;
-	@UiField
-	Label lbTest2;
-	@UiField
-	Label resultTestGood;
-	@UiField
-	Label resultTestMedium;
-	@UiField
-	Label resultTestBad;
-	@UiField
-	Anchor btnAgainTesting;
-	@UiField
-	Anchor btnNextTesting;
-
+	 
 	Label checkTotal;
 
 	private int totalCheck = 0; // Tong so tu user biet
-	private int testLevel = 2; // Level test default khi bat dau
+	 
 	private Map<String, Boolean> testMap = new HashMap<String, Boolean>();
 
 	Element btnStep_ONE;
@@ -77,8 +43,6 @@ public class MTestTool extends Composite {
 	public MTestTool() {
 		initWidget(uiBinder.createAndBindUi(this));
 		container.setStyleName("mainMTestTool");
-		actionForm.setStyleName("actionForm");
-		shareForm.setStyleName("actionForm");
 		btnStep_ONE = RootPanel.get("btnStartTesting").getElement();
 		Event.sinkEvents(btnStep_ONE, Event.ONCLICK);
 		Event.setEventListener(btnStep_ONE, new EventListener() {
@@ -144,9 +108,7 @@ public class MTestTool extends Composite {
 		testInfoPanel.add(checkTotal);
 		testInfoPanel.add(info);
 		Anchor btnStep_TWO = new Anchor("Tiếp tục");
-
 		controlPanel.add(btnStep_TWO);
-
 		controlPanel.setStyleName("i_testt_controlPanel");
 		btnStep_TWO.setStyleName("MTestTool_Obj3");
 
@@ -243,7 +205,6 @@ public class MTestTool extends Composite {
 
 	private void startTest_THREE(List<String> test) {
 		container.clear();
-
 		testMap.clear();
 		HTMLPanel testInfoPanel = new HTMLPanel("");
 		final HTMLPanel vocaShowPanel = new HTMLPanel("");
@@ -270,7 +231,7 @@ public class MTestTool extends Composite {
 		testInfoPanel.add(total);
 
 		testInfoPanel.add(info);
-		Anchor btnStep_FOUR = new Anchor("Kết thúc");
+		final Anchor btnStep_FOUR = new Anchor("Kết thúc");
 
 		controlPanel.add(btnStep_FOUR);
 
@@ -283,6 +244,7 @@ public class MTestTool extends Composite {
 			public void onClick(ClickEvent event) {
 				// getTestResult();
 				getStest_FOUR(vocaShowPanel);
+				btnStep_FOUR.setVisible(false);
 			}
 		});
 
@@ -350,158 +312,43 @@ public class MTestTool extends Composite {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
 
 					}
 
 					@Override
 					public void onSuccess(String result) {
-						Window.alert("value: " + result);
-						vocaShowPanel.setStyleName("MTestTool_box");
-						Label lbResult = new Label();
-						lbResult.setStyleName("MTestTool_result");
-						lbResult.setText(result);
-						vocaShowPanel.add(lbResult);
 
+						if (result != null && !result.isEmpty())
+							showResultTest(result);
 					}
 				});
 	}
 
-	private void startTesting(List<String> test) {
+	private void showResultTest(String result) {
 		container.clear();
-		totalCheck = 0;
-		testMap.clear();
 		HTMLPanel testInfoPanel = new HTMLPanel("");
-		HTMLPanel vocaShowPanel = new HTMLPanel("");
-		HTMLPanel controlPanel = new HTMLPanel("");
-		container.add(testInfoPanel);
-		container.add(vocaShowPanel);
-		container.add(controlPanel);
 		testInfoPanel.setStyleName("MTestTool_Obj1");
 		testInfoPanel.getElement().setAttribute("style",
 				"padding: 10px; overflow: hidden;");
+		container.add(testInfoPanel);
 
-		Label total = new Label("Tổng: " + test.size() + " Từ");
-		Label info = new Label(
-				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết)");
-		checkTotal = new Label("B: " + totalCheck + " / 20");
-		total.getElement().setAttribute("style",
-				"float: left; font-weight: bold;");
+		Label info = new Label("Tổng số từ vựng của bạn được tính toán là:");
 		info.setStyleName("i_testtool_info");
-		checkTotal.setStyleName("i_testtool_checkTotal");
-		testInfoPanel.add(total);
-		testInfoPanel.add(checkTotal);
+		info.getElement().setAttribute("style", "margin-top: 5px;");
 		testInfoPanel.add(info);
-		Anchor btnComplete = new Anchor("Hoàn Thành");
-		Anchor btnQuit = new Anchor("Dừng Bài Test");
-		controlPanel.add(btnComplete);
-		controlPanel.add(btnQuit);
-		controlPanel.setStyleName("i_testt_controlPanel");
-		btnComplete.setStyleName("MTestTool_Obj3");
-		btnQuit.setStyleName("MTestTool_Obj4");
+
+		HTMLPanel vocaShowPanel = new HTMLPanel("");
 		vocaShowPanel.getElement().setAttribute("style",
 				"text-align: center; margin-bottom:40px;");
-		// -----
-		for (String v : test)
-			addTestVoca(vocaShowPanel, v);
-		// -----
-		btnComplete.addClickHandler(new ClickHandler() {
+		container.add(vocaShowPanel);
 
-			@Override
-			public void onClick(ClickEvent event) {
-				getTestResult();
-			}
-		});
-
-		btnQuit.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				container.clear();
-				DOM.getElementById("htmlIntroTest").setAttribute("style",
-						"display:block");
-			}
-		});
-	}
-
-	private void getTestResult() {
-		container.clear();
-		container.add(htmlResultTest);
-		htmlResultTest.setVisible(true);
-		DOM.getElementById("table-app").setAttribute("style", "display:block;");
-
-		testgood.setVisible(false);
-		testmedium.setVisible(false);
-		testbad.setVisible(false);
-		if (totalCheck >= 15) {
-			testgood.setVisible(true);
-			testgoodlv.setText("Level: " + testLevel);
-			resultTestGood.setText(totalCheck + " / 20");
-			lbTest1.setText("Bạn đã hoàn thành tốt bài kiểm tra!");
-			if (testLevel + 1 <= 6) {
-				lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "
-						+ (testLevel + 1) + " hoặc bắt đầu học từ Level "
-						+ (testLevel + 1) + ".");
-				btnNextTesting.setText("Tiếp Tục - Lv " + (testLevel + 1));
-				btnNextTesting.getElement().setAttribute("style", "");
-			} else {
-				lbTest2.setText("Note: Bạn đã có một vốn tiếng anh rất xuất sắc. Bạn có thể dùng LazzyBee để ôn tập lại vốn từ của mình.");
-				btnNextTesting.getElement().setAttribute("style",
-						"background: silver");
-			}
-		} else if (totalCheck < 15 && totalCheck >= 10) {
-			testmedium.setVisible(true);
-			testmediumlv.setText("Level: " + testLevel);
-			resultTestMedium.setText(totalCheck + " / 20");
-			lbTest1.setText("Bạn đã hoàn thành bài kiểm tra ở mức trung bình!");
-			lbTest2.setText("Note: Bạn nên bắt đầu học từ Level " + testLevel
-					+ ".");
-			btnNextTesting.setText("Tiếp Tục");
-			btnNextTesting.getElement().setAttribute("style",
-					"background: silver");
-		} else {
-			testbad.setVisible(true);
-			testbadlv.setText("Level: " + testLevel);
-			resultTestBad.setText(totalCheck + " / 20");
-			lbTest1.setText("Bạn đã không hoàn thành tốt bài kiểm tra!");
-			if (testLevel - 1 != 0) {
-				lbTest2.setText("Note: Bạn nên tiếp tục làm bài test Level "
-						+ (testLevel - 1) + " hoặc bắt đầu học từ Level "
-						+ (testLevel - 1) + ".");
-				btnNextTesting.setText("Tiếp Tục - Lv " + (testLevel - 1));
-				btnNextTesting.getElement().setAttribute("style", "");
-			} else {
-				lbTest2.setText("Note: Bạn nên bắt đầu học từ Level 1");
-				btnNextTesting.getElement().setAttribute("style",
-						"background: silver");
-			}
-		}
-	}
-
-	/*
-	 * @UiHandler("btnStartTesting") void onBtnStartTestingClick(ClickEvent e) {
-	 * getTestByLevel(testLevel); }
-	 */
-	@UiHandler("btnAgainTesting")
-	void onBtnAgainTestingClick(ClickEvent e) {
-		// getTestByLevel(testLevel);
-	}
-
-	@UiHandler("btnNextTesting")
-	void onBtnNextTestingClick(ClickEvent e) {
-		if (totalCheck >= 15) {
-			if (testLevel + 1 <= 6) {
-				testLevel++;
-				// getTestByLevel(testLevel);
-			}
-		} else if (totalCheck < 15 && totalCheck >= 10) {
-
-		} else {
-			if (testLevel - 1 != 0) {
-				testLevel--;
-				// getTestByLevel(testLevel);
-			}
-		}
+		HTMLPanel htmlResult = new HTMLPanel("");
+		vocaShowPanel.add(htmlResult);
+		htmlResult.setStyleName("MTestTool_box");
+		Label lbResult = new Label();
+		lbResult.setStyleName("MTestTool_result");
+		lbResult.setText(result);
+		htmlResult.add(lbResult);
 	}
 
 }
