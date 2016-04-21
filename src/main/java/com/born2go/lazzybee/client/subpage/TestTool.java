@@ -151,7 +151,7 @@ public class TestTool extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (testMap.get(v)) {
-					form.getElement().setAttribute("style", "background: gray");
+					form.getElement().setAttribute("style", "background: #009688");
 					totalCheck--;
 				} else {
 					form.getElement().setAttribute("style",
