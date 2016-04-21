@@ -136,9 +136,9 @@ public class TestTool extends Composite {
 		vocaQ.getElement()
 				.setAttribute(
 						"style",
-						"float: left; display: block; font-size: 14px; font-weight: bold; color: #eafd74");
+						"font-size: 14px; font-weight: bold; color: #eafd74");
 		vocaLv.getElement().setAttribute("style",
-				"font-weight: bold; color: white; margin-top: 30px");
+				"font-weight: bold; color: white; margin-top: 10px");
 		vocaShowPanel.add(form);
 		Anchor btnForm = new Anchor();
 		btnForm.getElement()
@@ -155,7 +155,7 @@ public class TestTool extends Composite {
 					totalCheck--;
 				} else {
 					form.getElement().setAttribute("style",
-							"background: forestgreen");
+							"background: tomato");
 					totalCheck++;
 				}
 				testMap.put(v, !testMap.get(v));

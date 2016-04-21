@@ -62,12 +62,13 @@
 		width: 140px;
 		cursor: pointer;
 		padding: 10px 20px 15px 20px;
-		background: gray;
 		margin-top: 20px;
 		margin-bottom: 10px;
 		display: inline-block;
 		margin-right: 15px;
 		position: relative;
+        background: #009688;
+        border-radius: 10px;
 	}
 	
 	.TestTool_Obj5:hover {
@@ -94,6 +95,7 @@
 	    font-weight: bold;
 	    line-height: 1.8;
 	}
+     
 	</ui:style>
 	<g:HTMLPanel width="600px" ui:field="container">
 		<g:HTMLPanel ui:field="htmlIntroTest" visible="true">
