@@ -14,6 +14,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
@@ -95,6 +96,8 @@ public class MTestTool extends Composite {
 
 	}
 
+	int totalVocaTest = 0;
+
 	private void getTestStep_ONE() {
 		LazzyBeeMobile.data_service
 				.getTestVocaStep_One(new AsyncCallback<List<String>>() {
@@ -102,6 +105,7 @@ public class MTestTool extends Composite {
 					@Override
 					public void onSuccess(List<String> result) {
 						if (result != null && !result.isEmpty()) {
+							totalVocaTest = result.size();
 							startTest_ONE(result);
 						}
 
@@ -181,6 +185,7 @@ public class MTestTool extends Composite {
 							cookie = result.get(0);
 							List<String> voca_two = result.subList(1,
 									result.size());
+							totalVocaTest = totalVocaTest + voca_two.size();
 							startTest_TWO(voca_two);
 
 						}
@@ -236,13 +241,13 @@ public class MTestTool extends Composite {
 
 	}
 
-	
 	private void startTest_THREE(List<String> test) {
 		container.clear();
-		totalCheck = 0;
+
 		testMap.clear();
 		HTMLPanel testInfoPanel = new HTMLPanel("");
-		HTMLPanel vocaShowPanel = new HTMLPanel("");
+		final HTMLPanel vocaShowPanel = new HTMLPanel("");
+
 		HTMLPanel controlPanel = new HTMLPanel("");
 		container.add(testInfoPanel);
 		container.add(vocaShowPanel);
@@ -250,16 +255,20 @@ public class MTestTool extends Composite {
 		testInfoPanel.setStyleName("MTestTool_Obj1");
 		testInfoPanel.getElement().setAttribute("style",
 				"padding: 10px; overflow: hidden;");
-		Label total = new Label("Tổng: " + test.size() + " Từ");
+		Label total = new Label(totalVocaTest + " Từ");
 		Label info = new Label(
-				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết)");
-		checkTotal = new Label("B: " + totalCheck + " / " + test.size());
+				"Là tổng số từ các bạn đã test, chúc mừng các bạn, muốn xem dự đoán xem các bạn có số vốn từ là bao nhiêu? Hãy chọn KẾT THÚC");
+
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
+
+		vocaShowPanel.getElement().setAttribute("style",
+				"text-align: center; margin-bottom:40px;");
+
 		info.setStyleName("i_testtool_info");
-		checkTotal.setStyleName("i_testtool_checkTotal");
+
 		testInfoPanel.add(total);
-		testInfoPanel.add(checkTotal);
+
 		testInfoPanel.add(info);
 		Anchor btnStep_FOUR = new Anchor("Kết thúc");
 
@@ -268,26 +277,21 @@ public class MTestTool extends Composite {
 		controlPanel.setStyleName("i_testt_controlPanel");
 		btnStep_FOUR.setStyleName("MTestTool_Obj3");
 
-		vocaShowPanel.getElement().setAttribute("style",
-				"text-align: center; margin-bottom:40px;");
-		// -----
-		for (String v : test)
-			addTestVoca(vocaShowPanel, v);
-		// -----
 		btnStep_FOUR.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				// getTestResult();
+				getStest_FOUR(vocaShowPanel);
 			}
 		});
 
 	}
 
-	
 	private void getTest_THREE() {
+		String[] path = cookie.split("=");
 		LazzyBeeMobile.data_service.getTestVocaStep_Three(null, cookie,
-				new AsyncCallback<List<String>>() {
+				path[1], new AsyncCallback<List<String>>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -297,8 +301,11 @@ public class MTestTool extends Composite {
 
 					@Override
 					public void onSuccess(List<String> result) {
-						if(result != null && !result.isEmpty()){
-							startTest_THREE(result);
+						if (result != null && !result.isEmpty()) {
+							cookie = result.get(0);
+							List<String> voca_three = result.subList(1,
+									result.size());
+							startTest_THREE(voca_three);
 						}
 
 					}
@@ -331,8 +338,33 @@ public class MTestTool extends Composite {
 				}
 				testMap.put(v, !testMap.get(v));
 				checkTotal.setText("B: " + totalCheck + " / 20");
+
 			}
 		});
+	}
+
+	private void getStest_FOUR(final HTMLPanel vocaShowPanel) {
+		String[] path = cookie.split("=");
+		LazzyBeeMobile.data_service.getTestVocaStep_Four(null, cookie, path[1],
+				new AsyncCallback<String>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(String result) {
+						Window.alert("value: " + result);
+						vocaShowPanel.setStyleName("MTestTool_box");
+						Label lbResult = new Label();
+						lbResult.setStyleName("MTestTool_result");
+						lbResult.setText(result);
+						vocaShowPanel.add(lbResult);
+
+					}
+				});
 	}
 
 	private void startTesting(List<String> test) {

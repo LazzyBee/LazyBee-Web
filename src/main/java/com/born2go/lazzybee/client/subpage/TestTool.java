@@ -155,7 +155,7 @@ public class TestTool extends Composite {
 					totalCheck--;
 				} else {
 					form.getElement().setAttribute("style",
-							"background: tomato");
+							"background: #009688");
 					totalCheck++;
 				}
 				testMap.put(v, !testMap.get(v));

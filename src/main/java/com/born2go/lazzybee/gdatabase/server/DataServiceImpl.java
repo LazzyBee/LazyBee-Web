@@ -570,11 +570,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 		try {
 			doc = conn.post();
-			Cookie cookie = new Cookie("user-id", conn.response().url()
-					.getPath()
-					+ "?" + conn.response().url().getQuery());
-			System.out.println("value: " + conn.response().url().getPath()
-					+ "?" + conn.response().url().getQuery());
 			listQuestion.add(0, conn.response().url().getPath() + "?"
 					+ conn.response().url().getQuery());
 			Element table = doc.select("table.wordlist").first();
@@ -609,9 +604,11 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<String> getTestVocaStep_Three(HashMap<String, String> hashMap,
-			String cookie) {
+			String cookie, String user_id) {
+		
 		HashMap<String, String> hmap = new HashMap<String, String>();
 		hmap.put("action", "step_two");
+		hmap.put("user_id", user_id);
 		hmap.put("word-162", "0");
 		hmap.put("word-163", "0");
 		hmap.put("word-164", "0");
@@ -639,7 +636,17 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie)
 				.followRedirects(true).data(hmap);
 		List<String> listQuestion = new ArrayList<String>();
-		listQuestion.add("Hello");
+		 
+		 try {
+			Document doc = conn.post();
+			listQuestion.add(0, conn.response().url().getPath() + "?"
+					+ conn.response().url().getQuery());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 
 		// Connection conn = Jsoup.connect("http://testyourvocab.com/")
 		// .followRedirects(true).data(hmap);
@@ -654,5 +661,42 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		// // Print out the querydata which contains userid
 		// System.out.println(conn.response().url().getQuery());
 		return listQuestion;
+	}
+	@Override
+	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id){
+		HashMap<String, String> hmap = new HashMap<String, String>();
+		hmap.put("user_id", user_id);
+		hmap.put("action", "step_three");
+		hmap.put("native_speaker", "");
+		hmap.put("year_born", "");
+		hmap.put("month_born", "");
+		hmap.put("gender", "");
+		hmap.put("nationality", "");
+		hmap.put("nationality_nonnative", "");
+		hmap.put("reading", "");
+		hmap.put("literature", "");
+		hmap.put("grades_completed", "");
+		hmap.put("verbal_sat", "");
+		hmap.put("zip_code", "");
+		hmap.put("learning_status", "");
+		hmap.put("level_english", "");
+		hmap.put("years_total", "");
+		hmap.put("years_since", "");
+		hmap.put("months_abroad", "");
+		
+		System.out.println("cookie: " + cookie) ;
+		// connect
+		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie).followRedirects(true).data(hmap);
+		String result = "";
+		try {
+			Document doc = conn.post();
+			Element element = doc.select("div.num").first();
+			result = element.text();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+		
 	}
 }

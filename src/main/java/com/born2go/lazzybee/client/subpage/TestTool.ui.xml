@@ -67,7 +67,7 @@
 		display: inline-block;
 		margin-right: 15px;
 		position: relative;
-        background: #009688;
+        background: #5A5A5A;
         border-radius: 10px;
 	}
 	
