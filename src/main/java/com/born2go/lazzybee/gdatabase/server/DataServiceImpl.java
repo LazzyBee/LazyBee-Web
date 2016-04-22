@@ -5,8 +5,12 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import javax.servlet.http.Cookie;
 
@@ -493,9 +497,9 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			return null;
 	}
 	@Override
-	public HashMap<String, String> getTestVocaStep_One() {
+	public LinkedHashMap<String, String> getTestVocaStep_One() {
 		Document doc;
-		HashMap<String, String> hmap = new HashMap<String, String>();
+		LinkedHashMap<String, String> hmap = new LinkedHashMap<String, String>();
 		try {
 			doc = Jsoup.connect("http://testyourvocab.com").get();
 			Element table = doc.select("table.wordlist").first();
@@ -508,24 +512,26 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 				for (int j = 0; j < childrenTd.size(); j++) {
 					  key = childrenTd.get(j).attr("for");
 					  value = childrenTd.get(j).text();
-					hmap.put(key, value);
+					  hmap.put(key, value);
+					  
 				}
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		 
 		return hmap;
 	}
 
 	@Override
-	public HashMap<String, String> getTestVocaStep_Two(HashMap<String, String> hashMap) {
+	public LinkedHashMap<String, String> getTestVocaStep_Two(LinkedHashMap<String, String> hashMap) {
 		hashMap.put("action", "step_one");
 		// Connection
 		Connection conn = Jsoup.connect("http://testyourvocab.com")
 				.followRedirects(true).data(hashMap);
 		Document doc;
-		HashMap<String, String> hmap = new HashMap<String, String>();
+		LinkedHashMap<String, String> hmap = new LinkedHashMap<String, String>();
 		try {
 			doc = conn.post();
 			hmap.put(Common.USER_ID,  conn.response().url().getPath() + "?"
@@ -552,7 +558,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public String getTestVocaStep_Three(HashMap<String, String> hashMap,
+	public String getTestVocaStep_Three(LinkedHashMap<String, String> hashMap,
 			String cookie, String user_id) {
 		// Connection
 		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie)
@@ -562,7 +568,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			Document doc = conn.post();
 			// connect to step four
 			
-			HashMap<String, String> hmap = new HashMap<String, String>();
+			LinkedHashMap<String, String> hmap = new LinkedHashMap<String, String>();
 			hmap.put(Common.USER_ID, user_id);
 			hmap.put("action", "step_three");
 			hmap.put("native_speaker", "");

@@ -1,6 +1,7 @@
 package com.born2go.lazzybee.gdatabase.client.rpc;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.shared.Blog;
@@ -40,8 +41,8 @@ public interface DataService extends RemoteService {
 	public String getUploadUrl(String userId);
 	
 	
-	public HashMap<String, String> getTestVocaStep_One();
-	public HashMap<String, String> getTestVocaStep_Two(HashMap<String, String> hashMap);
-	public String getTestVocaStep_Three(HashMap<String, String> hashMap, String cookie,String user_id);
+	public LinkedHashMap<String, String> getTestVocaStep_One();
+	public LinkedHashMap<String, String> getTestVocaStep_Two(LinkedHashMap<String, String> hashMap);
+	public String getTestVocaStep_Three(LinkedHashMap<String, String> hashMap, String cookie,String user_id);
 //	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id);
 }

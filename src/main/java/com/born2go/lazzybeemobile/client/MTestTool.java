@@ -1,10 +1,11 @@
 package com.born2go.lazzybeemobile.client;
 
-import java.util.HashMap;
+
 import java.util.Iterator;
-import java.util.List;
+import java.util.LinkedHashMap;
+ 
 import java.util.Map;
-import java.util.Map.Entry;
+ 
 import java.util.Set;
 
 import com.born2go.lazzybeemobile.shared.Common;
@@ -17,7 +18,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
@@ -41,7 +41,7 @@ public class MTestTool extends Composite {
 
 	private int totalCheck = 0; // Tong so tu user biet
 
-	private Map<String, Boolean> testMap = new HashMap<String, Boolean>();
+	private LinkedHashMap<String, Boolean> testMap = new LinkedHashMap<String, Boolean>();
 
 	Element btnStep_ONE;
 
@@ -69,10 +69,10 @@ public class MTestTool extends Composite {
 
 	private void getTestStep_ONE() {
 		LazzyBeeMobile.data_service
-				.getTestVocaStep_One(new AsyncCallback<HashMap<String, String>>() {
+				.getTestVocaStep_One(new AsyncCallback<LinkedHashMap<String, String>>() {
 
 					@Override
-					public void onSuccess(HashMap<String, String> result) {
+					public void onSuccess(LinkedHashMap<String, String> result) {
 						if (result != null && !result.isEmpty()) {
 							startTest_ONE(result);
 						}
@@ -87,7 +87,7 @@ public class MTestTool extends Composite {
 	}
 
 
-	private void startTest_ONE(HashMap<String, String> hmap) {
+	private void startTest_ONE(LinkedHashMap<String, String> hmap) {
 		container.clear();
 		totalCheck = 0;
 		testMap.clear();
@@ -146,7 +146,7 @@ public class MTestTool extends Composite {
 
 	private void getStep_TWO() {
 		LazzyBeeMobile.data_service.getTestVocaStep_Two(hmapToServer,
-				new AsyncCallback<HashMap<String, String>>() {
+				new AsyncCallback<LinkedHashMap<String, String>>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -154,7 +154,7 @@ public class MTestTool extends Composite {
 					}
 
 					@Override
-					public void onSuccess(HashMap<String, String> result) {
+					public void onSuccess(LinkedHashMap<String, String> result) {
 						if (result != null && !result.isEmpty()) {
 							cookie = result.get(user_id);
 							result.remove(user_id);
@@ -166,7 +166,7 @@ public class MTestTool extends Composite {
 
 	 
 
-	private void startTest_TWO(HashMap<String, String> hmap) {
+	private void startTest_TWO(LinkedHashMap<String, String> hmap) {
 		container.clear();
 		totalCheck = 0;
 		testMap.clear();
@@ -249,7 +249,7 @@ public class MTestTool extends Composite {
 				});
 	}
 
-	HashMap<String, String> hmapToServer = new HashMap<String, String>();
+	LinkedHashMap<String, String> hmapToServer = new LinkedHashMap<String, String>();
 
 	private void addTestVoca(HTMLPanel vocaShowPanel, final String v,
 			final String key, final int size) {
