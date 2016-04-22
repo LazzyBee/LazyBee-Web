@@ -319,9 +319,10 @@ h1 {
 .MTestTool_Obj5 {
 	width: 140px;
 	padding: 10px 20px 15px;
-	background: gray;
+	background: #5A5A5A;
 	margin: 20px 15px 10px 0;
-	position: relative
+	position: relative;
+	border-radius: 10px;
 }
 
 .actionForm {

@@ -65,7 +65,7 @@ public class MTestTool extends Composite {
 
 	}
 
-	int totalVocaTest = 0;
+	int totalVocaTest_ONE = 0;
 
 	private void getTestStep_ONE() {
 		LazzyBeeMobile.data_service
@@ -74,7 +74,7 @@ public class MTestTool extends Composite {
 					@Override
 					public void onSuccess(HashMap<String, String> result) {
 						if (result != null && !result.isEmpty()) {
-							totalVocaTest = result.size();
+							totalVocaTest_ONE = result.size();
 							startTest_ONE(result);
 						}
 
@@ -82,11 +82,12 @@ public class MTestTool extends Composite {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
 
 					}
 				});
 	}
+
+	int totalCheck_ONE = 0;
 
 	private void startTest_ONE(HashMap<String, String> hmap) {
 		container.clear();
@@ -119,10 +120,6 @@ public class MTestTool extends Composite {
 
 		vocaShowPanel.getElement().setAttribute("style",
 				"text-align: center; margin-bottom:40px;");
-		// -----
-		// for (String v : test)
-		// addTestVoca(vocaShowPanel, v);
-
 		hmapToServer.clear();
 		// Get a set of the entries
 		Set set = hmap.entrySet();
@@ -141,6 +138,7 @@ public class MTestTool extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				getStep_TWO();
+				totalCheck_ONE = totalCheck;
 			}
 		});
 
@@ -148,6 +146,7 @@ public class MTestTool extends Composite {
 
 	String cookie = null;
 	String user_id = Common.USER_ID;
+	int totalVocaTest_TWO = 0;
 
 	private void getStep_TWO() {
 		LazzyBeeMobile.data_service.getTestVocaStep_Two(hmapToServer,
@@ -155,7 +154,6 @@ public class MTestTool extends Composite {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
 
 					}
 
@@ -165,11 +163,13 @@ public class MTestTool extends Composite {
 							cookie = result.get(user_id);
 							result.remove(user_id);
 							startTest_TWO(result);
-
+							totalVocaTest_TWO = result.size();
 						}
 					}
 				});
 	}
+
+	int totalCheck_TWO = 0;
 
 	private void startTest_TWO(HashMap<String, String> hmap) {
 		container.clear();
@@ -221,12 +221,13 @@ public class MTestTool extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				getTest_THREE();
+				totalCheck_TWO = totalCheck;
 			}
 		});
 
 	}
 
-	private void startTest_THREE( ) {
+	private void startTest_THREE() {
 		container.clear();
 		HTMLPanel testInfoPanel = new HTMLPanel("");
 		final HTMLPanel vocaShowPanel = new HTMLPanel("");
@@ -238,9 +239,11 @@ public class MTestTool extends Composite {
 		testInfoPanel.setStyleName("MTestTool_Obj1");
 		testInfoPanel.getElement().setAttribute("style",
 				"padding: 10px; overflow: hidden;");
-		Label total = new Label(totalVocaTest + " Từ");
+		int totalTest = totalVocaTest_ONE + totalVocaTest_TWO;
+		int totalCheck_TwoStep = totalCheck_ONE + totalCheck_TWO;
+		Label total = new Label(totalCheck_TwoStep + " / " + totalTest + " Từ");
 		Label info = new Label(
-				"Là tổng số từ các bạn đã test, chúc mừng các bạn, muốn xem dự đoán xem các bạn có số vốn từ là bao nhiêu? Hãy chọn KẾT THÚC");
+				"Là tổng số từ các bạn đã biết / tổng số từ các bạn đã test, chúc mừng các bạn, muốn xem dự đoán xem các bạn có số vốn từ là bao nhiêu? Hãy chọn XEM KẾT QUẢ");
 
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
@@ -253,7 +256,7 @@ public class MTestTool extends Composite {
 		testInfoPanel.add(total);
 
 		testInfoPanel.add(info);
-		final Anchor btnStep_FOUR = new Anchor("Kết thúc");
+		final Anchor btnStep_FOUR = new Anchor("Xem kết quả");
 
 		controlPanel.add(btnStep_FOUR);
 
@@ -264,15 +267,15 @@ public class MTestTool extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				// getTestResult();
 				getStest_FOUR(vocaShowPanel);
 				btnStep_FOUR.setVisible(false);
+				
 			}
 		});
 
 	}
 
-	    String action = Common.ACTION;
+	String action = Common.ACTION;
 
 	private void getTest_THREE() {
 		String[] path = cookie.split("=");
@@ -289,11 +292,10 @@ public class MTestTool extends Composite {
 
 					@Override
 					public void onSuccess(String value) {
-						if(value.length() >= 0 ){
+						if (value.length() >= 0) {
 							cookie = value;
 							startTest_THREE();
 						}
-						 
 
 					}
 				});
@@ -311,7 +313,8 @@ public class MTestTool extends Composite {
 		form.setStyleName("MTestTool_Obj5");
 		vocaQ.setStyleName("itesttool_vocaq");
 		vocaQ.getElement().setClassName("vocaq");
-
+		vocaQ.getElement().setAttribute("style",
+				"font-size: 14px; font-weight: bold; color: #eafd74");
 		vocaShowPanel.add(form);
 		Anchor btnForm = new Anchor();
 		btnForm.setStyleName("i_testtool_btnForm");
@@ -323,12 +326,13 @@ public class MTestTool extends Composite {
 			public void onClick(ClickEvent event) {
 
 				if (testMap.get(v)) {
-					form.getElement().setAttribute("style", "background: gray");
+					form.getElement().setAttribute("style",
+							"background:  #5A5A5A");
 					totalCheck--;
 					hmapToServer.put(key, "0");
 				} else {
 					form.getElement().setAttribute("style",
-							"background: forestgreen");
+							"background: #009688");
 					totalCheck++;
 					hmapToServer.put(key, "1");
 
@@ -338,6 +342,7 @@ public class MTestTool extends Composite {
 
 			}
 		});
+
 	}
 
 	private void getStest_FOUR(final HTMLPanel vocaShowPanel) {
