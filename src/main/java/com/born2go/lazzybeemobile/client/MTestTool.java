@@ -65,7 +65,7 @@ public class MTestTool extends Composite {
 
 	}
 
-	int totalVocaTest_ONE = 0;
+	 
 
 	private void getTestStep_ONE() {
 		LazzyBeeMobile.data_service
@@ -74,7 +74,6 @@ public class MTestTool extends Composite {
 					@Override
 					public void onSuccess(HashMap<String, String> result) {
 						if (result != null && !result.isEmpty()) {
-							totalVocaTest_ONE = result.size();
 							startTest_ONE(result);
 						}
 
@@ -87,7 +86,6 @@ public class MTestTool extends Composite {
 				});
 	}
 
-	int totalCheck_ONE = 0;
 
 	private void startTest_ONE(HashMap<String, String> hmap) {
 		container.clear();
@@ -138,7 +136,6 @@ public class MTestTool extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				getStep_TWO();
-				totalCheck_ONE = totalCheck;
 			}
 		});
 
@@ -146,7 +143,6 @@ public class MTestTool extends Composite {
 
 	String cookie = null;
 	String user_id = Common.USER_ID;
-	int totalVocaTest_TWO = 0;
 
 	private void getStep_TWO() {
 		LazzyBeeMobile.data_service.getTestVocaStep_Two(hmapToServer,
@@ -163,13 +159,12 @@ public class MTestTool extends Composite {
 							cookie = result.get(user_id);
 							result.remove(user_id);
 							startTest_TWO(result);
-							totalVocaTest_TWO = result.size();
 						}
 					}
 				});
 	}
 
-	int totalCheck_TWO = 0;
+	 
 
 	private void startTest_TWO(HashMap<String, String> hmap) {
 		container.clear();
@@ -195,7 +190,7 @@ public class MTestTool extends Composite {
 		testInfoPanel.add(total);
 		testInfoPanel.add(checkTotal);
 		testInfoPanel.add(info);
-		Anchor btnStep_THREE = new Anchor("Tiếp tục");
+		Anchor btnStep_THREE = new Anchor("Kết thúc");
 
 		controlPanel.add(btnStep_THREE);
 
@@ -221,59 +216,12 @@ public class MTestTool extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				getTest_THREE();
-				totalCheck_TWO = totalCheck;
 			}
 		});
 
 	}
 
-	private void startTest_THREE() {
-		container.clear();
-		HTMLPanel testInfoPanel = new HTMLPanel("");
-		final HTMLPanel vocaShowPanel = new HTMLPanel("");
-
-		HTMLPanel controlPanel = new HTMLPanel("");
-		container.add(testInfoPanel);
-		container.add(vocaShowPanel);
-		container.add(controlPanel);
-		testInfoPanel.setStyleName("MTestTool_Obj1");
-		testInfoPanel.getElement().setAttribute("style",
-				"padding: 10px; overflow: hidden;");
-		int totalTest = totalVocaTest_ONE + totalVocaTest_TWO;
-		int totalCheck_TwoStep = totalCheck_ONE + totalCheck_TWO;
-		Label total = new Label(totalCheck_TwoStep + " / " + totalTest + " Từ");
-		Label info = new Label(
-				"Là tổng số từ các bạn đã biết / tổng số từ các bạn đã test, chúc mừng các bạn, muốn xem dự đoán xem các bạn có số vốn từ là bao nhiêu? Hãy chọn XEM KẾT QUẢ");
-
-		total.getElement().setAttribute("style",
-				"float: left; font-weight: bold;");
-
-		vocaShowPanel.getElement().setAttribute("style",
-				"text-align: center; margin-bottom:40px;");
-
-		info.setStyleName("i_testtool_info");
-
-		testInfoPanel.add(total);
-
-		testInfoPanel.add(info);
-		final Anchor btnStep_FOUR = new Anchor("Xem kết quả");
-
-		controlPanel.add(btnStep_FOUR);
-
-		controlPanel.setStyleName("i_testt_controlPanel");
-		btnStep_FOUR.setStyleName("MTestTool_Obj3");
-
-		btnStep_FOUR.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				getStest_FOUR(vocaShowPanel);
-				btnStep_FOUR.setVisible(false);
-				
-			}
-		});
-
-	}
+	 
 
 	String action = Common.ACTION;
 
@@ -281,7 +229,6 @@ public class MTestTool extends Composite {
 		String[] path = cookie.split("=");
 		hmapToServer.put(user_id, path[1]);
 		hmapToServer.put(action, "step_two");
-		// result.put("", value);
 		LazzyBeeMobile.data_service.getTestVocaStep_Three(hmapToServer, cookie,
 				path[1], new AsyncCallback<String>() {
 
@@ -294,7 +241,8 @@ public class MTestTool extends Composite {
 					public void onSuccess(String value) {
 						if (value.length() >= 0) {
 							cookie = value;
-							startTest_THREE();
+							showResultTest(value);
+
 						}
 
 					}
@@ -345,24 +293,6 @@ public class MTestTool extends Composite {
 
 	}
 
-	private void getStest_FOUR(final HTMLPanel vocaShowPanel) {
-		String[] path = cookie.split("=");
-		LazzyBeeMobile.data_service.getTestVocaStep_Four(null, cookie, path[1],
-				new AsyncCallback<String>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-
-					}
-
-					@Override
-					public void onSuccess(String result) {
-
-						if (result != null && !result.isEmpty())
-							showResultTest(result);
-					}
-				});
-	}
 
 	private void showResultTest(String result) {
 		container.clear();

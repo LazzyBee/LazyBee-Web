@@ -511,8 +511,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 					hmap.put(key, value);
 				}
 			}
-			
-			 
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -559,52 +557,82 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		// Connection
 		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie)
 				.followRedirects(true).data(hashMap);
-		 String result = "";
+		String result3 = "";
 		 try {
 			Document doc = conn.post();
-			result =  conn.response().url().getPath() + "?"
-					+ conn.response().url().getQuery();
+			// connect to step four
+			
+			HashMap<String, String> hmap = new HashMap<String, String>();
+			hmap.put(Common.USER_ID, user_id);
+			hmap.put("action", "step_three");
+			hmap.put("native_speaker", "");
+			hmap.put("year_born", "");
+			hmap.put("month_born", "");
+			hmap.put("gender", "");
+			hmap.put("nationality", "");
+			hmap.put("nationality_nonnative", "");
+			hmap.put("reading", "");
+			hmap.put("literature", "");
+			hmap.put("grades_completed", "");
+			hmap.put("verbal_sat", "");
+			hmap.put("zip_code", "");
+			hmap.put("learning_status", "");
+			hmap.put("level_english", "");
+			hmap.put("years_total", "");
+			hmap.put("years_since", "");
+			hmap.put("months_abroad", "");
+			
+			// connect
+			Connection conn3 = Jsoup.connect("http://testyourvocab.com" + "/step_three?user="
+					+ user_id).followRedirects(true).data(hmap);
+			
+			try {
+				Document doc3 = conn3.post();
+				Element element = doc3.select("div.num").first();
+				result3 = element.text();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		 
-		return result;
+		return result3;
 	}
-	@Override
-	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id){
-		HashMap<String, String> hmap = new HashMap<String, String>();
-		hmap.put(Common.USER_ID, user_id);
-		hmap.put("action", "step_three");
-		hmap.put("native_speaker", "");
-		hmap.put("year_born", "");
-		hmap.put("month_born", "");
-		hmap.put("gender", "");
-		hmap.put("nationality", "");
-		hmap.put("nationality_nonnative", "");
-		hmap.put("reading", "");
-		hmap.put("literature", "");
-		hmap.put("grades_completed", "");
-		hmap.put("verbal_sat", "");
-		hmap.put("zip_code", "");
-		hmap.put("learning_status", "");
-		hmap.put("level_english", "");
-		hmap.put("years_total", "");
-		hmap.put("years_since", "");
-		hmap.put("months_abroad", "");
-		
-		// connect
-		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie).followRedirects(true).data(hmap);
-		String result = "";
-		try {
-			Document doc = conn.post();
-			Element element = doc.select("div.num").first();
-			result = element.text();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return result;
-		
-	}
+	 
+//	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id){
+//		HashMap<String, String> hmap = new HashMap<String, String>();
+//		hmap.put(Common.USER_ID, user_id);
+//		hmap.put("action", "step_three");
+//		hmap.put("native_speaker", "");
+//		hmap.put("year_born", "");
+//		hmap.put("month_born", "");
+//		hmap.put("gender", "");
+//		hmap.put("nationality", "");
+//		hmap.put("nationality_nonnative", "");
+//		hmap.put("reading", "");
+//		hmap.put("literature", "");
+//		hmap.put("grades_completed", "");
+//		hmap.put("verbal_sat", "");
+//		hmap.put("zip_code", "");
+//		hmap.put("learning_status", "");
+//		hmap.put("level_english", "");
+//		hmap.put("years_total", "");
+//		hmap.put("years_since", "");
+//		hmap.put("months_abroad", "");
+//		
+//		// connect
+//		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie).followRedirects(true).data(hmap);
+//		String result = "";
+//		try {
+//			Document doc = conn.post();
+//			Element element = doc.select("div.num").first();
+//			result = element.text();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return result;
+//		
+//	}
 }
