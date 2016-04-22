@@ -37,8 +37,8 @@ public interface DataServiceAsync {
 	
 	void getUploadUrl(String userId, AsyncCallback<String> callback);
 	
-	void getTestVocaStep_One(AsyncCallback<List<String>> callback);
-	void getTestVocaStep_Two(HashMap<String, String> hashMap,AsyncCallback<List<String>> callback);
-	void getTestVocaStep_Three(HashMap<String, String> hashMap, String cookie,String user_id, AsyncCallback<List<String>> callback);
+	void getTestVocaStep_One(AsyncCallback<HashMap<String, String>> callback);
+	void getTestVocaStep_Two(HashMap<String, String> hashMap,AsyncCallback<HashMap<String, String>> callback);
+	void getTestVocaStep_Three(HashMap<String, String> hashMap, String cookie,String user_id, AsyncCallback<String> callback);
 	void getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie,String user_id, AsyncCallback<String> callback);
 }

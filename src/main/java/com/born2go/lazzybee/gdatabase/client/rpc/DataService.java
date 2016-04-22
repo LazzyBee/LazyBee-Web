@@ -40,8 +40,8 @@ public interface DataService extends RemoteService {
 	public String getUploadUrl(String userId);
 	
 	
-	public List<String> getTestVocaStep_One();
-	public List<String> getTestVocaStep_Two(HashMap<String, String> hashMap);
-	public List<String> getTestVocaStep_Three(HashMap<String, String> hashMap, String cookie,String user_id);
+	public HashMap<String, String> getTestVocaStep_One();
+	public HashMap<String, String> getTestVocaStep_Two(HashMap<String, String> hashMap);
+	public String getTestVocaStep_Three(HashMap<String, String> hashMap, String cookie,String user_id);
 	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id);
 }

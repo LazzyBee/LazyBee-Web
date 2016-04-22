@@ -1,9 +1,13 @@
 package com.born2go.lazzybeemobile.client;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import com.born2go.lazzybeemobile.shared.Common;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -13,6 +17,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
@@ -31,11 +36,11 @@ public class MTestTool extends Composite {
 
 	@UiField
 	HTMLPanel container;
-	 
+
 	Label checkTotal;
 
 	private int totalCheck = 0; // Tong so tu user biet
-	 
+
 	private Map<String, Boolean> testMap = new HashMap<String, Boolean>();
 
 	Element btnStep_ONE;
@@ -64,10 +69,10 @@ public class MTestTool extends Composite {
 
 	private void getTestStep_ONE() {
 		LazzyBeeMobile.data_service
-				.getTestVocaStep_One(new AsyncCallback<List<String>>() {
+				.getTestVocaStep_One(new AsyncCallback<HashMap<String, String>>() {
 
 					@Override
-					public void onSuccess(List<String> result) {
+					public void onSuccess(HashMap<String, String> result) {
 						if (result != null && !result.isEmpty()) {
 							totalVocaTest = result.size();
 							startTest_ONE(result);
@@ -83,7 +88,7 @@ public class MTestTool extends Composite {
 				});
 	}
 
-	private void startTest_ONE(List<String> test) {
+	private void startTest_ONE(HashMap<String, String> hmap) {
 		container.clear();
 		totalCheck = 0;
 		testMap.clear();
@@ -96,10 +101,10 @@ public class MTestTool extends Composite {
 		testInfoPanel.setStyleName("MTestTool_Obj1");
 		testInfoPanel.getElement().setAttribute("style",
 				"padding: 10px; overflow: hidden;");
-		Label total = new Label("Tổng: " + test.size() + " Từ");
+		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
 				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết)");
-		checkTotal = new Label("B: " + totalCheck + " / " + test.size());
+		checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
 		info.setStyleName("i_testtool_info");
@@ -115,14 +120,26 @@ public class MTestTool extends Composite {
 		vocaShowPanel.getElement().setAttribute("style",
 				"text-align: center; margin-bottom:40px;");
 		// -----
-		for (String v : test)
-			addTestVoca(vocaShowPanel, v);
+		// for (String v : test)
+		// addTestVoca(vocaShowPanel, v);
+
+		hmapToServer.clear();
+		// Get a set of the entries
+		Set set = hmap.entrySet();
+		// Get an iterator
+		Iterator i = set.iterator();
+		// Display elements
+		while (i.hasNext()) {
+			Map.Entry me = (Map.Entry) i.next();
+			addTestVoca(vocaShowPanel, me.getValue().toString(), me.getKey()
+					.toString(), hmap.size());
+		}
+
 		// -----
 		btnStep_TWO.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				// getTestResult();
 				getStep_TWO();
 			}
 		});
@@ -130,10 +147,11 @@ public class MTestTool extends Composite {
 	}
 
 	String cookie = null;
+	String user_id = Common.USER_ID;
 
 	private void getStep_TWO() {
-		LazzyBeeMobile.data_service.getTestVocaStep_Two(null,
-				new AsyncCallback<List<String>>() {
+		LazzyBeeMobile.data_service.getTestVocaStep_Two(hmapToServer,
+				new AsyncCallback<HashMap<String, String>>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -142,20 +160,18 @@ public class MTestTool extends Composite {
 					}
 
 					@Override
-					public void onSuccess(List<String> result) {
+					public void onSuccess(HashMap<String, String> result) {
 						if (result != null && !result.isEmpty()) {
-							cookie = result.get(0);
-							List<String> voca_two = result.subList(1,
-									result.size());
-							totalVocaTest = totalVocaTest + voca_two.size();
-							startTest_TWO(voca_two);
+							cookie = result.get(user_id);
+							result.remove(user_id);
+							startTest_TWO(result);
 
 						}
 					}
 				});
 	}
 
-	private void startTest_TWO(List<String> test) {
+	private void startTest_TWO(HashMap<String, String> hmap) {
 		container.clear();
 		totalCheck = 0;
 		testMap.clear();
@@ -168,10 +184,10 @@ public class MTestTool extends Composite {
 		testInfoPanel.setStyleName("MTestTool_Obj1");
 		testInfoPanel.getElement().setAttribute("style",
 				"padding: 10px; overflow: hidden;");
-		Label total = new Label("Tổng: " + test.size() + " Từ");
+		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
 				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết)");
-		checkTotal = new Label("B: " + totalCheck + " / " + test.size());
+		checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
 		info.setStyleName("i_testtool_info");
@@ -189,23 +205,29 @@ public class MTestTool extends Composite {
 		vocaShowPanel.getElement().setAttribute("style",
 				"text-align: center; margin-bottom:40px;");
 		// -----
-		for (String v : test)
-			addTestVoca(vocaShowPanel, v);
+
+		hmapToServer.clear();
+		Set set = hmap.entrySet();
+		Iterator i = set.iterator();
+		while (i.hasNext()) {
+			Map.Entry me = (Map.Entry) i.next();
+			addTestVoca(vocaShowPanel, me.getValue().toString(), me.getKey()
+					.toString(), hmap.size());
+
+		}
 		// -----
 		btnStep_THREE.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				// getTestResult();
 				getTest_THREE();
 			}
 		});
 
 	}
 
-	private void startTest_THREE(List<String> test) {
+	private void startTest_THREE( ) {
 		container.clear();
-		testMap.clear();
 		HTMLPanel testInfoPanel = new HTMLPanel("");
 		final HTMLPanel vocaShowPanel = new HTMLPanel("");
 
@@ -250,37 +272,46 @@ public class MTestTool extends Composite {
 
 	}
 
+	    String action = Common.ACTION;
+
 	private void getTest_THREE() {
 		String[] path = cookie.split("=");
-		LazzyBeeMobile.data_service.getTestVocaStep_Three(null, cookie,
-				path[1], new AsyncCallback<List<String>>() {
+		hmapToServer.put(user_id, path[1]);
+		hmapToServer.put(action, "step_two");
+		// result.put("", value);
+		LazzyBeeMobile.data_service.getTestVocaStep_Three(hmapToServer, cookie,
+				path[1], new AsyncCallback<String>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
 
 					}
 
 					@Override
-					public void onSuccess(List<String> result) {
-						if (result != null && !result.isEmpty()) {
-							cookie = result.get(0);
-							List<String> voca_three = result.subList(1,
-									result.size());
-							startTest_THREE(voca_three);
+					public void onSuccess(String value) {
+						if(value.length() >= 0 ){
+							cookie = value;
+							startTest_THREE();
 						}
+						 
 
 					}
 				});
 	}
 
-	private void addTestVoca(HTMLPanel vocaShowPanel, final String v) {
+	HashMap<String, String> hmapToServer = new HashMap<String, String>();
+
+	private void addTestVoca(HTMLPanel vocaShowPanel, final String v,
+			final String key, final int size) {
 		testMap.put(v, false);
+		hmapToServer.put(key, "0");
 		final HTMLPanel form = new HTMLPanel("");
 		Label vocaQ = new Label(v);
 		form.add(vocaQ);
 		form.setStyleName("MTestTool_Obj5");
 		vocaQ.setStyleName("itesttool_vocaq");
+		vocaQ.getElement().setClassName("vocaq");
+
 		vocaShowPanel.add(form);
 		Anchor btnForm = new Anchor();
 		btnForm.setStyleName("i_testtool_btnForm");
@@ -290,16 +321,20 @@ public class MTestTool extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
+
 				if (testMap.get(v)) {
 					form.getElement().setAttribute("style", "background: gray");
 					totalCheck--;
+					hmapToServer.put(key, "0");
 				} else {
 					form.getElement().setAttribute("style",
 							"background: forestgreen");
 					totalCheck++;
+					hmapToServer.put(key, "1");
+
 				}
 				testMap.put(v, !testMap.get(v));
-				checkTotal.setText("B: " + totalCheck + " / 20");
+				checkTotal.setText("B: " + totalCheck + " / " + size);
 
 			}
 		});

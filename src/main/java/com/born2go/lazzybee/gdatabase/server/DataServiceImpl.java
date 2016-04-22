@@ -23,6 +23,7 @@ import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
+import com.born2go.lazzybeemobile.shared.Common;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.Cursor;
@@ -492,180 +493,89 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			return null;
 	}
 	@Override
-	public List<String> getTestVocaStep_One() {
+	public HashMap<String, String> getTestVocaStep_One() {
 		Document doc;
-		List<String> listQuestion = new ArrayList<String>();
+		HashMap<String, String> hmap = new HashMap<String, String>();
 		try {
 			doc = Jsoup.connect("http://testyourvocab.com").get();
 			Element table = doc.select("table.wordlist").first();
 			Element row = table.select("tr").first();
 			Elements tds = row.select("td");
+			String key;
+			String value;
 			for (int i = 0; i < tds.size(); i++) {
-
 				Elements childrenTd = tds.get(i).select("label");
 				for (int j = 0; j < childrenTd.size(); j++) {
-					listQuestion.add(childrenTd.get(j).text());
+					  key = childrenTd.get(j).attr("for");
+					  value = childrenTd.get(j).text();
+					hmap.put(key, value);
 				}
 			}
+			
+			 
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return listQuestion;
+		return hmap;
 	}
 
 	@Override
-	public List<String> getTestVocaStep_Two(HashMap<String, String> hashMap) {
-		HashMap<String, String> hmap = new HashMap<String, String>();
-		hmap.put("action", "step_one");
-		hmap.put("word-166", "0");
-		hmap.put("word-167", "0");
-		hmap.put("word-169", "0");
-		hmap.put("word-172", "0");
-		hmap.put("word-179", "0");
-		hmap.put("word-187", "0");
-		hmap.put("word-202", "0");
-		hmap.put("word-215", "0");
-		hmap.put("word-231", "0");
-		hmap.put("word-246", "0");
-		hmap.put("word-263", "0");
-		hmap.put("word-281", "0");
-		hmap.put("word-298", "0");
-		hmap.put("word-316", "0");
-		hmap.put("word-333", "0");
-		hmap.put("word-350", "0");
-		hmap.put("word-367", "0");
-		hmap.put("word-385", "0");
-		hmap.put("word-401", "0");
-		hmap.put("word-420", "0");
-		hmap.put("word-437", "0");
-		hmap.put("word-454", "0");
-		hmap.put("word-472", "0");
-		hmap.put("word-490", "0");
-		hmap.put("word-507", "0");
-		hmap.put("word-524", "0");
-		hmap.put("word-541", "0");
-		hmap.put("word-559", "0");
-		hmap.put("word-576", "0");
-		hmap.put("word-594", "0");
-		hmap.put("word-611", "0");
-		hmap.put("word-12", "0");
-		hmap.put("word-30", "0");
-		hmap.put("word-46", "0");
-		hmap.put("word-64", "0");
-		hmap.put("word-82", "0");
-		hmap.put("word-99", "0");
-		hmap.put("word-116", "0");
-		hmap.put("word-618", "0");
-		hmap.put("word-133", "0");
-
+	public HashMap<String, String> getTestVocaStep_Two(HashMap<String, String> hashMap) {
+		hashMap.put("action", "step_one");
 		// Connection
 		Connection conn = Jsoup.connect("http://testyourvocab.com")
-				.followRedirects(true).data(hmap);
-		// Cookie cookie = new Cookie("user-id",conn.response().url().getPath()
-		// + "?" + conn.response().url().getQuery());
-
-		List<String> listQuestion = new ArrayList<String>();
+				.followRedirects(true).data(hashMap);
 		Document doc;
-
+		HashMap<String, String> hmap = new HashMap<String, String>();
 		try {
 			doc = conn.post();
-			listQuestion.add(0, conn.response().url().getPath() + "?"
+			hmap.put(Common.USER_ID,  conn.response().url().getPath() + "?"
 					+ conn.response().url().getQuery());
 			Element table = doc.select("table.wordlist").first();
 			Element row = table.select("tr").first();
 			Elements tds = row.select("td");
+			String key;
+			String value;
 			for (int i = 0; i < tds.size(); i++) {
-
 				Elements childrenTd = tds.get(i).select("label");
 				for (int j = 0; j < childrenTd.size(); j++) {
-					listQuestion.add(childrenTd.get(j).text());
+					  key = childrenTd.get(j).attr("for");
+					  value = childrenTd.get(j).text();
+					hmap.put(key, value);
 				}
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
-		// Connection conn = Jsoup.connect("http://testyourvocab.com/")
-		// .followRedirects(true).data(hmap);
-		//
-		// Document doc = conn.post();
-		// Element wordlist = doc.select("table.wordlist").first();
-		//
-		// Cookie cookie = new Cookie("user-id",conn.response().url().getPath()
-		// + "?" + conn.response().url().getQuery());
-		// resp.addCookie(cookie);
-		// resp.getWriter().println(wordlist);
-		// // Print out the querydata which contains userid
-		// System.out.println(conn.response().url().getQuery());
-		return listQuestion;
+ 
+		return hmap;
 	}
 
 	@Override
-	public List<String> getTestVocaStep_Three(HashMap<String, String> hashMap,
+	public String getTestVocaStep_Three(HashMap<String, String> hashMap,
 			String cookie, String user_id) {
-		
-		HashMap<String, String> hmap = new HashMap<String, String>();
-		hmap.put("action", "step_two");
-		hmap.put("user_id", user_id);
-		hmap.put("word-162", "0");
-		hmap.put("word-163", "0");
-		hmap.put("word-164", "0");
-		hmap.put("word-165", "0");
-		hmap.put("word-168", "0");
-		hmap.put("word-170", "0");
-		hmap.put("word-171", "1");
-		hmap.put("word-173", "1");
-		hmap.put("word-174", "1");
-		hmap.put("word-175", "1");
-		hmap.put("word-176", "0");
-		hmap.put("word-177", "0");
-		hmap.put("word-178", "0");
-		hmap.put("word-180", "0");
-		hmap.put("word-182", "0");
-		hmap.put("word-181", "0");
-		hmap.put("word-183", "0");
-		hmap.put("word-166", "0");
-		hmap.put("word-167", "0");
-		hmap.put("word-169", "0");
-		hmap.put("word-172", "0");
-		hmap.put("word-179", "0");
-
 		// Connection
 		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie)
-				.followRedirects(true).data(hmap);
-		List<String> listQuestion = new ArrayList<String>();
-		 
+				.followRedirects(true).data(hashMap);
+		 String result = "";
 		 try {
 			Document doc = conn.post();
-			listQuestion.add(0, conn.response().url().getPath() + "?"
-					+ conn.response().url().getQuery());
+			result =  conn.response().url().getPath() + "?"
+					+ conn.response().url().getQuery();
+			 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-
-		// Connection conn = Jsoup.connect("http://testyourvocab.com/")
-		// .followRedirects(true).data(hmap);
-		//
-		// Document doc = conn.post();
-		// Element wordlist = doc.select("table.wordlist").first();
-		//
-		// Cookie cookie = new Cookie("user-id",conn.response().url().getPath()
-		// + "?" + conn.response().url().getQuery());
-		// resp.addCookie(cookie);
-		// resp.getWriter().println(wordlist);
-		// // Print out the querydata which contains userid
-		// System.out.println(conn.response().url().getQuery());
-		return listQuestion;
+		 
+		return result;
 	}
 	@Override
 	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id){
 		HashMap<String, String> hmap = new HashMap<String, String>();
-		hmap.put("user_id", user_id);
+		hmap.put(Common.USER_ID, user_id);
 		hmap.put("action", "step_three");
 		hmap.put("native_speaker", "");
 		hmap.put("year_born", "");
@@ -684,7 +594,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		hmap.put("years_since", "");
 		hmap.put("months_abroad", "");
 		
-		System.out.println("cookie: " + cookie) ;
 		// connect
 		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie).followRedirects(true).data(hmap);
 		String result = "";
@@ -693,7 +602,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			Element element = doc.select("div.num").first();
 			result = element.text();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;

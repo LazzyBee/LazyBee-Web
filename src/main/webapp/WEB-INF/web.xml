@@ -142,7 +142,7 @@
   	</servlet>
  	 <servlet-mapping>
    	 	<servlet-name>TestVocaServlet</servlet-name>
-   		<url-pattern>/mtest/TestVocaServlet</url-pattern>
+   		<url-pattern>/TestVocaServlet</url-pattern>
   	</servlet-mapping>
 
 </web-app>
