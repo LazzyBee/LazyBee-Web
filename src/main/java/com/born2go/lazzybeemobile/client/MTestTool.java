@@ -1,29 +1,34 @@
 package com.born2go.lazzybeemobile.client;
 
-
 import java.util.Iterator;
 import java.util.LinkedHashMap;
- 
 import java.util.Map;
- 
 import java.util.Set;
 
+import com.born2go.lazzybee.client.subpage.VocaEditorTool;
+import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybeemobile.shared.Common;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MTestTool extends Composite {
@@ -65,8 +70,6 @@ public class MTestTool extends Composite {
 
 	}
 
-	 
-
 	private void getTestStep_ONE() {
 		LazzyBeeMobile.data_service
 				.getTestVocaStep_One(new AsyncCallback<LinkedHashMap<String, String>>() {
@@ -85,7 +88,6 @@ public class MTestTool extends Composite {
 					}
 				});
 	}
-
 
 	private void startTest_ONE(LinkedHashMap<String, String> hmap) {
 		container.clear();
@@ -164,8 +166,6 @@ public class MTestTool extends Composite {
 				});
 	}
 
-	 
-
 	private void startTest_TWO(LinkedHashMap<String, String> hmap) {
 		container.clear();
 		totalCheck = 0;
@@ -221,8 +221,6 @@ public class MTestTool extends Composite {
 
 	}
 
-	 
-
 	String action = Common.ACTION;
 
 	private void getTest_THREE() {
@@ -250,49 +248,92 @@ public class MTestTool extends Composite {
 	}
 
 	LinkedHashMap<String, String> hmapToServer = new LinkedHashMap<String, String>();
+	String lazzybee_seperate = Common.lazzybee_seperate;
 
 	private void addTestVoca(HTMLPanel vocaShowPanel, final String v,
 			final String key, final int size) {
-		testMap.put(v, false);
-		hmapToServer.put(key, "0");
-		final HTMLPanel form = new HTMLPanel("");
-		Label vocaQ = new Label(v);
-		form.add(vocaQ);
-		form.setStyleName("MTestTool_Obj5");
-		vocaQ.setStyleName("itesttool_vocaq");
-		vocaQ.getElement().setClassName("vocaq");
-		vocaQ.getElement().setAttribute("style",
-				"font-size: 14px; font-weight: bold; color: #eafd74");
-		vocaShowPanel.add(form);
-		Anchor btnForm = new Anchor();
-		btnForm.setStyleName("i_testtool_btnForm");
-		form.add(btnForm);
-		// -----
-		btnForm.addClickHandler(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
+		if (key.equals("0") && v.equals(lazzybee_seperate)) {
+			HTML htmlSeperate = new HTML();
+			htmlSeperate.getElement().setAttribute("style",
+					"width: 100%; margin: 10px;");
+			vocaShowPanel.add(htmlSeperate);
 
-				if (testMap.get(v)) {
-					form.getElement().setAttribute("style",
-							"background:  #5A5A5A");
-					totalCheck--;
-					hmapToServer.put(key, "0");
-				} else {
-					form.getElement().setAttribute("style",
-							"background: #009688");
-					totalCheck++;
-					hmapToServer.put(key, "1");
+		} else if (key.equals("1") && v.equals(lazzybee_seperate)) {
+			HTML htmlSeperate = new HTML();
+			htmlSeperate.getElement().setAttribute("style",
+					"width: 100%; margin: 10px;");
+			vocaShowPanel.add(htmlSeperate);
+
+		} else if (key.equals("2") && v.equals(lazzybee_seperate)) {
+			HTML htmlSeperate = new HTML();
+			htmlSeperate.getElement().setAttribute("style",
+					"width: 100%; margin: 10px;");
+			vocaShowPanel.add(htmlSeperate);
+
+		} else if (key.equals("3") && v.equals(lazzybee_seperate)) {
+			HTML htmlSeperate = new HTML();
+			htmlSeperate.getElement().setAttribute("style",
+					"width: 100%; margin: 10px;");
+			vocaShowPanel.add(htmlSeperate);
+
+		} else {
+
+			testMap.put(v, false);
+			hmapToServer.put(key, "0");
+			final HTMLPanel form = new HTMLPanel("");
+			Label vocaQ = new Label(v);
+			form.add(vocaQ);
+			form.setStyleName("MTestTool_Obj5");
+			vocaQ.setStyleName("itesttool_vocaq");
+			vocaQ.getElement().setClassName("vocaq");
+			vocaQ.getElement().setAttribute("style",
+					"font-size: 14px; font-weight: bold; color: #eafd74");
+
+			Anchor btnVocaAn = new Anchor("?");
+			btnVocaAn
+					.getElement()
+					.setAttribute("style",
+							"font-size: 14px;font-weight: bold;color: #eafd74;float: right;");
+			form.add(btnVocaAn);
+			btnVocaAn.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+
+					findVoca(v);
 
 				}
-				testMap.put(v, !testMap.get(v));
-				checkTotal.setText("B: " + totalCheck + " / " + size);
+			});
+			vocaShowPanel.add(form);
+			Anchor btnForm = new Anchor();
+			btnForm.setStyleName("i_testtool_btnForm");
+			form.add(btnForm);
+			// -----
+			btnForm.addClickHandler(new ClickHandler() {
 
-			}
-		});
+				@Override
+				public void onClick(ClickEvent event) {
 
+					if (testMap.get(v)) {
+						form.getElement().setAttribute("style",
+								"background:  #5A5A5A");
+						totalCheck--;
+						hmapToServer.put(key, "0");
+					} else {
+						form.getElement().setAttribute("style",
+								"background: #009688");
+						totalCheck++;
+						hmapToServer.put(key, "1");
+
+					}
+					testMap.put(v, !testMap.get(v));
+					checkTotal.setText("B: " + totalCheck + " / " + size);
+
+				}
+			});
+		}
 	}
-
 
 	private void showResultTest(String result) {
 		container.clear();
@@ -319,6 +360,59 @@ public class MTestTool extends Composite {
 		lbResult.setStyleName("MTestTool_result");
 		lbResult.setText(result);
 		htmlResult.add(lbResult);
+	}
+
+	void findVoca(String voca_q) {
+		LazzyBeeMobile.data_service.findVoca(voca_q, new AsyncCallback<Voca>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(Voca result) {
+				if (result != null)
+					onVocaView_EV(result);
+				else{
+					Window.alert("Từ này chưa có trong hệ thống từ điển !");
+				}
+			}
+		});
+	}
+
+	void onVocaView_EV(Voca v) {
+		final DialogBox d = new DialogBox();
+		d.setStyleName("MTestTool_Obj12");
+		d.setAutoHideEnabled(true);
+		d.setGlassEnabled(true);
+		d.setAnimationEnabled(true);
+		ScrollPanel sc = new ScrollPanel();
+		sc.getElement()
+				.setAttribute("style",
+						"overflow-x: hidden; padding: 20px; height: 200px; padding-top: 20px; ");
+		VerticalPanel ver = new VerticalPanel();
+
+		Label header = new Label("Giải nghĩa tiếng việt");
+		header.getElement()
+				.setAttribute(
+						"style",
+						"color: #0066cc; text-align: center; font-size: 20px; font-weight: bold;  padding-bottom: 20px;");
+		ver.add(header);
+		HTML l_vn = new HTML();
+		if (v.getL_vn() != null && !v.getL_vn().isEmpty())
+			l_vn.setHTML(v.getL_vn());
+		else
+			l_vn.setHTML("Vocabulary emtry");
+
+		ver.add(l_vn);
+		sc.add(ver);
+		d.add(sc);
+		d.center();
+
+		// -----
+
 	}
 
 }

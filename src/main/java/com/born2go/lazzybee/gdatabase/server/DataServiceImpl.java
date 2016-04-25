@@ -342,7 +342,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public User saveUser(User user) {
-		user.setAdmin(false);
+	 	user.setAdmin(false);
 		if (user.getGoogle_id() != null) {
 			User old_user = ofy().load().type(User.class)
 					.filter("google_id", user.getGoogle_id()).first().now();
@@ -496,6 +496,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		else
 			return null;
 	}
+	String lazzybee_seperate = Common.lazzybee_seperate;
 	@Override
 	public LinkedHashMap<String, String> getTestVocaStep_One() {
 		Document doc;
@@ -515,6 +516,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 					  hmap.put(key, value);
 					  
 				}
+				hmap.put(String.valueOf(i), lazzybee_seperate);
 			}
 
 		} catch (IOException e) {
@@ -548,6 +550,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 					  value = childrenTd.get(j).text();
 					hmap.put(key, value);
 				}
+				hmap.put(String.valueOf(i), lazzybee_seperate);
+				
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

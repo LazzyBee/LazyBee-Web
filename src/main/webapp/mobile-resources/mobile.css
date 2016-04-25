@@ -232,7 +232,7 @@ h1 {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	width: 100%;
+	width: 80%;
 	height: 100%
 }
 
@@ -318,7 +318,7 @@ h1 {
 
 .MTestTool_Obj5 {
 	width: 140px;
-	padding: 10px 20px 15px;
+	padding: 10px 18px 5px;
 	background: #5A5A5A;
 	margin: 20px 15px 10px 0;
 	position: relative;
