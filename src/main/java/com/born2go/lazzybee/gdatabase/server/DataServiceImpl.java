@@ -615,8 +615,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 				java.security.Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
 	            cipher = Cipher.getInstance("AES");
 				String encryptedText = encrypt(plainText, secretKey);
-			//  url = "http://www.lazzybee.com/vocab/" + encryptedText;
-			  url = "http://localhost:8888/vocab/"+ encryptedText;
+			  url = "http://www.lazzybee.com/vocab/" + encryptedText;
+			  //  url = "http://localhost:8888/vocab/"+ encryptedText;
 			} catch (  Exception e) {
 				e.printStackTrace();
 			}

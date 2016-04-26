@@ -7,7 +7,7 @@
 		response.setHeader("Location", site);
 	}%>
 <%
-	String title = "Test your voca result";
+	 
 	String url = request.getRequestURL().toString();
 	String score = null;
 	String url_image = null;
@@ -24,11 +24,11 @@
 			if (score == null || score.equals(""))
 				redirectHomeUrl(response);
 			else
-				 url_image = "http://chart.apis.google.com/chart?chs=400x200&cht=p3&chtt="
+				 url_image = "http://chart.apis.google.com/chart?chs=160x160&cht=p3&chtt="
 							+ "Vốn%20từ%20của%20bạn%20là|"
 							+ score.toString()
 							+ "|từ"
-							+ "&chts=0000FF,50&chf=bg,s,00000000";
+							+ "&chts=0000FF,20&chf=bg,s,00000000";
 
 		}
 	}
@@ -46,7 +46,7 @@
 <!-- for view mobile -->
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
-<title><%=title%></title>
+<title>Test your voca result</title>
 <link type="text/css" rel="stylesheet"
 	href="/mobile-resources/mobile.css">
 <link rel="stylesheet"
@@ -55,7 +55,7 @@
 
 <meta property="og:url" content=<%=url%> />
 <meta property="og:type" content="website" />
-<meta property="og:title" content=<%=title%> />
+<meta property="og:title" content="Test your voca result" />
 <meta property="og:description" content="Kết quả làm bài test của bạn trên lazzybee" />
 <meta property="og:image"
 	content=<%=url_image %> />
@@ -134,6 +134,7 @@
 						<div class="result"><%=score%></div>
 					</div>
 				</div>
+
 				<div style="text-align: center; margin-bottom: 40px;">
 					<div class="fb-share-button" data-href=<%=url%>
 						data-layout="button_count" data-mobile-iframe="true"></div>
