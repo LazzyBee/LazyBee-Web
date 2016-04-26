@@ -116,6 +116,15 @@
 		<servlet-name>PathMblog</servlet-name>
 		<url-pattern>/mblog/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PathVocab</servlet-name>
+		<jsp-file>/vocab/result.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PathVocab</servlet-name>
+		<url-pattern>/vocab/*</url-pattern>
+	</servlet-mapping>
 
 
 	<!-- Appstats -->

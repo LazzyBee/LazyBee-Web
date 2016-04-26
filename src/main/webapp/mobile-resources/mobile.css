@@ -587,7 +587,26 @@ h1 {
 	margin-top: 10px;
 	border-top: 1px solid silver
 }
-
+.result {
+		font-family: Impact, 'Arial Narrow', Helvetica, Arial, sans-serif;
+		font-size: 90px;
+		line-height: 135px;
+		color: #000;
+		margin: -29px 0 -19px;
+		text-align: center;
+        padding: 10px;
+        color: #333;
+}
+.box {
+		display: inline-block;
+		background: #eee;
+		margin-top: 20px;
+		margin-bottom: -4px;
+		padding: 29px;
+		-moz-border-radius: 33px;
+		-webkit-border-radius: 33px;
+		border-radius: 33px;
+	}
 .vdict_avatar {
 	display: block;
 	overflow: hidden;

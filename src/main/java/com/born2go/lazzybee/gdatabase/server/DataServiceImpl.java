@@ -3,6 +3,8 @@ package com.born2go.lazzybee.gdatabase.server;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,8 +14,16 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.Cookie;
 
+import org.apache.commons.codec.binary.Base64;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -567,7 +577,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		// Connection
 		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie)
 				.followRedirects(true).data(hashMap);
-		String result3 = "";
+		String plainText = "";
+		String url = null;
 		 try {
 			Document doc = conn.post();
 			// connect to step four
@@ -599,8 +610,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			try {
 				Document doc3 = conn3.post();
 				Element element = doc3.select("div.num").first();
-				result3 = element.text();
-			} catch (IOException e) {
+				plainText = element.text();
+				 
+				java.security.Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
+	            cipher = Cipher.getInstance("AES");
+				String encryptedText = encrypt(plainText, secretKey);
+			//  url = "http://www.lazzybee.com/vocab/" + encryptedText;
+			  url = "http://localhost:8888/vocab/"+ encryptedText;
+			} catch (  Exception e) {
 				e.printStackTrace();
 			}
 			 
@@ -608,7 +625,50 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			e.printStackTrace();
 		}
 		 
-		return result3;
+		 
+		return url;
+	}
+	public String getVocabResult_Test(String encryptedText){
+		java.security.Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
+		String result = null;
+        try {
+			cipher = Cipher.getInstance("AES");
+			result = decrypt(encryptedText, secretKey);
+			
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		return result;
+	}
+	 
+	final String key = "lazzybee12345678";
+	 
+	static Cipher cipher;
+	public static String encrypt(String plainText, java.security.Key secretKey)
+			throws Exception {
+		byte[] plainTextByte = plainText.getBytes();
+		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+		byte[] encryptedByte = cipher.doFinal(plainTextByte);
+		String encryptedText = Base64.encodeBase64String(encryptedByte);
+		return encryptedText;
+	}
+
+	public static String decrypt(String encryptedText, java.security.Key secretKey)
+			throws Exception {
+		 
+		byte[] encryptedTextByte = Base64.decodeBase64(encryptedText);
+		cipher.init(Cipher.DECRYPT_MODE, secretKey);
+		byte[] decryptedByte = cipher.doFinal(encryptedTextByte);
+		String decryptedText = new String(decryptedByte);
+		return decryptedText;
 	}
 	 
 //	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id){

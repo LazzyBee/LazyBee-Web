@@ -238,8 +238,8 @@ public class MTestTool extends Composite {
 					@Override
 					public void onSuccess(String value) {
 						if (value.length() >= 0) {
-							cookie = value;
-							showResultTest(value);
+							//showResultTest(value);
+							Window.Location.replace(value);
 
 						}
 
