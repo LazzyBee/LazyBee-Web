@@ -670,7 +670,18 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		String decryptedText = new String(decryptedByte);
 		return decryptedText;
 	}
-	 
+	public String getIMG_result(String url){
+		 String result = null;
+		 try {
+			Document doc = Jsoup.connect(url).get();
+			Element image = doc.select("img").first();
+			result = image.absUrl("src");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 //	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id){
 //		HashMap<String, String> hmap = new HashMap<String, String>();
 //		hmap.put(Common.USER_ID, user_id);
