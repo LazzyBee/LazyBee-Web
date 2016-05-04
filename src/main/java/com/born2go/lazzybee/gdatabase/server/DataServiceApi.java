@@ -214,7 +214,10 @@ public class DataServiceApi {
 	@ApiMethod(name = "getDownloadUrl")
 	public DownloadTarget getDownloadUrl(@Named("code") String code) {
 		DownloadTarget dt = new DownloadTarget();
-		BackupFile f = ofy().load().type(BackupFile.class).id(code).now();
+		BackupFile f = ofy().load().type(BackupFile.class).id(code.toLowerCase()).now();
+		if(f == null){
+			 f = ofy().load().type(BackupFile.class).id(code.toUpperCase()).now();
+		}
 		if (f != null) {
 			dt.setUrl("http://www.lazzybee.com/download?blobkey="
 					+ f.getBlob_key());
@@ -284,5 +287,6 @@ public class DataServiceApi {
 		}
 		return result;
 	}
+ 
 
 }
