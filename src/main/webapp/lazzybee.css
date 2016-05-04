@@ -9,6 +9,10 @@ h1 {
 	color: #0e74af;
 }
 
+a {
+	text-decoration: none;
+}
+
 #header {
 	background: #009688;
 	height: 40px;

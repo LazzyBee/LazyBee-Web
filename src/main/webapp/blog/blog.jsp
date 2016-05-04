@@ -70,6 +70,8 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="description" content="Lazy Bee cung cấp ứng dụng học tiếng Anh, từ vựng hiệu quả. Giúp bạn xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
+<meta name="keywords" content="Lazy,Bee,học tiếng anh,hoc tieng anh,từ vựng,tu vung">
 
 <link rel="icon" type="image/png" href="../favicon.png" />
 
@@ -79,9 +81,8 @@
 <%if(blog != null) {%>
 <title><%=blog.getShowTitle()%></title>
 <%} else { %>
-<title>Thư viện</title>
+<title>Học tiếng anh, từ vựng, từ điển - LazyBee</title>
 <% } %>
-
 <%if(blog != null) {%>
 <meta property="og:type" content=website />
 <%if(blog_avatar != null) {%>
@@ -166,7 +167,7 @@
 	<div id="header">
 		<div class="header_logo">
 			<a href="/" style="text-decoration: none">
-			<img alt="" src="../resources/1435838158_Mushroom - Bee.png"
+			<img alt="Lazy Bee" src="../resources/1435838158_Mushroom - Bee.png"
 				style="height: 100%; margin-right: 5px;"> <span
 				style="position: relative; top: -4px; color: rgb(234, 253, 116);">Lazzy
 				Bee</span>
@@ -309,26 +310,26 @@
 
 			<div id="right_panel">
 				<div style="text-align: center;">
-					<img alt="" src="/resources/2015-11-01.png"
+					<img alt="Lazy Bee" src="/resources/2015-11-01.png"
 						style="width: 100%; height: 300px;">
 				</div>
 				<div style="float: left; margin-right: 10px; margin-top: 15px;">
 					<a
 						href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
-						<img alt="" src="/resources/appstore.png"
+						<img alt="App hoc tieng anh, tu vung" src="/resources/appstore.png"
 						style="width: 140px; height: 50px; cursor: pointer;">
 					</a>
 				</div>
 				<div>
 					<a
 						href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
-						<img alt="" src="/resources/googleplay.jpg"
+						<img alt="App hoc tieng anh, tu vung" src="/resources/googleplay.jpg"
 						style="width: 140px; height: 50px; cursor: pointer; margin-top: 15px;">
 					</a>
 				</div>
 				<div class="advertise" style="margin-top: 25px; height: 100px">
 					<span style="font-size: 15px; font-weight: bold;">Connect
-						with LazzyBee!</span> <br /> <br />
+						with LazyBee!</span> <br /> <br />
 					<div style="float: left" class="fb-like"
 						data-href="http://www.lazzybee.com/" data-width="260"
 						data-layout="button_count" data-action="like"
@@ -336,7 +337,7 @@
 					<a target="_blank"
 						href="https://www.facebook.com/lazzybees?fref=ts"
 						style="float: left; color: #09f; cursor: pointer; margin-left: 20px; text-decoration: none;"><i
-						class="fa fa-hand-o-right fa-lg"></i> Follow LazzyBee </a>
+						class="fa fa-hand-o-right fa-lg"></i> Follow LazyBee </a>
 				</div>
 			</div>
 		</div>
