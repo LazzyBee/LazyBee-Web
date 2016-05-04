@@ -352,8 +352,12 @@ public class BlogEditorTool extends Composite {
 					public void onSuccess(Blog result) {
 						if(result != null) {
 							checkPlupLoadQueue(result.getId());
-							LazzyBee.noticeBox.setNotice("Bài viết đã được lưu!");
-							LazzyBee.noticeBox.setAutoHide();
+//							LazzyBee.noticeBox.setNotice("Bài viết đã được lưu!");
+//							LazzyBee.noticeBox.setAutoHide();
+							LazzyBee.noticeBox.setRichNotice(
+									"Bài viết đã được lưu!", "/blog/"
+											+ result.getTitle(),
+									"/editor/#blog/" + result.getId());
 							formClean();
 						}
 						else {

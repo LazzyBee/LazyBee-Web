@@ -71,10 +71,9 @@ public class LazzyBeeMobile implements EntryPoint {
 		if (RootPanel.get("fb-root") != null) {
 			lazyInitJsFaceBook();
 			exportGwtClass();
-			//  facebookInit(fClientId);
-			// lazyInitJsFaceBook();
 
 		}
+		
 	}
 
 	// export gwt class

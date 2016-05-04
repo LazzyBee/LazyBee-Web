@@ -232,7 +232,7 @@ h1 {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	width: 100%;
+	width: 80%;
 	height: 100%
 }
 
@@ -318,10 +318,11 @@ h1 {
 
 .MTestTool_Obj5 {
 	width: 140px;
-	padding: 10px 20px 15px;
-	background: gray;
+	padding: 10px 18px 5px;
+	background: #5A5A5A;
 	margin: 20px 15px 10px 0;
-	position: relative
+	position: relative;
+	border-radius: 10px;
 }
 
 .actionForm {
@@ -586,7 +587,26 @@ h1 {
 	margin-top: 10px;
 	border-top: 1px solid silver
 }
-
+.result {
+		font-family: Impact, 'Arial Narrow', Helvetica, Arial, sans-serif;
+		font-size: 90px;
+		line-height: 135px;
+		color: #000;
+		margin: -29px 0 -19px;
+		text-align: center;
+        padding: 10px;
+        color: #333;
+}
+.box {
+		display: inline-block;
+		background: #eee;
+		margin-top: 20px;
+		margin-bottom: -4px;
+		padding: 29px;
+		-moz-border-radius: 33px;
+		-webkit-border-radius: 33px;
+		border-radius: 33px;
+	}
 .vdict_avatar {
 	display: block;
 	overflow: hidden;

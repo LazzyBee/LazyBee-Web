@@ -13,5 +13,6 @@ public class Category {
 	public static final String TOEFL = "toefl";	//Tu vung cho TOEFL
 	public static final String TOEIC = "toeic";	//Tu vung cho TOEIC
 	public static final String OTHER = "other";	//Cac linh vuc khac
+	public static final String IDIOMS = "idioms"; // Thành ngữ
 	
 }
