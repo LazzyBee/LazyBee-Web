@@ -104,7 +104,7 @@ public class MTestTool extends Composite {
 				"padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
-				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết)");
+				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết chắc chắn ít nhất 01 nghĩa)");
 		checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
@@ -181,7 +181,7 @@ public class MTestTool extends Composite {
 				"padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
-				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết)");
+				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết chắc chắn ít nhất 01 nghĩa)");
 		checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");

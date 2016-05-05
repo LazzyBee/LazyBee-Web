@@ -7,7 +7,6 @@
 		response.setHeader("Location", site);
 	}%>
 <%
-	 
 	String url = request.getRequestURL().toString();
 	String score = null;
 	String url_image = null;
@@ -24,15 +23,14 @@
 			if (score == null || score.equals(""))
 				redirectHomeUrl(response);
 			else
-				 url_image = "http://chart.apis.google.com/chart?chs=160x160&cht=p3&chtt="
-							+ "Vốn%20từ%20của%20bạn%20là|"
-							+ score.toString()
-							+ "|từ"
-							+ "&chts=0000FF,20&chf=bg,s,00000000";
+				url_image = "http://chart.apis.google.com/chart?chs=160x160&cht=p3&chtt="
+						+ "Vốn%20từ%20của%20bạn%20là|"
+						+ score.toString()
+						+ "|từ"
+						+ "&chts=0000FF,20&chf=bg,s,00000000";
 
 		}
 	}
-	 
 %>
 <!doctype html>
 <!-- The DOCTYPE declaration above will set the    -->
@@ -56,9 +54,9 @@
 <meta property="og:url" content=<%=url%> />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Test your voca result" />
-<meta property="og:description" content="Kết quả làm bài test của bạn trên lazzybee" />
-<meta property="og:image"
-	content=<%=url_image %> />
+<meta property="og:description"
+	content="Kết quả làm bài test của bạn trên lazzybee" />
+<meta property="og:image" content=<%=url_image%> />
 <meta property="fb:app_id" content="754889477966743" />
 
 <script type="text/javascript"
@@ -139,6 +137,41 @@
 					<div class="fb-share-button" data-href=<%=url%>
 						data-layout="button_count" data-mobile-iframe="true"></div>
 				</div>
+
+			   <!--  <script src='http://connect.facebook.net/en_US/all.js'></script>
+				<p>
+					<a onclick='postToFeed(); return false;'>Post to Feed</a>
+				</p>
+				<p id='msg'></p>
+				<script>
+					FB.init({
+						appId : "754889477966743",
+						status : true,
+						cookie : true
+					});
+
+					function postToFeed() {
+
+						// calling the API ...
+						var obj = {
+							method : 'feed',
+							redirect_uri : 'localhost:8888/vocab/g/9XogRWLLj6rCFFISgStQ==',
+							link : 'http://www.lazzybee.com/vocab/pgEO5ow16ZxJKptu7gv1dg==',
+							picture : 'http://fbrell.com/f8.jpg',
+							name : 'Facebook Dialogs',
+							caption : 'Reference Documentation',
+							description : 'Using Dialogs to interact with people.'
+						};
+
+						function callback(response) {
+							document.getElementById('msg').innerHTML = "Post ID: "
+									+ response['post_id'];
+						}
+
+						FB.ui(obj, callback);
+					}
+				</script> -->
+				
 			</div>
 
 		</div>
