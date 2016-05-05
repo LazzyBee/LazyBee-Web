@@ -38,23 +38,36 @@ public class LazzyBeeMobile implements EntryPoint {
 		} else if (RootPanel.get("gwt_contentMTestTool") != null) {
 			RootPanel.get("gwt_contentMTestTool").add(new MTestTool());
 		}
+		 
 		if (RootPanel.get("menuBtn") != null) {
-			menu.setHeight("200px");
-			Element btMenu = RootPanel.get("menuBtn").getElement();
-			Event.sinkEvents(btMenu, Event.ONCLICK);
-			Event.setEventListener(btMenu, new EventListener() {
-
-				@Override
-				public void onBrowserEvent(Event event) {
-					if (Event.ONCLICK == event.getTypeInt()) {
-						menu.show();
-						DOM.getElementById("menu").setAttribute("style",
-								"display:block");
-					}
-
+			// if url is testvocab?menu=0 hide menu in mobile
+			if (RootPanel.get("left_header") != null) {
+				String path = Window.Location.getHref();
+				if(path.contains("?menu=0")){
+					RootPanel.get("left_header").getElement().setAttribute("style", "visibility: hidden;");
 				}
-			});
+				 
+			}
+			else{
+				menu.setHeight("200px");
+				Element btMenu = RootPanel.get("menuBtn").getElement();
+				Event.sinkEvents(btMenu, Event.ONCLICK);
+				Event.setEventListener(btMenu, new EventListener() {
+
+					@Override
+					public void onBrowserEvent(Event event) {
+						if (Event.ONCLICK == event.getTypeInt()) {
+							menu.show();
+							DOM.getElementById("menu").setAttribute("style",
+									"display:block");
+						}
+
+					}
+				});
+			}
+			
 		}
+
 		// DOM.getElementById("main").setAttribute("style",
 		// "height:" + (Window.getClientHeight() - heightHeader) + "px");
 		//
@@ -73,7 +86,7 @@ public class LazzyBeeMobile implements EntryPoint {
 			exportGwtClass();
 
 		}
-		
+
 	}
 
 	// export gwt class
@@ -90,7 +103,7 @@ public class LazzyBeeMobile implements EntryPoint {
 	}
 
 	void processingFB() {
-	 	facebookInit(fClientId);
+		facebookInit(fClientId);
 	}
 
 	void lazyInitJsFaceBook() {
@@ -99,11 +112,11 @@ public class LazzyBeeMobile implements EntryPoint {
 				.setWindow(ScriptInjector.TOP_WINDOW)
 				.setCallback(new Callback<Void, Exception>() {
 					public void onFailure(Exception reason) {
-						 
+
 					}
 
 					public void onSuccess(Void result) {
-						 
+
 					}
 				}).inject();
 	}

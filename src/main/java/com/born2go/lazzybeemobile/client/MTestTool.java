@@ -104,7 +104,7 @@ public class MTestTool extends Composite {
 				"padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
-				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết chắc chắn ít nhất 01 nghĩa)");
+				"Bước 1: Đánh giá sơ bộ vốn từ vựng của bạn. Hãy chọn các từ mà bạn đã biết nghĩa.");
 		checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
@@ -181,7 +181,7 @@ public class MTestTool extends Composite {
 				"padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
-				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết chắc chắn ít nhất 01 nghĩa)");
+				"Bước 2: Trong bước này, chúng tôi sẽ cố gắng ước lượng chính xác hơn vốn từ của bạn dựa vào kết quả đã thu được từ bước 1");
 		checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
@@ -238,7 +238,7 @@ public class MTestTool extends Composite {
 					@Override
 					public void onSuccess(String value) {
 						if (value.length() >= 0) {
-							//showResultTest(value);
+							// showResultTest(value);
 							Window.Location.replace(value);
 
 						}
@@ -375,7 +375,7 @@ public class MTestTool extends Composite {
 			public void onSuccess(Voca result) {
 				if (result != null)
 					onVocaView_EV(result);
-				else{
+				else {
 					Window.alert("Từ này chưa có trong hệ thống từ điển !");
 				}
 			}

@@ -124,8 +124,8 @@
 		<div id="content">
 			<div class="mainMTestTool">
 				<div class="MTestTool_Obj1" style="padding: 10px; overflow: hidden;">
-					<div class="i_testtool_info" style="margin-top: 5px;">Tổng số
-						từ vựng của bạn được tính toán là</div>
+					<div class="i_testtool_info" style="margin-top: 5px; margin-bottom: 5px;">Kết
+						luận: Vốn từ của bạn khoảng</div>
 				</div>
 				<div style="text-align: center; margin-bottom: 40px;">
 					<div class="box">
@@ -133,12 +133,18 @@
 					</div>
 				</div>
 
+				<br />
+				<div><b>Tìm hiểu thêm:</b> Bài kiểm tra này có sai số khoảng 10%. Để
+					tìm hiểu chi tiết về các hoạt động, bạn có thể tìm hiểu các bài
+					viết khác.</div>
+
+				<br />
 				<div style="text-align: center; margin-bottom: 40px;">
 					<div class="fb-share-button" data-href=<%=url%>
 						data-layout="button_count" data-mobile-iframe="true"></div>
 				</div>
 
-			   <!--  <script src='http://connect.facebook.net/en_US/all.js'></script>
+				<!--  <script src='http://connect.facebook.net/en_US/all.js'></script>
 				<p>
 					<a onclick='postToFeed(); return false;'>Post to Feed</a>
 				</p>
@@ -171,7 +177,7 @@
 						FB.ui(obj, callback);
 					}
 				</script> -->
-				
+
 			</div>
 
 		</div>
