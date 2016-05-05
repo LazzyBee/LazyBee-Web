@@ -18,6 +18,7 @@
 		<welcome-file>mhome.html</welcome-file>
 		<welcome-file>mtesttool.html</welcome-file>
 		<welcome-file>chart.html</welcome-file>
+		<welcome-file>fb.html</welcome-file>
 	</welcome-file-list>
 
 	<!-- Register objectify entity -->

@@ -124,8 +124,7 @@
 		<div id="content">
 			<div class="mainMTestTool">
 				<div class="MTestTool_Obj1" style="padding: 10px; overflow: hidden;">
-					<div class="i_testtool_info" style="margin-top: 5px; margin-bottom: 5px;">Kết
-						luận: Vốn từ của bạn khoảng</div>
+					<div class="i_testtool_info" style="margin-top: 5px; margin-bottom: 5px;">Vốn từ của bạn khoảng</div>
 				</div>
 				<div style="text-align: center; margin-bottom: 40px;">
 					<div class="box">
@@ -134,7 +133,7 @@
 				</div>
 
 				<br />
-				<div><b>Tìm hiểu thêm:</b> Bài kiểm tra này có sai số khoảng 10%. Để
+				<div> Bài kiểm tra này có sai số khoảng 10%. Để
 					tìm hiểu chi tiết về các hoạt động, bạn có thể tìm hiểu các bài
 					viết khác.</div>
 

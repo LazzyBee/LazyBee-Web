@@ -393,6 +393,7 @@ public class MTestTool extends Composite {
 				.setAttribute("style",
 						"overflow-x: hidden; padding: 20px; height: 200px; padding-top: 20px; ");
 		VerticalPanel ver = new VerticalPanel();
+		ver.setWidth("100%");
 
 		Label header = new Label("Giải nghĩa tiếng việt");
 		header.getElement()
