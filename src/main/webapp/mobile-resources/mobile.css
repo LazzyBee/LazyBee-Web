@@ -277,6 +277,17 @@ h1 {
 	text-decoration: none;
 }
 
+.quest_v {
+	font-size: 14px;
+	font-weight: bold;
+	color: #eafd74;
+	float: right;
+	border-radius: 50%;
+	background:tomato;
+	padding-left: 8px;
+	padding-right: 7px;
+}
+
 .todo {
 	width: 95%;
 	text-align: center;
@@ -284,13 +295,12 @@ h1 {
 
 #shareResult {
 	background-color: #3b5998;
-	padding: 10px 5px 0px 5px;
+	padding: 10px 20px 0px 20px;
 	cursor: pointer;
 	height: 40px;
 	text-align: center;
 	border-radius: 2px;
 	font-size: 20px;
-	width: 60%;
 	color: white;
 }
 
@@ -385,7 +395,7 @@ h1 {
 
 .MTestTool_Obj5 {
 	width: 140px;
-	padding: 10px 18px 5px;
+	padding: 10px 10px 5px;
 	background: #5A5A5A;
 	margin: 20px 15px 10px 0;
 	position: relative;

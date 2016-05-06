@@ -138,7 +138,7 @@ public class MTestTool extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				getStep_TWO();
-				
+
 			}
 		});
 
@@ -168,7 +168,7 @@ public class MTestTool extends Composite {
 	}
 
 	private void startTest_TWO(LinkedHashMap<String, String> hmap) {
-		Window.scrollTo (0 ,0);
+		Window.scrollTo(0, 0);
 		container.clear();
 		totalCheck = 0;
 		testMap.clear();
@@ -293,10 +293,12 @@ public class MTestTool extends Composite {
 					"font-size: 14px; font-weight: bold; color: #eafd74");
 
 			Anchor btnVocaAn = new Anchor("?");
-			btnVocaAn
-					.getElement()
-					.setAttribute("style",
-							"font-size: 14px;font-weight: bold;color: #eafd74;float: right;");
+			btnVocaAn.setStyleName("quest_v");
+			/*
+			 * btnVocaAn .getElement() .setAttribute("style",
+			 * "font-size: 14px;font-weight: bold;color: #eafd74;float: right;"
+			 * );
+			 */
 			form.add(btnVocaAn);
 			btnVocaAn.addClickHandler(new ClickHandler() {
 
@@ -392,10 +394,12 @@ public class MTestTool extends Composite {
 		d.setAnimationEnabled(true);
 		ScrollPanel sc = new ScrollPanel();
 		sc.getElement()
-				.setAttribute("style",
-						"overflow-x: hidden; padding: 20px; height: 200px; padding-top: 20px; ");
+				.setAttribute(
+						"style",
+						"overflow-x: hidden; padding: 20px; height: 200px; padding-top: 20px;width: 100%; ");
 		VerticalPanel ver = new VerticalPanel();
 		ver.setWidth("100%");
+		ver.getElement().setAttribute("style", "width: 100%;");
 
 		Label header = new Label("Giải nghĩa tiếng việt");
 		header.getElement()
