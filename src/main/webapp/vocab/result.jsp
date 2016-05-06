@@ -10,6 +10,7 @@
 	String url = request.getRequestURL().toString();
 	String score = null;
 	String url_image = null;
+	String data_title = null;
 	if (request.getPathInfo() == null
 			|| request.getPathInfo().length() <= 1)
 		redirectHomeUrl(response);
@@ -23,11 +24,15 @@
 			if (score == null || score.equals(""))
 				redirectHomeUrl(response);
 			else
-				url_image = "http://chart.apis.google.com/chart?chs=160x160&cht=p3&chtt="
-						+ "Vốn%20từ%20của%20bạn%20là|"
-						+ score.toString()
-						+ "|từ"
-						+ "&chts=0000FF,20&chf=bg,s,00000000";
+			{
+				/* url_image = "http://chart.apis.google.com/chart?chs=160x160&cht=p3&chtt="
+				+ "Vốn%20từ%20của%20bạn%20là|"
+				+ score.toString()
+				+ "|từ"
+				+ "&chts=0000FF,20&chf=bg,s,00000000"; */
+				url_image="http://www.lazzybee.com/mobile-resources/fb_share.png";
+				data_title = "Vốn từ của bạn khoảng " + score.toString() + " từ";
+			}
 
 		}
 	}
@@ -62,20 +67,9 @@
 <script type="text/javascript"
 	src="/lazzybeemobile/lazzybeemobile.nocache.js" async></script>
 </head>
-<body onload="onFBReady();">
+<body>
 	<!-- Load fb sdk -->
 	<div id="fb-root"></div>
-	<script>
-		(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id))
-				return;
-			js = d.createElement(s);
-			js.id = id;
-			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=754889477966743";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-	</script>
 	<!-- Google Tag Manager -->
 	<noscript>
 		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
@@ -124,7 +118,9 @@
 		<div id="content">
 			<div class="mainMTestTool">
 				<div class="MTestTool_Obj1" style="padding: 10px; overflow: hidden;">
-					<div class="i_testtool_info" style="margin-top: 5px; margin-bottom: 5px;">Vốn từ của bạn khoảng</div>
+					<div class="i_testtool_info"
+						style="margin-top: 5px; margin-bottom: 5px;">Vốn từ của bạn
+						khoảng</div>
 				</div>
 				<div style="text-align: center; margin-bottom: 40px;">
 					<div class="box">
@@ -133,15 +129,77 @@
 				</div>
 
 				<br />
-				<div> Bài kiểm tra này có sai số khoảng 10%. Để
-					tìm hiểu chi tiết về các hoạt động, bạn có thể tìm hiểu các bài
-					viết khác.</div>
+				<div>Bài kiểm tra này có sai số khoảng 10%. Để tìm hiểu chi
+					tiết về các hoạt động, bạn có thể tìm hiểu các bài viết khác.</div>
 
 				<br />
-				<div style="text-align: center; margin-bottom: 40px;">
-					<div class="fb-share-button" data-href=<%=url%>
-						data-layout="button_count" data-mobile-iframe="true"></div>
+				<script src='http://connect.facebook.net/en_US/all.js'></script>
+
+				<div class="todo">
+					<!-- <div id="shareResult" style="display: inline-block; margin: 0"></div> -->
+
+					<div id="shareResult" style="display: inline-block; margin: 0"
+						href="<%=url %>"
+						data-image="<%=url_image %>"
+						data-title="<%=data_title %>"
+						data-desc="Kết quả làm bài test trên ứng dụng LazzyBee" class="fb_share">
+						<img class="fb_f" src="/mobile-resources/fb_f.png"> Chia sẻ FB
+					</div>
+					<a class="btn_replay" href="/testvocab/">Test lại</a>
+
 				</div>
+
+				<script type="text/javascript">
+					FB.init({
+						appId : "754889477966743",
+						status : true,
+						cookie : true
+					});
+					(function(d, debug) {
+						var js, id = 'facebook-jssdk', ref = d
+								.getElementsByTagName('script')[0];
+						if (d.getElementById(id)) {
+							return;
+						}
+						js = d.createElement('script');
+						js.id = id;
+						js.async = true;
+						js.src = "//connect.facebook.net/en_US/all"
+								+ (debug ? "/debug" : "") + ".js";
+						ref.parentNode.insertBefore(js, ref);
+					}(document, /*debug*/false));
+
+					function postToFeed(title, desc, url, image) {
+						var obj = {
+							method : 'feed',
+							link : url,
+							picture : image,
+							name : title,
+							description : desc
+						};
+						function callback(response) {
+						}
+						FB.ui(obj, callback);
+					}
+
+					var fbShareBtn = document.querySelector('.fb_share');
+					fbShareBtn
+							.addEventListener(
+									'click',
+									function(e) {
+										e.preventDefault();
+										var title = fbShareBtn
+												.getAttribute('data-title'), desc = fbShareBtn
+												.getAttribute('data-desc'), url = fbShareBtn
+												.getAttribute('href'), image = fbShareBtn
+												.getAttribute('data-image');
+										postToFeed(title, desc, url, image);
+
+										return false;
+									});
+				</script>
+				<br />
+
 
 				<!--  <script src='http://connect.facebook.net/en_US/all.js'></script>
 				<p>

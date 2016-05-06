@@ -138,6 +138,7 @@ public class MTestTool extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				getStep_TWO();
+				
 			}
 		});
 
@@ -167,6 +168,7 @@ public class MTestTool extends Composite {
 	}
 
 	private void startTest_TWO(LinkedHashMap<String, String> hmap) {
+		Window.scrollTo (0 ,0);
 		container.clear();
 		totalCheck = 0;
 		testMap.clear();

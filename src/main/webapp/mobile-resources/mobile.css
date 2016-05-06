@@ -262,6 +262,73 @@ h1 {
 	line-height: 1.5;
 }
 
+.MTestTool_Obj3 {
+	background: forestgreen;
+	padding: 10px 20px;
+	border-right: 1px silver solid;
+	color: white;
+	margin-top: 10px;
+}
+
+.MTestTool_Obj3:hover {
+	background: silver;
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
+}
+
+.todo {
+	width: 95%;
+	text-align: center;
+}
+
+#shareResult {
+	background-color: #3b5998;
+	padding: 10px 5px 0px 5px;
+	cursor: pointer;
+	height: 40px;
+	text-align: center;
+	border-radius: 2px;
+	font-size: 20px;
+	width: 60%;
+	color: white;
+}
+
+.btn_replay {
+	/* width: 13%;
+    float: right; */
+	display: inline-block;
+	vertical-align: middle;
+	border-radius: 2px;
+	font-size: 19px !important;
+	padding: 11px 10px 14px 10px;
+	font-size: 14px;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	color: #fff !important;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+}
+
+.btn_replay:HOVER {
+	color: #fff;
+	background-color: #449d44;
+	border-color: #398439;
+}
+
+.fb_f {
+	vertical-align: text-bottom;
+	border: none;
+}
+
+}
 #menu ul li a i {
 	color: #fff;
 	margin-right: 10px
@@ -587,26 +654,29 @@ h1 {
 	margin-top: 10px;
 	border-top: 1px solid silver
 }
+
 .result {
-		font-family: Impact, 'Arial Narrow', Helvetica, Arial, sans-serif;
-		font-size: 90px;
-		line-height: 135px;
-		color: #000;
-		margin: -29px 0 -19px;
-		text-align: center;
-        padding: 10px;
-        color: #333;
+	font-family: Impact, 'Arial Narrow', Helvetica, Arial, sans-serif;
+	font-size: 90px;
+	line-height: 135px;
+	color: #000;
+	margin: -29px 0 -19px;
+	text-align: center;
+	padding: 10px;
+	color: #333;
 }
+
 .box {
-		display: inline-block;
-		background: #eee;
-		margin-top: 20px;
-		margin-bottom: -4px;
-		padding: 29px;
-		-moz-border-radius: 33px;
-		-webkit-border-radius: 33px;
-		border-radius: 33px;
-	}
+	display: inline-block;
+	background: #eee;
+	margin-top: 20px;
+	margin-bottom: -4px;
+	padding: 29px;
+	-moz-border-radius: 33px;
+	-webkit-border-radius: 33px;
+	border-radius: 33px;
+}
+
 .vdict_avatar {
 	display: block;
 	overflow: hidden;
