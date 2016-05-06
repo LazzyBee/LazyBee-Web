@@ -1,3 +1,4 @@
+<%@page import="com.google.gwt.user.client.Window"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="com.born2go.lazzybee.gdatabase.server.DataServiceImpl"%>
 <%!//Global functions
@@ -34,7 +35,7 @@
 				url_image = "http://www.lazzybee.com/mobile-resources/fb_share.png";
 				data_title = "Vốn từ của bạn khoảng "
 						+ score.toString() + " từ";
-				int score_i = Integer.parseInt(score.trim());
+				int score_i = Integer.parseInt(score.replace(",", "").trim());
 				
 				if (score_i < 3000) {
 					data_desc = "Vốn từ của bạn ở mức cơ bản, bạn cần bổ sung thêm từ vựng để nâng cao trình độ tiếng Anh của mình. Chúng tôi khuyến nghị bạn nên học để có mức từ vựng khoảng 7000 từ, nếu sử dụng LazzyBee, bạn nên bắt đầu ở level 1.";
@@ -145,7 +146,7 @@
 				</div>
 				<div style="text-align: center; margin-bottom: 40px;">
 					<div class="box">
-						<div class="result"><%=score%></div>
+						<div class="result_score"><%=score%></div>
 					</div>
 				</div>
 				<div class="MTestTool_Obj1">
