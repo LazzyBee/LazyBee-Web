@@ -377,11 +377,14 @@ public class MTestTool extends Composite {
 
 			@Override
 			public void onSuccess(Voca result) {
-				if (result != null)
-					onVocaView_EV(result);
-				else {
-					Window.alert("Từ này chưa có trong hệ thống từ điển !");
-				}
+				result = new Voca();
+				result.setL_vn("<p><span  ><strong>DANH TỪ</strong></span></p><ul><li>vụ, m&ugrave;a; thu hoạch của một vụ<ul><li>potato crop:&nbsp;vụ khoai</li></ul></li><li>(số nhiều) c&acirc;y trồng<ul><li>technical (industrial) crops:&nbsp;c&acirc;y c&ocirc;ng nghiệp</li></ul></li><li>cụm, nhom, loạt, tập<ul><li>a crop of questions:&nbsp;một loạt c&acirc;u hỏi</li><li>a crop of bills:&nbsp;tập ho&aacute; đơn</li></ul></li><li>(động vật học) diều (chim)</li><li>tay cầm (của roi da)</li><li>sự cắt t&oacute;c ngắn<ul><li>to have a close crop:&nbsp;cắt t&oacute;c ngắn qu&aacute;</li></ul></li><li>bộ da thuộc</li><li>đoạn cắt bỏ đầu, kh&uacute;c cắt bỏ đầu</li><li>thịt bả vai (b&ograve; ngựa)</li></ul><p><span  ><strong>IDIOMS</strong></span></p><ul><li>neck and crop<ul><li>to&agrave;n bộ, to&agrave;n thể</li></ul></li><li>land in crop; land under crop<ul><li>đất đang được trồng trọt c&agrave;y cấy</li></ul></li><li>land out of crop<ul><li>đất bỏ ho&aacute;</li></ul></li></ul><p><strong><span  >NGOẠI ĐỘNG TỪ</span></strong></p><ul><li>gặm (cỏ)</li><li>gặt; h&aacute;i</li><li>gieo, trồng (ruộng đất)<ul><li>to crop a land with potatoes:&nbsp;trồng khoai một thửa ruộng</li></ul></li><li>x&eacute;n, hớt, cắt ngắn (tai, đu&ocirc;i, t&oacute;c, m&eacute;p s&aacute;ch, h&agrave;ng r&agrave;o...)</li></ul><p><span  ><strong>NỘI ĐỘNG TỪ</strong></span></p><ul><li>thu hoạch<ul><li>the beans crop ped well this year:&nbsp;năm nay đậu thu hoạch tốt</li></ul></li></ul><p><span  ><strong>IDIOMS</strong></span></p><ul><li>to crop out (forth)<ul><li>trồi l&ecirc;n</li></ul></li><li>to crop up<ul><li>nảy ra, hiểu ra, nổi l&ecirc;n bất ngờ (kh&oacute; khăn, vấn đề...)</li></ul></li></ul><p><span  ><strong>KINH TẾ</strong></span></p><ul><li>c&acirc;y trồng</li><li>giống c&acirc;y trồng</li><li>kh&uacute;c đ&atilde; cắt đầu</li><li>sản phẩm vụ m&ugrave;a</li><li>thịt vai</li><li>vụ thu hoạch</li></ul><p><span  ><strong>KỸ THUẬT</strong></span></p><ul><li>cắt bỏ</li><li>mảnh vụn</li><li>mẫu</li><li>sự lộ vỉa</li><li>thu hoạch</li><li>vết lộ</li></ul><p><span  ><strong>LĨNH VỰC: DỆT MAY</strong></span></p><ul><li>gặt h&aacute;i</li></ul><p><span  ><strong>LĨNH VỰC: TO&Aacute;N &amp; TIN</strong></span></p><ul><li>x&eacute;n bớt</li></ul>");
+				onVocaView_EV(result);
+				// if (result != null)
+				// onVocaView_EV(result);
+				// else {
+				// Window.alert("Từ này chưa có trong hệ thống từ điển !");
+				// }
 			}
 		});
 	}
@@ -392,6 +395,7 @@ public class MTestTool extends Composite {
 		d.setAutoHideEnabled(true);
 		d.setGlassEnabled(true);
 		d.setAnimationEnabled(true);
+
 		ScrollPanel sc = new ScrollPanel();
 		sc.getElement()
 				.setAttribute(
