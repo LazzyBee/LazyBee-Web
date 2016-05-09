@@ -344,11 +344,19 @@
 					}
 				%>
 
-				<div
-					style="padding: 10px; background-color: lemonchiffon; line-height: 1.5;">
-					<span>Phương pháp học thông qua flashcard chỉ có trên phiên
-						bản mobile. Bạn hãy cài đặt App mobile để học từ vựng tốt hơn.</span>
-				</div>
+				<p
+					style="padding: 10px; background-color: lemonchiffon; line-height: 1.5; font-size: inherit;">
+					Lazzy Bee là ứng dụng học từ vựng chuyên nghiệp, giúp bạn tăng vốn
+					từ vựng bền vững 2000 từ một năm <a
+						style="text-decoration: underline !important; color: blue;"
+						href="http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year">chỉ
+						với 5 phút mỗi ngày.</a>. Vui lòng đọc <a
+						style="text-decoration: underline !important; color: blue;"
+						href="http://www.lazzybee.com/blog/did_you_read_the_manual">hướng
+						dẫn sử dụng</a> và học theo đúng phương pháp học để đảm bảo hiệu quả
+					tối đa
+				</p>
+				
 				<table class="table-app" cellspacing="5">
 					<tr>
 						<td>
