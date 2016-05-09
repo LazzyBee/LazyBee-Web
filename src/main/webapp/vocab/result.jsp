@@ -14,6 +14,7 @@
 	String url_image = null;
 	String data_title = null;
 	String data_desc = null;
+	String data_dessF = null;
 	if (request.getPathInfo() == null
 			|| request.getPathInfo().length() <= 1)
 		redirectHomeUrl(response);
@@ -24,9 +25,10 @@
 		else {
 			DataServiceImpl service = new DataServiceImpl();
 			score = service.getVocabResult_Test(encry);
-			if (score == null || score.equals(""))
-				redirectHomeUrl(response);
-			else {
+			if (score == null || score.equals("")) {
+				//	redirectHomeUrl(response);
+				score = null;
+			} else {
 				/* url_image = "http://chart.apis.google.com/chart?chs=160x160&cht=p3&chtt="
 				+ "Vốn%20từ%20của%20bạn%20là|"
 				+ score.toString()
@@ -35,38 +37,70 @@
 				url_image = "http://www.lazzybee.com/mobile-resources/fb_share.png";
 				data_title = "Vốn từ của bạn khoảng "
 						+ score.toString() + " từ";
-				int score_i = Integer.parseInt(score.replace(",", "").trim());
-				
+				int score_i = Integer.parseInt(score.replace(",", "")
+						.trim());
+
 				if (score_i < 3000) {
-					data_desc = "<li>" + "Vốn từ của bạn ở mức cơ bản, bạn cần bổ sung thêm từ vựng để nâng cao trình độ tiếng Anh của mình." + "</li>" 
-								+ "<li>" + "Chúng tôi khuyến nghị bạn nên tăng cường để có mức từ vựng ít nhất khoảng 7000 từ." + "</li>" 
-								+ "<li>" + "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững " 
-										+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
-										+ " Bạn nên thiết lập ở level 1 trong ứng dụng LazzyBee. Chúc bạn thành công!" + "</li>";
-				} else if (score_i < 5000) {
-					data_desc = "<li>" + "Vốn từ của bạn ở mức tạm ổn, tuy nhiên, bạn sẽ vẫn gặp nhiều khó khăn khi đọc sách tiếng Anh." + "</li>"
-							+ "<li>" + "Chúng tôi khuyến nghị bạn nên tăng cường để có mức từ vựng ít nhất khoảng 7000 từ." + "</li>" 
-							+ "<li>" + "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững " 
+					data_desc = "<li>"
+							+ "Vốn từ của bạn ở mức cơ bản, bạn cần bổ sung thêm từ vựng để nâng cao trình độ tiếng Anh của mình."
+							+ "</li>"
+							+ "<li>"
+							+ "Chúng tôi khuyến nghị bạn nên tăng cường để có mức từ vựng ít nhất khoảng 7000 từ."
+							+ "</li>"
+							+ "<li>"
+							+ "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững "
 							+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
-							+ " Bạn nên thiết lập ở level 2 trong ứng dụng LazzyBee. Chúc bạn thành công!" + "</li>";
+							+ " Bạn nên thiết lập ở level 1 trong ứng dụng LazzyBee. Chúc bạn thành công!"
+							+ "</li>";
+				} else if (score_i < 5000) {
+					data_desc = "<li>"
+							+ "Vốn từ của bạn ở mức tạm ổn, tuy nhiên, bạn sẽ vẫn gặp nhiều khó khăn khi đọc sách tiếng Anh."
+							+ "</li>"
+							+ "<li>"
+							+ "Chúng tôi khuyến nghị bạn nên tăng cường để có mức từ vựng ít nhất khoảng 7000 từ."
+							+ "</li>"
+							+ "<li>"
+							+ "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững "
+							+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
+							+ " Bạn nên thiết lập ở level 2 trong ứng dụng LazzyBee. Chúc bạn thành công!"
+							+ "</li>";
 				} else if (score_i < 7500) {
-					data_desc = "<li>" + "Vốn từ của bạn ở mức khá tốt, bạn có thể đọc tài liệu cũng như nghe tiếng Anh tương đối dễ dàng." + "</li>" 
-							+ "<li>" + "Nếu bạn nâng mức từ vựng lên 9000 từ, bạn sẽ thấy trình độ tiếng Anh vươn lên một tầm cao mới." + "</li>"
-							+ "<li>" + "Sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững " 
-									+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
-									+ " Bạn nên thiết lập ở level 3 trong ứng dụng LazzyBee. Chúc bạn thành công";
+					data_desc = "<li>"
+							+ "Vốn từ của bạn ở mức khá tốt, bạn có thể đọc tài liệu cũng như nghe tiếng Anh tương đối dễ dàng."
+							+ "</li>"
+							+ "<li>"
+							+ "Nếu bạn nâng mức từ vựng lên 9000 từ, bạn sẽ thấy trình độ tiếng Anh vươn lên một tầm cao mới."
+							+ "</li>"
+							+ "<li>"
+							+ "Sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững "
+							+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
+							+ " Bạn nên thiết lập ở level 3 trong ứng dụng LazzyBee. Chúc bạn thành công";
 				} else if (score_i < 10000) {
-					data_desc = "<li>" + "Vốn từ của bạn rất tốt, không có nhiều người học tiếng Anh có được vốn từ vựng như bạn." + "</li>"
-							+ "<li>" + "Việc chủ động tăng vốn từ vựng là không quá cần thiết, nhưng sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tiết kiệm thời gian để nhớ các từ mới."+ "</li>";
+					data_desc = "<li>"
+							+ "Vốn từ của bạn rất tốt, không có nhiều người học tiếng Anh có được vốn từ vựng như bạn."
+							+ "</li>"
+							+ "<li>"
+							+ "Việc chủ động tăng vốn từ vựng là không quá cần thiết, nhưng sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tiết kiệm thời gian để nhớ các từ mới."
+							+ "</li>";
 				} else if (score_i < 12500) {
-					data_desc = "<li>" + "Bạn có vốn từ tương đương với người sống ở nước nói tiếng Anh vài năm. Vốn từ này giúp bạn nghe, nói và đọc tài liệu rất dễ dàng. Xin chúc mừng." + "</li>"
-							+ "<li>" + "Việc chủ động tăng vốn từ vựng là không quá cần thiết, nhưng sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tiết kiệm thời gian để nhớ các từ mới"+ "</li>";;
+					data_desc = "<li>"
+							+ "Bạn có vốn từ tương đương với người sống ở nước nói tiếng Anh vài năm. Vốn từ này giúp bạn nghe, nói và đọc tài liệu rất dễ dàng. Xin chúc mừng."
+							+ "</li>"
+							+ "<li>"
+							+ "Việc chủ động tăng vốn từ vựng là không quá cần thiết, nhưng sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tiết kiệm thời gian để nhớ các từ mới"
+							+ "</li>";;
 				} else if (score_i < 19000) {
-					data_desc = "<li>" + "Bạn có vốn từ rất lớn, gần như người bản ngữ. Xin chúc mừng!"+ "</li>";
+					data_desc = "<li>"
+							+ "Bạn có vốn từ rất lớn, gần như người bản ngữ. Xin chúc mừng!"
+							+ "</li>";
 				} else {
-					data_desc = "<li>" + "Bạn có vốn từ vựng tương đương với người bản ngữ. Xin chúc mừng!"+ "</li>";
+					data_desc = "<li>"
+							+ "Bạn có vốn từ vựng tương đương với người bản ngữ. Xin chúc mừng!"
+							+ "</li>";
 				}
-				 
+				data_dessF = data_desc.replaceAll("<li>", "")
+						.replaceAll("</li>", "");
+
 			}
 
 		}
@@ -96,7 +130,7 @@
 <meta property="og:title"
 	content="Kiểm tra vốn từ vựng tiếng Anh - LazzyBee" />
 <meta property="og:description"
-	content="Vốn từ vưng tiếng Anh của bạn được ước tính khoảng <%=score%> từ" />
+	content="Vốn từ vựng tiếng Anh của bạn được ước tính khoảng <%=score%> từ" />
 <meta property="og:image" content=<%=url_image%> />
 <meta property="fb:app_id" content="754889477966743" />
 
@@ -153,6 +187,20 @@
 	<div id="main">
 		<div id="content">
 			<div class="mainMTestTool">
+				<%
+					if (score == null) {
+				%>
+				<div class="MTestTool_Obj1" style="padding: 10px; overflow: hidden;">
+					<div class="i_testtool_info"
+						style="margin-top: 5px; margin-bottom: 5px;">Liên kết không
+						hợp lệ</div>
+				</div>
+				<div style="text-align: center; margin: 10px 0px;">
+					<a class="btn_replay" href="/testvocab/">Test từ</a>
+				</div>
+				<%
+					} else {
+				%>
 				<div class="MTestTool_Obj1" style="padding: 10px; overflow: hidden;">
 					<div class="i_testtool_info"
 						style="margin-top: 5px; margin-bottom: 5px;">Vốn từ của bạn
@@ -163,15 +211,15 @@
 						<div class="result_score"><%=score%></div>
 					</div>
 				</div>
+
 				<div class="MTestTool_Obj1">
 					<span style="font-weight: bold">Kết quả:</span>
 					<ul style="width: 90%; line-height: 1.6">
 						<%=data_desc%>
-
 					</ul>
 				</div>
-				<br />
 
+				<br />
 
 				<p style="font-style: italic; font-size: inherit; margin: 0px 5px;">
 					(*)Bài kiểm tra này có sai số <a
@@ -191,7 +239,7 @@
 
 					<div id="shareResult" style="display: inline-block; margin: 0"
 						href="<%=url%>" data-image="<%=url_image%>"
-						data-title="<%=data_title%>" data-desc="<%=data_desc %>"
+						data-title="<%=data_title%>" data-desc="<%=data_dessF%>"
 						class="fb_share">
 						<img class="fb_f" src="/mobile-resources/fb_f.png"> Chia sẻ
 						FB
@@ -199,6 +247,13 @@
 					<a class="btn_replay" href="/testvocab/">Test lại</a>
 
 				</div>
+				<br />
+				<div class="permalink">
+					Để lưu trữ hoặc chia sẻ kết quả của bạn, sử dụng liên kết sau đây:
+					<a href="<%=url%>"> <%=url%>
+					</a>
+				</div>
+				<br />
 
 				<script type="text/javascript">
 					FB.init({
@@ -285,9 +340,39 @@
 						FB.ui(obj, callback);
 					}
 				</script> -->
+				<%
+					}
+				%>
+
+				<div
+					style="padding: 10px; background-color: lemonchiffon; line-height: 1.5;">
+					<span>Phương pháp học thông qua flashcard chỉ có trên phiên
+						bản mobile. Bạn hãy cài đặt App mobile để học từ vựng tốt hơn.</span>
+				</div>
+				<table class="table-app" cellspacing="5">
+					<tr>
+						<td>
+							<div style="float: left; margin-right: 10px; margin-top: 15px;">
+								<a
+									href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
+									<img alt="download lazzybee"
+									src="/mobile-resources/appstore_m.png" class="appstore">
+								</a>
+							</div>
+						</td>
+						<td>
+							<div>
+								<a
+									href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
+									<img alt="download lazzybee"
+									src="/mobile-resources/googleplay_m.jpg" class="appstore">
+								</a>
+							</div>
+						</td>
+					</tr>
+				</table>
 
 			</div>
-
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">

@@ -349,6 +349,12 @@ h1 {
 	border: none;
 }
 
+.permalink {
+    margin-top: 25px;
+    color: #888;
+    font-size: 16px;
+    line-height: 23px;
+    text-align: center;
 }
 #menu ul li a i {
 	color: #fff;
