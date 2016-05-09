@@ -18,6 +18,7 @@
 		<welcome-file>mhome.html</welcome-file>
 		<welcome-file>mtesttool.html</welcome-file>
 		<welcome-file>chart.html</welcome-file>
+		<welcome-file>fb.html</welcome-file>
 	</welcome-file-list>
 
 	<!-- Register objectify entity -->
@@ -145,13 +146,6 @@
 		<url-pattern>/appstats/*</url-pattern>
 	</servlet-mapping>
 	
-	<!-- <servlet>
-    	<servlet-name>TestVocaServlet</servlet-name>
-    	<servlet-class>com.born2go.lazzybee.gdatabase.server.TestVocaServlet</servlet-class>
-  	</servlet>
- 	 <servlet-mapping>
-   	 	<servlet-name>TestVocaServlet</servlet-name>
-   		<url-pattern>/TestVocaServlet</url-pattern>
-  	</servlet-mapping> -->
+	 
 
 </web-app>

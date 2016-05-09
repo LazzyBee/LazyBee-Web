@@ -104,7 +104,7 @@ public class MTestTool extends Composite {
 				"padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
-				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết chắc chắn ít nhất 01 nghĩa)");
+				"Bước 1: Đánh giá sơ bộ vốn từ vựng của bạn. Hãy chọn các từ mà bạn đã biết nghĩa.");
 		checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
@@ -138,6 +138,7 @@ public class MTestTool extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				getStep_TWO();
+
 			}
 		});
 
@@ -167,6 +168,7 @@ public class MTestTool extends Composite {
 	}
 
 	private void startTest_TWO(LinkedHashMap<String, String> hmap) {
+		Window.scrollTo(0, 0);
 		container.clear();
 		totalCheck = 0;
 		testMap.clear();
@@ -181,7 +183,7 @@ public class MTestTool extends Composite {
 				"padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
-				"(Đây là bài tự kiểm tra, hãy click để chọn các từ bạn đã biết chắc chắn ít nhất 01 nghĩa)");
+				"Bước 2: Trong bước này, chúng tôi sẽ cố gắng ước lượng chính xác hơn vốn từ của bạn dựa vào kết quả đã thu được từ bước 1");
 		checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
@@ -238,7 +240,7 @@ public class MTestTool extends Composite {
 					@Override
 					public void onSuccess(String value) {
 						if (value.length() >= 0) {
-							//showResultTest(value);
+							// showResultTest(value);
 							Window.Location.replace(value);
 
 						}
@@ -287,14 +289,17 @@ public class MTestTool extends Composite {
 			form.setStyleName("MTestTool_Obj5");
 			vocaQ.setStyleName("itesttool_vocaq");
 			vocaQ.getElement().setClassName("vocaq");
-			vocaQ.getElement().setAttribute("style",
-					"font-size: 14px; font-weight: bold; color: #eafd74");
+			vocaQ.getElement()
+					.setAttribute("style",
+							"font-size: 15px; font-weight: bold; color: #eafd74;  margin-right: 10px");
 
 			Anchor btnVocaAn = new Anchor("?");
-			btnVocaAn
-					.getElement()
-					.setAttribute("style",
-							"font-size: 14px;font-weight: bold;color: #eafd74;float: right;");
+			btnVocaAn.setStyleName("quest_v");
+			/*
+			 * btnVocaAn .getElement() .setAttribute("style",
+			 * "font-size: 14px;font-weight: bold;color: #eafd74;float: right;"
+			 * );
+			 */
 			form.add(btnVocaAn);
 			btnVocaAn.addClickHandler(new ClickHandler() {
 
@@ -373,9 +378,10 @@ public class MTestTool extends Composite {
 
 			@Override
 			public void onSuccess(Voca result) {
+
 				if (result != null)
 					onVocaView_EV(result);
-				else{
+				else {
 					Window.alert("Từ này chưa có trong hệ thống từ điển !");
 				}
 			}
@@ -388,11 +394,15 @@ public class MTestTool extends Composite {
 		d.setAutoHideEnabled(true);
 		d.setGlassEnabled(true);
 		d.setAnimationEnabled(true);
+
 		ScrollPanel sc = new ScrollPanel();
 		sc.getElement()
-				.setAttribute("style",
-						"overflow-x: hidden; padding: 20px; height: 200px; padding-top: 20px; ");
+				.setAttribute(
+						"style",
+						"overflow-x: hidden;  height: 200px; padding-top: 20px;  padding-bottom: 20px; padding-left: 1%;width: 98%; ");
 		VerticalPanel ver = new VerticalPanel();
+		ver.setWidth("100%");
+		ver.getElement().setAttribute("style", "width: 100%;");
 
 		Label header = new Label("Giải nghĩa tiếng việt");
 		header.getElement()

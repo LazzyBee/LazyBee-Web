@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		@external .MTestTool_Obj1,.MTestTool_Obj2,.MTestTool_Obj3,.MTestTool_Obj4, .MTestTool_box, .MTestTool_result, .MTestTool_Obj12; 
+		@external .MTestTool_Obj1,.MTestTool_Obj2,.MTestTool_Obj4, .MTestTool_box, .MTestTool_result; 
 
 
 		.MTestTool_Obj1 {
@@ -18,23 +18,7 @@
 		padding: 10px 30px !important;
 		}
 
-		.MTestTool_Obj3 {
-		background: forestgreen;
-		padding: 10px 20px;
-		border-right: 1px silver
-		solid;
-		color: white;
-		margin-top: 10px;
-		}
-
-		.MTestTool_Obj3:hover {
-		background: silver;
-		cursor: pointer;
-		color:
-		white;
-		text-decoration:
-		none;
-		}
+		
 
 		.MTestTool_Obj4 {
 		background: tomato;
@@ -116,12 +100,7 @@
         padding: 10px;
         color: #333;
 	}
-    .MTestTool_Obj12 {
-		background: white;	
-		border: 10px solid rgba(0, 150, 136, 0.6);
-		box-shadow: 2px 3px 5px #999;
-		width: 75%;
-	}
+    
 	</ui:style>
 	<g:HTMLPanel ui:field="container">
 		 
