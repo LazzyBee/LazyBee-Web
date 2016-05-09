@@ -38,19 +38,33 @@
 				int score_i = Integer.parseInt(score.replace(",", "").trim());
 				
 				if (score_i < 3000) {
-					data_desc = "Vốn từ của bạn ở mức cơ bản, bạn cần bổ sung thêm từ vựng để nâng cao trình độ tiếng Anh của mình. Chúng tôi khuyến nghị bạn nên học để có mức từ vựng khoảng 7000 từ, nếu sử dụng LazzyBee, bạn nên bắt đầu ở level 1.";
+					data_desc = "<li>" + "Vốn từ của bạn ở mức cơ bản, bạn cần bổ sung thêm từ vựng để nâng cao trình độ tiếng Anh của mình." + "</li>" 
+								+ "<li>" + "Chúng tôi khuyến nghị bạn nên tăng cường để có mức từ vựng ít nhất khoảng 7000 từ." + "</li>" 
+								+ "<li>" + "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững " 
+										+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
+										+ " Bạn nên thiết lập ở level 1 trong ứng dụng LazzyBee. Chúc bạn thành công!" + "</li>";
 				} else if (score_i < 5000) {
-					data_desc = "Vốn từ của bạn ở mức tạm ổn, tuy nhiên, bạn sẽ vẫn gặp nhiều khó khăn khi đọc sách tiếng Anh. Chúng tôi khuyến nghị bạn nên học để có mức từ vựng khoảng 7000 từ, nếu sử dụng LazzyBee, bạn nên bắt đầu ở level 2.";
-				} else if (score_i < 7000) {
-					data_desc = "Vốn từ của bạn ở mức trung bình tốt, bạn có thể đọc tài liệu cũng như nghe tiếng Anh khá tốt. Nếu bạn có thể nâng mức từ vựng lên 9000 từ thì Chúng tôi khuyến nghị bạn nên học để có mức từ vựng khoảng 7000 từ, nếu sử dụng LazzyBee, bạn nên bắt đầu ở level 1.";
-				} else if (score_i < 9000) {
-					data_desc = " Vốn từ của bạn rất tốt, ít người học tiếng Anh có được vốn từ vựng như bạn.";
-				} else if (score_i < 11000) {
-					data_desc = " Bạn có vốn từ tương đương với người sống ở nước nói tiếng Anh vài năm. Vốn từ này giúp bạn nghe, nói và đọc tài liệu rất dễ dàng. Xin chúc mừng.";
+					data_desc = "<li>" + "Vốn từ của bạn ở mức tạm ổn, tuy nhiên, bạn sẽ vẫn gặp nhiều khó khăn khi đọc sách tiếng Anh." + "</li>"
+							+ "<li>" + "Chúng tôi khuyến nghị bạn nên tăng cường để có mức từ vựng ít nhất khoảng 7000 từ." + "</li>" 
+							+ "<li>" + "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững " 
+							+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
+							+ " Bạn nên thiết lập ở level 2 trong ứng dụng LazzyBee. Chúc bạn thành công!" + "</li>";
+				} else if (score_i < 7500) {
+					data_desc = "<li>" + "Vốn từ của bạn ở mức khá tốt, bạn có thể đọc tài liệu cũng như nghe tiếng Anh tương đối dễ dàng." + "</li>" 
+							+ "<li>" + "Nếu bạn nâng mức từ vựng lên 9000 từ, bạn sẽ thấy trình độ tiếng Anh vươn lên một tầm cao mới." + "</li>"
+							+ "<li>" + "Sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững " 
+									+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
+									+ " Bạn nên thiết lập ở level 3 trong ứng dụng LazzyBee. Chúc bạn thành công";
+				} else if (score_i < 10000) {
+					data_desc = "<li>" + "Vốn từ của bạn rất tốt, không có nhiều người học tiếng Anh có được vốn từ vựng như bạn." + "</li>"
+							+ "<li>" + "Việc chủ động tăng vốn từ vựng là không quá cần thiết, nhưng sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tiết kiệm thời gian để nhớ các từ mới."+ "</li>";
+				} else if (score_i < 12500) {
+					data_desc = "<li>" + "Bạn có vốn từ tương đương với người sống ở nước nói tiếng Anh vài năm. Vốn từ này giúp bạn nghe, nói và đọc tài liệu rất dễ dàng. Xin chúc mừng." + "</li>"
+							+ "<li>" + "Việc chủ động tăng vốn từ vựng là không quá cần thiết, nhưng sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tiết kiệm thời gian để nhớ các từ mới"+ "</li>";;
 				} else if (score_i < 19000) {
-					data_desc = "Bạn có vốn từ rất lớn, gần như người bản ngữ. Xin chúc mừng.";
+					data_desc = "<li>" + "Bạn có vốn từ rất lớn, gần như người bản ngữ. Xin chúc mừng!"+ "</li>";
 				} else {
-					data_desc = "Vốn từ của bạn tương đương với người bản ngữ.";
+					data_desc = "<li>" + "Bạn có vốn từ vựng tương đương với người bản ngữ. Xin chúc mừng!"+ "</li>";
 				}
 				 
 			}
@@ -70,7 +84,7 @@
 <!-- for view mobile -->
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
-<title>Test your voca result</title>
+<title>Vocabulary test result</title>
 <link type="text/css" rel="stylesheet"
 	href="/mobile-resources/mobile.css">
 <link rel="stylesheet"
@@ -82,7 +96,7 @@
 <meta property="og:title"
 	content="Kiểm tra vốn từ vựng tiếng Anh - LazzyBee" />
 <meta property="og:description"
-	content="Kết quả làm bài test của bạn trên lazzybee" />
+	content="Vốn từ vưng tiếng Anh của bạn được ước tính khoảng <%=score%> từ" />
 <meta property="og:image" content=<%=url_image%> />
 <meta property="fb:app_id" content="754889477966743" />
 
@@ -132,7 +146,7 @@
 				<i class="fa fa-bars fa-lg" id="menuBtn"></i>
 			</div>
 			<div class="toppest">
-				<div class="main_title">Lazzybee Blogs</div>
+				<div class="main_title">Lazzybee Vocabulary Test</div>
 			</div>
 		</div>
 	</div>
@@ -152,7 +166,7 @@
 				<div class="MTestTool_Obj1">
 					<span style="font-weight: bold">Kết quả:</span>
 					<ul style="width: 90%; line-height: 1.6">
-						<li><%=data_desc%></li>
+						<%=data_desc%>
 
 					</ul>
 				</div>
@@ -160,13 +174,13 @@
 
 
 				<p style="font-style: italic; font-size: inherit; margin: 0px 5px;">
-					(*Bài kiểm tra này có sai số <a
+					(*)Bài kiểm tra này có sai số <a
 						style="text-decoration: underline !important; color: blue;"
 						href="http://www.lazzybee.com/blog/how_accurate_the_test_is">khoảng
 						10%</a> . Để tìm hiểu chi tiết về các hoạt động, bạn có thể tìm hiểu
 					bài viết chi tiết về cách thức kiểm tra <a
 						style="text-decoration: underline !important; color: blue;"
-						href="http://www.lazzybee.com/blog/how_the_test_works">ở đây</a>.*)
+						href="http://www.lazzybee.com/blog/how_the_test_works">ở đây</a>.
 				</p>
 
 				<br />
