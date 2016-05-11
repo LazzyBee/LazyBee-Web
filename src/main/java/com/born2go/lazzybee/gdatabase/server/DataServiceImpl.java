@@ -577,7 +577,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		// Connection
 		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie)
 				.followRedirects(true).data(hashMap);
-		String plainText = "";
+		 
 		String url = null;
 		 try {
 			Document doc = conn.post();
@@ -610,13 +610,9 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			try {
 				Document doc3 = conn3.post();
 				Element element = doc3.select("div.num").first();
-				plainText = element.text();
-				 
-				java.security.Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
 	            cipher = Cipher.getInstance("AES");
-				String encryptedText = encrypt(plainText, secretKey);
-			  url = "http://www.lazzybee.com/vocab/" + encryptedText;
-			  //  url = "http://localhost:8888/vocab/"+ encryptedText;
+		 	    url = "http://www.lazzybee.com/vocab/" + encrypt(element.text());
+		 	   //	    url = "http://localhost:8888/vocab/"+ encrypt(element.text());
 			} catch (  Exception e) {
 				e.printStackTrace();
 			}
@@ -629,47 +625,43 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		return url;
 	}
 	public String getVocabResult_Test(String encryptedText){
-		java.security.Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
 		String result = null;
         try {
-			cipher = Cipher.getInstance("AES");
-			result = decrypt(encryptedText, secretKey);
-			
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchPaddingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+        	cipher = Cipher.getInstance("AES");
+			result = decrypt(encryptedText);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 e.printStackTrace();
 		}
 		 
 		return result;
 	}
 	 
-	final String key = "lazzybee12345678";
+	final static String key = "lazzybee12345678";
 	 
 	static Cipher cipher;
-	public static String encrypt(String plainText, java.security.Key secretKey)
+	public static String encrypt(String plainText)
 			throws Exception {
 		byte[] plainTextByte = plainText.getBytes();
-		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+		cipher.init(Cipher.ENCRYPT_MODE, genKey());
 		byte[] encryptedByte = cipher.doFinal(plainTextByte);
 		String encryptedText = Base64.encodeBase64String(encryptedByte);
 		return encryptedText;
 	}
 
-	public static String decrypt(String encryptedText, java.security.Key secretKey)
+	public static String decrypt(String encryptedText)
 			throws Exception {
 		 
 		byte[] encryptedTextByte = Base64.decodeBase64(encryptedText);
-		cipher.init(Cipher.DECRYPT_MODE, secretKey);
+		cipher.init(Cipher.DECRYPT_MODE, genKey());
 		byte[] decryptedByte = cipher.doFinal(encryptedTextByte);
 		String decryptedText = new String(decryptedByte);
 		return decryptedText;
 	}
+	private static java.security.Key genKey() {
+		java.security.Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
+		return secretKey;
+	}
+	
 	public String getIMG_result(String url){
 		 String result = null;
 		 try {

@@ -19,7 +19,7 @@
 			|| request.getPathInfo().length() <= 1)
 		redirectHomeUrl(response);
 	else {
-		String encry = request.getPathInfo().replaceAll("/", "");
+		String encry = request.getPathInfo().replaceFirst("/", "");
 		if (encry == null || encry.equals(""))
 			redirectHomeUrl(response);
 		else {
@@ -354,7 +354,7 @@
 						style="text-decoration: underline !important; color: blue;"
 						href="http://www.lazzybee.com/blog/did_you_read_the_manual">hướng
 						dẫn sử dụng</a> và học theo đúng phương pháp học để đảm bảo hiệu quả
-					tối đa
+					tối đa.
 				</p>
 				
 				<table class="table-app" cellspacing="5">

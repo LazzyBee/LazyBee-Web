@@ -60,9 +60,9 @@ public class DataServiceApi {
 	/** Get list all of vocabulary */
 	@ApiMethod(name = "listVoca")
 	public List<Voca> listVoca() {
-//		List<Voca> list_voca = ofy().load().type(Voca.class)
-//				.filter("level <", 8).list();
-		List<Voca> list_voca = ofy().load().type(Voca.class).list();
+		List<Voca> list_voca = ofy().load().type(Voca.class)
+				.filter("level <", 8).list();
+	//	List<Voca> list_voca = ofy().load().type(Voca.class).list();
 		return list_voca;
 	}
 
