@@ -48,7 +48,7 @@
 							+ "Chúng tôi khuyến nghị bạn nên tăng cường để có mức từ vựng ít nhất khoảng 7000 từ."
 							+ "</li>"
 							+ "<li>"
-							+ "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững "
+							+ "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững (2000 từ một năm) "
 							+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
 							+ " Bạn nên thiết lập ở level 1 trong ứng dụng LazzyBee. Chúc bạn thành công!"
 							+ "</li>";
@@ -60,7 +60,7 @@
 							+ "Chúng tôi khuyến nghị bạn nên tăng cường để có mức từ vựng ít nhất khoảng 7000 từ."
 							+ "</li>"
 							+ "<li>"
-							+ "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững "
+							+ "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững (2000 từ một năm) "
 							+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
 							+ " Bạn nên thiết lập ở level 2 trong ứng dụng LazzyBee. Chúc bạn thành công!"
 							+ "</li>";
@@ -72,7 +72,7 @@
 							+ "Nếu bạn nâng mức từ vựng lên 9000 từ, bạn sẽ thấy trình độ tiếng Anh vươn lên một tầm cao mới."
 							+ "</li>"
 							+ "<li>"
-							+ "Sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững "
+							+ "Sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững (2000 từ một năm) "
 							+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
 							+ " Bạn nên thiết lập ở level 3 trong ứng dụng LazzyBee. Chúc bạn thành công";
 				} else if (score_i < 10000) {
@@ -138,8 +138,7 @@
 	src="/lazzybeemobile/lazzybeemobile.nocache.js" async></script>
 </head>
 <body>
-	<!-- Load fb sdk -->
-	<div id="fb-root"></div>
+	 
 	<!-- Google Tag Manager -->
 	<noscript>
 		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
