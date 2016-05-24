@@ -8,7 +8,7 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>flashcards.html</welcome-file>
-		<welcome-file>vdict.html</welcome-file>
+		<welcome-file>vdict.jsp</welcome-file>
 		<welcome-file>test.html</welcome-file>
 		<welcome-file>editor.html</welcome-file>
 		<welcome-file>dictionary.html</welcome-file>
@@ -108,6 +108,24 @@
 		<servlet-name>BlogJsp</servlet-name>
 		<url-pattern>/blog/*</url-pattern>
 	</servlet-mapping>
+	
+	 <servlet>
+		<servlet-name>VdictJsp</servlet-name>
+		<jsp-file>/vdict/vdict.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VdictJsp</servlet-name>
+		<url-pattern>/vdict/*</url-pattern>
+	</servlet-mapping>
+	
+	<!--  <servlet>
+		<servlet-name>MvdictJsp</servlet-name>
+		<jsp-file>/mvdict/mvdict.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MvdictJsp</servlet-name>
+		<url-pattern>/mvdict/*</url-pattern>
+	</servlet-mapping> -->
 
 	<servlet>
 		<servlet-name>PathMblog</servlet-name>

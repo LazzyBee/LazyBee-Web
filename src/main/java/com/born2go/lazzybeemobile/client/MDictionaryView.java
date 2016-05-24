@@ -88,7 +88,7 @@ public class MDictionaryView extends Widget {
 				if (enterPressed) {
 					MGWT.hideKeyBoard();
 					if (!txtSeach.getText().equals(""))
-						Window.Location.assign("/mvdict/#" + txtSeach.getText());
+						Window.Location.assign("/vdict/#" + txtSeach.getText());
 				}
 			}
 		});
@@ -101,7 +101,7 @@ public class MDictionaryView extends Widget {
 				if (Event.ONCLICK == event.getTypeInt()) {
 					MGWT.hideKeyBoard();
 					if (!txtSeach.getText().equals(""))
-						Window.Location.assign("/mvdict/#" + txtSeach.getText());
+						Window.Location.assign("/vdict/#" + txtSeach.getText());
 				}
 
 			}
@@ -121,40 +121,47 @@ public class MDictionaryView extends Widget {
 
 	private void historyTokenHandler() {
 		String path = Window.Location.getPath();
-		if (path.contains("mvdict")) {
+		if (path.contains("vdict")) {
 			// -----
 			if (!History.getToken().isEmpty()) {
-				loadVocaToken();
+				loadVocaToken(History.getToken());
 			} else {
-				// block element
-				DOM.getElementById("mdic_introduction").setAttribute("style",
-						"display:block");
-				DOM.getElementById("blogs").setAttribute("style",
-						"display:block");
+				String token = Window.Location.getPath().split("/")[2];
+				if(token != null && !token.isEmpty()){
+					loadVocaToken(token);
+				}
+				else{
+					// block element
+					DOM.getElementById("mdic_introduction").setAttribute("style",
+							"display:block");
+					DOM.getElementById("blogs").setAttribute("style",
+							"display:block");
+				}
+				
 			}
 
 		}
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
-				loadVocaToken();
+				loadVocaToken(event.getValue());
 			}
 		});
 	}
 
-	private void loadVocaToken() {
+	private void loadVocaToken(final String history_token) {
 		RootPanel.get("gwt_contentMdic").clear();
 		DOM.getElementById("mdic_introduction").setAttribute("style",
 				"display:none");
 		DOM.getElementById("blogs").setAttribute("style", "display:none");
-		final String history_token = History.getToken();
+	//	final String history_token = History.getToken();
 		txtSeach.setText(history_token);
 
 		dataService.findVoca(history_token, new AsyncCallback<Voca>() {
 			@Override
 			public void onSuccess(Voca result) {
 				if (result == null) {
-					showMessage("Không tìm thấy từ");
+					showMessage("Không tìm thấy từ - " + history_token);
 				} else {
 					RootPanel.get("gwt_contentMdic").add(
 							new MVocaView().setVoca(result));

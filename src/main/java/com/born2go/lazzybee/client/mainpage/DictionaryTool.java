@@ -120,7 +120,12 @@ public class DictionaryTool extends Composite {
 			defaultSite.addStyleName("DictionaryTool_Obj5");
 			// -----
 			if (!History.getToken().isEmpty()) {
-				loadVocaToken();
+				loadVocaToken(History.getToken());
+			}
+			else{
+				
+				String token = Window.Location.getPath().split("/")[2];
+				loadVocaToken(token);
 			}
 		} else if (path.contains("test")) {
 			testSite.addStyleName("DictionaryTool_Obj5");
@@ -141,7 +146,8 @@ public class DictionaryTool extends Composite {
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
-				loadVocaToken();
+				
+				loadVocaToken(event.getValue());
 			}
 		});
 	}
@@ -206,9 +212,9 @@ public class DictionaryTool extends Composite {
 		});
 	}
 	
-	void loadVocaToken() {
+	void loadVocaToken(final String history_token) {
 		RootPanel.get("wt_dictionary_content").clear();
-		final String history_token = History.getToken();
+	//	final String history_token = History.getToken();
 		searchBox.setText(history_token);
 		LazzyBee.noticeBox.setNotice("Đang tải...");
 		LazzyBee.data_service.findVoca(history_token,
