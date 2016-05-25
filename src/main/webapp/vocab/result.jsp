@@ -179,7 +179,7 @@
 				<i class="fa fa-bars fa-lg" id="menuBtn"></i>
 			</div>
 			<div class="toppest">
-				<div class="main_title">Lazzybee Vocabulary Test</div>
+				<div class="main_title">Lazzybee Result</div>
 			</div>
 		</div>
 	</div>
