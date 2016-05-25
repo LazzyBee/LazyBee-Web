@@ -25,6 +25,7 @@ public class LazzyBeeMobile implements EntryPoint {
 	// Facebook app id test lent 1224795884217031
 	public static String fClientId = "754889477966743";
 	private static LazzyBeeMobile onlyOne;
+	public static NoticeBox noticeBox = new NoticeBox();
 
 	@Override
 	public void onModuleLoad() {
@@ -38,17 +39,17 @@ public class LazzyBeeMobile implements EntryPoint {
 		} else if (RootPanel.get("gwt_contentMTestTool") != null) {
 			RootPanel.get("gwt_contentMTestTool").add(new MTestTool());
 		}
-		 
+
 		if (RootPanel.get("menuBtn") != null) {
 			// if url is testvocab?menu=0 hide menu in mobile
 			if (RootPanel.get("left_header") != null) {
 				String path = Window.Location.getHref();
-				if(path.contains("?menu=0")){
-					RootPanel.get("left_header").getElement().setAttribute("style", "visibility: hidden;");
+				if (path.contains("?menu=0")) {
+					RootPanel.get("left_header").getElement()
+							.setAttribute("style", "visibility: hidden;");
 				}
-				 
-			}
-			else{
+
+			} else {
 				menu.setHeight("200px");
 				Element btMenu = RootPanel.get("menuBtn").getElement();
 				Event.sinkEvents(btMenu, Event.ONCLICK);
@@ -65,7 +66,7 @@ public class LazzyBeeMobile implements EntryPoint {
 					}
 				});
 			}
-			
+
 		}
 
 		// DOM.getElementById("main").setAttribute("style",

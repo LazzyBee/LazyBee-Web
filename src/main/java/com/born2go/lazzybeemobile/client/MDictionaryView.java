@@ -127,17 +127,16 @@ public class MDictionaryView extends Widget {
 				loadVocaToken(History.getToken());
 			} else {
 				String token = Window.Location.getPath().split("/")[2];
-				if(token != null && !token.isEmpty()){
+				if (token != null && !token.isEmpty()) {
 					loadVocaToken(token);
-				}
-				else{
+				} else {
 					// block element
-					DOM.getElementById("mdic_introduction").setAttribute("style",
-							"display:block");
+					DOM.getElementById("mdic_introduction").setAttribute(
+							"style", "display:block");
 					DOM.getElementById("blogs").setAttribute("style",
 							"display:block");
 				}
-				
+
 			}
 
 		}
@@ -150,28 +149,31 @@ public class MDictionaryView extends Widget {
 	}
 
 	private void loadVocaToken(final String history_token) {
+		LazzyBeeMobile.noticeBox.showNotice("Đang tải...");
 		RootPanel.get("gwt_contentMdic").clear();
 		DOM.getElementById("mdic_introduction").setAttribute("style",
 				"display:none");
 		DOM.getElementById("blogs").setAttribute("style", "display:none");
-	//	final String history_token = History.getToken();
+		// final String history_token = History.getToken();
 		txtSeach.setText(history_token);
-
+		
 		dataService.findVoca(history_token, new AsyncCallback<Voca>() {
 			@Override
 			public void onSuccess(Voca result) {
 				if (result == null) {
-					showMessage("Không tìm thấy từ - " + history_token);
+				 	LazzyBeeMobile.noticeBox.showNotice("Không tìm thấy từ - " + history_token);
 				} else {
+					LazzyBeeMobile.noticeBox.hideNotice();
 					RootPanel.get("gwt_contentMdic").add(
 							new MVocaView().setVoca(result));
-					RootPanel.get("notfoundVoca").clear();
+					 
 				}
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				showMessage("Đã có lỗi xảy ra trong quá trình tải, bấm F5 để thử lại.");
+				LazzyBeeMobile.noticeBox.showNotice("Đã có lỗi xảy ra trong quá trình tải, bấm F5 để thử lại");
+				LazzyBeeMobile.noticeBox.hideNotice();
 			}
 		});
 	}
@@ -179,10 +181,5 @@ public class MDictionaryView extends Widget {
 	/*
 	 * when do not find any question in data, show notification for user
 	 */
-	private void showMessage(String show) {
-		RootPanel.get("notfoundVoca").clear();
-		RootPanel.get("notfoundVoca").add(new Label(show));
-
-	}
 
 }

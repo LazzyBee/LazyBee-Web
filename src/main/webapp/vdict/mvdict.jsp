@@ -86,11 +86,13 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<div id="main">
 		<div id="content">
+			<div id="gwt_notice"></div>
 			<div id="gwt_contentMdic"></div>
-			<div id="notfoundVoca"></div>
+			<br />
 			<div id="mdic_introduction" style="display: block;">
 				<div
 					style="padding: 10px; background-color: lemonchiffon; line-height: 1.5;">
