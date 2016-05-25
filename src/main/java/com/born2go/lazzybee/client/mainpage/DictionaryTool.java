@@ -123,9 +123,10 @@ public class DictionaryTool extends Composite {
 				loadVocaToken(History.getToken());
 			}
 			else{
-				
 				String token = Window.Location.getPath().split("/")[2];
-				loadVocaToken(token);
+				if(token != null && !token.isEmpty()){
+					loadVocaToken(token);
+				}
 			}
 		} else if (path.contains("test")) {
 			testSite.addStyleName("DictionaryTool_Obj5");

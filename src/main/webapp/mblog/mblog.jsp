@@ -9,7 +9,7 @@
 <%@ page import="com.born2go.lazzybee.gdatabase.shared.Blog"%>
 <%!//Global functions
 	public void redirectHomeUrl(HttpServletResponse response) {
-		String site = new String("/mvdict/");
+		String site = new String("/vdict/");
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", site);
 	}%>
