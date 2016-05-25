@@ -5,14 +5,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.born2go.lazzybee.client.subpage.VocaEditorTool;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybeemobile.shared.Common;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
@@ -42,9 +40,9 @@ public class MTestTool extends Composite {
 	@UiField
 	HTMLPanel container;
 
-	Label checkTotal;
+	//Label checkTotal;
 
-	private int totalCheck = 0; // Tong so tu user biet
+	//private int totalCheck = 0; // Tong so tu user biet
 
 	private LinkedHashMap<String, Boolean> testMap = new LinkedHashMap<String, Boolean>();
 
@@ -84,14 +82,14 @@ public class MTestTool extends Composite {
 
 					@Override
 					public void onFailure(Throwable caught) {
-
+ 
 					}
 				});
 	}
 
 	private void startTest_ONE(LinkedHashMap<String, String> hmap) {
 		container.clear();
-		totalCheck = 0;
+	//	totalCheck = 0;
 		testMap.clear();
 		HTMLPanel testInfoPanel = new HTMLPanel("");
 		HTMLPanel vocaShowPanel = new HTMLPanel("");
@@ -105,13 +103,13 @@ public class MTestTool extends Composite {
 		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
 				"Bước 1: Đánh giá sơ bộ vốn từ vựng của bạn. Hãy chọn các từ mà bạn đã biết nghĩa.");
-		checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
+	//	checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
 		info.setStyleName("i_testtool_info");
-		checkTotal.setStyleName("i_testtool_checkTotal");
+	//	checkTotal.setStyleName("i_testtool_checkTotal");
 		testInfoPanel.add(total);
-		testInfoPanel.add(checkTotal);
+	//	testInfoPanel.add(checkTotal);
 		testInfoPanel.add(info);
 		Anchor btnStep_TWO = new Anchor("Tiếp tục");
 		controlPanel.add(btnStep_TWO);
@@ -170,7 +168,7 @@ public class MTestTool extends Composite {
 	private void startTest_TWO(LinkedHashMap<String, String> hmap) {
 		Window.scrollTo(0, 0);
 		container.clear();
-		totalCheck = 0;
+	//	totalCheck = 0;
 		testMap.clear();
 		HTMLPanel testInfoPanel = new HTMLPanel("");
 		HTMLPanel vocaShowPanel = new HTMLPanel("");
@@ -184,13 +182,13 @@ public class MTestTool extends Composite {
 		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
 				"Bước 2: Trong bước này, chúng tôi sẽ cố gắng ước lượng chính xác hơn vốn từ của bạn dựa vào kết quả đã thu được từ bước 1");
-		checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
+	//	checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
 		info.setStyleName("i_testtool_info");
-		checkTotal.setStyleName("i_testtool_checkTotal");
+	//	checkTotal.setStyleName("i_testtool_checkTotal");
 		testInfoPanel.add(total);
-		testInfoPanel.add(checkTotal);
+	//	testInfoPanel.add(checkTotal);
 		testInfoPanel.add(info);
 		Anchor btnStep_THREE = new Anchor("Kết thúc");
 
@@ -323,17 +321,17 @@ public class MTestTool extends Composite {
 					if (testMap.get(v)) {
 						form.getElement().setAttribute("style",
 								"background:  #5A5A5A");
-						totalCheck--;
+				//		totalCheck--;
 						hmapToServer.put(key, "0");
 					} else {
 						form.getElement().setAttribute("style",
 								"background: #009688");
-						totalCheck++;
+				//		totalCheck++;
 						hmapToServer.put(key, "1");
 
 					}
 					testMap.put(v, !testMap.get(v));
-					checkTotal.setText("B: " + totalCheck + " / " + size);
+				//	checkTotal.setText("B: " + totalCheck + " / " + size);
 
 				}
 			});
