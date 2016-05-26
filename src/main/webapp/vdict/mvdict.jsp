@@ -91,6 +91,9 @@
 	<div id="main">
 		<div id="content">
 			<div id="gwt_notice"></div>
+			<div id="notice_first"
+				style="margin-top: 10px;; padding: 10px; background-color: lemonchiffon; line-height: 1.5; text-align: center;">Đang
+				tải...</div>
 			<div id="gwt_contentMdic"></div>
 			<br />
 			<div id="mdic_introduction" style="display: block;">
