@@ -18,7 +18,7 @@ public class NoticeBox {
 					.getElement()
 					.setAttribute(
 							"style",
-							"margin: 10px 0px; padding: 10px; background-color: lemonchiffon; line-height: 1.5; text-align: center;");
+							"margin-top: 10px;; padding: 10px; background-color: lemonchiffon; line-height: 1.5; text-align: center;");
 			RootPanel.get("gwt_notice").add(new Label(notice));
 		}
 	}

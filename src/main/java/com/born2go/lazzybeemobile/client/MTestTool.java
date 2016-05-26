@@ -60,6 +60,7 @@ public class MTestTool extends Composite {
 				if (Event.ONCLICK == event.getTypeInt()) {
 					DOM.getElementById("htmlIntroTest").setAttribute("style",
 							"display:none");
+					LazzyBeeMobile.noticeBox.showNotice("Đang tải...");
 					getTestStep_ONE();
 				}
 
@@ -75,6 +76,7 @@ public class MTestTool extends Composite {
 					@Override
 					public void onSuccess(LinkedHashMap<String, String> result) {
 						if (result != null && !result.isEmpty()) {
+							LazzyBeeMobile.noticeBox.hideNotice();
 							startTest_ONE(result);
 						} else {
 							LazzyBeeMobile.noticeBox
@@ -86,7 +88,6 @@ public class MTestTool extends Composite {
 
 					@Override
 					public void onFailure(Throwable caught) {
-
 						LazzyBeeMobile.noticeBox.showNotice(Common.load_error);
 					}
 				});
@@ -151,6 +152,7 @@ public class MTestTool extends Composite {
 	String user_id = Common.USER_ID;
 
 	private void getStep_TWO() {
+		LazzyBeeMobile.noticeBox.showNotice("Đang tải...");
 		LazzyBeeMobile.data_service.getTestVocaStep_Two(hmapToServer,
 				new AsyncCallback<LinkedHashMap<String, String>>() {
 
@@ -162,13 +164,14 @@ public class MTestTool extends Composite {
 					@Override
 					public void onSuccess(LinkedHashMap<String, String> result) {
 						if (result != null && !result.isEmpty()) {
+							LazzyBeeMobile.noticeBox.hideNotice();
 							cookie = result.get(user_id);
 							result.remove(user_id);
 							startTest_TWO(result);
 						} else
 							LazzyBeeMobile.noticeBox
 									.showNotice(Common.load_error);
-						Window.scrollTo(0, 0);
+						    Window.scrollTo(0, 0);
 					}
 				});
 	}

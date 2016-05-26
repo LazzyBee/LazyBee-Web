@@ -60,6 +60,11 @@ public class MDictionaryView extends Widget {
 
 	private void designView() {
 
+		if (RootPanel.get("notice_first") != null) {
+			RootPanel.get("notice_first").getElement()
+					.setAttribute("style", "display:none");
+			;
+		}
 		// add textbox input search by element id
 		txtSeach = new MTextBox();
 
@@ -156,23 +161,25 @@ public class MDictionaryView extends Widget {
 		DOM.getElementById("blogs").setAttribute("style", "display:none");
 		// final String history_token = History.getToken();
 		txtSeach.setText(history_token);
-		
+
 		dataService.findVoca(history_token, new AsyncCallback<Voca>() {
 			@Override
 			public void onSuccess(Voca result) {
 				if (result == null) {
-				 	LazzyBeeMobile.noticeBox.showNotice("Không tìm thấy từ - " + history_token);
+					LazzyBeeMobile.noticeBox.showNotice("Không tìm thấy từ - "
+							+ history_token);
 				} else {
 					LazzyBeeMobile.noticeBox.hideNotice();
 					RootPanel.get("gwt_contentMdic").add(
 							new MVocaView().setVoca(result));
-					 
+
 				}
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				LazzyBeeMobile.noticeBox.showNotice("Đã có lỗi xảy ra trong quá trình tải, bấm F5 để thử lại");
+				LazzyBeeMobile.noticeBox
+						.showNotice("Đã có lỗi xảy ra trong quá trình tải, bấm F5 để thử lại");
 				LazzyBeeMobile.noticeBox.hideNotice();
 			}
 		});
