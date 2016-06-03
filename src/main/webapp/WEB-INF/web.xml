@@ -11,7 +11,6 @@
 		<welcome-file>vdict.jsp</welcome-file>
 		<welcome-file>test.html</welcome-file>
 		<welcome-file>editor.html</welcome-file>
-		<welcome-file>dictionary.html</welcome-file>
 		<welcome-file>preview.html</welcome-file>
 
 		<welcome-file>mvdict.jsp</welcome-file>

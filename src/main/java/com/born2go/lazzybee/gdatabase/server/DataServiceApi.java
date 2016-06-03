@@ -104,9 +104,14 @@ public class DataServiceApi {
 		Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ()).first()
 				.now();
 		if (v != null) {
-			v.setL_en(voca.getL_en());
-			v.setL_vn(voca.getL_vn());
-			ofy().save().entity(v);
+			// if voca.getL_en != null -> update
+			if(voca.getL_en() != null && !voca.getL_en().isEmpty()){
+				v.setL_en(voca.getL_en());
+				ofy().save().entity(v);
+			}
+//			v.setL_en(voca.getL_en());
+//		 	v.setL_vn(voca.getL_vn());
+//			ofy().save().entity(v);
 		} else {
 			String message = voca.getQ() + " not found";
 			throw new NotFoundException(message);

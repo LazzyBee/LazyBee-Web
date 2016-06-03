@@ -345,7 +345,7 @@
 
 				<p
 					style="padding: 10px; background-color: lemonchiffon; line-height: 1.5; font-size: inherit;">
-					Lazzy Bee là ứng dụng học từ vựng chuyên nghiệp, giúp bạn tăng vốn
+					Lazzy Bee là ứng dụng học từ vựng chuyên nghiệp, MIỄN PHÍ, giúp bạn tăng vốn
 					từ vựng bền vững 2000 từ một năm <a
 						style="text-decoration: underline !important; color: blue;"
 						href="http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year">chỉ
