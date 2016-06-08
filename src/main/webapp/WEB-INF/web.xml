@@ -18,6 +18,9 @@
 		<welcome-file>mtesttool.html</welcome-file>
 		<welcome-file>chart.html</welcome-file>
 		<welcome-file>fb.html</welcome-file>
+		<welcome-file>fb.html</welcome-file>
+		<welcome-file>downloadVoca.html</welcome-file>
+		<welcome-file>mdownloadVoca.html</welcome-file>
 	</welcome-file-list>
 
 	<!-- Register objectify entity -->

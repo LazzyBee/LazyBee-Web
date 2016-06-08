@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		@external .mDView_O1;
+		.mDView_O1{
+		margin: 20px 0px;
+		}
+	</ui:style>
+	<g:HTMLPanel ui:field="contener">
+		<h2>List link Download</h2>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 
