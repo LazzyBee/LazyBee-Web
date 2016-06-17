@@ -146,7 +146,7 @@
 										urlPicture = "/mobile-resources/lazzybee_m.png";
 					%>
 					<li><a class="vdict_avatar"
-						href=<%="/mblog/" + blog.getTitle()%> title=<%=title%>> <img
+						href=<%="/blog/" + blog.getTitle()%> title=<%=title%>> <img
 							alt=<%=title%> src="<%=urlPicture%>">
 							<h3><%=title%></h3>
 							<div class="ovh time">

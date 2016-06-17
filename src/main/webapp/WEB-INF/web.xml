@@ -129,14 +129,14 @@
 		<url-pattern>/mvdict/*</url-pattern>
 	</servlet-mapping> -->
 
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>PathMblog</servlet-name>
 		<jsp-file>/mblog/mblog.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PathMblog</servlet-name>
 		<url-pattern>/mblog/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 	
 	<servlet>
 		<servlet-name>PathVocab</servlet-name>

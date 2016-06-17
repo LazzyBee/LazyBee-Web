@@ -720,7 +720,7 @@ ul.tabs {
 	padding-bottom: 30px
 }
 
-#blogs ul, .avatarBlog, .nameBlog, .publishdate {
+.blogs ul, .avatarBlog, .nameBlog, .publishdate {
 	padding-bottom: 10px
 }
 
@@ -771,12 +771,12 @@ ul.tabs {
 	color: #009688
 }
 
-#blogs ul {
+.blogs ul {
 	padding-left: 0 !important;
 	border-bottom: 1px solid #E6E9EB
 }
 
-#blogs ul li {
+.blogs ul li {
 	display: block;
 	overflow: hidden;
 	padding: 5px 0;
