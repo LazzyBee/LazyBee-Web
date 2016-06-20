@@ -349,7 +349,12 @@ ul.tabs {
 	white-space: nowrap;
 	margin-bottom: 60px;
 }
-
+.notice_u {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: lemonchiffon;
+	line-height: 1.5;
+}
 .MTestTool_Obj1 {
 	padding: 20px;
 	background-color: lemonchiffon;

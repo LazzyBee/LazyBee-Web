@@ -8,7 +8,7 @@
 <%@ page import="com.born2go.lazzybee.gdatabase.server.DataServiceImpl"%>
 <%@ page import="com.born2go.lazzybee.gdatabase.shared.Blog"%>
 <%@ page import="java.io.IOException"%>
-<%!//Global function
+<%-- <%!//Global function
 	public void redirectHomeUrl(HttpServletResponse response) {
 		String site = new String("/");
 		try {
@@ -17,12 +17,13 @@
 		}
 		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		response.setHeader("Location", site);
-	}%>
+	}%> --%>
 <%
 	DataServiceImpl service = new DataServiceImpl();
 	Picture blog_avatar = null;
    	String title = "";
    	Blog currentBlog = null;
+   	boolean show_n = false;
    	List<Blog> blogs_exsist = new ArrayList<Blog>();
 	if (request.getPathInfo() == null || request.getPathInfo().length() <= 1)
 	{
@@ -37,10 +38,11 @@
 	title = currentBlog.getShowTitle();
 	blogs_exsist = service.getBlogsOlder(currentBlog);
 		}
-		else{
-		 	redirectHomeUrl(response);
-	return;
-		}
+		  else{
+	  show_n = true;
+		 	/* redirectHomeUrl(response);
+	return; */
+		}  
 		 
 	}
 %>
@@ -116,28 +118,36 @@
 				if(currentBlog == null){
 			%>
 			<div class="blogs" style="display: block;">
-				<div class="fon39">
+				<%
+					if (show_n == true) {
+				%>
+				<div class="notice_u">Không tìm thấy dữ liệu</div>
+				<%
+					}
+				%>
+
+				<div class="fon39" style="border: none">
 					<h5>Tất cả các bài đã đăng</h5>
 				</div>
 				<ul id="myList">
 					<%
 						List<Blog> blogs = new ArrayList<Blog>();
-						List<Blog> blogs_exist = service.getListBlog(false);
-						if(blogs_exist != null && ! blogs_exist.isEmpty())
-							blogs.addAll(blogs_exist);
-							SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
-							String title_b = null;
-							Picture picture = null;
-							for (int i = 0; i < blogs.size(); i++) {
-									Blog blog = blogs.get(i);
-									if (blog != null) {
-										title_b = blog.getShowTitle();
-										picture = service.findPicture(blog.getAvatar());
-										String urlPicture = "";
-										if (picture != null)
-												urlPicture = picture.getServeUrl() + "=s100";
-										else
-												urlPicture = "/mobile-resources/lazzybee_m.png";
+															List<Blog> blogs_exist = service.getListBlog(false);
+															if(blogs_exist != null && ! blogs_exist.isEmpty())
+																blogs.addAll(blogs_exist);
+																SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
+																String title_b = null;
+																Picture picture = null;
+																for (int i = 0; i < blogs.size(); i++) {
+																		Blog blog = blogs.get(i);
+																		if (blog != null) {
+																			title_b = blog.getShowTitle();
+																			picture = service.findPicture(blog.getAvatar());
+																			String urlPicture = "";
+																			if (picture != null)
+																					urlPicture = picture.getServeUrl() + "=s100";
+																			else
+																					urlPicture = "/mobile-resources/lazzybee_m.png";
 					%>
 					<li><a class="vdict_avatar"
 						href=<%="/blog/" + blog.getTitle()%> title=<%=title%>> <img
@@ -150,7 +160,7 @@
 					<%
 						}
 
-																									}
+																																		}
 					%>
 
 
@@ -158,7 +168,7 @@
 			</div>
 			<%
 				}
-														else{
+																	else{
 			%>
 
 
@@ -194,7 +204,7 @@
 			<ul class="blogs_exist">
 				<%
 					for (int i = 0; i < blogs_exsist.size(); i++) {
-																																													Blog blog_exist = blogs_exsist.get(i);
+																																																			Blog blog_exist = blogs_exsist.get(i);
 				%>
 				<li><a style="color: #004175; line-height: 2;"
 					href=<%="/blog/" + blog_exist.getTitle()%>><%=blog_exist.getShowTitle()%></a></li>

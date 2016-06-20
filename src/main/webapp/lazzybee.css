@@ -255,8 +255,15 @@ ul.blogs_exist {
 	font-family: sans-serif;
 	font-size: 14px;
 }
+
 ul.tabs {
-    list-style: none;
-    padding: 0;
+	list-style: none;
+	padding: 0;
 }
 /*en css for l_en new update*/
+.notice_u {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: lemonchiffon;
+	line-height: 1.5;
+}
