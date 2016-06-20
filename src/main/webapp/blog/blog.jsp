@@ -218,7 +218,7 @@
 				<br /> <br /> <span class="slidebar_anchor">Tra cứu từ vựng</span>
 				<br /> <br /> <br /> <span class="slidebar_anchor">Kiểm
 					tra vốn từ</span> <br /> <br /> <br /> <span class="slidebar_trademark">Born2Go
-					© 2015</span>
+					© 2016</span>
 			</div>
 		</div>
 
