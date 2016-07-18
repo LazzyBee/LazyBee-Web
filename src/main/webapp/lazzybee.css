@@ -118,8 +118,8 @@ a {
 .slidebar_background {
 	float: left;
 	width: 100%;
-	height: 603px; 
-	background : #009688;
+	height: 603px;
+	background: #009688;
 	text-align: center;
 	position: relative;
 	background: #009688;
@@ -137,7 +137,8 @@ a {
 	padding: 5px;
 	width: 100%;
 	box-sizing: border-box;
-	position: absolute; bottom : 20px;
+	position: absolute;
+	bottom: 20px;
 	left: 0px;
 	bottom: 20px;
 }
@@ -175,4 +176,94 @@ ul.blogs_exist {
 
 .fon39 {
 	border-top: solid 1px silver;
+}
+/*css for l_en*/
+.sense-block {
+	margin: 15px 5px 10px;
+}
+
+.def-block {
+	margin-top: 5px;
+}
+
+.def-head {
+	display: block;
+	text-indent: -1.5em;
+	padding-left: 1.5em;
+}
+
+.def {
+	font-weight: bold;
+	color: #a8397a;
+}
+
+.eg {
+	color: #555;
+	font-style: italic;
+	color: gray;
+}
+
+.epp-xref, .freq {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	text-indent: 0;
+}
+
+.examp {
+	margin: .25em 0 .25em 1.5em;
+	display: block;
+}
+
+.epp-xref {
+	padding: 0 2px;
+	display: inline-block;
+	min-width: 14px;
+	text-align: center;
+	color: #fff;
+	font-size: 80%;
+	font-family: "Verdana", sans-serif;
+	background-color: #2060c0;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.freq {
+	padding: 0 2px;
+	display: inline-block;
+	min-width: 14px;
+	text-align: center;
+	color: #fff;
+	font-size: 80%;
+	font-family: "Verdana", sans-serif;
+	background-color: #2060c0;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.usage {
+	font-variant: small-caps;
+	color: #000;
+}
+
+.hw {
+	color: #008;
+	border: 0;
+	font-weight: bold;
+	font-family: sans-serif;
+	font-size: 14px;
+}
+
+ul.tabs {
+	list-style: none;
+	padding: 0;
+}
+/*en css for l_en new update*/
+.notice_u {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: lemonchiffon;
+	line-height: 1.5;
 }

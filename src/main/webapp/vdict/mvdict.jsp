@@ -1,3 +1,4 @@
+<%@page import="javax.sound.midi.SysexMessage"%>
 <%@page import="com.born2go.lazzybee.gdatabase.shared.Picture"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -17,7 +18,7 @@
 		
 		blogs.clear();
 		if(service.getListBlog(true) != null && ! service.getListBlog(true).isEmpty())
-	blogs.addAll(service.getListBlog(true));
+	    blogs.addAll(service.getListBlog(true));
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -85,11 +86,16 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<div id="main">
 		<div id="content">
+			<div id="gwt_notice"></div>
+			<div id="notice_first"
+				style="margin-top: 10px;; padding: 10px; background-color: lemonchiffon; line-height: 1.5; text-align: center;">Đang
+				tải...</div>
 			<div id="gwt_contentMdic"></div>
-			<div id="notfoundVoca"></div>
+			<br />
 			<div id="mdic_introduction" style="display: block;">
 				<div
 					style="padding: 10px; background-color: lemonchiffon; line-height: 1.5;">
@@ -140,7 +146,7 @@
 										urlPicture = "/mobile-resources/lazzybee_m.png";
 					%>
 					<li><a class="vdict_avatar"
-						href=<%="/mblog/" + blog.getTitle()%> title=<%=title%>> <img
+						href=<%="/blog/" + blog.getTitle()%> title=<%=title%>> <img
 							alt=<%=title%> src="<%=urlPicture%>">
 							<h3><%=title%></h3>
 							<div class="ovh time">
@@ -161,7 +167,7 @@
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">
-		<center>Born2Go©2015</center>
+		<center>Born2Go © 2016</center>
 	</div>
 </body>
 </html>

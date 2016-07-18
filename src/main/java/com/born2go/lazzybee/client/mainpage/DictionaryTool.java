@@ -3,6 +3,7 @@ package com.born2go.lazzybee.client.mainpage;
 import java.util.List;
 
 import com.born2go.lazzybee.client.LazzyBee;
+import com.born2go.lazzybee.client.subpage.DownloadView;
 import com.born2go.lazzybee.client.subpage.ListVocaView;
 import com.born2go.lazzybee.client.subpage.TestTool;
 import com.born2go.lazzybee.client.subpage.VocaPreviewTool;
@@ -99,28 +100,38 @@ public class DictionaryTool extends Composite {
 		dictionarySite.removeStyleName("DictionaryTool_Obj5");
 	}
 
+	DownloadView download = new DownloadView();
+
 	void historyTokenHandler() {
 		String path = Window.Location.getPath();
-		if(path.contains("/")) {
+		if (path.contains("/")) {
 			String paths[] = path.split("/");
 			path = paths[1];
 		}
-		
 		if (path.contains("vdict")) {
 			HTMLPanel htmlPanel = new HTMLPanel("");
-			Label info = new Label("Phương pháp học thông qua flashcard chỉ có trên phiên bản mobile. Bạn hãy cài đặt App mobile để học từ vựng tốt hơn.");
-			info.getElement().setAttribute("style", "margin-bottom: 20px; margin-top: 20px; padding: 10px; background-color: lemonchiffon; line-height: 1.5;");
+			Label info = new Label(
+					"Phương pháp học thông qua flashcard chỉ có trên phiên bản mobile. Bạn hãy cài đặt App mobile để học từ vựng tốt hơn.");
+			info.getElement()
+					.setAttribute(
+							"style",
+							"margin-bottom: 20px; margin-top: 20px; padding: 10px; background-color: lemonchiffon; line-height: 1.5;");
 			htmlPanel.add(info);
 			RootPanel.get("wt_dictionary_content").add(htmlPanel);
-			
+
 			HTMLPanel wt_dictionary_blog = new HTMLPanel("");
 			loadBlog(wt_dictionary_blog, true);
 			RootPanel.get("wt_dictionary_blog").add(wt_dictionary_blog);
-			
+
 			defaultSite.addStyleName("DictionaryTool_Obj5");
 			// -----
 			if (!History.getToken().isEmpty()) {
-				loadVocaToken();
+				loadVocaToken(History.getToken());
+			} else {
+				String token = Window.Location.getPath().split("/")[2];
+				if (token != null && !token.isEmpty()) {
+					loadVocaToken(token);
+				}
 			}
 		} else if (path.contains("test")) {
 			testSite.addStyleName("DictionaryTool_Obj5");
@@ -131,84 +142,101 @@ public class DictionaryTool extends Composite {
 			// previewSite.addStyleName("DictionaryTool_Obj5");
 			RootPanel.get("wt_dictionary_content").add(new VocaPreviewTool());
 		} else if (path.contains("blog")) {
-			if(RootPanel.get("wt_bloglist") != null) {
+			if (RootPanel.get("wt_bloglist") != null) {
 				HTMLPanel wt_dictionary_blog = new HTMLPanel("");
 				loadBlog(wt_dictionary_blog, false);
 				RootPanel.get("wt_bloglist").add(wt_dictionary_blog);
 			}
+		} else if (path.contains("downloadVoca")) {
+			RootPanel.get("wt_dictionary_content").add(download);
 		}
 
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
-				loadVocaToken();
+
+				loadVocaToken(event.getValue());
 			}
 		});
 	}
-	
+
 	void loadBlog(final HTMLPanel wt_dictionary_blog, boolean isLimited) {
-		if(!isLimited) {
+		if (!isLimited) {
 			LazzyBee.noticeBox.setLoading();
 		}
-		
-		LazzyBee.data_service.getListBlog(isLimited, new AsyncCallback<List<Blog>>() {
-			@Override
-			public void onSuccess(List<Blog> result) {
-				HTMLPanel blogPanel = new HTMLPanel("");
-				blogPanel.getElement().setAttribute("style", "/* border-top: 1px solid #E6E9EB; */ overflow: hidden; margin-bottom: 30px;");
-				wt_dictionary_blog.add(blogPanel);
-				//-----
-				HTMLPanel faq = new HTMLPanel("------------------------------ FAQ ------------------------------");
-				faq.getElement().setAttribute("style", "text-align:center; margin-top:15px; margin-bottom:20px; color: #009688; font-weight: bold;");
-				blogPanel.add(faq);
-				//-----
-				for(final Blog blog: result) {
-					HTMLPanel blogp = new HTMLPanel("");
-					blogp.setStyleName("DictionaryTool_Obj9");
-					final Image avatar = new Image();
-					avatar.setStyleName("DictionaryTool_Obj8");
-					LazzyBee.data_service.findPicture(blog.getAvatar(), new AsyncCallback<Picture>() {	
-						@Override
-						public void onSuccess(Picture result) {
-							if(result != null)
-								avatar.setUrl(result.getServeUrl());
-							else
-								avatar.setUrl("/resources/1435838158_Mushroom - Bee.png");
+
+		LazzyBee.data_service.getListBlog(isLimited,
+				new AsyncCallback<List<Blog>>() {
+					@Override
+					public void onSuccess(List<Blog> result) {
+						HTMLPanel blogPanel = new HTMLPanel("");
+						blogPanel
+								.getElement()
+								.setAttribute("style",
+										"/* border-top: 1px solid #E6E9EB; */ overflow: hidden; margin-bottom: 30px;");
+						wt_dictionary_blog.add(blogPanel);
+						// -----
+						HTMLPanel faq = new HTMLPanel(
+								"------------------------------ FAQ ------------------------------");
+						faq.getElement()
+								.setAttribute(
+										"style",
+										"text-align:center; margin-top:15px; margin-bottom:20px; color: #009688; font-weight: bold;");
+						blogPanel.add(faq);
+						// -----
+						for (final Blog blog : result) {
+							HTMLPanel blogp = new HTMLPanel("");
+							blogp.setStyleName("DictionaryTool_Obj9");
+							final Image avatar = new Image();
+							avatar.setStyleName("DictionaryTool_Obj8");
+							LazzyBee.data_service.findPicture(blog.getAvatar(),
+									new AsyncCallback<Picture>() {
+										@Override
+										public void onSuccess(Picture result) {
+											if (result != null)
+												avatar.setUrl(result
+														.getServeUrl());
+											else
+												avatar.setUrl("/resources/1435838158_Mushroom - Bee.png");
+										}
+
+										@Override
+										public void onFailure(Throwable caught) {
+										}
+									});
+							String t = blog.getShowTitle();
+							// if(t.length() > 45) {
+							// t = t.substring(0, 44);
+							// t = t + "...";
+							// }
+							Anchor title = new Anchor(t);
+							title.setHref("/blog/" + blog.getTitle());
+							title.setStyleName("DictionaryTool_Obj7");
+							blogp.add(avatar);
+							blogp.add(title);
+							blogPanel.add(blogp);
+							avatar.addClickHandler(new ClickHandler() {
+								@Override
+								public void onClick(ClickEvent event) {
+									Window.Location.assign("/blog/"
+											+ blog.getTitle());
+								}
+							});
 						}
-						@Override
-						public void onFailure(Throwable caught) {}
-					});
-					String t = blog.getShowTitle();
-//					if(t.length() > 45) {
-//						t = t.substring(0, 44);
-//						t = t + "...";
-//					}
-					Anchor title = new Anchor(t);
-					title.setHref("/blog/"+ blog.getTitle());
-					title.setStyleName("DictionaryTool_Obj7");	
-					blogp.add(avatar);
-					blogp.add(title);				
-					blogPanel.add(blogp);
-					avatar.addClickHandler(new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							Window.Location.assign("/blog/"+ blog.getTitle());
-						}
-					});
-				}
-				LazzyBee.noticeBox.hide();
-			}
-			@Override
-			public void onFailure(Throwable caught) {
-				LazzyBee.noticeBox.setNotice("Đã có lỗi xảy ra!");
-				LazzyBee.noticeBox.setAutoHide();
-			}
-		});
+						LazzyBee.noticeBox.hide();
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						LazzyBee.noticeBox.setNotice("Đã có lỗi xảy ra!");
+						LazzyBee.noticeBox.setAutoHide();
+					}
+				});
 	}
-	
-	void loadVocaToken() {
+
+	void loadVocaToken(final String history_token) {
 		RootPanel.get("wt_dictionary_content").clear();
-		final String history_token = History.getToken();
+		// final String history_token = History.getToken();
 		searchBox.setText(history_token);
 		LazzyBee.noticeBox.setNotice("Đang tải...");
 		LazzyBee.data_service.findVoca(history_token,
@@ -265,7 +293,7 @@ public class DictionaryTool extends Composite {
 						"float: left; width: 60px; height: 100%; background: #009688; color: white; cursor: pointer;");
 		hor.add(searchBox);
 		hor.add(searchButton);
-		if(RootPanel.get("wt_search_tool") != null)
+		if (RootPanel.get("wt_search_tool") != null)
 			RootPanel.get("wt_search_tool").add(hor);
 		// -----
 		searchBox.addKeyPressHandler(new KeyPressHandler() {

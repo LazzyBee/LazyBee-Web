@@ -1,44 +1,49 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.born2go.lazzybee.gdatabase.shared.Picture"%>
-<%@ page contentType="text/html; charset=UTF-8"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
 <%@ page import="com.born2go.lazzybee.gdatabase.server.DataServiceImpl"%>
 <%@ page import="com.born2go.lazzybee.gdatabase.shared.Blog"%>
-<%!//Global functions
+<%@ page import="java.io.IOException"%>
+<%-- <%!//Global function
 	public void redirectHomeUrl(HttpServletResponse response) {
-		String site = new String("/mvdict/");
-		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		String site = new String("/");
+		try {
+			response.getWriter().print("<h1>NOT_FOUND</h1>");
+		} catch (IOException e) {
+		}
+		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		response.setHeader("Location", site);
-	}%>
+	}%> --%>
 <%
+	DataServiceImpl service = new DataServiceImpl();
 	Picture blog_avatar = null;
-   String title = "";
-   Blog currentBlog = null;
-   List<Blog> blogs_exsist = new ArrayList<Blog>();
-   
-	if (request.getPathInfo() == null
-	|| request.getPathInfo().length() <= 1)
-		redirectHomeUrl(response);
+   	String title = "";
+   	Blog currentBlog = null;
+   	boolean show_n = false;
+   	List<Blog> blogs_exsist = new ArrayList<Blog>();
+	if (request.getPathInfo() == null || request.getPathInfo().length() <= 1)
+	{
+		
+	}
 	else {
 		String blogTitle = request.getPathInfo().replaceAll("/", "");
-	if (blogTitle == null || blogTitle.equals(""))
-redirectHomeUrl(response);
-		else {
-	        DataServiceImpl service = new DataServiceImpl();
-	  currentBlog = service.findBlogByTitle(blogTitle);
-	if (currentBlog == null)
-		redirectHomeUrl(response);
-	else {
-		if (currentBlog.getAvatar() != null)
+	    currentBlog = service.findBlogByTitle(blogTitle);
+		if (currentBlog != null){
+	if (currentBlog.getAvatar() != null)
 	blog_avatar = service.findPicture(currentBlog.getAvatar());
-	 title = currentBlog.getShowTitle();
-//	content = content.replaceAll("<p>&nbsp;</p>", "");
+	title = currentBlog.getShowTitle();
 	blogs_exsist = service.getBlogsOlder(currentBlog);
-	}
 		}
+		  else{
+	  show_n = true;
+		 	/* redirectHomeUrl(response);
+	return; */
+		}  
+		 
 	}
 %>
 <!doctype html>
@@ -109,6 +114,64 @@ redirectHomeUrl(response);
 	</div>
 	<div id="main">
 		<div id="content">
+			<%
+				if(currentBlog == null){
+			%>
+			<div class="blogs" style="display: block;">
+				<%
+					if (show_n == true) {
+				%>
+				<div class="notice_u">Không tìm thấy dữ liệu</div>
+				<%
+					}
+				%>
+
+				<div class="fon39" style="border: none">
+					<h5>Tất cả các bài đã đăng</h5>
+				</div>
+				<ul id="myList">
+					<%
+						List<Blog> blogs = new ArrayList<Blog>();
+															List<Blog> blogs_exist = service.getListBlog(false);
+															if(blogs_exist != null && ! blogs_exist.isEmpty())
+																blogs.addAll(blogs_exist);
+																SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
+																String title_b = null;
+																Picture picture = null;
+																for (int i = 0; i < blogs.size(); i++) {
+																		Blog blog = blogs.get(i);
+																		if (blog != null) {
+																			title_b = blog.getShowTitle();
+																			picture = service.findPicture(blog.getAvatar());
+																			String urlPicture = "";
+																			if (picture != null)
+																					urlPicture = picture.getServeUrl() + "=s100";
+																			else
+																					urlPicture = "/mobile-resources/lazzybee_m.png";
+					%>
+					<li><a class="vdict_avatar"
+						href=<%="/blog/" + blog.getTitle()%> title=<%=title%>> <img
+							alt=<%=title_b%> src="<%=urlPicture%>">
+							<h3><%=title_b%></h3>
+							<div class="ovh time">
+								<i class="fa fa-clock-o">&nbsp;</i><i class="publishdate"><%=df.format(new Date(blog.getCreateDate()))%></i>
+							</div>
+					</a></li>
+					<%
+						}
+
+																																		}
+					%>
+
+
+				</ul>
+			</div>
+			<%
+				}
+																	else{
+			%>
+
+
 			<div class="nameBlog">
 				<h1><%=title%></h1>
 			</div>
@@ -141,7 +204,7 @@ redirectHomeUrl(response);
 			<ul class="blogs_exist">
 				<%
 					for (int i = 0; i < blogs_exsist.size(); i++) {
-																					Blog blog_exist = blogs_exsist.get(i);
+																																																			Blog blog_exist = blogs_exsist.get(i);
 				%>
 				<li><a style="color: #004175; line-height: 2;"
 					href=<%="/blog/" + blog_exist.getTitle()%>><%=blog_exist.getShowTitle()%></a></li>
@@ -190,10 +253,13 @@ redirectHomeUrl(response);
 			</h2>
 
 			<br /> <br />
+			<%
+				}
+			%>
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">
-		<center>Born2Go©2015</center>
+		<center>Born2Go © 2016</center>
 	</div>
 </body>
 </html>

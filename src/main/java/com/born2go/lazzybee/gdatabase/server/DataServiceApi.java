@@ -2,13 +2,17 @@ package com.born2go.lazzybee.gdatabase.server;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.born2go.lazzybee.gdatabase.shared.BackupFile;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.DownloadTarget;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.UploadTarget;
+import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -17,6 +21,9 @@ import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.QueryResultIterator;
+import com.googlecode.objectify.cmd.Query;
 
 /** An endpoint class we are exposing */
 
@@ -57,13 +64,69 @@ public class DataServiceApi {
 		}
 	}
 
+	// @Named("cursorStr") annote chi parameter
 	/** Get list all of vocabulary */
 	@ApiMethod(name = "listVoca")
-	public List<Voca> listVoca() {
-//		List<Voca> list_voca = ofy().load().type(Voca.class)
-//				.filter("level <", 8).list();
-		List<Voca> list_voca = ofy().load().type(Voca.class).list();
-		return list_voca;
+	public List<Voca> listVoca(@Named("cursorStr") String cursorStr) {
+		// List<Voca> list_voca = ofy().load().type(Voca.class)
+		// .filter("level <", 8).list();
+		if (cursorStr.equals("LAZZYBEE"))
+			cursorStr = null;
+		List<Voca> result = new ArrayList<Voca>();
+		int size = 1000;
+		Query<Voca> query = ofy().load().type(Voca.class).filter("level <", 8)
+				.limit(size);
+		if (cursorStr != null)
+			query = query.startAt(Cursor.fromWebSafeString(cursorStr));
+
+		boolean continu = false;
+		QueryResultIterator<Voca> iterator = query.iterator();
+		while (iterator.hasNext()) {
+			Voca v = iterator.next();
+			v.setCheck(true);
+			result.add(v);
+			continu = true;
+		}
+		String encodeCursor;
+		if (continu) {
+			Cursor cursor = iterator.getCursor();
+			encodeCursor = cursor.toWebSafeString();
+
+		} else
+			encodeCursor = "\\0";
+
+		Voca vocaCur = new Voca();
+		vocaCur.setQ(encodeCursor);
+		result.add(0, vocaCur);
+		return result;
+	}
+
+	private VocaList getListVoca(String cursorStr) {
+		List<Voca> result = new ArrayList<Voca>();
+
+		Query<Voca> query = ofy().load().type(Voca.class)
+				.limit(VocaList.pageSize);
+		if (cursorStr != null)
+			query = query.startAt(Cursor.fromWebSafeString(cursorStr));
+
+		boolean continu = false;
+		QueryResultIterator<Voca> iterator = query.iterator();
+		while (iterator.hasNext()) {
+			Voca v = iterator.next();
+			v.setCheck(true);
+			result.add(v);
+			continu = true;
+		}
+
+		if (continu) {
+			Cursor cursor = iterator.getCursor();
+			String encodeCursor = cursor.toWebSafeString();
+			VocaList vocaList = new VocaList(result, encodeCursor);
+			return vocaList;
+		} else {
+			VocaList vocaList = new VocaList(result, "\\0");
+			return vocaList;
+		}
 	}
 
 	/** Save a vocabulary */
@@ -104,9 +167,14 @@ public class DataServiceApi {
 		Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ()).first()
 				.now();
 		if (v != null) {
-			v.setL_en(voca.getL_en());
-			v.setL_vn(voca.getL_vn());
-			ofy().save().entity(v);
+			// if voca.getL_en != null -> update
+			if (voca.getL_en() != null && !voca.getL_en().isEmpty()) {
+				v.setL_en(voca.getL_en());
+				ofy().save().entity(v);
+			}
+			// v.setL_en(voca.getL_en());
+			// v.setL_vn(voca.getL_vn());
+			// ofy().save().entity(v);
 		} else {
 			String message = voca.getQ() + " not found";
 			throw new NotFoundException(message);
@@ -215,9 +283,11 @@ public class DataServiceApi {
 	@ApiMethod(name = "getDownloadUrl")
 	public DownloadTarget getDownloadUrl(@Named("code") String code) {
 		DownloadTarget dt = new DownloadTarget();
-		BackupFile f = ofy().load().type(BackupFile.class).id(code.toLowerCase()).now();
-		if(f == null){
-			 f = ofy().load().type(BackupFile.class).id(code.toUpperCase()).now();
+		BackupFile f = ofy().load().type(BackupFile.class)
+				.id(code.toLowerCase()).now();
+		if (f == null) {
+			f = ofy().load().type(BackupFile.class).id(code.toUpperCase())
+					.now();
 		}
 		if (f != null) {
 			dt.setUrl("http://www.lazzybee.com/download?blobkey="
@@ -288,6 +358,5 @@ public class DataServiceApi {
 		}
 		return result;
 	}
- 
 
 }

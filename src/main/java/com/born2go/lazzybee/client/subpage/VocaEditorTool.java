@@ -562,7 +562,7 @@ public class VocaEditorTool extends Composite {
 	  		autoGrow_maxHeight: 300,
 	  		toolbarStartupExpanded : false,
 	  		extraPlugins: 'autogrow,colorbutton,sourcearea',
-	  		removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,About,Link,Unlink',
+	  		removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,About',
 	  	});
 	  	
 	  	editor.on("instanceReady",function() {

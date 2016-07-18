@@ -1,50 +1,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ page import="java.io.IOException"%>
-<%@ page import="java.util.List"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-
-<%@ page import="com.born2go.lazzybee.gdatabase.shared.Blog"%>
-<%@ page import="com.born2go.lazzybee.gdatabase.shared.Picture"%>
-<%@ page import="com.born2go.lazzybee.gdatabase.server.DataServiceImpl"%>
-
 <%
 	//Check if we serve mobile or not?
-	String ua=request.getHeader("User-Agent").toLowerCase();
-	if(ua.matches("(?i).*((android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\\.(browser|link)|vodafone|wap|windows ce|xda|xiino).*")||ua.substring(0,4).matches("(?i)1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\\-(n|u)|c55\\/|capi|ccwa|cdm\\-|cell|chtm|cldc|cmd\\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\\-s|devi|dica|dmob|do(c|p)o|ds(12|\\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\\-|_)|g1 u|g560|gene|gf\\-5|g\\-mo|go(\\.w|od)|gr(ad|un)|haie|hcit|hd\\-(m|p|t)|hei\\-|hi(pt|ta)|hp( i|ip)|hs\\-c|ht(c(\\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\\-(20|go|ma)|i230|iac( |\\-|\\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\\/)|klon|kpt |kwc\\-|kyo(c|k)|le(no|xi)|lg( g|\\/(k|l|u)|50|54|\\-[a-w])|libw|lynx|m1\\-w|m3ga|m50\\/|ma(te|ui|xo)|mc(01|21|ca)|m\\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\\-2|po(ck|rt|se)|prox|psio|pt\\-g|qa\\-a|qc(07|12|21|32|60|\\-[2-7]|i\\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\\-|oo|p\\-)|sdk\\/|se(c(\\-|0|1)|47|mc|nd|ri)|sgh\\-|shar|sie(\\-|m)|sk\\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\\-|v\\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\\-|tdg\\-|tel(i|m)|tim\\-|t\\-mo|to(pl|sh)|ts(70|m\\-|m3|m5)|tx\\-9|up(\\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\\-|your|zeto|zte\\-")) {
-		String blogId = request.getPathInfo().replaceAll("/", "");
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/mblog/"+ blogId);
-		if (rd != null){
-			rd.forward(request, response);
-		}
-		else {
-			response.setStatus(response.SC_OK);
-			redirectHomeUrl(response);
-		} 
-		return;
+	String ua = request.getHeader("User-Agent").toLowerCase();
+	if (ua.matches("(?i).*((android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\\.(browser|link)|vodafone|wap|windows ce|xda|xiino).*")
+	|| ua.substring(0, 4)
+	.matches(
+	"(?i)1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\\-(n|u)|c55\\/|capi|ccwa|cdm\\-|cell|chtm|cldc|cmd\\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\\-s|devi|dica|dmob|do(c|p)o|ds(12|\\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\\-|_)|g1 u|g560|gene|gf\\-5|g\\-mo|go(\\.w|od)|gr(ad|un)|haie|hcit|hd\\-(m|p|t)|hei\\-|hi(pt|ta)|hp( i|ip)|hs\\-c|ht(c(\\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\\-(20|go|ma)|i230|iac( |\\-|\\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\\/)|klon|kpt |kwc\\-|kyo(c|k)|le(no|xi)|lg( g|\\/(k|l|u)|50|54|\\-[a-w])|libw|lynx|m1\\-w|m3ga|m50\\/|ma(te|ui|xo)|mc(01|21|ca)|m\\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\\-2|po(ck|rt|se)|prox|psio|pt\\-g|qa\\-a|qc(07|12|21|32|60|\\-[2-7]|i\\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\\-|oo|p\\-)|sdk\\/|se(c(\\-|0|1)|47|mc|nd|ri)|sgh\\-|shar|sie(\\-|m)|sk\\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\\-|v\\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\\-|tdg\\-|tel(i|m)|tim\\-|t\\-mo|to(pl|sh)|ts(70|m\\-|m3|m5)|tx\\-9|up(\\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\\-|your|zeto|zte\\-")) {
+%>
+<%@include file="/blog/mblog.jsp"%>
+<%
+	return;
 	}
 %>
-
-<%!//Global function
-	public void redirectHomeUrl(HttpServletResponse response) {
-		String site = new String("/");
-		try {
-			response.getWriter().print("<h1>NOT_FOUND</h1>");
-		} catch (IOException e) {
-		}
-		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		response.setHeader("Location", site);
-	}%>
-
 <%
 	//Global variable
-	java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/YYYY HH:mm");
+	DateFormat df = new SimpleDateFormat("dd/MM/YYYY HH:mm");
 	Picture blog_avatar = null;
 	Blog blog = null;
 	Blog previous_blog;
 	Blog next_blog;
 	List<Blog> blogs_older = null;
+	boolean show_n = false;
 	if (request.getPathInfo() == null
 	|| request.getPathInfo().length() <= 1) {} 
 	else {
@@ -53,16 +29,17 @@
 		blog = dataService.findBlogByTitle(blogTitle);
 		blogs_older = new ArrayList<Blog>();
 		if(blog != null) {
-			previous_blog = dataService.getPreviousBlog(blog);
-			next_blog = dataService.getNextBlog(blog);
-			if(blog.getAvatar() != null)
-				blog_avatar = dataService.findPicture(blog.getAvatar());
-			blogs_older = dataService.getBlogsOlder(blog);
+	previous_blog = dataService.getPreviousBlog(blog);
+	next_blog = dataService.getNextBlog(blog);
+	if(blog.getAvatar() != null)
+		blog_avatar = dataService.findPicture(blog.getAvatar());
+	blogs_older = dataService.getBlogsOlder(blog);
 		}
-		else {
-			redirectHomeUrl(response);
-			return;
-		}
+		  else {
+	/* redirectHomeUrl(response);
+	return; */
+	  show_n = true;
+		}  
 	}
 %>
 
@@ -70,32 +47,55 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta name="description" content="Lazzy Bee cung cấp ứng dụng học tiếng Anh, từ vựng hiệu quả. Giúp bạn xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
-<meta name="keywords" content="Lazzy,Bee,học tiếng anh,hoc tieng anh,từ vựng,tu vung">
+<meta name="description"
+	content="Lazzy Bee cung cấp ứng dụng học tiếng Anh, từ vựng hiệu quả. Giúp bạn xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
+<meta name="keywords"
+	content="Lazzy,Bee,học tiếng anh,hoc tieng anh,từ vựng,tu vung">
 
 <link rel="icon" type="image/png" href="../favicon.png" />
 
 <link type="text/css" rel="stylesheet" href="../lazzybee.css">
-<link rel="stylesheet" href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
 
-<%if(blog != null) {%>
+<%
+	if(blog != null) {
+%>
 <title><%=blog.getShowTitle()%></title>
-<%} else { %>
+<%
+	} else {
+%>
 <title>LazzyBee - Học tiếng anh, từ vựng với flashcard</title>
-<% } %>
-<%if(blog != null) {%>
+<%
+	}
+%>
+<%
+	if(blog != null) {
+%>
 <meta property="og:type" content=website />
-<%if(blog_avatar != null) {%>
+<%
+	if(blog_avatar != null) {
+%>
 <meta property="og:image" content="<%=blog_avatar.getServeUrl()%>" />
-<%}  else {%>
-<meta property="og:image" content="http://www.lazzybee.com/resources/2015-11-01.png" />
-<%}%>
-<meta property="og:title" content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
-<meta property="og:url" content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
+<%
+	}  else {
+%>
+<meta property="og:image"
+	content="http://www.lazzybee.com/resources/2015-11-01.png" />
+<%
+	}
+%>
+<meta property="og:title"
+	content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
+<meta property="og:url"
+	content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
 <meta property="fb:app_id" content="754889477966743" />
-<%}%>
+<%
+	}
+%>
 
-<script type="text/javascript" language="javascript" src="../lazzybee/lazzybee.nocache.js"></script>
+<script type="text/javascript" language="javascript"
+	src="../lazzybee/lazzybee.nocache.js"></script>
 
 <script type="text/javascript">
 	function handleClientLoad() {
@@ -110,7 +110,9 @@
 	}
 </script>
 
-<script src="https://apis.google.com/js/client.js?onload=handleClientLoad" async></script>
+<script
+	src="https://apis.google.com/js/client.js?onload=handleClientLoad"
+	async></script>
 <script src="https://connect.facebook.net/en_US/all.js" async></script>
 
 </head>
@@ -166,11 +168,11 @@
 
 	<div id="header">
 		<div class="header_logo">
-			<a href="/" style="text-decoration: none">
-			<img alt="Lazzy Bee" src="../resources/1435838158_Mushroom - Bee.png"
+			<a href="/" style="text-decoration: none"> <img alt="Lazzy Bee"
+				src="../resources/1435838158_Mushroom - Bee.png"
 				style="height: 100%; margin-right: 5px;"> <span
 				style="position: relative; top: -4px; color: rgb(234, 253, 116);">Lazzy
-				Bee</span>
+					Bee</span>
 			</a>
 		</div>
 		<div class="header_menu">
@@ -213,30 +215,31 @@
 	<div id="bodyy">
 		<div id="wt_dictionary_slide_dummy" class="slidebar">
 			<div class="slidebar_background">
-				<br/> <br/>
-				<span class="slidebar_anchor">Tra cứu từ vựng</span>
-				<br/> <br/> <br/>
-				<span class="slidebar_anchor">Kiểm tra vốn từ</span>
-				<br/> <br/> <br/>
-				<span class="slidebar_trademark">Born2Go © 2015</span>
+				<br /> <br /> <span class="slidebar_anchor">Tra cứu từ vựng</span>
+				<br /> <br /> <br /> <span class="slidebar_anchor">Kiểm
+					tra vốn từ</span> <br /> <br /> <br /> <span class="slidebar_trademark">Born2Go
+					© 2016</span>
 			</div>
 		</div>
-	
+
 		<div id="wt_dictionary_slide" class="slidebar" style="display: none"></div>
 
 		<div id="content" class="content">
-		
+
 			<script type="text/javascript">
 				var ec_height = window.innerHeight - 40;
 				document.getElementById("content").setAttribute("style",
 						"height:" + ec_height + "px");
-				document.getElementById("wt_dictionary_slide_dummy").setAttribute("style",
-						"height:" + ec_height + "px");
+				document.getElementById("wt_dictionary_slide_dummy")
+						.setAttribute("style", "height:" + ec_height + "px");
 			</script>
 
-			<%if(blog != null) { %>
+			<%
+				if (blog != null) {
+			%>
 			<div id="wt_dictionary"
 				style="padding: 20px 30px 30px 30px; width: 600px; float: left;">
+
 				<div style="text-align: left">
 					<h1><%=blog.getShowTitle()%></h1>
 					<%-- <% if(blog_avatar != null) { %>
@@ -281,9 +284,9 @@
 				<ul class="blogs_exist">
 					<%
 						for (int i = 0; i < blogs_older.size(); i++) {
-								Blog blog_exist = blogs_older.get(i);
-								String hrefShow = "/blog/" + blog_exist.getTitle();
-								String name_blog = blog_exist.getShowTitle();
+									Blog blog_exist = blogs_older.get(i);
+									String hrefShow = "/blog/" + blog_exist.getTitle();
+									String name_blog = blog_exist.getShowTitle();
 					%>
 					<li><a style="text-decoration: none; color: #333;"
 						href=<%=hrefShow%>><%=name_blog%></a></li>
@@ -292,7 +295,10 @@
 						}
 					%>
 				</ul>
-				<a href="/blog/" style="display: block; color: #0e74af; cursor: pointer; margin-top: 30px;"><i class="fa fa-hand-o-right fa-lg" style="margin-right: 10px;"></i>Xem tất cả</a>
+				<a href="/blog/"
+					style="display: block; color: #0e74af; cursor: pointer; margin-top: 30px;"><i
+					class="fa fa-hand-o-right fa-lg" style="margin-right: 10px;"></i>Xem
+					tất cả</a>
 				<%
 					}
 				%>
@@ -304,9 +310,22 @@
 					data-order-by="reverse_time" data-version="v2.3"></div>
 				<br /> <br />
 			</div>
-			<%} else {%>
-				<div id="wt_bloglist" style="padding: 20px 30px 30px 30px; width: 600px"></div>
-			<%} %>
+			<%
+				} else {
+			%>
+			<div id="wt_bloglist"
+				style="padding: 20px 30px 30px 30px; width: 600px">
+				<%
+					if (show_n == true) {
+				%>
+				<div class="notice_u">Không tìm thấy dữ liệu</div>
+				<%
+					}
+				%>
+			</div>
+			<%
+				}
+			%>
 
 			<div id="right_panel">
 				<div style="text-align: center;">
@@ -316,14 +335,16 @@
 				<div style="float: left; margin-right: 10px; margin-top: 15px;">
 					<a
 						href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
-						<img alt="App hoc tieng anh, tu vung" src="/resources/appstore.png"
+						<img alt="App hoc tieng anh, tu vung"
+						src="/resources/appstore.png"
 						style="width: 140px; height: 50px; cursor: pointer;">
 					</a>
 				</div>
 				<div>
 					<a
 						href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
-						<img alt="App hoc tieng anh, tu vung" src="/resources/googleplay.jpg"
+						<img alt="App hoc tieng anh, tu vung"
+						src="/resources/googleplay.jpg"
 						style="width: 140px; height: 50px; cursor: pointer; margin-top: 15px;">
 					</a>
 				</div>
