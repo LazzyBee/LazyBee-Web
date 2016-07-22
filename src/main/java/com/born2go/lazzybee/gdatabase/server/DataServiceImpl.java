@@ -32,6 +32,7 @@ import org.jsoup.select.Elements;
 
 import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.shared.Blog;
+import com.born2go.lazzybee.gdatabase.shared.GroupVoca;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
@@ -49,7 +50,7 @@ import com.googlecode.objectify.cmd.Query;
 @SuppressWarnings("serial")
 public class DataServiceImpl extends RemoteServiceServlet implements
 		DataService {
-	
+
 	/**
 	 * check derivatives of one vocabulary:(ed, s, es, ing...)
 	 * 
@@ -64,31 +65,30 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	String q_es = "es";
 
 	private boolean verifyAdmin(String userId) {
-		if(userId != null && userId.contains("_G")) {
-			User u = ofy().load().type(User.class).filter("google_id", userId).first().now();
-			if(u != null && u.isAdmin())
+		if (userId != null && userId.contains("_G")) {
+			User u = ofy().load().type(User.class).filter("google_id", userId)
+					.first().now();
+			if (u != null && u.isAdmin())
 				return true;
 			else
 				return false;
-		}
-		else if(userId != null && userId.contains("_F")) {
-			User u = ofy().load().type(User.class).filter("facebook_id", userId).first().now();
-			if(u != null && u.isAdmin())
+		} else if (userId != null && userId.contains("_F")) {
+			User u = ofy().load().type(User.class)
+					.filter("facebook_id", userId).first().now();
+			if (u != null && u.isAdmin())
 				return true;
 			else
 				return false;
-		}
-		else
+		} else
 			return false;
 	}
-	
-	/*private String getPlainText(String strSrc) {
-		String resultStr = strSrc;
-		resultStr = resultStr.replaceAll("<figcaption>.*</figcaption>", "");
-		resultStr = resultStr.replaceAll("&nbsp;", " ");
-		return resultStr;
-	}*/
-	
+
+	/*
+	 * private String getPlainText(String strSrc) { String resultStr = strSrc;
+	 * resultStr = resultStr.replaceAll("<figcaption>.*</figcaption>", "");
+	 * resultStr = resultStr.replaceAll("&nbsp;", " "); return resultStr; }
+	 */
+
 	/**
 	 * 
 	 * @param q_Der
@@ -152,12 +152,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public boolean verifyVoca(String voca_q) {
-		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q.toLowerCase()).first().now();
+		Voca voca = ofy().load().type(Voca.class)
+				.filter("q", voca_q.toLowerCase()).first().now();
 		if (voca != null)
 			return false;
 		else {
-			VocaPreview voca_preview = ofy().load().type(VocaPreview.class).filter("q", voca_q.toLowerCase()).first().now();
-			if(voca_preview != null)
+			VocaPreview voca_preview = ofy().load().type(VocaPreview.class)
+					.filter("q", voca_q.toLowerCase()).first().now();
+			if (voca_preview != null)
 				return false;
 			else
 				return true;
@@ -201,9 +203,10 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public Voca updateVoca(Voca voca, String userId) {
-		//Admin update
-		if(verifyAdmin(userId)) {
-			Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ().toLowerCase()).first().now();
+		// Admin update
+		if (verifyAdmin(userId)) {
+			Voca v = ofy().load().type(Voca.class)
+					.filter("q", voca.getQ().toLowerCase()).first().now();
 			if (v != null) {
 				Long gid = v.getGid();
 				v = voca;
@@ -212,36 +215,37 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 				ofy().save().entity(v);
 				return voca;
 			} else {
-				VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", voca.getQ().toLowerCase()).first().now();
-				if(vp != null) {
+				VocaPreview vp = ofy().load().type(VocaPreview.class)
+						.filter("q", voca.getQ().toLowerCase()).first().now();
+				if (vp != null) {
 					vp.getVocaContent(voca);
 					vp.setQ(vp.getQ().toLowerCase());
 					ofy().save().entity(vp);
 					return voca;
-				}
-				else
+				} else
 					return null;
 			}
 		}
-		//User update
+		// User update
 		else {
-			Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ().toLowerCase()).first().now();
+			Voca v = ofy().load().type(Voca.class)
+					.filter("q", voca.getQ().toLowerCase()).first().now();
 			if (v != null) {
 				VocaPreview vp = new VocaPreview();
 				vp.getVocaContent(voca);
 				vp.setQ(vp.getQ().toLowerCase());
 				ofy().save().entity(vp);
-				/*ofy().delete().entity(v);*/
+				/* ofy().delete().entity(v); */
 				return voca;
 			} else {
-				VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", voca.getQ().toLowerCase()).first().now();
-				if(vp != null) {
+				VocaPreview vp = ofy().load().type(VocaPreview.class)
+						.filter("q", voca.getQ().toLowerCase()).first().now();
+				if (vp != null) {
 					vp.getVocaContent(voca);
 					vp.setQ(vp.getQ().toLowerCase());
 					ofy().save().entity(vp);
 					return voca;
-				}
-				else
+				} else
 					return null;
 			}
 		}
@@ -249,19 +253,20 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Voca verifyUpdateVoca(Voca voca, String userId) {
-		if(verifyAdmin(userId)) {
-			VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", voca.getQ().toLowerCase()).first().now();
-			if(vp != null) {
+		if (verifyAdmin(userId)) {
+			VocaPreview vp = ofy().load().type(VocaPreview.class)
+					.filter("q", voca.getQ().toLowerCase()).first().now();
+			if (vp != null) {
 				ofy().delete().entity(vp);
 				voca.setQ(voca.getQ().toLowerCase());
-				Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ().toLowerCase()).first().now();
-				if(v != null)
+				Voca v = ofy().load().type(Voca.class)
+						.filter("q", voca.getQ().toLowerCase()).first().now();
+				if (v != null)
 					voca.setGid(v.getGid());
 				ofy().save().entity(voca);
 				voca.setCheck(true);
 				return voca;
-			}
-			else
+			} else
 				return null;
 		}
 		return null;
@@ -274,7 +279,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	public VocaList getListVoca(String cursorStr) {
 		List<Voca> result = new ArrayList<Voca>();
 
-		Query<Voca> query = ofy().load().type(Voca.class).limit(VocaList.pageSize);
+		Query<Voca> query = ofy().load().type(Voca.class)
+				.limit(VocaList.pageSize);
 		if (cursorStr != null)
 			query = query.startAt(Cursor.fromWebSafeString(cursorStr));
 
@@ -305,7 +311,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	public VocaList getListPreviewVoca(String cursorStr) {
 		List<Voca> result = new ArrayList<Voca>();
 
-		Query<VocaPreview> query = ofy().load().type(VocaPreview.class).limit(VocaList.pageSize);
+		Query<VocaPreview> query = ofy().load().type(VocaPreview.class)
+				.limit(VocaList.pageSize);
 		if (cursorStr != null)
 			query = query.startAt(Cursor.fromWebSafeString(cursorStr));
 
@@ -336,14 +343,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public void removeVoca(Voca voca, String userId) {
-		if(verifyAdmin(userId)) {
-			if(voca.isCheck()) {
+		if (verifyAdmin(userId)) {
+			if (voca.isCheck()) {
 				Voca v = ofy().load().type(Voca.class).id(voca.getGid()).now();
 				if (v != null)
 					ofy().delete().entity(v);
-			}
-			else {
-				VocaPreview vp = ofy().load().type(VocaPreview.class).id(voca.getGid()).now();
+			} else {
+				VocaPreview vp = ofy().load().type(VocaPreview.class)
+						.id(voca.getGid()).now();
 				if (vp != null)
 					ofy().delete().entity(vp);
 			}
@@ -352,28 +359,24 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public User saveUser(User user) {
-	 	user.setAdmin(false);
+		user.setAdmin(false);
 		if (user.getGoogle_id() != null) {
 			User old_user = ofy().load().type(User.class)
 					.filter("google_id", user.getGoogle_id()).first().now();
 			if (old_user == null) {
 				ofy().save().entity(user);
 				return user;
-			}
-			else
+			} else
 				return old_user;
-		}
-		else if (user.getFacebook_id() != null) {
+		} else if (user.getFacebook_id() != null) {
 			User old_user = ofy().load().type(User.class)
 					.filter("facebook_id", user.getFacebook_id()).first().now();
 			if (old_user == null) {
 				ofy().save().entity(user);
 				return user;
-			}
-			else
+			} else
 				return old_user;
-		}
-		else
+		} else
 			return user;
 	}
 
@@ -389,19 +392,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Blog insertBlog(Blog blog, String userId) {
-/*		String origin_title = blog.getTitle();
-		boolean verify_blog = false;
-		for (int i = 0; i <= 9; i++) {
-			if (!verifyBlog(blog.getTitle())) {
-				Random generator = new Random();
-				int random_title = generator.nextInt(100);
-				blog.setTitle(origin_title + "_" + random_title);
-			} else {
-				verify_blog = true;
-				break;
-			}
-		}*/
-		if(verifyAdmin(userId)) {
+		/*
+		 * String origin_title = blog.getTitle(); boolean verify_blog = false;
+		 * for (int i = 0; i <= 9; i++) { if (!verifyBlog(blog.getTitle())) {
+		 * Random generator = new Random(); int random_title =
+		 * generator.nextInt(100); blog.setTitle(origin_title + "_" +
+		 * random_title); } else { verify_blog = true; break; } }
+		 */
+		if (verifyAdmin(userId)) {
 			if (verifyBlog(blog.getTitle())) {
 				blog.setCreateDate(System.currentTimeMillis());
 				Key<Blog> key = ofy().save().entity(blog).now();
@@ -409,24 +407,24 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 				return b;
 			} else
 				return null;
-			}
-		else
+		} else
 			return null;
 	}
 
 	@Override
 	public Blog updateBlog(Blog blog, String userId) {
-		if(verifyAdmin(userId)) {
+		if (verifyAdmin(userId)) {
 			Blog old_blog = findBlogById(blog.getId());
-			if(old_blog != null) {
-				/*String preshortHtml = getPlainText(blog.getContent());
-				blog.setShortDescription(Jsoup.parse(preshortHtml).text());*/
+			if (old_blog != null) {
+				/*
+				 * String preshortHtml = getPlainText(blog.getContent());
+				 * blog.setShortDescription(Jsoup.parse(preshortHtml).text());
+				 */
 				ofy().save().entity(blog);
 				return blog;
 			}
 			return null;
-		}
-		else
+		} else
 			return null;
 	}
 
@@ -445,38 +443,42 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<Blog> getListBlog(boolean isLimited) {
-		if(isLimited) {
-			List<Blog> blogs = ofy().load().type(Blog.class).limit(6).order("-createDate").list();
+		if (isLimited) {
+			List<Blog> blogs = ofy().load().type(Blog.class).limit(6)
+					.order("-createDate").list();
 			List<Blog> result = new ArrayList<Blog>();
 			result.addAll(blogs);
 			return result;
 		} else {
-			List<Blog> blogs = ofy().load().type(Blog.class).order("-createDate").list();
+			List<Blog> blogs = ofy().load().type(Blog.class)
+					.order("-createDate").list();
 			List<Blog> result = new ArrayList<Blog>();
 			result.addAll(blogs);
 			return result;
 		}
 	}
-	
+
 	public Blog getPreviousBlog(Blog currentBlog) {
-		Blog blog = ofy().load().type(Blog.class).
-				filter("createDate <", currentBlog.getCreateDate()).order("-createDate").first().now();
+		Blog blog = ofy().load().type(Blog.class)
+				.filter("createDate <", currentBlog.getCreateDate())
+				.order("-createDate").first().now();
 		return blog;
 	}
-	
+
 	public Blog getNextBlog(Blog currentBlog) {
-		Blog blog = ofy().load().type(Blog.class).
-				filter("createDate >", currentBlog.getCreateDate()).order("createDate").first().now();
+		Blog blog = ofy().load().type(Blog.class)
+				.filter("createDate >", currentBlog.getCreateDate())
+				.order("createDate").first().now();
 		return blog;
 	}
-	
+
 	/*
 	 * Get list blog older than currentBlog
 	 */
 	public List<Blog> getBlogsOlder(Blog currentBlog) {
 		List<Blog> result = ofy().load().type(Blog.class)
-				.filter("createDate <", currentBlog.getCreateDate()).order("-createDate")
-				.limit(6).list();
+				.filter("createDate <", currentBlog.getCreateDate())
+				.order("-createDate").limit(6).list();
 		if (result.size() <= 4) {
 			result = ofy().load().type(Blog.class)
 					.filter("createDate >", currentBlog.getCreateDate())
@@ -487,11 +489,11 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Picture findPicture(Long pictureId) {
-		if(pictureId != null) {
-			Picture picture = ofy().load().type(Picture.class).id(pictureId).now();
+		if (pictureId != null) {
+			Picture picture = ofy().load().type(Picture.class).id(pictureId)
+					.now();
 			return picture;
-		}
-		else 
+		} else
 			return null;
 	}
 
@@ -500,13 +502,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public String getUploadUrl(String userId) {
-		if(verifyAdmin(userId)) {		
+		if (verifyAdmin(userId)) {
 			return blobStoreService.createUploadUrl("/photo_upload");
-		}
-		else
+		} else
 			return null;
 	}
+
 	String lazzybee_seperate = Common.lazzybee_seperate;
+
 	@Override
 	public LinkedHashMap<String, String> getTestVocaStep_One() {
 		Document doc;
@@ -521,10 +524,10 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			for (int i = 0; i < tds.size(); i++) {
 				Elements childrenTd = tds.get(i).select("label");
 				for (int j = 0; j < childrenTd.size(); j++) {
-					  key = childrenTd.get(j).attr("for");
-					  value = childrenTd.get(j).text();
-					  hmap.put(key, value);
-					  
+					key = childrenTd.get(j).attr("for");
+					value = childrenTd.get(j).text();
+					hmap.put(key, value);
+
 				}
 				hmap.put(String.valueOf(i), lazzybee_seperate);
 			}
@@ -532,12 +535,13 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		 
+
 		return hmap;
 	}
 
 	@Override
-	public LinkedHashMap<String, String> getTestVocaStep_Two(LinkedHashMap<String, String> hashMap) {
+	public LinkedHashMap<String, String> getTestVocaStep_Two(
+			LinkedHashMap<String, String> hashMap) {
 		hashMap.put("action", "step_one");
 		// Connection
 		Connection conn = Jsoup.connect("http://testyourvocab.com")
@@ -546,7 +550,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		LinkedHashMap<String, String> hmap = new LinkedHashMap<String, String>();
 		try {
 			doc = conn.post();
-			hmap.put(Common.USER_ID,  conn.response().url().getPath() + "?"
+			hmap.put(Common.USER_ID, conn.response().url().getPath() + "?"
 					+ conn.response().url().getQuery());
 			Element table = doc.select("table.wordlist").first();
 			Element row = table.select("tr").first();
@@ -556,18 +560,18 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			for (int i = 0; i < tds.size(); i++) {
 				Elements childrenTd = tds.get(i).select("label");
 				for (int j = 0; j < childrenTd.size(); j++) {
-					  key = childrenTd.get(j).attr("for");
-					  value = childrenTd.get(j).text();
+					key = childrenTd.get(j).attr("for");
+					value = childrenTd.get(j).text();
 					hmap.put(key, value);
 				}
 				hmap.put(String.valueOf(i), lazzybee_seperate);
-				
+
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
- 
+
 		return hmap;
 	}
 
@@ -577,12 +581,12 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		// Connection
 		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie)
 				.followRedirects(true).data(hashMap);
-		 
+
 		String url = null;
-		 try {
+		try {
 			Document doc = conn.post();
 			// connect to step four
-			
+
 			LinkedHashMap<String, String> hmap = new LinkedHashMap<String, String>();
 			hmap.put(Common.USER_ID, user_id);
 			hmap.put("action", "step_three");
@@ -602,45 +606,49 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			hmap.put("years_total", "");
 			hmap.put("years_since", "");
 			hmap.put("months_abroad", "");
-			
+
 			// connect
-			Connection conn3 = Jsoup.connect("http://testyourvocab.com" + "/step_three?user="
-					+ user_id).followRedirects(true).data(hmap);
-			
+			Connection conn3 = Jsoup
+					.connect(
+							"http://testyourvocab.com" + "/step_three?user="
+									+ user_id).followRedirects(true).data(hmap);
+
 			try {
 				Document doc3 = conn3.post();
 				Element element = doc3.select("div.num").first();
-	            cipher = Cipher.getInstance("AES");
-		 	    url = "http://www.lazzybee.com/vocab/" + encrypt(element.text());
-		 	   //	    url = "http://localhost:8888/vocab/"+ encrypt(element.text());
-			} catch (  Exception e) {
+				cipher = Cipher.getInstance("AES");
+				url = "http://www.lazzybee.com/vocab/"
+						+ encrypt(element.text());
+				// url = "http://localhost:8888/vocab/"+
+				// encrypt(element.text());
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			 
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		 
-		 
+
 		return url;
 	}
-	public String getVocabResult_Test(String encryptedText){
+
+	public String getVocabResult_Test(String encryptedText) {
 		String result = null;
-        try {
-        	cipher = Cipher.getInstance("AES");
+		try {
+			cipher = Cipher.getInstance("AES");
 			result = decrypt(encryptedText);
 		} catch (Exception e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
-		 
+
 		return result;
 	}
-	 
+
 	final static String key = "lazzybee12345678";
-	 
+
 	static Cipher cipher;
-	public static String encrypt(String plainText)
-			throws Exception {
+
+	public static String encrypt(String plainText) throws Exception {
 		byte[] plainTextByte = plainText.getBytes();
 		cipher.init(Cipher.ENCRYPT_MODE, genKey());
 		byte[] encryptedByte = cipher.doFinal(plainTextByte);
@@ -648,23 +656,23 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		return encryptedText;
 	}
 
-	public static String decrypt(String encryptedText)
-			throws Exception {
-		 
+	public static String decrypt(String encryptedText) throws Exception {
+
 		byte[] encryptedTextByte = Base64.decodeBase64(encryptedText);
 		cipher.init(Cipher.DECRYPT_MODE, genKey());
 		byte[] decryptedByte = cipher.doFinal(encryptedTextByte);
 		String decryptedText = new String(decryptedByte);
 		return decryptedText;
 	}
+
 	private static java.security.Key genKey() {
 		java.security.Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
 		return secretKey;
 	}
-	
-	public String getIMG_result(String url){
-		 String result = null;
-		 try {
+
+	public String getIMG_result(String url) {
+		String result = null;
+		try {
 			Document doc = Jsoup.connect(url).get();
 			Element image = doc.select("img").first();
 			result = image.absUrl("src");
@@ -674,38 +682,120 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		}
 		return result;
 	}
-//	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id){
-//		HashMap<String, String> hmap = new HashMap<String, String>();
-//		hmap.put(Common.USER_ID, user_id);
-//		hmap.put("action", "step_three");
-//		hmap.put("native_speaker", "");
-//		hmap.put("year_born", "");
-//		hmap.put("month_born", "");
-//		hmap.put("gender", "");
-//		hmap.put("nationality", "");
-//		hmap.put("nationality_nonnative", "");
-//		hmap.put("reading", "");
-//		hmap.put("literature", "");
-//		hmap.put("grades_completed", "");
-//		hmap.put("verbal_sat", "");
-//		hmap.put("zip_code", "");
-//		hmap.put("learning_status", "");
-//		hmap.put("level_english", "");
-//		hmap.put("years_total", "");
-//		hmap.put("years_since", "");
-//		hmap.put("months_abroad", "");
-//		
-//		// connect
-//		Connection conn = Jsoup.connect("http://testyourvocab.com" + cookie).followRedirects(true).data(hmap);
-//		String result = "";
-//		try {
-//			Document doc = conn.post();
-//			Element element = doc.select("div.num").first();
-//			result = element.text();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//		
-//	}
+
+	// public String getTestVocaStep_Four(HashMap<String, String> hmapInput,
+	// String cookie, String user_id){
+	// HashMap<String, String> hmap = new HashMap<String, String>();
+	// hmap.put(Common.USER_ID, user_id);
+	// hmap.put("action", "step_three");
+	// hmap.put("native_speaker", "");
+	// hmap.put("year_born", "");
+	// hmap.put("month_born", "");
+	// hmap.put("gender", "");
+	// hmap.put("nationality", "");
+	// hmap.put("nationality_nonnative", "");
+	// hmap.put("reading", "");
+	// hmap.put("literature", "");
+	// hmap.put("grades_completed", "");
+	// hmap.put("verbal_sat", "");
+	// hmap.put("zip_code", "");
+	// hmap.put("learning_status", "");
+	// hmap.put("level_english", "");
+	// hmap.put("years_total", "");
+	// hmap.put("years_since", "");
+	// hmap.put("months_abroad", "");
+	//
+	// // connect
+	// Connection conn = Jsoup.connect("http://testyourvocab.com" +
+	// cookie).followRedirects(true).data(hmap);
+	// String result = "";
+	// try {
+	// Document doc = conn.post();
+	// Element element = doc.select("div.num").first();
+	// result = element.text();
+	// } catch (IOException e) {
+	// e.printStackTrace();
+	// }
+	// return result;
+	//
+	// }
+
+	/*
+	 * this method save new GroupVoca (non-Javadoc) parameter GroupVoca g
+	 */
+	@Override
+	public GroupVoca insertGroupVoca(GroupVoca g) {
+		// List<GroupVoca> listG = ofy().load().type(GroupVoca.class)
+		// .order("-__key__").limit(1).list();
+		List<GroupVoca> listG = ofy().load().type(GroupVoca.class)
+				.orderKey(true).limit(1).list();
+		long id = 10001;
+		if (listG != null && !listG.isEmpty()) {
+			id = listG.get(0).getId() + 1;
+		}
+		g.setId(id);
+		ofy().save().entity(g).now();
+		GroupVoca result = new GroupVoca();
+		result.getGroupVocaPreview(g);
+		return result;
+	}
+
+	/**
+	 * this method find GroupVoca in database return a GroupVoca
+	 */
+	@Override
+	public GroupVoca findGroupVoca(long id) {
+		GroupVoca g = ofy().load().type(GroupVoca.class).id(id).now();
+		return g;
+	}
+
+	/**
+	 * this method update exist GroupVoca in database
+	 */
+	@Override
+	public GroupVoca updateGroupVoca(GroupVoca g) {
+		GroupVoca findG = findGroupVoca(g.getId());
+		if (findG != null)
+			ofy().save().entity(g);
+		else
+			g = null;
+		return g;
+	}
+
+	@Override
+	public void removeGroup(long id) {
+		GroupVoca findG = findGroupVoca(id);
+		if (findG != null)
+			ofy().delete().entity(findG);
+
+	}
+
+	@Override
+	public List<GroupVoca> getListGroupVoca(String cursorStr) {
+		List<GroupVoca> result = new ArrayList<GroupVoca>();
+		int size = 100;
+		Query<GroupVoca> query = ofy().load().type(GroupVoca.class).limit(size);
+		if (cursorStr != null)
+			query = query.startAt(Cursor.fromWebSafeString(cursorStr));
+		boolean continu = false;
+		QueryResultIterator<GroupVoca> iterator = query.iterator();
+		while (iterator.hasNext()) {
+			GroupVoca v = iterator.next();
+			result.add(v);
+			continu = true;
+		}
+		String encodeCursor;
+		if (continu) {
+			Cursor cursor = iterator.getCursor();
+			encodeCursor = cursor.toWebSafeString();
+
+		} else
+			encodeCursor = "\\0";
+
+		GroupVoca vocaCur = new GroupVoca();
+		vocaCur.setCreator(encodeCursor);
+		result.add(0, vocaCur);
+		return result;
+	}
+
 }

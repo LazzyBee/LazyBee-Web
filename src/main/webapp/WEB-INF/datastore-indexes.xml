@@ -1,0 +1,7 @@
+<datastore-indexes autoGenerate="true">
+ <!-- index for key of GroupVoca -->
+ <datastore-index kind="groupvoca" ancestor="false" source="manual">
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+ 
+</datastore-indexes>

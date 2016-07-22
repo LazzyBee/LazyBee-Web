@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.shared.Blog;
+import com.born2go.lazzybee.gdatabase.shared.GroupVoca;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
@@ -45,4 +46,9 @@ public interface DataService extends RemoteService {
 	public LinkedHashMap<String, String> getTestVocaStep_Two(LinkedHashMap<String, String> hashMap);
 	public String getTestVocaStep_Three(LinkedHashMap<String, String> hashMap, String cookie,String user_id);
 //	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id);
+	public GroupVoca insertGroupVoca( GroupVoca g);
+	public GroupVoca findGroupVoca(long id);
+	public GroupVoca updateGroupVoca(GroupVoca g);
+	public void removeGroup(long id);
+	public List<GroupVoca> getListGroupVoca(String cursorStr);
 }

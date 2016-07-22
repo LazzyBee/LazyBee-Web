@@ -71,6 +71,8 @@ public class LoginControl extends DialogBox {
 					}
 					if(DOM.getElementById("blogViewEdit") != null)
 						DOM.getElementById("blogViewEdit").setAttribute("style", "float:right; margin-top: 2px; margin-left: 20px;");
+					/*if(DOM.getElementById("groupViewEdit") != null)
+						DOM.getElementById("groupViewEdit").setAttribute("style", "float:right; margin-top: 2px; margin-left: 20px;");*/						
 				}
 			}
 			@Override
