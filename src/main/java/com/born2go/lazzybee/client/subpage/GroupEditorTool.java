@@ -8,12 +8,11 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -26,7 +25,7 @@ public class GroupEditorTool extends Composite {
 	}
 
 	@UiField
-	TextArea txbListVoca;
+	RichTextArea txbListVoca;
 	@UiField
 	TextBox txbDescription;
 
@@ -53,7 +52,7 @@ public class GroupEditorTool extends Composite {
 	public void setGroupVoca(GroupVoca g) {
 		this.group = g;
 		txbDescription.setText(group.getDescription());
-		txbListVoca.setText(group.getListVoca());
+		txbListVoca.setHTML(group.getListVoca());
 		btnDelete.setVisible(true);
 	}
 
@@ -78,7 +77,7 @@ public class GroupEditorTool extends Composite {
 		GroupVoca g = new GroupVoca();
 		g.setCreator(LazzyBee.userName);
 		g.setDescription(txbDescription.getValue());
-		g.setListVoca(txbListVoca.getValue());
+		g.setListVoca(txbListVoca.getHTML());
 		LazzyBee.data_service.insertGroupVoca(g,
 				new AsyncCallback<GroupVoca>() {
 
@@ -113,7 +112,7 @@ public class GroupEditorTool extends Composite {
 		LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 		group.setCreator(LazzyBee.userName);
 		group.setDescription(txbDescription.getValue());
-		group.setListVoca(txbListVoca.getValue());
+		group.setListVoca(txbListVoca.getHTML());
 		LazzyBee.data_service.updateGroupVoca(group,
 				new AsyncCallback<GroupVoca>() {
 

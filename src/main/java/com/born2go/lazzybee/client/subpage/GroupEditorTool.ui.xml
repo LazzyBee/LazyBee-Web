@@ -112,7 +112,7 @@
 				<br/> <br/>
 				<span style="font-weight: 700;font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;font-size: 13px;">Danh sách các từ</span>
 				<br/> <br/>
-				<g:TextArea ui:field="txbListVoca" styleName="{style.GroupEditorTool_Obj5}" height="372px"></g:TextArea>
+				<g:RichTextArea ui:field="txbListVoca" styleName="{style.GroupEditorTool_Obj5}" height="372px"></g:RichTextArea>
 				<br/> <br/>
 				<div style="float: right; margin-bottom: 20px;">
 					<g:HorizontalPanel>

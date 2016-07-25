@@ -76,10 +76,10 @@ public class GroupVocaList extends Composite {
 	 */
 	void createTable() {
 
-		TextColumn<GroupVoca> clCreator = new TextColumn<GroupVoca>() {
+		TextColumn<GroupVoca> clId = new TextColumn<GroupVoca>() {
 			@Override
 			public String getValue(GroupVoca v) {
-				return v.getCreator();
+				return String.valueOf(v.getId());
 			}
 		};
 
@@ -94,14 +94,10 @@ public class GroupVocaList extends Composite {
 			}
 		};
 
-		TextColumn<GroupVoca> clList = new TextColumn<GroupVoca>() {
+		TextColumn<GroupVoca> clAmount = new TextColumn<GroupVoca>() {
 			@Override
 			public String getValue(GroupVoca v) {
-				String l = v.getListVoca();
-				if (l.length() <= 200)
-					return l;
-				else
-					return l.substring(0, 200) + "...";
+				return countGroupVoca(v.getListVoca());
 			}
 		};
 
@@ -152,13 +148,13 @@ public class GroupVocaList extends Composite {
 		});
 
 		groupTable.setWidth("100%");
-		groupTable.addColumn(clCreator, "Người tạo");
+		groupTable.addColumn(clId, "ID");
 		groupTable.addColumn(clDes, "Mô tả");
-		groupTable.addColumn(clList, "Danh sách từ");
+		groupTable.addColumn(clAmount, "Số lượng từ");
 		groupTable.addColumn(clView);
 		groupTable.addColumn(clDelete);
 
-		groupTable.setColumnWidth(clCreator, "150px");
+		groupTable.setColumnWidth(clId, "150px");
 		groupTable.setColumnWidth(clDes, "250px");
 		groupTable.setColumnWidth(clView, "50px");
 		groupTable.setColumnWidth(clDelete, "50px");
@@ -332,4 +328,16 @@ public class GroupVocaList extends Composite {
 			}
 	}
 
+	String countGroupVoca(String list){
+		if(list != null && list.length() > 0){
+			list.replaceAll("</div>", "");
+			String part[] = list.split("<div>");
+			if(part != null && part.length > 0 ){
+				return String.valueOf(part.length);
+			}
+			else
+				return "0";
+		}
+		else return "0";
+	}
 }
