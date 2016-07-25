@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.born2go.lazzybee.gdatabase.shared.BackupFile;
+import com.born2go.lazzybee.gdatabase.shared.GroupVoca;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.DownloadTarget;
@@ -357,6 +358,18 @@ public class DataServiceApi {
 				result = null;
 		}
 		return result;
+	}
+
+	
+	@ApiMethod(name = "getGroupVoca", path = "get_Group_Voca")
+	public GroupVoca getGroupVoca(@Named("id") long id) throws NotFoundException {
+		GroupVoca result = dataService.findGroupVoca(id);
+		if (result != null)
+			return result;
+		else {
+			String message = "No groupvoca exists with id: " + id;
+			throw new NotFoundException(message);
+		}
 	}
 
 }
