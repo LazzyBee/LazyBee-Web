@@ -7,6 +7,7 @@ import com.born2go.lazzybee.client.subpage.DownloadView;
 import com.born2go.lazzybee.client.subpage.ListVocaView;
 import com.born2go.lazzybee.client.subpage.TestTool;
 import com.born2go.lazzybee.client.subpage.GroupVocaList;
+import com.born2go.lazzybee.client.subpage.VocaPreviewTool;
 import com.born2go.lazzybee.client.subpage.VocaView;
 import com.born2go.lazzybee.client.widgets.LoginControl;
 import com.born2go.lazzybee.gdatabase.shared.Blog;
@@ -141,7 +142,7 @@ public class DictionaryTool extends Composite {
 			RootPanel.get("wt_dictionary_content").add(new ListVocaView());
 		} else if (path.contains("preview")) {
 			// previewSite.addStyleName("DictionaryTool_Obj5");
-			RootPanel.get("wt_dictionary_content").add(new GroupVocaList());
+			RootPanel.get("wt_dictionary_content").add(new VocaPreviewTool());
 		} else if (path.contains("blog")) {
 			if (RootPanel.get("wt_bloglist") != null) {
 				HTMLPanel wt_dictionary_blog = new HTMLPanel("");
