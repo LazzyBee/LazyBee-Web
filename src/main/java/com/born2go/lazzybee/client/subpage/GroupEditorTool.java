@@ -12,6 +12,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -28,26 +30,40 @@ public class GroupEditorTool extends Composite {
 	RichTextArea txbListVoca;
 	@UiField
 	TextBox txbDescription;
+	@UiField
+	HTMLPanel topToolbar;
 
 	private GroupVoca group = null;
 	private GroupEditorTool thiz = this;
 
 	public GroupEditorTool() {
 		initWidget(uiBinder.createAndBindUi(this));
-		DOM.getElementById("right_panel")
-				.setAttribute("style", "display: none");
-		DOM.getElementById("wt_editor").setAttribute("style",
-				"padding: 30px; width: 100%; float: left;");
-
+		if (DOM.getElementById("right_panel") != null)
+			DOM.getElementById("right_panel").setAttribute("style", "display:");
 	}
 
-	 
+	public interface EditorListener {
+		void onUpdateGroup(GroupVoca v);
+
+		void onDelete(GroupVoca v);
+
+		void onClose();
+	}
+
+	private EditorListener listener;
+
+	public void setListener(EditorListener listener) {
+		this.listener = listener;
+	}
 
 	@UiField
 	Anchor btnDelete;
+
 	/**
 	 * this method set VocaGroup
-	 * @param g:VocaGroup will update
+	 * 
+	 * @param g
+	 *            :VocaGroup will update
 	 */
 	public void setGroupVoca(GroupVoca g) {
 		this.group = g;
@@ -56,7 +72,6 @@ public class GroupEditorTool extends Composite {
 		btnDelete.setVisible(true);
 	}
 
-	 
 	/**
 	 * this method clean form inphut data
 	 */
@@ -66,10 +81,10 @@ public class GroupEditorTool extends Composite {
 		Window.Location.replace(newURL);
 		group = null;
 		txbDescription.setText("");
-		 txbListVoca.setText("");
+		txbListVoca.setText("");
 
 	}
- 
+
 	/**
 	 * this method save a new GroupVoca
 	 */
@@ -104,7 +119,7 @@ public class GroupEditorTool extends Composite {
 				});
 
 	}
-	
+
 	/**
 	 * this method will update a exist GroupVoca in db
 	 */
@@ -125,7 +140,15 @@ public class GroupEditorTool extends Composite {
 					@Override
 					public void onSuccess(GroupVoca result) {
 						if (result != null) {
-							formClean();
+							LazzyBee.noticeBox.setRichNotice(
+									"Danh sách từ đã được cập nhật !", "/group/"
+											+ result.getId(), "/editor/#group/"
+											+ result.getId());
+							if (!isShowGroup)
+								formClean();
+							else if (listener != null)
+								listener.onUpdateGroup(result);
+
 							DOM.getElementById("content").setScrollTop(0);
 							LazzyBee.noticeBox.setRichNotice(
 									"Danh sách từ đã được sửa thành công!",
@@ -138,8 +161,6 @@ public class GroupEditorTool extends Composite {
 					}
 				});
 	}
-
-	 
 
 	/*
 	 * this method show error when user update to server
@@ -173,31 +194,79 @@ public class GroupEditorTool extends Composite {
 	}
 
 	@UiHandler("btnDelete")
-	void onbtnDelete(ClickEvent e){
-		if(Window.confirm("Bạn muốn xóa danh sách từ ? ")) {
-			if(group != null) {
-				LazzyBee.data_service.removeGroup(group.getId(), new AsyncCallback<Void>() {
+	void onbtnDelete(ClickEvent e) {
+		deleteGroupVoca();
+	}
 
-					@Override
-					public void onFailure(Throwable caught) {
-						LazzyBee.noticeBox.setNotice("! Đã có lỗi khi tải lên");
-						LazzyBee.noticeBox.setAutoHide();
-						
-					}
+	void deleteGroupVoca() {
+		if (Window.confirm("Bạn muốn xóa danh sách từ ? ")) {
+			if (group != null) {
+				LazzyBee.data_service.removeGroup(group.getId(),
+						new AsyncCallback<Void>() {
 
-					@Override
-					public void onSuccess(Void result) {
-						 formClean();
-						 LazzyBee.noticeBox.setNotice("Danh sách từ đã bị xóa");
-						 LazzyBee.noticeBox.setAutoHide();
-						
-					}
-				});
+							@Override
+							public void onFailure(Throwable caught) {
+								LazzyBee.noticeBox
+										.setNotice("! Đã có lỗi khi tải lên");
+								LazzyBee.noticeBox.setAutoHide();
+
+							}
+
+							@Override
+							public void onSuccess(Void result) {
+								if (!isShowGroup)
+									formClean();
+								else if (listener != null)
+									listener.onDelete(group);
+								LazzyBee.noticeBox
+										.setNotice("Danh sách từ đã bị xóa");
+								LazzyBee.noticeBox.setAutoHide();
+
+							}
+						});
 			}
 		}
 	}
-	@UiHandler("btnGoTop")
-	void onBtnGoTopClick(ClickEvent e) {
-		DOM.getElementById("content").setScrollTop(0);
+
+//	@UiHandler("btnGoTop")
+//	void onBtnGoTopClick(ClickEvent e) {
+//		DOM.getElementById("content").setScrollTop(0);
+//	}
+
+	@UiField
+	Anchor btnClose;
+
+	@UiHandler("btnClose")
+	void onBtnClose(ClickEvent e) {
+		if (listener != null)
+			listener.onClose();
+	}
+
+	@UiField
+	Anchor btnDeleteD;
+
+	@UiHandler("btnDeleteD")
+	void onBtnDeleteD(ClickEvent e) {
+		deleteGroupVoca();
+	}
+
+//	@UiField
+//	Anchor btnGoTop;
+
+	boolean isShowGroup = false;
+
+	public void onShowGroup() {
+		isShowGroup = true;
+		Label header = new Label("---------- Chi tiết nhóm từ ----------");
+		header.getElement()
+				.setAttribute("style",
+						"color: #0066cc; text-align: center; font-size: 20px; font-weight: bold;");
+		topToolbar.clear();
+		topToolbar.add(header);
+		// topToolbar.getElement().setAttribute("style", "margin-top: 25px");
+		topToolbar.setVisible(true);
+	//	btnGoTop.setVisible(false);
+		btnClose.setVisible(true);
+		btnDeleteD.setVisible(true);
 	}
 }

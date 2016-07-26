@@ -22,13 +22,13 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
@@ -60,13 +60,6 @@ public class GroupVocaList extends Composite {
 
 	public GroupVocaList() {
 		initWidget(uiBinder.createAndBindUi(this));
-		RootPanel.get("right_panel").getElement()
-				.setAttribute("style", "display:none");
-		RootPanel
-				.get("wt_grouplist")
-				.getElement()
-				.setAttribute("style",
-						"padding: 20px 30px 30px 30px; width: 100%");
 		createTable();
 
 	}
@@ -112,14 +105,6 @@ public class GroupVocaList extends Composite {
 			}
 		};
 
-		Column<GroupVoca, String> clView = new Column<GroupVoca, String>(
-				new ClickableTextCell(anchorRenderer)) {
-			@Override
-			public String getValue(GroupVoca object) {
-				return "Xem";
-			}
-		};
-
 		Column<GroupVoca, String> clDelete = new Column<GroupVoca, String>(
 				new ClickableTextCell(anchorRenderer)) {
 			@Override
@@ -139,9 +124,8 @@ public class GroupVocaList extends Composite {
 			public void onCellPreview(CellPreviewEvent<GroupVoca> event) {
 				if (BrowserEvents.CLICK
 						.equals(event.getNativeEvent().getType())) {
-					if (event.getColumn() == 3) {
-						Window.Location.assign("/group/"
-								+ event.getValue().getId());
+					if (event.getColumn() != 3) {
+						showGroupVoca(event.getValue());
 					}
 				}
 			}
@@ -151,12 +135,11 @@ public class GroupVocaList extends Composite {
 		groupTable.addColumn(clId, "ID");
 		groupTable.addColumn(clDes, "Mô tả");
 		groupTable.addColumn(clAmount, "Số lượng từ");
-		groupTable.addColumn(clView);
+
 		groupTable.addColumn(clDelete);
 
-		groupTable.setColumnWidth(clId, "150px");
-		groupTable.setColumnWidth(clDes, "250px");
-		groupTable.setColumnWidth(clView, "50px");
+		groupTable.setColumnWidth(clId, "100px");
+		groupTable.setColumnWidth(clDes, "200px");
 		groupTable.setColumnWidth(clDelete, "50px");
 
 		groupTable.setRowStyles(new RowStyles<GroupVoca>() {
@@ -201,6 +184,12 @@ public class GroupVocaList extends Composite {
 										.setNotice("Danh sách từ đã bị xóa");
 								LazzyBee.noticeBox.setAutoHide();
 								presentIndex--;
+								if (presentIndex != 0)
+									lbPageNumber
+											.setText((presentIndex + 1 - listDisplayGroup
+													.size()) + " - " + presentIndex);
+								else
+									lbPageNumber.setText("0 - 0");
 							}
 						});
 			}
@@ -249,8 +238,7 @@ public class GroupVocaList extends Composite {
 
 							@Override
 							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-
+								LazzyBee.noticeBox.hide();
 							}
 
 							@Override
@@ -274,18 +262,16 @@ public class GroupVocaList extends Composite {
 								} else
 									btnNextPage
 											.addStyleName("GroupList_Obj6_Disable");
-								
+
 								LazzyBee.noticeBox.hide();
 
 							}
 						});
-			}
-			else {
+			} else {
 				LazzyBee.noticeBox.hide();
 				btnNextPage.addStyleName("GroupList_Obj6_Disable");
 			}
-		}
-		else {
+		} else {
 			presentIndex = presentIndex + VocaList.pageSize;
 			int mi = 0;
 			if (presentIndex >= listGroup.size()) {
@@ -299,45 +285,118 @@ public class GroupVocaList extends Composite {
 					- VocaList.pageSize, presentIndex));
 			// -----
 			btnPreviousPage.removeStyleName("GroupList_Obj6_Disable");
-			 
-		}
 
-		 
+		}
 
 	}
 
 	@UiHandler("btnPreviousPage")
 	void onBtnPreviousPageClick(ClickEvent e) {
-		if((presentIndex - listDisplayGroup.size() + 1 - VocaList.pageSize) >= 1) {
+		if ((presentIndex - listDisplayGroup.size() + 1 - VocaList.pageSize) >= 1) {
 			presentIndex = presentIndex - listDisplayGroup.size();
-			lbPageNumber.setText((presentIndex + 1 - VocaList.pageSize) + " - " + presentIndex);
+			lbPageNumber.setText((presentIndex + 1 - VocaList.pageSize) + " - "
+					+ presentIndex);
 			listDisplayGroup.clear();
-			listDisplayGroup.addAll(listGroup.subList(presentIndex - VocaList.pageSize, presentIndex));
+			listDisplayGroup.addAll(listGroup.subList(presentIndex
+					- VocaList.pageSize, presentIndex));
 			btnNextPage.removeStyleName("GroupList_Obj6_Disable");
-			if((presentIndex + 1 - VocaList.pageSize) == 1)
+			if ((presentIndex + 1 - VocaList.pageSize) == 1)
 				btnPreviousPage.addStyleName("GroupList_Obj6_Disable");
+		} else if (presentIndex > 100) {
+			presentIndex = 100;
+			lbPageNumber.setText((presentIndex + 1 - VocaList.pageSize) + " - "
+					+ presentIndex);
+			listDisplayGroup.clear();
+			listDisplayGroup.addAll(listGroup.subList(presentIndex
+					- VocaList.pageSize, presentIndex));
+			btnNextPage.removeStyleName("GroupList_Obj6_Disable");
+			btnPreviousPage.addStyleName("GroupList_Obj6_Disable");
 		}
-		else
-			if(presentIndex > 100) {
-				presentIndex = 100;
-				lbPageNumber.setText((presentIndex + 1 - VocaList.pageSize) + " - " + presentIndex);
-				listDisplayGroup.clear();
-				listDisplayGroup.addAll(listGroup.subList(presentIndex - VocaList.pageSize, presentIndex));
-				btnNextPage.removeStyleName("GroupList_Obj6_Disable");
-				btnPreviousPage.addStyleName("GroupList_Obj6_Disable");
-			}
 	}
 
-	String countGroupVoca(String list){
-		if(list != null && list.length() > 0){
+	/**
+	 * 
+	 * @param list
+	 *            : listVoca in a GroupVoca
+	 * @return amount of voca in one listVoca
+	 */
+	String countGroupVoca(String list) {
+		if (list != null && list.length() > 0) {
 			list.replaceAll("</div>", "");
 			String part[] = list.split("<div>");
-			if(part != null && part.length > 0 ){
+			if (part != null && part.length > 0) {
 				return String.valueOf(part.length);
-			}
-			else
+			} else
 				return "0";
-		}
-		else return "0";
+		} else
+			return "0";
 	}
+
+	/**
+	 * this method show dialog a GroupVoca
+	 * 
+	 * @param g
+	 *            : a GroupVoca
+	 */
+	void showGroupVoca(GroupVoca g) {
+		final DialogBox d = new DialogBox();
+		d.setStyleName("GroupList_Obj10");
+		d.setAutoHideEnabled(true);
+		d.setGlassEnabled(true);
+		d.setAnimationEnabled(true);
+		ScrollPanel sc = new ScrollPanel();
+		sc.getElement().setAttribute("style",
+				"overflow-x: hidden; padding: 20px 40px; height: 500px");
+		GroupEditorTool editor = new GroupEditorTool();
+		editor.setGroupVoca(g);
+		sc.add(editor);
+		d.add(sc);
+		d.center();
+		editor.onShowGroup();
+		// -----
+		editor.setListener(new GroupEditorTool.EditorListener() {
+			@Override
+			public void onClose() {
+				d.hide();
+			}
+
+			@Override
+			public void onUpdateGroup(GroupVoca v) {
+				d.hide();
+                refreshData(v, true);
+			}
+
+			@Override
+			public void onDelete(GroupVoca v) {
+				d.hide();
+                refreshData(v, false);
+				
+			}
+
+			 
+		});
+	}
+	/**
+	 * this method refresh table GroupVoca
+	 * @param v: a GroupVoca
+	 */
+	void refreshData(GroupVoca v, boolean isUpdate) {
+		int vindex = listGroup.indexOf(v);
+		int dvindex = listDisplayGroup.indexOf(v);
+		listGroup.remove(vindex);
+		listDisplayGroup.remove(dvindex);
+		if(isUpdate == true){
+			listGroup.add(vindex, v);
+			listDisplayGroup.add(dvindex, v);
+		}
+		presentIndex--;
+		if (presentIndex != 0)
+			lbPageNumber
+					.setText((presentIndex + 1 - listDisplayGroup
+							.size()) + " - " + presentIndex);
+		else
+			lbPageNumber.setText("0 - 0");
+		
+	}
+	
 }
