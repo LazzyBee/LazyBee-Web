@@ -321,14 +321,14 @@ public class GroupVocaList extends Composite {
 	 * @return amount of voca in one listVoca
 	 */
 	String countGroupVoca(String list) {
-		if (list != null && list.length() > 0) {
-			list.replaceAll("</div>", "");
-			String part[] = list.split("<div>");
-			if (part != null && part.length > 0) {
-				return String.valueOf(part.length);
+		if(list != null && list.length() > 0){
+			String lines[] = list.split("\\r?\\n");
+			if (lines != null && lines.length > 0) {
+				return String.valueOf(lines.length);
 			} else
 				return "0";
-		} else
+		}
+		else
 			return "0";
 	}
 
@@ -389,6 +389,7 @@ public class GroupVocaList extends Composite {
 			listGroup.add(vindex, v);
 			listDisplayGroup.add(dvindex, v);
 		}
+		
 		presentIndex--;
 		if (presentIndex != 0)
 			lbPageNumber

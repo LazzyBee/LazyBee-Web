@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RichTextArea;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -27,7 +28,7 @@ public class GroupEditorTool extends Composite {
 	}
 
 	@UiField
-	RichTextArea txbListVoca;
+	TextArea txbListVoca;
 	@UiField
 	TextBox txbDescription;
 	@UiField
@@ -68,7 +69,8 @@ public class GroupEditorTool extends Composite {
 	public void setGroupVoca(GroupVoca g) {
 		this.group = g;
 		txbDescription.setText(group.getDescription());
-		txbListVoca.setHTML(group.getListVoca());
+	//	txbListVoca.setValue(group.getListVoca());
+		txbListVoca.setText(group.getListVoca());
 		btnDelete.setVisible(true);
 	}
 
@@ -92,7 +94,7 @@ public class GroupEditorTool extends Composite {
 		GroupVoca g = new GroupVoca();
 		g.setCreator(LazzyBee.userName);
 		g.setDescription(txbDescription.getValue());
-		g.setListVoca(txbListVoca.getHTML());
+		g.setListVoca(txbListVoca.getText());
 		LazzyBee.data_service.insertGroupVoca(g,
 				new AsyncCallback<GroupVoca>() {
 
@@ -102,7 +104,7 @@ public class GroupEditorTool extends Composite {
 							formClean();
 							DOM.getElementById("content").setScrollTop(0);
 							LazzyBee.noticeBox.setRichNotice(
-									"Danh sách từ đã được lưu!", "/group/"
+									"Danh sách từ đã được lưu! -id là: " + result.getId() , "/group/"
 											+ result.getId(), "/editor/#group/"
 											+ result.getId());
 						} else {
@@ -127,7 +129,7 @@ public class GroupEditorTool extends Composite {
 		LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 		group.setCreator(LazzyBee.userName);
 		group.setDescription(txbDescription.getValue());
-		group.setListVoca(txbListVoca.getHTML());
+		group.setListVoca(txbListVoca.getText());
 		LazzyBee.data_service.updateGroupVoca(group,
 				new AsyncCallback<GroupVoca>() {
 
@@ -141,7 +143,7 @@ public class GroupEditorTool extends Composite {
 					public void onSuccess(GroupVoca result) {
 						if (result != null) {
 							LazzyBee.noticeBox.setRichNotice(
-									"Danh sách từ đã được cập nhật !", "/group/"
+									"Danh sách từ đã được cập nhật -id là: " + result.getId() , "/group/"
 											+ result.getId(), "/editor/#group/"
 											+ result.getId());
 							if (!isShowGroup)

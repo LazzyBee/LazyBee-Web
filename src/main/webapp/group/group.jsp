@@ -154,9 +154,10 @@
 				<div style="text-align: left">
 					<div
 						style="overflow: hidden; margin-bottom: 20px; padding: 10px; margin-top: 15px; background: #f2f1f1; width: 100%; display: block; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
-						<span style="float: left; margin-top: 3px;" id="creatorGroup">Nhóm từ được tạo bởi: <%=group.getCreator()%></span> <a id="groupViewEdit"
-							style="float:right; margin-top: 2px; margin-left: 20px;" title="Soạn thảo"
-							href="/editor/#group/<%=group.getId()%>"><i
+						<span style="float: left; margin-top: 3px;" id="creatorGroup">ID
+							của nhóm từ là: <%=group.getId()%></span> <a id="groupViewEdit"
+							style="float: right; margin-top: 2px; margin-left: 20px;"
+							title="Soạn thảo" href="/editor/#group/<%=group.getId()%>"><i
 							class="fa fa-pencil-square-o fa-lg"></i></a>
 
 					</div>
@@ -165,7 +166,13 @@
 				</div>
 				<div style="font-size: 17px; font-weight: bold; color: #0e74af;">Danh
 					sách các từ</div>
-				<div style="margin-bottom: 30px"><%=group.getListVoca()%></div>
+				<div style="margin-bottom: 30px; white-space: pre-wrap;"><%=group.getListVoca()%></div>
+				<br />
+				<div class="group_notice">Bạn có thể download các từ trong
+					nhóm này bằng cách mở ứng dụng LazzyBee, vào "Danh sách sắp
+					học"/"Incoming list", chọn chức năng thêm từ và nhập ID của nhóm
+					từ. Ứng dụng sẽ tự động download các từ trong nhóm về smartphone
+					của bạn.</div>
 			</div>
 			<%
 				} else {
