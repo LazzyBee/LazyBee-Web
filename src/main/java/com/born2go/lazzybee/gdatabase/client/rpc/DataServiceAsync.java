@@ -19,7 +19,10 @@ public interface DataServiceAsync {
 
 	void insertVoca(VocaPreview voca, AsyncCallback<Voca> callback);
 
-	void findVoca(String voca_q, AsyncCallback<Voca> callback);
+//	void findVoca(String voca_q, AsyncCallback<Voca> callback);
+
+	void findVoca_Web(String voca_q, boolean saveLog,
+			AsyncCallback<Voca> callbac);
 
 	void updateVoca(Voca voca, String userId, AsyncCallback<Voca> callback);
 
@@ -70,5 +73,6 @@ public interface DataServiceAsync {
 
 	void removeGroup(long id, AsyncCallback<Void> callback);
 
-	void getListGroupVoca(String cursorStr, AsyncCallback<List<GroupVoca>> callback);
+	void getListGroupVoca(String cursorStr,
+			AsyncCallback<List<GroupVoca>> callback);
 }

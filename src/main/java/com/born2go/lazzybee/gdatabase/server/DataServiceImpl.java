@@ -34,6 +34,7 @@ import com.born2go.lazzybee.gdatabase.client.rpc.DataService;
 import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.GroupVoca;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
+import com.born2go.lazzybee.gdatabase.shared.SearchLog;
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
@@ -167,12 +168,45 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	/**
-	 * Find a vocabulary by question
+	 * this method Find a vocabulary by question and insert question into table
+	 * SearchLog, this method use for API
 	 * 
 	 * @return the vocabulary match the question
 	 */
-	@Override
+
 	public Voca findVoca(String voca_q) {
+		Voca result = getVoca_byQ(voca_q);
+		// save voca_q in to table SearchLog
+		saveSearchLog_API(voca_q, result);
+		return result;
+	}
+
+	/**
+	 * Find a vocabulary by question and insert question into table if question
+	 * not exist in db
+	 * 
+	 * @param voca_q
+	 *            : question search by user
+	 * @param saveLog
+	 *            : if saveLog = true -> save question in to table SearchLog
+	 * @return the vocabulary match the question
+	 */
+	@Override
+	public Voca findVoca_Web(String voca_q, boolean saveLog) {
+		Voca result = getVoca_byQ(voca_q);
+		// save voca_q in to table SearchLog
+		saveSearchLog_Web(voca_q, result);
+		return result;
+	}
+
+	/**
+	 * this method get a Voca in database by question
+	 * 
+	 * @param voca_q
+	 *            : question of Voca
+	 * @return a Voca in db
+	 */
+	private Voca getVoca_byQ(String voca_q) {
 		Voca result = null;
 		Voca voca = ofy().load().type(Voca.class)
 				.filter("q", voca_q.toLowerCase()).first().now();
@@ -683,43 +717,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		return result;
 	}
 
-	// public String getTestVocaStep_Four(HashMap<String, String> hmapInput,
-	// String cookie, String user_id){
-	// HashMap<String, String> hmap = new HashMap<String, String>();
-	// hmap.put(Common.USER_ID, user_id);
-	// hmap.put("action", "step_three");
-	// hmap.put("native_speaker", "");
-	// hmap.put("year_born", "");
-	// hmap.put("month_born", "");
-	// hmap.put("gender", "");
-	// hmap.put("nationality", "");
-	// hmap.put("nationality_nonnative", "");
-	// hmap.put("reading", "");
-	// hmap.put("literature", "");
-	// hmap.put("grades_completed", "");
-	// hmap.put("verbal_sat", "");
-	// hmap.put("zip_code", "");
-	// hmap.put("learning_status", "");
-	// hmap.put("level_english", "");
-	// hmap.put("years_total", "");
-	// hmap.put("years_since", "");
-	// hmap.put("months_abroad", "");
-	//
-	// // connect
-	// Connection conn = Jsoup.connect("http://testyourvocab.com" +
-	// cookie).followRedirects(true).data(hmap);
-	// String result = "";
-	// try {
-	// Document doc = conn.post();
-	// Element element = doc.select("div.num").first();
-	// result = element.text();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// return result;
-	//
-	// }
-
 	/*
 	 * this method save new GroupVoca (non-Javadoc) parameter GroupVoca g
 	 */
@@ -796,6 +793,84 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		vocaCur.setCreator(encodeCursor);
 		result.add(0, vocaCur);
 		return result;
+	}
+
+	/**
+	 * this method save a new entity SearchLog in google data for version mobile
+	 * 
+	 * @param q
+	 *            : voca_q will save in table SearhLog google data
+	 */
+	public void saveSearchLog_API(String q, Voca v) {
+		SearchLog find = findSearchLog(q);
+		if (v == null) {
+			// save a new SearchLog in database, a new entity has sum = 0
+			// because not found in Voca
+			if (find == null) {
+				SearchLog s = new SearchLog();
+				s.setQ(q);
+				s.setSum(0);
+				ofy().save().entity(s).now();
+			}
+
+		} else {
+			// if question find on Voca, not found on SearchLog -> save a new
+			// entity SearchLog and sum = 1
+			if (find == null) {
+				SearchLog s = new SearchLog();
+				s.setQ(q);
+				s.setSum(1);
+				ofy().save().entity(s).now();
+			}
+			// if question find on Voca, find on SearchLog -> update sum in
+			// SearchLog
+
+			else {
+				updateSearchLog(find);
+			}
+		}
+
+	}
+
+	/**
+	 * this method save a new entity SearchLog in google data for version web
+	 * 
+	 * @param q
+	 *            : voca_q will save in table SearhLog google data
+	 */
+	public void saveSearchLog_Web(String q, Voca v) {
+		SearchLog find = findSearchLog(q);
+		if (v == null)
+			// save a new SearchLog in database, a new entity has sum = 0
+			// because not found in Voca
+			if (find == null) {
+				SearchLog s = new SearchLog();
+				s.setQ(q);
+				s.setSum(0);
+				ofy().save().entity(s).now();
+			}
+
+	}
+
+	/**
+	 * 
+	 * @param q
+	 *            : question search by user
+	 * @return a SearchLog in database
+	 */
+	private SearchLog findSearchLog(String q) {
+		SearchLog s = ofy().load().type(SearchLog.class).id(q).now();
+		return s;
+	}
+
+	/**
+	 * this method update total search question by user
+	 * 
+	 * @param s
+	 */
+	private void updateSearchLog(SearchLog s) {
+		s.setSum(s.getSum() + 1);
+		ofy().save().entity(s).now();
 	}
 
 }

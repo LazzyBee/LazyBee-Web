@@ -379,7 +379,7 @@ public class MTestTool extends Composite {
 	}
 
 	void findVoca(final String voca_q) {
-		LazzyBeeMobile.data_service.findVoca(voca_q, new AsyncCallback<Voca>() {
+		LazzyBeeMobile.data_service.findVoca_Web(voca_q,false, new AsyncCallback<Voca>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

@@ -19,7 +19,8 @@ public interface DataService extends RemoteService {
 
 	public boolean verifyVoca(String voca_q);
 	public Voca insertVoca(VocaPreview voca);
-	public Voca findVoca(String voca_q);
+//	public Voca findVoca(String voca_q);
+	public Voca findVoca_Web(String voca_q, boolean saveLog);
 	public Voca updateVoca(Voca voca, String userId);
 	public Voca verifyUpdateVoca(Voca voca, String userId);
 //	public Integer getTotalVoca();
