@@ -83,37 +83,99 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 *            : question derivatives
 	 * @return the vocabulary match to q_Der
 	 */
-	private Voca findVoca_Derivatives(String q_Der) {
+	private Voca findVoca_Derivatives(String q) {
 		Voca result = null;
-		Voca voca = ofy().load().type(Voca.class)
-				.filter("q", q_Der.toLowerCase()).first().now();
-		if (voca != null) {
-			result = voca;
-			result.setCheck(true);
-		} else {
-			VocaPreview voca_preview = ofy().load().type(VocaPreview.class)
-					.filter("q", q_Der.toLowerCase()).first().now();
-			if (voca_preview != null) {
-				result = new Voca();
-				result.getVocaPreviewContent(voca_preview);
-				result.setCheck(false);
+		if (q.endsWith(q_ed)) {
+			result = findVoca_DerEd(q);
+		} else if (q.endsWith(q_ing)) {
+			result = findVoca_DerIng(q);
+		} else if (q.endsWith(q_s)) {
+			result = findVoca_DerS(q);
+		}
+		return result;
+
+	}
+ 
+	/**
+	 * Lấy một số trường hợp dẫn xuất từ Verb trong tiếng anh khi V-ed
+	 * 
+	 * @param q
+	 *            : question of voca search by user
+	 * @return a vocabulary match with question
+	 */
+	protected Voca findVoca_DerEd(String q) {
+		String q_Der = null;
+		Voca result = null;
+		// Want --> Wanted
+		q_Der = q.substring(0, q.lastIndexOf(q_ed));
+		result = searchVoca(q_Der);
+		if (result == null) {
+			// Live --> Lived
+			q_Der = q.substring(0, q.lastIndexOf("d"));
+			result = searchVoca(q_Der);
+			if (result == null) {
+				// Study --> Studied
+				if (q.endsWith("ied")) {
+					q_Der = q.substring(0, q.lastIndexOf("ied")) + "y";
+					result = searchVoca(q_Der);
+				}
 			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * Hàm lấy một số trường hợp dẫn xuất verb trong tiếng anh V-ing
+	 * 
+	 * @param q
+	 *            : question of Voca search by user
+	 * 
+	 * @return a vocabulary match with the q
+	 */
+	protected Voca findVoca_DerIng(String q) {
+		String q_Der = null;
+		Voca result = null;
+		// open => opening
+		q_Der = q.substring(0, q.lastIndexOf(q_ing));
+		result = searchVoca(q_Der);
+		if (result == null) {
+			// take => taking
+			q_Der = q.substring(0, q.lastIndexOf("ing")) + "e";
+			result = searchVoca(q_Der);
 		}
 		return result;
 	}
-	
 
-	protected String getQ_Derivatives(String q) {
-		if (q.endsWith(q_ed)) {
-			q = q.substring(0, q.lastIndexOf(q_ed));
-		} else if (q.endsWith(q_ing)) {
-			q = q.substring(0, q.lastIndexOf(q_ing));
-		} else if (q.endsWith(q_es)) {
-			q = q.substring(0, q.lastIndexOf(q_es));
-		} else if (q.endsWith(q_s)) {
-			q = q.substring(0, q.lastIndexOf(q_s));
+	/**
+	 * Hàm lấy một số trường hợp dẫn xuất verb trong tiếng anh V-s/es
+	 * 
+	 * @param q: question user want to search in db
+	 * @return a vocabulary match with q in db
+	 */
+	protected Voca findVoca_DerS(String q) {
+		Voca result = null;
+		String q_Der = null;
+		// run -> runs
+		q_Der = q.substring(0, q.lastIndexOf(q_s));
+		result = searchVoca(q_Der);
+		if (result == null) {
+			// do -> does
+			if (q.endsWith("es")) {
+				q_Der = q.substring(0, q.lastIndexOf("es"));
+				result = searchVoca(q_Der);
+				if (result == null) {
+					// try -> tries
+					if (q.endsWith("ies")) {
+						q_Der = q.substring(0, q.lastIndexOf("ies")) + "y";
+						result = searchVoca(q_Der);
+					}
+				}
+			}
 		}
-		return q;
+
+		return result;
+
 	}
 
 	/**
@@ -141,8 +203,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public boolean verifyVoca(String voca_q) {
-		Voca voca = ofy().load().type(Voca.class)
-				.filter("q", voca_q).first().now();
+		Voca voca = ofy().load().type(Voca.class).filter("q", voca_q).first()
+				.now();
 		if (voca != null)
 			return false;
 		else {
@@ -194,28 +256,28 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 * 
 	 * @param q_voca
 	 *            : question of Voca
-	 * @return a Voca in db
+	 * @return a Voca match with question in database
 	 */
 	private Voca getVoca_byQ(String q_voca) {
-		Voca result = findVoca_Common(q_voca);
+		Voca result = searchVoca(q_voca);
 		// tìm kiếm dẫn suất của q_voca example: v-ing, v-ed, v-s, v-es
 		if (result == null) {
-			String q_Der = getQ_Derivatives(q_voca);
-			result = findVoca_Derivatives(q_Der);
+			result = findVoca_Derivatives(q_voca);
 		}
 		return result;
 	}
 
 	/**
 	 * this method use find a vocabulary in database
-	 * @param q: a question user want to search
+	 * 
+	 * @param q
+	 *            : a question user want to search
 	 * @return the vocabulary match to q
 	 */
-	protected Voca findVoca_Common(String q){
+	protected Voca searchVoca(String q) {
 		Voca result = null;
 		// find vocabulary in table Voca
-		Voca voca = ofy().load().type(Voca.class)
-				.filter("q", q).first().now();
+		Voca voca = ofy().load().type(Voca.class).filter("q", q).first().now();
 		// if voca != null, return value
 		if (voca != null) {
 			result = voca;
@@ -233,6 +295,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		}
 		return result;
 	}
+
 	/**
 	 * Update an exist vocabulary
 	 * 

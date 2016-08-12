@@ -248,18 +248,19 @@ public class DataServiceApi {
 	@ApiMethod(name = "findVocaByQ", path = "find_voca_byQ")
 	public Voca findVocaByQ(@Named("q") String q,
 			@Named("orderSearch") Boolean orderSearch) throws NotFoundException {
-		Voca result = null;
-		if (orderSearch)
-			result = dataService.findVoca(q);
-		else
-			result = searchVocaPreview_Voca(q);
-
-		if (result != null)
-			return result;
-		else {
-			String message = q + " not found";
-			throw new NotFoundException(message);
-		}
+//		Voca result = null;
+//		if (orderSearch)
+//			result = dataService.findVoca(q);
+//		else
+//			result = searchVocaPreview_Voca(q);
+//
+//		if (result != null)
+//			return result;
+//		else {
+//			String message = q + " not found";
+//			throw new NotFoundException(message);
+//		}
+		return null;
 	}
 
 	/**
@@ -309,27 +310,27 @@ public class DataServiceApi {
 	 */
 	private Voca searchVocaPreview_Voca(String q) {
 		Voca result = null;
-		VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", q)
-				.first().now();
-		if (vp != null) {
-			result = new Voca();
-			result.getVocaPreviewContent(vp);
-			result.setGid(vp.getGid());
-			result.setCheck(false);
-
-		} else {
-			result = ofy().load().type(Voca.class).filter("q", q).first().now();
-			if (result != null) {
-				result.setCheck(true);
-
-			} else
-				result = null;
-
-		}
-		if (result == null) {
-			String q_Der = dataService.getQ_Derivatives(q);
-			result = findVoca_DerAPI(q_Der);
-		}
+//		VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", q)
+//				.first().now();
+//		if (vp != null) {
+//			result = new Voca();
+//			result.getVocaPreviewContent(vp);
+//			result.setGid(vp.getGid());
+//			result.setCheck(false);
+//
+//		} else {
+//			result = ofy().load().type(Voca.class).filter("q", q).first().now();
+//			if (result != null) {
+//				result.setCheck(true);
+//
+//			} else
+//				result = null;
+//
+//		}
+//		if (result == null) {
+//			String q_Der = dataService.getQ_Derivatives(q);
+//			result = findVoca_DerAPI(q_Der);
+//		}
 
 		return result;
 	}
