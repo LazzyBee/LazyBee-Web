@@ -31,7 +31,7 @@ public class Voca implements Serializable {
 	String creator;
 	String user_comment;
 	
-	@Index
+	//@Index
 	boolean isCheck = false;
 
 	public Voca() {
