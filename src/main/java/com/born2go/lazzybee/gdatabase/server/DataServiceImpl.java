@@ -803,14 +803,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 *            : voca_q will save in table SearhLog google data
 	 */
 	public void saveSearchLog_API(String q, Voca v) {
-		
-		SearchLog find = findSearchLog(q);
+		String q_save = q.toLowerCase();
+		SearchLog find = findSearchLog(q_save);
 		if (v == null) {
 			// save a new SearchLog in database, a new entity has sum = 0
 			// because not found in Voca
 			if (find == null) {
 				SearchLog s = new SearchLog();
-				s.setQ(q);
+				s.setQ(q_save);
 				s.setSum(0);
 				ofy().save().entity(s).now();
 			}
@@ -820,7 +820,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			// entity SearchLog and sum = 1
 			if (find == null) {
 				SearchLog s = new SearchLog();
-				s.setQ(q);
+				s.setQ(q_save);
 				s.setSum(1);
 				ofy().save().entity(s).now();
 			}
@@ -841,13 +841,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 *            : voca_q will save in table SearhLog google data
 	 */
 	public void saveSearchLog_Web(String q, Voca v) {
-		SearchLog find = findSearchLog(q);
+		String q_save = q.toLowerCase();
+		SearchLog find = findSearchLog(q_save);
 		if (v == null)
 			// save a new SearchLog in database, a new entity has sum = 0
 			// because not found in Voca
 			if (find == null) {
 				SearchLog s = new SearchLog();
-				s.setQ(q);
+				s.setQ(q_save);
 				s.setSum(0);
 				ofy().save().entity(s).now();
 			}
