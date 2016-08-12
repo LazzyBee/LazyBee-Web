@@ -142,12 +142,12 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public boolean verifyVoca(String voca_q) {
 		Voca voca = ofy().load().type(Voca.class)
-				.filter("q", voca_q.toLowerCase()).first().now();
+				.filter("q", voca_q).first().now();
 		if (voca != null)
 			return false;
 		else {
 			VocaPreview voca_preview = ofy().load().type(VocaPreview.class)
-					.filter("q", voca_q.toLowerCase()).first().now();
+					.filter("q", voca_q).first().now();
 			if (voca_preview != null)
 				return false;
 			else
@@ -207,18 +207,22 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	/**
-	 * this method use find a vocabulary in data
+	 * this method use find a vocabulary in database
 	 * @param q: a question user want to search
 	 * @return the vocabulary match to q
 	 */
 	protected Voca findVoca_Common(String q){
 		Voca result = null;
+		// find vocabulary in table Voca
 		Voca voca = ofy().load().type(Voca.class)
 				.filter("q", q).first().now();
+		// if voca != null, return value
 		if (voca != null) {
 			result = voca;
 			result.setCheck(true);
-		} else {
+		}
+		// else find vocabulary in table VocaPreview
+		else {
 			VocaPreview voca_preview = ofy().load().type(VocaPreview.class)
 					.filter("q", q).first().now();
 			if (voca_preview != null) {
