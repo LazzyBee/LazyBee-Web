@@ -960,7 +960,7 @@ public class VocaEditorTool extends Composite {
 		String data = "";
 		//Define answers
 		JSONObject a = new JSONObject();
-		a.put("q", new JSONString(txbVocaDefi.getText()));
+		a.put("q", new JSONString(txbVocaDefi.getText().trim().toLowerCase()));
 		a.put("pronoun", new JSONString(txbPronoun.getText()));
 		//Define package
 		JSONObject pac = new JSONObject();
@@ -991,7 +991,7 @@ public class VocaEditorTool extends Composite {
 		if(verifyField()) {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final VocaPreview v = new VocaPreview();
-			v.setQ(txbVocaDefi.getText().trim());
+			v.setQ(txbVocaDefi.getText().toLowerCase().trim());
 			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel.getSelectedIndex())));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());

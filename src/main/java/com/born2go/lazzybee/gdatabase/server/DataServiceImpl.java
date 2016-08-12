@@ -3,25 +3,12 @@ package com.born2go.lazzybee.gdatabase.server;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import javax.servlet.http.Cookie;
 
 import org.apache.commons.codec.binary.Base64;
 import org.jsoup.Connection;
@@ -114,6 +101,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		}
 		return result;
 	}
+	
 
 	protected String getQ_Derivatives(String q) {
 		if (q.endsWith(q_ed)) {
@@ -175,7 +163,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 */
 
 	public Voca findVoca(String voca_q) {
-		String q = voca_q.trim();
+		String q = voca_q.trim().toLowerCase();
 		Voca result = getVoca_byQ(q);
 		// save voca_q in to table SearchLog
 		saveSearchLog_API(q, result);
@@ -194,6 +182,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public Voca findVoca_Web(String voca_q, boolean saveLog) {
+		voca_q = voca_q.toLowerCase();
 		Voca result = getVoca_byQ(voca_q);
 		// save voca_q in to table SearchLog
 		saveSearchLog_Web(voca_q, result);
@@ -203,34 +192,43 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * this method get a Voca in database by question
 	 * 
-	 * @param voca_q
+	 * @param q_voca
 	 *            : question of Voca
 	 * @return a Voca in db
 	 */
-	private Voca getVoca_byQ(String voca_q) {
-		Voca result = null;
-		Voca voca = ofy().load().type(Voca.class)
-				.filter("q", voca_q.toLowerCase()).first().now();
-		if (voca != null) {
-			result = voca;
-			result.setCheck(true);
-		} else {
-			VocaPreview voca_preview = ofy().load().type(VocaPreview.class)
-					.filter("q", voca_q.toLowerCase()).first().now();
-			if (voca_preview != null) {
-				result = new Voca();
-				result.getVocaPreviewContent(voca_preview);
-				result.setCheck(false);
-				result.setGid(voca_preview.getGid());
-			}
-		}
+	private Voca getVoca_byQ(String q_voca) {
+		Voca result = findVoca_Common(q_voca);
+		// tìm kiếm dẫn suất của q_voca example: v-ing, v-ed, v-s, v-es
 		if (result == null) {
-			String q_Der = getQ_Derivatives(voca_q);
+			String q_Der = getQ_Derivatives(q_voca);
 			result = findVoca_Derivatives(q_Der);
 		}
 		return result;
 	}
 
+	/**
+	 * this method use find a vocabulary in data
+	 * @param q: a question user want to search
+	 * @return the vocabulary match to q
+	 */
+	protected Voca findVoca_Common(String q){
+		Voca result = null;
+		Voca voca = ofy().load().type(Voca.class)
+				.filter("q", q).first().now();
+		if (voca != null) {
+			result = voca;
+			result.setCheck(true);
+		} else {
+			VocaPreview voca_preview = ofy().load().type(VocaPreview.class)
+					.filter("q", q).first().now();
+			if (voca_preview != null) {
+				result = new Voca();
+				result.getVocaPreviewContent(voca_preview);
+				result.setCheck(false);
+			}
+		}
+		return result;
+	}
 	/**
 	 * Update an exist vocabulary
 	 * 

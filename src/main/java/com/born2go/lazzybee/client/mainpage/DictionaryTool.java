@@ -246,7 +246,7 @@ public class DictionaryTool extends Composite {
 	void loadVocaToken(final String history_token) {
 		RootPanel.get("wt_dictionary_content").clear();
 		// final String history_token = History.getToken();
-		searchBox.setText(history_token);
+		searchBox.setText(history_token.trim());
 		LazzyBee.noticeBox.setNotice("Đang tải...");
 		LazzyBee.data_service.findVoca_Web (history_token.trim(), true,
 				new AsyncCallback<Voca>() {
