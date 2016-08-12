@@ -18,6 +18,7 @@ public class SearchLog implements Serializable {
 	@Id
 	@Index
 	String q;
+	@Index
 	int sum = 0;
  
 	public String getQ() {

@@ -162,7 +162,7 @@ public class MDictionaryView extends Widget {
 		// final String history_token = History.getToken();
 		txtSeach.setText(history_token);
 
-		dataService.findVoca_Web(history_token, true, new AsyncCallback<Voca>() {
+		dataService.findVoca_Web(history_token.trim(), true, new AsyncCallback<Voca>() {
 			@Override
 			public void onSuccess(Voca result) {
 				if (result == null) {

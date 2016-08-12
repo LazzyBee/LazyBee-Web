@@ -175,9 +175,10 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 */
 
 	public Voca findVoca(String voca_q) {
-		Voca result = getVoca_byQ(voca_q);
+		String q = voca_q.trim();
+		Voca result = getVoca_byQ(q);
 		// save voca_q in to table SearchLog
-		saveSearchLog_API(voca_q, result);
+		saveSearchLog_API(q, result);
 		return result;
 	}
 
@@ -802,6 +803,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	 *            : voca_q will save in table SearhLog google data
 	 */
 	public void saveSearchLog_API(String q, Voca v) {
+		
 		SearchLog find = findSearchLog(q);
 		if (v == null) {
 			// save a new SearchLog in database, a new entity has sum = 0

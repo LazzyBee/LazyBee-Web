@@ -147,7 +147,7 @@ public class EditorTool extends Composite {
 					vocaTool.replaceEditor();
 				} else {
 					LazzyBee.noticeBox.setNotice("Đang tải...");
-					LazzyBee.data_service.findVoca_Web(sub_token[1],true,
+					LazzyBee.data_service.findVoca_Web(sub_token[1].trim(),true,
 							new AsyncCallback<Voca>() {
 								@Override
 								public void onSuccess(Voca result) {
