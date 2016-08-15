@@ -228,7 +228,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		String q = voca_q.trim().toLowerCase();
 		Voca result = getVoca_byQ(q);
 		// save voca_q in to table SearchLog
-		saveSearchLog_API(q, result);
+	//	saveSearchLog_API(q, result);
 		return result;
 	}
 
@@ -247,7 +247,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		voca_q = voca_q.toLowerCase();
 		Voca result = getVoca_byQ(voca_q);
 		// save voca_q in to table SearchLog
-		saveSearchLog_Web(voca_q, result);
+	//	saveSearchLog_Web(voca_q, result);
 		return result;
 	}
 
