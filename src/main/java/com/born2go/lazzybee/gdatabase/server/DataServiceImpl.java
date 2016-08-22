@@ -71,6 +71,19 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			return false;
 	}
 
+	private User getUser(String userId) {
+		if (userId != null && userId.contains("_G")) {
+			User u = ofy().load().type(User.class).filter("google_id", userId)
+					.first().now();
+			return u;
+		} else if (userId != null && userId.contains("_F")) {
+			User u = ofy().load().type(User.class)
+					.filter("facebook_id", userId).first().now();
+			return u;
+		}
+		return null;
+	}
+
 	/*
 	 * private String getPlainText(String strSrc) { String resultStr = strSrc;
 	 * resultStr = resultStr.replaceAll("<figcaption>.*</figcaption>", "");
@@ -95,7 +108,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		return result;
 
 	}
- 
+
 	/**
 	 * Lấy một số trường hợp dẫn xuất từ Verb trong tiếng anh khi V-ed
 	 * 
@@ -150,7 +163,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Hàm lấy một số trường hợp dẫn xuất verb trong tiếng anh V-s/es
 	 * 
-	 * @param q: question user want to search in db
+	 * @param q
+	 *            : question user want to search in db
 	 * @return a vocabulary match with q in db
 	 */
 	protected Voca findVoca_DerS(String q) {
@@ -228,7 +242,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		String q = voca_q.trim().toLowerCase();
 		Voca result = getVoca_byQ(q);
 		// save voca_q in to table SearchLog
-	//	saveSearchLog_API(q, result);
+		// saveSearchLog_API(q, result);
 		return result;
 	}
 
@@ -247,7 +261,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		voca_q = voca_q.toLowerCase();
 		Voca result = getVoca_byQ(voca_q);
 		// save voca_q in to table SearchLog
-	//	saveSearchLog_Web(voca_q, result);
+		// saveSearchLog_Web(voca_q, result);
 		return result;
 	}
 
@@ -790,17 +804,22 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	public GroupVoca insertGroupVoca(GroupVoca g) {
 		// List<GroupVoca> listG = ofy().load().type(GroupVoca.class)
 		// .order("-__key__").limit(1).list();
-		List<GroupVoca> listG = ofy().load().type(GroupVoca.class)
-				.orderKey(true).limit(1).list();
-		long id = 10001;
-		if (listG != null && !listG.isEmpty()) {
-			id = listG.get(0).getId() + 1;
+		if (g.getCreator() == null) {
+			return null;
+		} else {
+			List<GroupVoca> listG = ofy().load().type(GroupVoca.class)
+					.orderKey(true).limit(1).list();
+			long id = 10001;
+			if (listG != null && !listG.isEmpty()) {
+				id = listG.get(0).getId() + 1;
+			}
+			g.setId(id);
+			ofy().save().entity(g).now();
+			GroupVoca result = new GroupVoca();
+			result.getGroupVocaPreview(g);
+			return result;
 		}
-		g.setId(id);
-		ofy().save().entity(g).now();
-		GroupVoca result = new GroupVoca();
-		result.getGroupVocaPreview(g);
-		return result;
+
 	}
 
 	/**
@@ -813,26 +832,62 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	/**
-	 * this method update exist GroupVoca in database
+	 * this method update exist GroupVoca in database, submit by admin or
+	 * creator
 	 */
 	@Override
-	public GroupVoca updateGroupVoca(GroupVoca g) {
-		GroupVoca findG = findGroupVoca(g.getId());
-		if (findG != null)
-			ofy().save().entity(g);
-		else
-			g = null;
+	public GroupVoca updateGroupVoca(GroupVoca g, String userId) {
+		// admin update
+		if (verifyAdmin(userId)) {
+			GroupVoca findG = findGroupVoca(g.getId());
+			if (findG != null)
+				ofy().save().entity(g);
+			else
+				g = null;
+
+		}
+		// creator update
+		else {
+			User u = getUser(userId);
+			if (u.getUserName().equals(g.getCreator())) {
+				GroupVoca findG = findGroupVoca(g.getId());
+				if (findG != null)
+					ofy().save().entity(g);
+				else
+					g = null;
+
+			} else
+				g = null;
+		}
 		return g;
+
 	}
 
+	/**
+	 * this method remove a GroupVoca by admin or user creator it
+	 */
+	 
 	@Override
-	public void removeGroup(long id) {
+	public void removeGroup(long id, String userId) {
 		GroupVoca findG = findGroupVoca(id);
-		if (findG != null)
-			ofy().delete().entity(findG);
+		// admin delete
+		if (verifyAdmin(userId)) {
+			if (findG != null)
+				ofy().delete().entity(findG);
+		}
+		// user delete
+		else {
+			User u = getUser(userId);
+			if (u.getUserName().equals(findG.getCreator()))
+				ofy().delete().entity(findG);
+
+		}
 
 	}
 
+	/*
+	 *this method get list GroupVoca by cursor, limit is 100
+	 */
 	@Override
 	public List<GroupVoca> getListGroupVoca(String cursorStr) {
 		List<GroupVoca> result = new ArrayList<GroupVoca>();

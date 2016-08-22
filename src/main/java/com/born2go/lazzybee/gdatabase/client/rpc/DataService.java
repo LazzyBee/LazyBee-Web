@@ -49,7 +49,7 @@ public interface DataService extends RemoteService {
 //	public String getTestVocaStep_Four(HashMap<String, String> hmapInput, String cookie, String user_id);
 	public GroupVoca insertGroupVoca( GroupVoca g);
 	public GroupVoca findGroupVoca(long id);
-	public GroupVoca updateGroupVoca(GroupVoca g);
-	public void removeGroup(long id);
+	public GroupVoca updateGroupVoca(GroupVoca g,String userId);
+	public void removeGroup(long id,String userId);
 	public List<GroupVoca> getListGroupVoca(String cursorStr);
 }

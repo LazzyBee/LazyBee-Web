@@ -69,9 +69,9 @@ public interface DataServiceAsync {
 
 	void findGroupVoca(long id, AsyncCallback<GroupVoca> callback);
 
-	void updateGroupVoca(GroupVoca g, AsyncCallback<GroupVoca> callback);
+	void updateGroupVoca(GroupVoca g,String userId, AsyncCallback<GroupVoca> callback);
 
-	void removeGroup(long id, AsyncCallback<Void> callback);
+	void removeGroup(long id,String userId, AsyncCallback<Void> callback);
 
 	void getListGroupVoca(String cursorStr,
 			AsyncCallback<List<GroupVoca>> callback);

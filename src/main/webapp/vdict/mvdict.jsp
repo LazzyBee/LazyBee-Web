@@ -27,7 +27,9 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
-<title>Học từ vựng tiếng Anh, từ điển - LazzyBee</title>
+<title>Tra từ điển Anh Việt - LazzyBee</title>
+<meta name="keywords"
+	content="Lazzy, Bee, học tiếng anh, hoc tieng anh, từ vựng, tu vung, tra từ điển Anh Việt, tra tu dien Anh Viet">
 <meta name="description"
 	content="Lazzy Bee cung cấp ứng dụng học từ vựng tiếng Anh hiệu quả, giúp xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
 <link type="text/css" rel="stylesheet"

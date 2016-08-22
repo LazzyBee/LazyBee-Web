@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.born2go.lazzybee.client.LazzyBee;
+import com.born2go.lazzybee.client.widgets.LoginControl;
 import com.born2go.lazzybee.gdatabase.shared.GroupVoca;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.VocaList;
 import com.google.gwt.cell.client.ClickableTextCell;
@@ -163,37 +164,47 @@ public class GroupVocaList extends Composite {
 	 *            : a GroupVoca
 	 */
 	void deleteGroup(final GroupVoca voca) {
-		if (Window.confirm("Bạn muốn xóa từ danh sách từ này không ?")) {
-			if (voca != null) {
-				LazzyBee.data_service.removeGroup(voca.getId(),
-						new AsyncCallback<Void>() {
+		if (voca.getCreator().equals(LazzyBee.userName)
+				|| LoginControl.user.isAdmin() == true) {
 
-							@Override
-							public void onFailure(Throwable caught) {
-								LazzyBee.noticeBox
-										.setNotice("! Đã có lỗi xảy ra khi tải lên");
-								LazzyBee.noticeBox.setAutoHide();
+			if (Window.confirm("Bạn muốn xóa từ danh sách từ này không ?")) {
+				if (voca != null) {
+					LazzyBee.data_service.removeGroup(voca.getId(), LazzyBee.userId,
+							new AsyncCallback<Void>() {
 
-							}
+								@Override
+								public void onFailure(Throwable caught) {
+									LazzyBee.noticeBox
+											.setNotice("! Đã có lỗi xảy ra khi tải lên");
+									LazzyBee.noticeBox.setAutoHide();
 
-							@Override
-							public void onSuccess(Void result) {
-								listGroup.remove(voca);
-								listDisplayGroup.remove(voca);
-								LazzyBee.noticeBox
-										.setNotice("Danh sách từ đã bị xóa");
-								LazzyBee.noticeBox.setAutoHide();
-								presentIndex--;
-								if (presentIndex != 0)
-									lbPageNumber
-											.setText((presentIndex + 1 - listDisplayGroup
-													.size()) + " - " + presentIndex);
-								else
-									lbPageNumber.setText("0 - 0");
-							}
-						});
+								}
+
+								@Override
+								public void onSuccess(Void result) {
+									listGroup.remove(voca);
+									listDisplayGroup.remove(voca);
+									LazzyBee.noticeBox
+											.setNotice("Danh sách từ đã bị xóa");
+									LazzyBee.noticeBox.setAutoHide();
+									presentIndex--;
+									if (presentIndex != 0)
+										lbPageNumber
+												.setText((presentIndex + 1 - listDisplayGroup
+														.size())
+														+ " - "
+														+ presentIndex);
+									else
+										lbPageNumber.setText("0 - 0");
+								}
+							});
+				}
+
 			}
-
+		}
+		else{
+			LazzyBee.noticeBox.setNotice("Bạn không có quyền xóa.");
+			LazzyBee.noticeBox.setAutoHide();
 		}
 	}
 
@@ -321,14 +332,13 @@ public class GroupVocaList extends Composite {
 	 * @return amount of voca in one listVoca
 	 */
 	String countGroupVoca(String list) {
-		if(list != null && list.length() > 0){
+		if (list != null && list.length() > 0) {
 			String lines[] = list.split("\\r?\\n");
 			if (lines != null && lines.length > 0) {
 				return String.valueOf(lines.length);
 			} else
 				return "0";
-		}
-		else
+		} else
 			return "0";
 	}
 
@@ -361,43 +371,44 @@ public class GroupVocaList extends Composite {
 			}
 
 			@Override
-			public void onUpdateGroup(GroupVoca v) {
+			public void onUpdateGroup(GroupVoca v, GroupVoca result) {
 				d.hide();
-                refreshData(v, true);
+				refreshData(v,result, true);
 			}
 
 			@Override
 			public void onDelete(GroupVoca v) {
 				d.hide();
-                refreshData(v, false);
-				
+				refreshData(v,null, false);
+
 			}
 
-			 
 		});
 	}
+
 	/**
 	 * this method refresh table GroupVoca
-	 * @param v: a GroupVoca
+	 * 
+	 * @param oldG
+	 *            : a GroupVoca
 	 */
-	void refreshData(GroupVoca v, boolean isUpdate) {
-		int vindex = listGroup.indexOf(v);
-		int dvindex = listDisplayGroup.indexOf(v);
+	void refreshData(GroupVoca oldG, GroupVoca newG, boolean isUpdate) {
+		int vindex = listGroup.indexOf(oldG);
+		int dvindex = listDisplayGroup.indexOf(oldG);
 		listGroup.remove(vindex);
 		listDisplayGroup.remove(dvindex);
-		if(isUpdate == true){
-			listGroup.add(vindex, v);
-			listDisplayGroup.add(dvindex, v);
+		if (isUpdate == true) {
+			listGroup.add(vindex, newG);
+			listDisplayGroup.add(dvindex, newG);
 		}
-		
+
 		presentIndex--;
 		if (presentIndex != 0)
-			lbPageNumber
-					.setText((presentIndex + 1 - listDisplayGroup
-							.size()) + " - " + presentIndex);
+			lbPageNumber.setText((presentIndex + 1 - listDisplayGroup.size())
+					+ " - " + presentIndex);
 		else
 			lbPageNumber.setText("0 - 0");
-		
+
 	}
-	
+
 }

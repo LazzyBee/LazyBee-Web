@@ -1,6 +1,7 @@
 package com.born2go.lazzybee.client.subpage;
 
 import com.born2go.lazzybee.client.LazzyBee;
+import com.born2go.lazzybee.client.widgets.LoginControl;
 import com.born2go.lazzybee.gdatabase.shared.GroupVoca;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -44,7 +45,7 @@ public class GroupEditorTool extends Composite {
 	}
 
 	public interface EditorListener {
-		void onUpdateGroup(GroupVoca v);
+		void onUpdateGroup(GroupVoca v, GroupVoca result);
 
 		void onDelete(GroupVoca v);
 
@@ -69,7 +70,7 @@ public class GroupEditorTool extends Composite {
 	public void setGroupVoca(GroupVoca g) {
 		this.group = g;
 		txbDescription.setText(group.getDescription());
-	//	txbListVoca.setValue(group.getListVoca());
+		// txbListVoca.setValue(group.getListVoca());
 		txbListVoca.setText(group.getListVoca());
 		btnDelete.setVisible(true);
 	}
@@ -91,77 +92,91 @@ public class GroupEditorTool extends Composite {
 	 * this method save a new GroupVoca
 	 */
 	private void saveNewGroup() {
-		GroupVoca g = new GroupVoca();
-		g.setCreator(LazzyBee.userName);
-		g.setDescription(txbDescription.getValue());
-		g.setListVoca(txbListVoca.getText());
-		LazzyBee.data_service.insertGroupVoca(g,
-				new AsyncCallback<GroupVoca>() {
+		if (verifyField()) {
+			GroupVoca g = new GroupVoca();
+			g.setCreator(LazzyBee.userName);
+			g.setDescription(txbDescription.getValue());
+			g.setListVoca(txbListVoca.getText());
+			LazzyBee.data_service.insertGroupVoca(g,
+					new AsyncCallback<GroupVoca>() {
 
-					@Override
-					public void onSuccess(GroupVoca result) {
-						if (result != null) {
-							formClean();
-							DOM.getElementById("content").setScrollTop(0);
-							LazzyBee.noticeBox.setRichNotice(
-									"Danh sách từ đã được lưu! -id là: " + result.getId() , "/group/"
-											+ result.getId(), "/editor/#group/"
-											+ result.getId());
-						} else {
-							showError();
+						@Override
+						public void onSuccess(GroupVoca result) {
+							if (result != null) {
+								formClean();
+								DOM.getElementById("content").setScrollTop(0);
+								LazzyBee.noticeBox.setRichNotice(
+										"Danh sách từ đã được lưu! -id là: "
+												+ result.getId(), "/group/"
+												+ result.getId(),
+										"/editor/#group/" + result.getId());
+							} else {
+								showError();
+							}
+
 						}
 
-					}
+						@Override
+						public void onFailure(Throwable caught) {
+							showError();
 
-					@Override
-					public void onFailure(Throwable caught) {
-						showError();
-
-					}
-				});
-
+						}
+					});
+		}
 	}
 
 	/**
 	 * this method will update a exist GroupVoca in db
 	 */
 	private void updateGroupVoca() {
-		LazzyBee.noticeBox.setNotice("Đang tải lên... ");
-		group.setCreator(LazzyBee.userName);
-		group.setDescription(txbDescription.getValue());
-		group.setListVoca(txbListVoca.getText());
-		LazzyBee.data_service.updateGroupVoca(group,
-				new AsyncCallback<GroupVoca>() {
+		if (verifyField())
+			if (group.getCreator().equals(LazzyBee.userName)
+					|| LoginControl.user.isAdmin() == true) {
+				LazzyBee.noticeBox.setNotice("Đang tải lên... ");
+				group.setCreator(LazzyBee.userName);
+				group.setDescription(txbDescription.getValue());
+				group.setListVoca(txbListVoca.getText());
+				LazzyBee.data_service.updateGroupVoca(group, LazzyBee.userId,
+						new AsyncCallback<GroupVoca>() {
 
-					@Override
-					public void onFailure(Throwable caught) {
-						showError();
+							@Override
+							public void onFailure(Throwable caught) {
+								showError();
 
-					}
+							}
 
-					@Override
-					public void onSuccess(GroupVoca result) {
-						if (result != null) {
-							LazzyBee.noticeBox.setRichNotice(
-									"Danh sách từ đã được cập nhật -id là: " + result.getId() , "/group/"
-											+ result.getId(), "/editor/#group/"
-											+ result.getId());
-							if (!isShowGroup)
-								formClean();
-							else if (listener != null)
-								listener.onUpdateGroup(result);
+							@Override
+							public void onSuccess(GroupVoca result) {
+								if (result != null) {
+									LazzyBee.noticeBox.setRichNotice(
+											"Danh sách từ đã được cập nhật -id là: "
+													+ result.getId(), "/group/"
+													+ result.getId(),
+											"/editor/#group/" + result.getId());
+									if (!isShowGroup)
+										formClean();
+									else if (listener != null)
+										listener.onUpdateGroup(group,result);
 
-							DOM.getElementById("content").setScrollTop(0);
-							LazzyBee.noticeBox.setRichNotice(
-									"Danh sách từ đã được sửa thành công!",
-									"/group/" + result.getId(),
-									"/editor/#group/" + result.getId());
-						} else {
-							showError();
-						}
+									DOM.getElementById("content").setScrollTop(
+											0);
+									LazzyBee.noticeBox
+											.setRichNotice(
+													"Danh sách từ đã được sửa thành công!",
+													"/group/" + result.getId(),
+													"/editor/#group/"
+															+ result.getId());
+								} else {
+									showError();
+								}
 
-					}
-				});
+							}
+						});
+			} else {
+				LazzyBee.noticeBox
+						.setNotice("Bạn không có quyền thực hiện cập nhật.");
+				LazzyBee.noticeBox.setAutoHide();
+			}
 	}
 
 	/*
@@ -201,39 +216,49 @@ public class GroupEditorTool extends Composite {
 	}
 
 	void deleteGroupVoca() {
-		if (Window.confirm("Bạn muốn xóa danh sách từ ? ")) {
-			if (group != null) {
-				LazzyBee.data_service.removeGroup(group.getId(),
-						new AsyncCallback<Void>() {
+		if (verifyField())
+			if (group.getCreator().equals(LazzyBee.userName)
+					|| LoginControl.user.isAdmin() == true) {
+				if (Window.confirm("Bạn muốn xóa danh sách từ ? ")) {
+					if (group != null) {
+						LazzyBee.data_service.removeGroup(group.getId(), LazzyBee.userId,
+								new AsyncCallback<Void>() {
 
-							@Override
-							public void onFailure(Throwable caught) {
-								LazzyBee.noticeBox
-										.setNotice("! Đã có lỗi khi tải lên");
-								LazzyBee.noticeBox.setAutoHide();
+									@Override
+									public void onFailure(Throwable caught) {
+										LazzyBee.noticeBox
+												.setNotice("! Đã có lỗi khi tải lên");
+										LazzyBee.noticeBox.setAutoHide();
 
-							}
+									}
 
-							@Override
-							public void onSuccess(Void result) {
-								if (!isShowGroup)
-									formClean();
-								else if (listener != null)
-									listener.onDelete(group);
-								LazzyBee.noticeBox
-										.setNotice("Danh sách từ đã bị xóa");
-								LazzyBee.noticeBox.setAutoHide();
+									@Override
+									public void onSuccess(Void result) {
+										if (!isShowGroup)
+											formClean();
+										else if (listener != null)
+											listener.onDelete(group);
+										LazzyBee.noticeBox
+												.setNotice("Danh sách từ đã bị xóa.");
+										LazzyBee.noticeBox.setAutoHide();
 
-							}
-						});
+									}
+								});
+					}
+				}
 			}
-		}
+
+			else {
+				LazzyBee.noticeBox
+						.setNotice("Bạn không có quyền xóa.");
+				LazzyBee.noticeBox.setAutoHide();
+			}
 	}
 
-//	@UiHandler("btnGoTop")
-//	void onBtnGoTopClick(ClickEvent e) {
-//		DOM.getElementById("content").setScrollTop(0);
-//	}
+	// @UiHandler("btnGoTop")
+	// void onBtnGoTopClick(ClickEvent e) {
+	// DOM.getElementById("content").setScrollTop(0);
+	// }
 
 	@UiField
 	Anchor btnClose;
@@ -252,8 +277,8 @@ public class GroupEditorTool extends Composite {
 		deleteGroupVoca();
 	}
 
-//	@UiField
-//	Anchor btnGoTop;
+	// @UiField
+	// Anchor btnGoTop;
 
 	boolean isShowGroup = false;
 
@@ -267,8 +292,20 @@ public class GroupEditorTool extends Composite {
 		topToolbar.add(header);
 		// topToolbar.getElement().setAttribute("style", "margin-top: 25px");
 		topToolbar.setVisible(true);
-	//	btnGoTop.setVisible(false);
+		// btnGoTop.setVisible(false);
 		btnClose.setVisible(true);
 		btnDeleteD.setVisible(true);
+	}
+
+	boolean verifyField() {
+		boolean verify = true;
+		if (LazzyBee.userName == null) {
+			verify = false;
+			DOM.getElementById("content").setScrollTop(0);
+			LazzyBee.noticeBox.setNotice("Bạn cần đăng nhập trước!");
+			LazzyBee.noticeBox.setAutoHide();
+		}
+
+		return verify;
 	}
 }

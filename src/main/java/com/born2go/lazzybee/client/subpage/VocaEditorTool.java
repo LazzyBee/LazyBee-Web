@@ -1176,6 +1176,7 @@ public class VocaEditorTool extends Composite {
 	
 	@UiHandler("btnDelete")
 	void onBtnDeleteClick(ClickEvent e) {
+		if (verifyField()) {
 		if(Window.confirm("Bạn muốn xóa từ - " + voca.getQ() + " -?")) {
 			if(voca != null) {
 				final String voca_q = voca.getQ();
@@ -1194,6 +1195,7 @@ public class VocaEditorTool extends Composite {
 					}
 				});
 			}
+		}
 		}
 	}
 

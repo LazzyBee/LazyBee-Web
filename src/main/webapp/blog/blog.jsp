@@ -21,6 +21,7 @@
 	Blog next_blog;
 	List<Blog> blogs_older = null;
 	boolean show_n = false;
+	String title = "";
 	if (request.getPathInfo() == null
 	|| request.getPathInfo().length() <= 1) {} 
 	else {
@@ -29,6 +30,7 @@
 		blog = dataService.findBlogByTitle(blogTitle);
 		blogs_older = new ArrayList<Blog>();
 		if(blog != null) {
+			title = blog.getShowTitle();
 	previous_blog = dataService.getPreviousBlog(blog);
 	next_blog = dataService.getNextBlog(blog);
 	if(blog.getAvatar() != null)
@@ -47,6 +49,9 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title><%=title%></title>
+<meta content="<%=title%>"
+	itemprop="keywords" name="keywords">
 <meta name="description"
 	content="Lazzy Bee cung cấp ứng dụng học tiếng Anh, từ vựng hiệu quả. Giúp bạn xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
 <meta name="keywords"
