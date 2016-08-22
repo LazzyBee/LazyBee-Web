@@ -2,8 +2,10 @@ package com.born2go.lazzybee.client.mainpage;
 
 import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.client.subpage.BlogEditorTool;
+import com.born2go.lazzybee.client.subpage.GroupEditorTool;
 import com.born2go.lazzybee.client.subpage.VocaEditorTool;
 import com.born2go.lazzybee.gdatabase.shared.Blog;
+import com.born2go.lazzybee.gdatabase.shared.GroupVoca;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -33,163 +35,227 @@ public class EditorTool extends Composite {
 
 	interface EditorToolUiBinder extends UiBinder<Widget, EditorTool> {
 	}
-	
-	@UiField HTMLPanel tabPanel;
-	@UiField Label trademarkLb;
-	@UiField Anchor vocaTab;
-	@UiField Anchor blogTab;
-	
+
+	@UiField
+	HTMLPanel tabPanel;
+	@UiField
+	Label trademarkLb;
+	@UiField
+	Anchor vocaTab;
+	@UiField
+	Anchor blogTab;
+	@UiField
+	Anchor groupTab;
+
 	String history_token;
 
 	public EditorTool() {
 		initWidget(uiBinder.createAndBindUi(this));
 		blogTab.setVisible(false);
 		blogTab.getElement().setAttribute("id", "blogEditorTool");
-		
-		Window.addResizeHandler(new ResizeHandler() {
-			  Timer resizeTimer = new Timer() {  
-				  @Override
-				  public void run() {
-					  tabPanel.getElement().setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
-					  DOM.getElementById("content").setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
-				  }
-			  };
 
-			  @Override
-			  public void onResize(ResizeEvent event) {
-				  resizeTimer.cancel();
-				  resizeTimer.schedule(250);
-			  }
+		Window.addResizeHandler(new ResizeHandler() {
+			Timer resizeTimer = new Timer() {
+				@Override
+				public void run() {
+					tabPanel.getElement().setAttribute("style",
+							"height:" + (Window.getClientHeight() - 40) + "px");
+					DOM.getElementById("content").setAttribute("style",
+							"height:" + (Window.getClientHeight() - 40) + "px");
+				}
+			};
+
+			@Override
+			public void onResize(ResizeEvent event) {
+				resizeTimer.cancel();
+				resizeTimer.schedule(250);
+			}
 		});
-		
-		tabPanel.getElement().setAttribute("style", "height:"+ (Window.getClientHeight()-40)+ "px");
-		trademarkLb.getElement().setAttribute("style", "position: absolute; bottom: 20px");
-		
+
+		tabPanel.getElement().setAttribute("style",
+				"height:" + (Window.getClientHeight() - 40) + "px");
+		trademarkLb.getElement().setAttribute("style",
+				"position: absolute; bottom: 20px");
+
 		history_token = History.getToken();
-		
-		if(history_token.isEmpty()) {
-			String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
+
+		if (history_token.isEmpty()) {
+			String newURL = Window.Location.createUrlBuilder()
+					.setHash("vocabulary").buildString();
 			Window.Location.replace(newURL);
 			vocaTab.addStyleName("EditorTool_Obj5");
 			VocaEditorTool vocaTool = new VocaEditorTool();
 			RootPanel.get("wt_editor").add(vocaTool);
 			vocaTool.replaceEditor();
-		}
-		else if (history_token.contains("blog")) {
+		} else if (history_token.contains("blog")) {
 			blogTab.addStyleName("EditorTool_Obj5");
 			blogTab.setVisible(true);
-			if(!history_token.contains("/")) {
+			if (!history_token.contains("/")) {
 				BlogEditorTool blogTool = new BlogEditorTool();
 				RootPanel.get("wt_editor").add(blogTool);
 				blogTool.replaceEditor();
 				blogTool.handlerUploadEvent();
-			}
-			else {
+			} else {
 				final String[] sub_token = history_token.split("/");
 				Long blog_id = Long.valueOf(sub_token[1]);
 				LazzyBee.noticeBox.setNotice("Đang tải...");
-				LazzyBee.data_service.findBlogById(blog_id, new AsyncCallback<Blog>() {
-					@Override
-					public void onSuccess(Blog result) {
-						if(result == null) {
-							LazzyBee.noticeBox.setNotice("! Không tìm thấy bài viết");
-							LazzyBee.noticeBox.setAutoHide();
-							BlogEditorTool blogTool = new BlogEditorTool();
-							RootPanel.get("wt_editor").add(blogTool);
-							blogTool.replaceEditor();
-							blogTool.handlerUploadEvent();
-						}
-						else {
-							LazzyBee.noticeBox.hide();
-							BlogEditorTool blogTool = new BlogEditorTool();
-							RootPanel.get("wt_editor").add(blogTool);
-							blogTool.replaceEditor();
-							blogTool.handlerUploadEvent();
-							blogTool.setBlog(result);
-						}
-					}
-					@Override
-					public void onFailure(Throwable caught) {
-						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
-						LazzyBee.noticeBox.setAutoHide();
-						BlogEditorTool blogTool = new BlogEditorTool();
-						RootPanel.get("wt_editor").add(blogTool);
-						blogTool.replaceEditor();
-						blogTool.handlerUploadEvent();
-					}
-				});
+				LazzyBee.data_service.findBlogById(blog_id,
+						new AsyncCallback<Blog>() {
+							@Override
+							public void onSuccess(Blog result) {
+								if (result == null) {
+									LazzyBee.noticeBox
+											.setNotice("! Không tìm thấy bài viết");
+									LazzyBee.noticeBox.setAutoHide();
+									BlogEditorTool blogTool = new BlogEditorTool();
+									RootPanel.get("wt_editor").add(blogTool);
+									blogTool.replaceEditor();
+									blogTool.handlerUploadEvent();
+								} else {
+									LazzyBee.noticeBox.hide();
+									BlogEditorTool blogTool = new BlogEditorTool();
+									RootPanel.get("wt_editor").add(blogTool);
+									blogTool.replaceEditor();
+									blogTool.handlerUploadEvent();
+									blogTool.setBlog(result);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable caught) {
+								LazzyBee.noticeBox
+										.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
+								LazzyBee.noticeBox.setAutoHide();
+								BlogEditorTool blogTool = new BlogEditorTool();
+								RootPanel.get("wt_editor").add(blogTool);
+								blogTool.replaceEditor();
+								blogTool.handlerUploadEvent();
+							}
+						});
 			}
-		}
-		else if (history_token.contains("vocabulary")) {
+		} else if (history_token.contains("vocabulary")) {
 			vocaTab.addStyleName("EditorTool_Obj5");
-			if(!history_token.contains("/")) {
+			if (!history_token.contains("/")) {
 				VocaEditorTool vocaTool = new VocaEditorTool();
 				RootPanel.get("wt_editor").add(vocaTool);
 				vocaTool.replaceEditor();
-			}
-			else {
+			} else {
 				final String[] sub_token = history_token.split("/");
-				if(sub_token[1] == null || sub_token[1].isEmpty()) {
+				if (sub_token[1] == null || sub_token[1].isEmpty()) {
 					VocaEditorTool vocaTool = new VocaEditorTool();
 					RootPanel.get("wt_editor").add(vocaTool);
 					vocaTool.replaceEditor();
-				}
-				else {
+				} else {
 					LazzyBee.noticeBox.setNotice("Đang tải...");
-					LazzyBee.data_service.findVoca(sub_token[1], new AsyncCallback<Voca>() {					
-						@Override
-						public void onSuccess(Voca result) {
-							if(result == null) {
-								LazzyBee.noticeBox.setNotice("Không tìm thấy từ - " + sub_token[1]);
-								LazzyBee.noticeBox.setAutoHide();
-								VocaEditorTool vocaTool = new VocaEditorTool();
-								RootPanel.get("wt_editor").add(vocaTool);
-								vocaTool.replaceEditor();
-							}
-							else {
-								LazzyBee.noticeBox.hide();
-								VocaEditorTool vocaTool = new VocaEditorTool();
-								RootPanel.get("wt_editor").add(vocaTool);
-								vocaTool.replaceEditor();
-								vocaTool.setVoca(result);
-							}
-						}
-						
-						@Override
-						public void onFailure(Throwable caught) {
-							LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
-							LazzyBee.noticeBox.setAutoHide();
-							VocaEditorTool vocaTool = new VocaEditorTool();
-							RootPanel.get("wt_editor").add(vocaTool);
-						}
-					});
+					LazzyBee.data_service.findVoca_Web(sub_token[1].trim(),true,
+							new AsyncCallback<Voca>() {
+								@Override
+								public void onSuccess(Voca result) {
+									if (result == null) {
+										LazzyBee.noticeBox
+												.setNotice("Không tìm thấy từ - "
+														+ sub_token[1]);
+										LazzyBee.noticeBox.setAutoHide();
+										VocaEditorTool vocaTool = new VocaEditorTool();
+										RootPanel.get("wt_editor")
+												.add(vocaTool);
+										vocaTool.replaceEditor();
+									} else {
+										LazzyBee.noticeBox.hide();
+										VocaEditorTool vocaTool = new VocaEditorTool();
+										RootPanel.get("wt_editor")
+												.add(vocaTool);
+										vocaTool.replaceEditor();
+										vocaTool.setVoca(result);
+									}
+								}
+
+								@Override
+								public void onFailure(Throwable caught) {
+									LazzyBee.noticeBox
+											.setNotice("! Đã có lỗi xảy ra trong quá trình tải");
+									LazzyBee.noticeBox.setAutoHide();
+									VocaEditorTool vocaTool = new VocaEditorTool();
+									RootPanel.get("wt_editor").add(vocaTool);
+								}
+							});
 				}
 			}
+		} else if (history_token.contains("group")) {
+			groupTab.addStyleName("EditorTool_Obj5");
+			if (!history_token.contains("/")) {
+				GroupEditorTool groupTool = new GroupEditorTool();
+				RootPanel.get("wt_editor").add(groupTool);
+				 
+
+			} else {
+				final String[] sub_token = history_token.split("/");
+				long id = Long.valueOf(sub_token[1]);
+				LazzyBee.noticeBox.setNotice("Đang tải...");
+				LazzyBee.data_service.findGroupVoca(id,
+						new AsyncCallback<GroupVoca>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+
+							}
+
+							@Override
+							public void onSuccess(GroupVoca result) {
+								if (result == null) {
+									LazzyBee.noticeBox
+											.setNotice("! Không tìm thấy bài viết");
+									LazzyBee.noticeBox.setAutoHide();
+									GroupEditorTool groupE = new GroupEditorTool();
+									RootPanel.get("wt_editor").add(groupE);
+									 
+									
+								}
+								else {
+									LazzyBee.noticeBox.hide();
+									GroupEditorTool groupE = new GroupEditorTool();
+									RootPanel.get("wt_editor").add(groupE);
+									 
+									groupE.setGroupVoca(result);
+								}
+
+							}
+						});
+			 
+			}
 		}
-		
+
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
-				if(History.getToken().contains("/"))
+				if (History.getToken().contains("/"))
 					Window.Location.reload();
 			}
 		});
 	}
-	
+
 	void removeTabStyle() {
 		vocaTab.removeStyleName("EditorTool_Obj5");
 		blogTab.removeStyleName("EditorTool_Obj5");
+		groupTab.removeStyleName("EditorTool_Obj5");
 	}
-	
+
 	@UiHandler("vocaTab")
 	void onVocaTabClick(ClickEvent e) {
 		Window.Location.assign("/editor/#vocabulary");
 		Window.Location.reload();
 	}
-	
+
 	@UiHandler("blogTab")
 	void onBlogTabClick(ClickEvent e) {
 		Window.Location.assign("/editor/#blog");
+		Window.Location.reload();
+	}
+
+	@UiHandler("groupTab")
+	void onGroupTabClick(ClickEvent e) {
+		Window.Location.assign("/editor/#group");
 		Window.Location.reload();
 	}
 

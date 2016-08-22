@@ -160,9 +160,9 @@ public class MDictionaryView extends Widget {
 				"display:none");
 		DOM.getElementById("blogs").setAttribute("style", "display:none");
 		// final String history_token = History.getToken();
-		txtSeach.setText(history_token);
+		txtSeach.setText(history_token.trim());
 
-		dataService.findVoca(history_token, new AsyncCallback<Voca>() {
+		dataService.findVoca_Web(history_token.trim(), true, new AsyncCallback<Voca>() {
 			@Override
 			public void onSuccess(Voca result) {
 				if (result == null) {

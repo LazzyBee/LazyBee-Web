@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.born2go.lazzybee.gdatabase.shared.BackupFile;
 import com.born2go.lazzybee.gdatabase.shared.Blog;
+import com.born2go.lazzybee.gdatabase.shared.GroupVoca;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
+import com.born2go.lazzybee.gdatabase.shared.SearchLog;
 import com.born2go.lazzybee.gdatabase.shared.User;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
@@ -26,6 +28,8 @@ public class DataRegister extends RemoteServiceServlet {
 		ObjectifyService.register(Blog.class);
 		ObjectifyService.register(Picture.class);
 		ObjectifyService.register(BackupFile.class);
+		ObjectifyService.register(GroupVoca.class);
+		ObjectifyService.register(SearchLog.class);
 		
 		// Blog blog = new Blog();
 		// blog.setTitle("Tạo blog mới");

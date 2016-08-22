@@ -31,7 +31,7 @@ a {
 }
 
 #right_panel {
-	position: fixed;
+	/* position: fixed; */
 	float: right;
 	margin-left: 40px;
 	margin-right: 70px;
@@ -266,4 +266,11 @@ ul.tabs {
 	padding: 10px;
 	background-color: lemonchiffon;
 	line-height: 1.5;
+}
+.group_notice{
+    padding: 20px;
+    background-color: lemonchiffon;
+    line-height: 2;
+    clear: both;
+    margin-bottom: 40px;
 }

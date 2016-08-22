@@ -146,6 +146,15 @@
 		<servlet-name>PathVocab</servlet-name>
 		<url-pattern>/vocab/*</url-pattern>
 	</servlet-mapping>
+	<!-- servelet for groupvoca -->
+	<servlet>
+		<servlet-name>PathGroup</servlet-name>
+		<jsp-file>/group/group.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PathGroup</servlet-name>
+		<url-pattern>/group/*</url-pattern>
+	</servlet-mapping>
 
 
 	<!-- Appstats -->

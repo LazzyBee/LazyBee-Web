@@ -272,7 +272,7 @@ public class VocaEditorTool extends Composite {
 				}
 				if(voca == null && !txbVocaDefi.getText().isEmpty()) {
 					checkVocaImg.setVisible(true);
-					LazzyBee.data_service.verifyVoca(txbVocaDefi.getText().toLowerCase(), new AsyncCallback<Boolean>() {
+					LazzyBee.data_service.verifyVoca(txbVocaDefi.getText().toLowerCase().trim(), new AsyncCallback<Boolean>() {
 						@Override
 						public void onSuccess(Boolean result) {
 							checkVocaImg.setVisible(false);
@@ -960,7 +960,7 @@ public class VocaEditorTool extends Composite {
 		String data = "";
 		//Define answers
 		JSONObject a = new JSONObject();
-		a.put("q", new JSONString(txbVocaDefi.getText()));
+		a.put("q", new JSONString(txbVocaDefi.getText().trim().toLowerCase()));
 		a.put("pronoun", new JSONString(txbPronoun.getText()));
 		//Define package
 		JSONObject pac = new JSONObject();
@@ -991,7 +991,7 @@ public class VocaEditorTool extends Composite {
 		if(verifyField()) {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final VocaPreview v = new VocaPreview();
-			v.setQ(txbVocaDefi.getText());
+			v.setQ(txbVocaDefi.getText().toLowerCase().trim());
 			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel.getSelectedIndex())));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
@@ -1026,7 +1026,7 @@ public class VocaEditorTool extends Composite {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final Voca v = voca;
 			/*v.setGid(voca.getGid());*/
-			v.setQ(txbVocaDefi.getText());
+			v.setQ(txbVocaDefi.getText().trim());
 			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel.getSelectedIndex())));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
@@ -1065,7 +1065,7 @@ public class VocaEditorTool extends Composite {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final Voca v = voca;
 			/*v.setGid(voca.getGid());*/
-			v.setQ(txbVocaDefi.getText());
+			v.setQ(txbVocaDefi.getText().trim());
 			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel.getSelectedIndex())));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
@@ -1176,6 +1176,7 @@ public class VocaEditorTool extends Composite {
 	
 	@UiHandler("btnDelete")
 	void onBtnDeleteClick(ClickEvent e) {
+		if (verifyField()) {
 		if(Window.confirm("Bạn muốn xóa từ - " + voca.getQ() + " -?")) {
 			if(voca != null) {
 				final String voca_q = voca.getQ();
@@ -1194,6 +1195,7 @@ public class VocaEditorTool extends Composite {
 					}
 				});
 			}
+		}
 		}
 	}
 

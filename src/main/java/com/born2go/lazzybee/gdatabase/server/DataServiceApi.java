@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.born2go.lazzybee.gdatabase.shared.BackupFile;
+import com.born2go.lazzybee.gdatabase.shared.GroupVoca;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
 import com.born2go.lazzybee.gdatabase.shared.VocaPreview;
 import com.born2go.lazzybee.gdatabase.shared.nonentity.DownloadTarget;
@@ -23,6 +24,7 @@ import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
+import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.googlecode.objectify.cmd.Query;
 
 /** An endpoint class we are exposing */
@@ -167,14 +169,45 @@ public class DataServiceApi {
 		Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ()).first()
 				.now();
 		if (v != null) {
-			// if voca.getL_en != null -> update
-			if (voca.getL_en() != null && !voca.getL_en().isEmpty()) {
+			v.setL_en(voca.getL_en());
+			v.setL_vn(voca.getL_vn());
+			ofy().save().entity(v);
+		} else {
+			String message = voca.getQ() + " not found";
+			throw new NotFoundException(message);
+		}
+	}
+
+	/** update l_en of dictionary a vocabulary */
+	@ApiMethod(name = "updateEDict", path = "updateEDict")
+	public void updateEDict(Voca voca) throws NotFoundException {
+		voca.setQ(voca.getQ().toLowerCase().trim());
+		Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ().trim())
+				.first().now();
+		if (v != null) {
+			if (!Strings.isNullOrEmpty(voca.getL_en())) {
 				v.setL_en(voca.getL_en());
 				ofy().save().entity(v);
 			}
-			// v.setL_en(voca.getL_en());
-			// v.setL_vn(voca.getL_vn());
-			// ofy().save().entity(v);
+
+		} else {
+			String message = voca.getQ() + " not found";
+			throw new NotFoundException(message);
+		}
+	}
+	
+	/** update l_vn of dictionary a vocabulary */
+	@ApiMethod(name = "updateVDict", path = "updateVDict")
+	public void updateVDict(Voca voca) throws NotFoundException {
+		voca.setQ(voca.getQ().toLowerCase().trim());
+		Voca v = ofy().load().type(Voca.class).filter("q", voca.getQ().trim())
+				.first().now();
+		if (v != null) {
+			if (!Strings.isNullOrEmpty(voca.getL_vn())) {
+				v.setL_vn(voca.getL_vn());
+				ofy().save().entity(v);
+			}
+
 		} else {
 			String message = voca.getQ() + " not found";
 			throw new NotFoundException(message);
@@ -247,18 +280,19 @@ public class DataServiceApi {
 	@ApiMethod(name = "findVocaByQ", path = "find_voca_byQ")
 	public Voca findVocaByQ(@Named("q") String q,
 			@Named("orderSearch") Boolean orderSearch) throws NotFoundException {
-		Voca result = null;
-		if (orderSearch)
-			result = dataService.findVoca(q);
-		else
-			result = searchVocaPreview_Voca(q);
-
-		if (result != null)
-			return result;
-		else {
-			String message = q + " not found";
-			throw new NotFoundException(message);
-		}
+		// Voca result = null;
+		// if (orderSearch)
+		// result = dataService.findVoca(q);
+		// else
+		// result = searchVocaPreview_Voca(q);
+		//
+		// if (result != null)
+		// return result;
+		// else {
+		// String message = q + " not found";
+		// throw new NotFoundException(message);
+		// }
+		return null;
 	}
 
 	/**
@@ -308,27 +342,27 @@ public class DataServiceApi {
 	 */
 	private Voca searchVocaPreview_Voca(String q) {
 		Voca result = null;
-		VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", q)
-				.first().now();
-		if (vp != null) {
-			result = new Voca();
-			result.getVocaPreviewContent(vp);
-			result.setGid(vp.getGid());
-			result.setCheck(false);
-
-		} else {
-			result = ofy().load().type(Voca.class).filter("q", q).first().now();
-			if (result != null) {
-				result.setCheck(true);
-
-			} else
-				result = null;
-
-		}
-		if (result == null) {
-			String q_Der = dataService.getQ_Derivatives(q);
-			result = findVoca_DerAPI(q_Der);
-		}
+		// VocaPreview vp = ofy().load().type(VocaPreview.class).filter("q", q)
+		// .first().now();
+		// if (vp != null) {
+		// result = new Voca();
+		// result.getVocaPreviewContent(vp);
+		// result.setGid(vp.getGid());
+		// result.setCheck(false);
+		//
+		// } else {
+		// result = ofy().load().type(Voca.class).filter("q", q).first().now();
+		// if (result != null) {
+		// result.setCheck(true);
+		//
+		// } else
+		// result = null;
+		//
+		// }
+		// if (result == null) {
+		// String q_Der = dataService.getQ_Derivatives(q);
+		// result = findVoca_DerAPI(q_Der);
+		// }
 
 		return result;
 	}
@@ -357,6 +391,18 @@ public class DataServiceApi {
 				result = null;
 		}
 		return result;
+	}
+
+	@ApiMethod(name = "getGroupVoca", path = "get_Group_Voca")
+	public GroupVoca getGroupVoca(@Named("id") long id)
+			throws NotFoundException {
+		GroupVoca result = dataService.findGroupVoca(id);
+		if (result != null)
+			return result;
+		else {
+			String message = "No groupvoca exists with id: " + id;
+			throw new NotFoundException(message);
+		}
 	}
 
 }

@@ -6,8 +6,10 @@ import com.born2go.lazzybee.client.LazzyBee;
 import com.born2go.lazzybee.client.subpage.DownloadView;
 import com.born2go.lazzybee.client.subpage.ListVocaView;
 import com.born2go.lazzybee.client.subpage.TestTool;
+import com.born2go.lazzybee.client.subpage.GroupVocaList;
 import com.born2go.lazzybee.client.subpage.VocaPreviewTool;
 import com.born2go.lazzybee.client.subpage.VocaView;
+import com.born2go.lazzybee.client.widgets.LoginControl;
 import com.born2go.lazzybee.gdatabase.shared.Blog;
 import com.born2go.lazzybee.gdatabase.shared.Picture;
 import com.born2go.lazzybee.gdatabase.shared.Voca;
@@ -147,6 +149,13 @@ public class DictionaryTool extends Composite {
 				loadBlog(wt_dictionary_blog, false);
 				RootPanel.get("wt_bloglist").add(wt_dictionary_blog);
 			}
+		}
+
+		else if (path.contains("group")) {
+			if (RootPanel.get("wt_grouplist") != null) {
+				 GroupVocaList group = new GroupVocaList();
+				RootPanel.get("wt_grouplist").add(group);
+			}
 		} else if (path.contains("downloadVoca")) {
 			RootPanel.get("wt_dictionary_content").add(download);
 		}
@@ -237,9 +246,9 @@ public class DictionaryTool extends Composite {
 	void loadVocaToken(final String history_token) {
 		RootPanel.get("wt_dictionary_content").clear();
 		// final String history_token = History.getToken();
-		searchBox.setText(history_token);
+		searchBox.setText(history_token.trim());
 		LazzyBee.noticeBox.setNotice("Đang tải...");
-		LazzyBee.data_service.findVoca(history_token,
+		LazzyBee.data_service.findVoca_Web (history_token.trim(), true,
 				new AsyncCallback<Voca>() {
 					@Override
 					public void onSuccess(Voca result) {
