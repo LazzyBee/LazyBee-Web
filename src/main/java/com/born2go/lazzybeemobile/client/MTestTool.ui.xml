@@ -2,10 +2,10 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		@external .MTestTool_Obj1,.MTestTool_Obj2,.MTestTool_Obj4, .MTestTool_box, .MTestTool_result; 
+		@external .MTestTool_ObjInfo1,.MTestTool_Obj2,.MTestTool_Obj4, .MTestTool_box, .MTestTool_result; 
 
 
-		.MTestTool_Obj1 {
+		.MTestTool_ObjInfo1 {
 		padding: 20px;
 		background-color:
 		lemonchiffon;

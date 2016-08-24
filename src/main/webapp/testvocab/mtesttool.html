@@ -1,20 +1,15 @@
 <!doctype html>
-<html>
+<html lang="vi">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
-<link type="text/css" rel="stylesheet"
-	href="../mobile-resources/mobile.css">
-<link rel="stylesheet"
-	href="../resources/font-awesome-4.2.0/css/font-awesome.min.css">
-<link rel="icon" type="image/png" href="../favicon.png" />
-<title>Kiểm tra vốn từ vựng tiếng Anh trong 2 phút -
-	LazzyBee</title>
+<title>Kiểm tra vốn từ vựng tiếng Anh trong 2 phút</title>
 <meta name="keywords"
-	content="từ vựng, tư vung, test từ vựng, kiểm tra từ vựng tiếng Anh, kiem tra tu vung tieng anh, test tu vung">
+	content="test từ vựng, kiểm tra từ vựng tiếng Anh, kiem tra tu vung tieng anh, test tu vung">
 <meta name="description"
-	content="Qua bài kiểm tra trắc nghiệm từ vựng, LazzyBee giúp bạn nhanh chóng đánh giá vốn từ vựng của mình để có kế hoạch học tập tốt hơn.">
+	content="Bài kiểm tra từ vựng tiếng Anh của LazzyBee chỉ trong 2 phút có thể tính toán vốn từ chính xác, giúp cho bạn biết rõ trình độ của mình và lập kế hoạch học tập trong tương lai.">
+<link href="http://www.lazzybee.com/testvocab/" rel="canonical">
 <meta property="og:url" content="http://www.lazzybee.com/testvocab/" />
 <meta property="og:type" content="website" />
 <meta property="og:title"
@@ -25,9 +20,481 @@
 <meta property="og:image"
 	content="http://www.lazzybee.com/mobile-resources/q_test.gif" />
 <meta property="fb:app_id" content="754889477966743" />
-<script type="text/javascript"
-	src="../lazzybeemobile/lazzybeemobile.nocache.js" async></script>
+<link rel="icon" type="image/png" href="../favicon.png" />
+<script async src="../lazzybeemobile/lazzybeemobile.nocache.js"></script>
+<style type="text/css">
+@font-face {
+	font-family: 'FontAwesome';
+	src:
+		url('../resources/font-awesome-4.2.0/fonts/fontawesome-webfont.eot?v=4.2.0');
+	src:
+		url('../resources/font-awesome-4.2.0/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0')
+		format('embedded-opentype'),
+		url('../resources/font-awesome-4.2.0/fonts/fontawesome-webfont.woff?v=4.2.0')
+		format('woff'),
+		url('../resources/font-awesome-4.2.0/fonts/fontawesome-webfont.ttf?v=4.2.0')
+		format('truetype'),
+		url('../resources/font-awesome-4.2.0/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular')
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+	src:
+		url('../resources/font-awesome-4.2.0/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0')
+		format('embedded-opentype'),
+		url('../resources/font-awesome-4.2.0/fonts/fontawesome-webfont.woff?v=4.2.0')
+		format('woff'),
+		url('../resources/font-awesome-4.2.0/fonts/fontawesome-webfont.ttf?v=4.2.0')
+		format('truetype'),
+		url('../resources/font-awesome-4.2.0/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular')
+		format('svg');
+}
 
+.fa {
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+
+.fa-lg {
+	font-size: 1.33333333em;
+	line-height: .75em;
+	vertical-align: -15%
+}
+
+.fa-lg {
+	left: -1.85714286em
+}
+
+.fa-bars:before {
+	content: "\f0c9"
+}
+
+.mblog_install_app {
+	padding-top: 0px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+body, html, #content, .avatarBlog img {
+	height: 100%
+}
+
+#mfooter, #notfoundVoca, .MTestTool_Obj11, .i_testtool_info,
+	.i_testt_controlPanel, .todo, .btn_replay, .permalink,
+	.mblog_install_app {
+	text-align: center
+}
+
+html {
+	font-size: 13px !important;
+	box-sizing: border-box
+}
+
+body {
+	margin: 0 !important;
+	color: #404040 !important;
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 15px !important;
+	line-height: 1.5em !important;
+	background: #fff !important;
+	min-width: 320px !important;
+	overflow-x: hidden
+}
+
+#mfooter, .header_w, .actionForm {
+	width: 100%
+}
+
+#mfooter {
+	font-weight: 700;
+	padding-bottom: 5px;
+	height: 25px;
+	background-color: rgba(48, 27, 12, 1);
+	color: #fff
+}
+
+.header_w {
+	height: 40px;
+	padding: 4px 0;
+	background: #009688;
+	box-shadow: 0 0 3px #009688
+}
+
+.header {
+	padding: 0 12px 0 0
+}
+
+.left_header {
+	width: 45px
+}
+
+.right_header_w {
+	margin-left: 45px
+}
+
+.right_header {
+	border-radius: 10px;
+	height: 28px;
+	background-color: #fff;
+	box-shadow: 0 0 3px rgba(252, 250, 250, .7);
+	margin-top: 5px
+}
+
+#menuBtn {
+	padding: 7px 12px 12px;
+	color: white;
+	font-size: 1.5em
+}
+
+.main_title {
+	margin-top: 4px;
+	font-size: 1.5em;
+	line-height: 1.3em;
+	color: #fff
+}
+
+#main {
+	min-height: calc(100% - 88px);
+}
+
+#content {
+	margin: 0 10px;
+	position: relative;
+	overflow: hidden
+}
+
+.header_w, .table-app {
+	margin: auto
+}
+
+h1 {
+	font-size: 1.8rem;
+	line-height: 1.8rem;
+	display: inline-block;
+	margin: 0 10px 0 0
+}
+
+.MTestTool_Obj5, .table-cell {
+	display: inline-block;
+	cursor: pointer
+}
+
+.htmlIntroTest {
+	margin-top: 20px
+}
+
+.MTestTool_Obj11 {
+	margin-top: 10px !important;
+	float: right;
+	background: #009688;
+	padding: 10px 0px;
+	border-right: 1px silver solid;
+	color: white;
+	width: 100%;
+	margin: auto;
+}
+
+.MTestTool_Obj12 {
+	background: white;
+	border: 10px solid rgba(0, 150, 136, 0.6);
+	box-shadow: 2px 3px 5px #999;
+	width: 75%;
+}
+
+.MTestTool_Obj12 table {
+	width: 100%;
+}
+
+.MTestTool_Obj11:hover {
+	background: silver;
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
+}
+
+.i_testtool_vocaq {
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	color: #eafd74
+}
+
+.i_testtool_vocaLv {
+	font-weight: bold;
+	color: white;
+	margin-top: 30px
+}
+
+.i_testtool_btnForm {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 70%;
+	height: 100%
+}
+
+.i_testtool_info {
+	color: #009688;
+	font-weight: bold;
+	margin: 25px 0 0 20px;
+}
+
+.i_testtool_checkTotal {
+	float: right;
+	font-weight: bold;
+	color: forestgreen;
+	margin-right: 0px;
+}
+
+.i_testt_controlPanel {
+	white-space: nowrap;
+	margin-bottom: 60px;
+}
+
+.notice_u, .MTestTool_Obj1 {
+	background-color: lemonchiffon;
+}
+
+.notice_u {
+	margin-top: 20px;
+	padding: 10px;
+	line-height: 1.5;
+}
+
+.MTestTool_Obj1 {
+	padding: 20px;
+	line-height: 1.5;
+}
+
+.MTestTool_Obj3 {
+	background: forestgreen;
+	padding: 10px 20px;
+	border-right: 1px silver solid;
+	color: white;
+	margin-top: 10px;
+}
+
+.MTestTool_Obj3:hover {
+	background: silver;
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
+}
+
+.quest_v {
+	font-size: 16px;
+	font-weight: bold;
+	color: #eafd74;
+	float: right;
+	border-radius: 50%;
+	background: tomato;
+	padding: 4px 12px 0px;
+	height: 25px;
+}
+
+#shareResult {
+	background-color: #3b5998;
+	padding: 10px 20px 0px 20px;
+	cursor: pointer;
+	height: 40px;
+	border-radius: 2px;
+	font-size: 20px;
+	color: white;
+}
+
+.btn_replay {
+	display: inline-block;
+	border-radius: 2px;
+	font-size: 19px !important;
+	padding: 11px 10px 14px 10px;
+	font-size: 14px;
+	font-weight: 400;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	/* user-select: none; */
+	border: 1px solid transparent;
+	color: #fff !important;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+}
+
+.btn_replay:HOVER {
+	color: #fff;
+	background-color: #449d44;
+	border-color: #398439;
+}
+
+.fb_f {
+	vertical-align: text-bottom;
+	border: none;
+}
+
+.table-cell {
+	height: 50px;
+	width: 130px;
+	background: #009688;
+	border-radius: 3px;
+	color: #fff;
+	padding: 10px 5px;
+	white-space: normal;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24)
+}
+
+.table-cell:hover {
+	background: 0 0
+}
+
+.mainMTestTool {
+	width: 600px;
+	margin: 20px auto 60px
+}
+
+.MTestTool_Obj5 {
+	width: 140px;
+	padding: 10px 10px 5px;
+	background: #5A5A5A;
+	margin: 20px 15px 10px 0;
+	position: relative;
+	border-radius: 10px;
+}
+
+@media ( max-width :319px) {
+	.table-cell {
+		width: 120px
+	}
+	.mainMTestTool {
+		width: 300px
+	}
+	a.MTestTool_Obj2 {
+		margin-bottom: 20px
+	}
+	.MTestTool_Obj5 {
+		width: 95px;
+		margin: 10px 5px
+	}
+	.result_score {
+		font-size: 40px !important;
+		margin: -40px 0 -40px !important;
+	}
+}
+
+@media ( min-width :320px) and (max-width:420px) {
+	.mainMTestTool {
+		width: 300px
+	}
+	.MTestTool_Obj5 {
+		width: 110px;
+		margin: 10px 5px;
+	}
+	.result_score {
+		font-size: 50px !important;
+		margin: -50px 0 -50px !important;
+	}
+}
+
+@media ( min-width :421px) and (max-width:520px) {
+	.table-cell {
+		width: 140px
+	}
+	.mainMTestTool {
+		width: 400px
+	}
+	.MTestTool_Obj5 {
+		width: 120px;
+		margin: 10px 20px
+	}
+	.result_score {
+		font-size: 60px !important;
+		margin: -50px 0 -50px !important;
+	}
+}
+
+@media ( min-width :521px) and (max-width:600px) {
+	.table-cell {
+		width: 150px;
+		font-size: 16px;
+		height: 60px
+	}
+	.mainMTestTool {
+		width: 500px
+	}
+	.MTestTool_Obj5 {
+		width: 120px;
+		margin: 10px
+	}
+	.result_score {
+		font-size: 70px !important;
+		margin: -40px 0 -40px !important;
+	}
+}
+
+@media ( min-width :601px) and (max-width:767px) {
+	.table-cell {
+		height: 70px;
+		width: 200px;
+		font-size: 17px
+	}
+	.mainMTestTool {
+		width: 590px
+	}
+	.MTestTool_Obj5 {
+		width: 130px;
+		margin: 10px
+	}
+	.result_score {
+		font-size: 80px !important;
+	}
+}
+
+@media ( min-width :768px) {
+	.table-cell {
+		height: 70px;
+		width: 200px;
+		font-size: 17px
+	}
+	.mainMTestTool {
+		width: 590px
+	}
+	.MTestTool_Obj5 {
+		margin: 10px
+	}
+	#desMtestTool {
+		margin: 10px;
+		position: absolute;
+		bottom: 30px;
+		z-index: -1
+	}
+}
+
+.left_header, i_vocaq {
+	float: left;
+}
+
+.mblog_install_app, #mfooter {
+	padding-top: 10px
+}
+
+a, a:active {
+	text-decoration: none !important;
+}
+
+#desMtestTool {
+	/* margin-top: 80px; */
+	margin: 80px 10px 10px;
+}
+
+.tl {
+	font-size: 14px;
+	color: #0e74af;
+	font-weight: 700
+}
+</style>
 </head>
 <body>
 	<!-- Google Tag Manager -->
@@ -35,7 +502,7 @@
 		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBFX5"
 			height="0" width="0" style="display: none; visibility: hidden"></iframe>
 	</noscript>
-	<script async>
+	<script>
 		(function(w, d, s, l, i) {
 			w[l] = w[l] || [];
 			w[l].push({
@@ -55,13 +522,6 @@
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
 		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
 
-	<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
-	<noscript>
-		<div
-			style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-			Your web browser must have JavaScript enabled in order for this
-			application to display correctly.</div>
-	</noscript>
 	<!-- id = version_mobile , show view mobile for client -->
 	<div class="header_w">
 		<div class="header">
@@ -78,98 +538,40 @@
 			<div id="gwt_notice"></div>
 			<div class="htmlIntroTest" id="htmlIntroTest">
 				<div class="MTestTool_Obj1 ">
-					<span style="font-weight: bold">Đây là bài kiểm tra để đánh
-						giá vốn từ vựng của bạn. Hãy chọn các từ bạn biết ít nhất 01
-						nghĩa. Trong trường hợp bạn không chắc, hãy bỏ chọn từ đó để có
-						kết quả chính xác hơn. Bạn có thể bấm vào dấu “?” để tra từ điển</span>
-					<!-- <ul style="width: 90%; line-height: 1.6">
-						<li>Bước 1: Đánh giá sơ bộ vốn từ vựng của bạn. Hãy chọn các
-							từ mà bạn đã biết nghĩa.</li>
-						<li>Bước 2: Trong bước này, chúng tôi sẽ cố gắng ước lượng
-							chính xác hơn vốn từ của bạn dựa vào kết quả đã thu được từ bước
-							1</li>
-						<li>Kết luận: Vốn từ của bạn khoảng ...</li>
-						<li>Tìm hiểu thêm: Bài kiểm tra này có sai số khoảng 10%. Để
-							tìm hiểu chi tiết về các hoạt động, bạn có thể tìm hiểu các bài
-							viết khác:</li>
-					</ul> -->
+					<h1 style="font-size: 16px;">Bài tự kiểm tra này sẽ tính toán
+						được cụ thể số lượng từ vựng bạn biết với sai số khoảng 10%. Bạn
+						chỉ cần đánh dấu các từ bạn biết ít nhất 01 nghĩa ( nếu không
+						chắc, hãy bấm '?' để kiểm tra từ điển).</h1>
 				</div>
-				<!-- <div style="text-align: center; margin: 0px 10px;">
-					<img alt="LazzyBee test" src="/mobile-resources/q_test.gif"
-						style="margin: 10px auto; text-align: center; width:250px;">
-				</div> -->
-
 				<a id="btnStartTesting" class="MTestTool_Obj11">Bắt đầu</a>
 			</div>
 			<div id="gwt_contentMTestTool"></div>
-			<br />
-			<!-- <div id="table-app">
-				<h2 class="mblog_install_app" style="padding-top: 0px;">
-					Tải ứng dụng <a href="http://www.lazzybee.com/">Lazzybee</a> cho <a
-						href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8"
-						style="cursor: none;">iOS</a> và <a
-						href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee"
-						style="cursor: none;">Android</a> (FREE)
-				</h2>
-				<table class="table-app" cellspacing="5" style="display: none;">
-					<tr>
-						<td>
-							<div>
-								<a
-									href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
-									<img alt="download lazzybee"
-									src="/mobile-resources/appstore_m.png" class="appstore">
-								</a>
-							</div>
-						</td>
-						<td>
-							<div>
-								<a
-									href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
-									<img alt="download lazzybee"
-									src="/mobile-resources/googleplay_m.jpg" class="appstore">
-								</a>
-							</div>
-						</td>
-					</tr>
-				</table>
-			</div> -->
+
+		</div>
+		<div class="MTestTool_Obj1" id="desMtestTool">
+			<p>Từ vựng là nền tảng của ngôn ngữ, hỗ trợ bạn ngay từ lúc bắt
+				đầu và trong suốt việc sử dụng tiếng Anh. Ngay cả khi bạn đã rất
+				thành thạo tiếng Anh, việc bổ sung từ vựng sẽ vẫn cần thiết (và có
+				thể là việc duy nhất bạn luôn phải học khi học ngoại ngữ).</p>
+			<p>Để có một nền tảng thật sự tốt, chúng tôi khuyến nghị bạn cần
+				có ít nhất 7000 từ vựng tiếng Anh.</p>
+			<p>Bạn có thể cân nhắc sử dụng ứng dụng miễn phí LazzyBee của
+				chúng tôi, đảm bảo giúp bạn học được 2000 từ trong một năm chỉ với 5
+				phút mỗi ngày. LazzyBeen giúp bạn luôn nhớ các từ đã học.</p>
 		</div>
 	</div>
 	<div id="table-app">
-		<h2 class="mblog_install_app" style="padding-top: 0px;">
+		<p class="mblog_install_app" style="padding-top: 0px;">
 			Tải ứng dụng <a href="http://www.lazzybee.com/">Lazzybee</a> cho <a
 				href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8"
 				style="cursor: none;">iOS</a> và <a
 				href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee"
 				style="cursor: none;">Android</a> (FREE)
-		</h2>
-		<table class="table-app" cellspacing="5" style="display: none;">
-			<tr>
-				<td>
-					<div>
-						<a
-							href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8">
-							<img alt="download lazzybee"
-							src="/mobile-resources/appstore_m.png" class="appstore">
-						</a>
-					</div>
-				</td>
-				<td>
-					<div>
-						<a
-							href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee">
-							<img alt="download lazzybee"
-							src="/mobile-resources/googleplay_m.jpg" class="appstore">
-						</a>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</div>
+		</p>
 	</div>
 	<div class="mfooter" id="mfooter">
-		<center>Born2Go © 2016</center>
+		<div>Born2Go © 2016</div>
 	</div>
+
 </body>
 </html>
