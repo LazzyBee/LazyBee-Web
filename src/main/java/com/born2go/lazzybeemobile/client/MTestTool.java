@@ -60,6 +60,8 @@ public class MTestTool extends Composite {
 				if (Event.ONCLICK == event.getTypeInt()) {
 					DOM.getElementById("htmlIntroTest").setAttribute("style",
 							"display:none");
+					RootPanel.get("desMtestTool").getElement()
+							.removeFromParent();
 					LazzyBeeMobile.noticeBox.showNotice("Đang tải...");
 					getTestStep_ONE();
 				}
@@ -103,12 +105,12 @@ public class MTestTool extends Composite {
 		container.add(testInfoPanel);
 		container.add(vocaShowPanel);
 		container.add(controlPanel);
-		testInfoPanel.setStyleName("MTestTool_Obj1");
+		testInfoPanel.setStyleName("MTestTool_ObjInfo1");
 		testInfoPanel.getElement().setAttribute("style",
 				"padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + hmap.size() + " Từ");
 		Label info = new Label(
-				"Bước 1: Đánh giá sơ bộ vốn từ vựng của bạn. Hãy chọn các từ mà bạn đã biết nghĩa.");
+				"Bước 1: Đánh giá sơ bộ vốn từ vựng của bạn. Các từ sẽ trải dài từ rất dễ tới rất khó. Hãy chọn các từ mà bạn đã biết ít nhất 01 nghĩa, khi được chọn, từ sẽ chuyển sang màu xanh.");
 		// checkTotal = new Label("B: " + totalCheck + " / " + hmap.size());
 		total.getElement().setAttribute("style",
 				"float: left; font-weight: bold;");
@@ -171,7 +173,7 @@ public class MTestTool extends Composite {
 						} else
 							LazzyBeeMobile.noticeBox
 									.showNotice(Common.load_error);
-						    Window.scrollTo(0, 0);
+						Window.scrollTo(0, 0);
 					}
 				});
 	}
@@ -187,7 +189,7 @@ public class MTestTool extends Composite {
 		container.add(testInfoPanel);
 		container.add(vocaShowPanel);
 		container.add(controlPanel);
-		testInfoPanel.setStyleName("MTestTool_Obj1");
+		testInfoPanel.setStyleName("MTestTool_ObjInfo1");
 		testInfoPanel.getElement().setAttribute("style",
 				"padding: 10px; overflow: hidden;");
 		Label total = new Label("Tổng: " + hmap.size() + " Từ");
@@ -351,53 +353,54 @@ public class MTestTool extends Composite {
 		}
 	}
 
-	private void showResultTest(String result) {
-		container.clear();
-		HTMLPanel testInfoPanel = new HTMLPanel("");
-		testInfoPanel.setStyleName("MTestTool_Obj1");
-		testInfoPanel.getElement().setAttribute("style",
-				"padding: 10px; overflow: hidden;");
-		container.add(testInfoPanel);
-
-		Label info = new Label("Tổng số từ vựng của bạn được tính toán là:");
-		info.setStyleName("i_testtool_info");
-		info.getElement().setAttribute("style", "margin-top: 5px;");
-		testInfoPanel.add(info);
-
-		HTMLPanel vocaShowPanel = new HTMLPanel("");
-		vocaShowPanel.getElement().setAttribute("style",
-				"text-align: center; margin-bottom:40px;");
-		container.add(vocaShowPanel);
-
-		HTMLPanel htmlResult = new HTMLPanel("");
-		vocaShowPanel.add(htmlResult);
-		htmlResult.setStyleName("MTestTool_box");
-		Label lbResult = new Label();
-		lbResult.setStyleName("MTestTool_result");
-		lbResult.setText(result);
-		htmlResult.add(lbResult);
-	}
+	// private void showResultTest(String result) {
+	// container.clear();
+	// HTMLPanel testInfoPanel = new HTMLPanel("");
+	// testInfoPanel.setStyleName("MTestTool_ObjInfo1");
+	// testInfoPanel.getElement().setAttribute("style",
+	// "padding: 10px; overflow: hidden;");
+	// container.add(testInfoPanel);
+	//
+	// Label info = new Label("Tổng số từ vựng của bạn được tính toán là:");
+	// info.setStyleName("i_testtool_info");
+	// info.getElement().setAttribute("style", "margin-top: 5px;");
+	// testInfoPanel.add(info);
+	//
+	// HTMLPanel vocaShowPanel = new HTMLPanel("");
+	// vocaShowPanel.getElement().setAttribute("style",
+	// "text-align: center; margin-bottom:40px;");
+	// container.add(vocaShowPanel);
+	//
+	// HTMLPanel htmlResult = new HTMLPanel("");
+	// vocaShowPanel.add(htmlResult);
+	// htmlResult.setStyleName("MTestTool_box");
+	// Label lbResult = new Label();
+	// lbResult.setStyleName("MTestTool_result");
+	// lbResult.setText(result);
+	// htmlResult.add(lbResult);
+	// }
 
 	void findVoca(final String voca_q) {
-		LazzyBeeMobile.data_service.findVoca_Web(voca_q.trim(),false, new AsyncCallback<Voca>() {
+		LazzyBeeMobile.data_service.findVoca_Web(voca_q.trim(), false,
+				new AsyncCallback<Voca>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				LazzyBeeMobile.noticeBox.showNoticeDialog(voca_q
-						+ " - tra cứu bị thất bại, mời bạn thử lại");
+					@Override
+					public void onFailure(Throwable caught) {
+						LazzyBeeMobile.noticeBox.showNoticeDialog(voca_q
+								+ " - tra cứu bị thất bại, mời bạn thử lại");
 
-			}
+					}
 
-			@Override
-			public void onSuccess(Voca result) {
-				if (result != null)
-					onVocaView_EV(result);
-				else
-					LazzyBeeMobile.noticeBox.showNoticeDialog(voca_q
-							+ " - chưa có trong từ điển của LazzyBee");
+					@Override
+					public void onSuccess(Voca result) {
+						if (result != null)
+							onVocaView_EV(result);
+						else
+							LazzyBeeMobile.noticeBox.showNoticeDialog(voca_q
+									+ " - chưa có trong từ điển của LazzyBee");
 
-			}
-		});
+					}
+				});
 	}
 
 	void onVocaView_EV(Voca v) {

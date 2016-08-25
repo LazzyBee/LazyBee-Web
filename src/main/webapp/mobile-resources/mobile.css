@@ -3,7 +3,10 @@ body, html, #content, .avatarBlog img {
 }
 
 #btsearch, #mfooter, #notfoundVoca, .header_table, .VocaEditorTool_Obj11,
-	.actionForm, .avatarBlog, .table-cell, figure, p img {
+	.actionForm, .avatarBlog, .table-cell, figure, p img, .epp-xref, .freq,
+	.MTestTool_Obj11, .i_testtool_info, .i_testt_controlPanel, .todo,
+	#shareResult, .btn_replay, .permalink, .result_score,
+	.mblog_install_app {
 	text-align: center
 }
 
@@ -133,7 +136,7 @@ input.gwt-TextBox {
 }
 
 #main {
-	min-height: calc(100% - 88px)
+	min-height: calc(100% - 88px);
 }
 
 #content {
@@ -199,7 +202,6 @@ h1 {
 	padding: 0 2px;
 	display: inline-block;
 	min-width: 14px;
-	text-align: center;
 	color: #fff;
 	font-size: 80%;
 	font-family: "Verdana", sans-serif;
@@ -213,7 +215,6 @@ h1 {
 	padding: 0 2px;
 	display: inline-block;
 	min-width: 14px;
-	text-align: center;
 	color: #fff;
 	font-size: 80%;
 	font-family: "Verdana", sans-serif;
@@ -235,12 +236,12 @@ h1 {
 	font-family: sans-serif;
 	font-size: 14px;
 }
+
 ul.tabs {
-    list-style: none;
-    padding: 0;
+	list-style: none;
+	padding: 0;
 }
 /*end css for l_en*/
-
 .list-mean {
 	padding-left: 10px
 }
@@ -288,7 +289,6 @@ ul.tabs {
 	color: white;
 	width: 100%;
 	margin: auto;
-	text-align: center;
 }
 
 .MTestTool_Obj12 {
@@ -334,7 +334,6 @@ ul.tabs {
 	color: #009688;
 	font-weight: bold;
 	margin: 25px 0 0 20px;
-	text-align: center;
 }
 
 .i_testtool_checkTotal {
@@ -345,19 +344,22 @@ ul.tabs {
 }
 
 .i_testt_controlPanel {
-	text-align: center;
 	white-space: nowrap;
 	margin-bottom: 60px;
 }
+
+.notice_u, .MTestTool_Obj1 {
+	background-color: lemonchiffon;
+}
+
 .notice_u {
 	margin-top: 20px;
 	padding: 10px;
-	background-color: lemonchiffon;
 	line-height: 1.5;
 }
+
 .MTestTool_Obj1 {
 	padding: 20px;
-	background-color: lemonchiffon;
 	line-height: 1.5;
 }
 
@@ -389,7 +391,6 @@ ul.tabs {
 
 .todo {
 	width: 95%;
-	text-align: center;
 }
 
 #shareResult {
@@ -397,29 +398,24 @@ ul.tabs {
 	padding: 10px 20px 0px 20px;
 	cursor: pointer;
 	height: 40px;
-	text-align: center;
 	border-radius: 2px;
 	font-size: 20px;
 	color: white;
 }
 
 .btn_replay {
-	/* width: 13%;
-    float: right; */
 	display: inline-block;
-	vertical-align: middle;
 	border-radius: 2px;
 	font-size: 19px !important;
 	padding: 11px 10px 14px 10px;
 	font-size: 14px;
 	font-weight: 400;
-	text-align: center;
 	white-space: nowrap;
 	vertical-align: middle;
 	-ms-touch-action: manipulation;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;
+	/* user-select: none; */
 	border: 1px solid transparent;
 	color: #fff !important;
 	background-color: #5cb85c;
@@ -442,7 +438,6 @@ ul.tabs {
 	color: #888;
 	font-size: 16px;
 	line-height: 23px;
-	text-align: center;
 }
 
 #menu ul li a i {
@@ -498,7 +493,6 @@ ul.tabs {
 /* .MTestTool_Obj5:hover {
 	background: tomato
 } */
-
 .MTestTool_Obj5 {
 	width: 140px;
 	padding: 10px 10px 5px;
@@ -795,7 +789,6 @@ ul.tabs {
 	line-height: 135px;
 	color: #000;
 	margin: -29px 0 -19px;
-	text-align: center;
 	padding: 10px;
 	color: #333;
 }
@@ -862,7 +855,6 @@ a#showComment {
 .mblog_install_app {
 	font-style: italic;
 	font-size: medium;
-	text-align: center;
 }
 
 .fon39 h5 {

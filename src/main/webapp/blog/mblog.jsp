@@ -63,12 +63,14 @@
 	content="Lazzy Bee cung cấp ứng dụng học tiếng Anh, từ vựng hiệu quả. Giúp bạn xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
 <meta name="keywords"
 	content="Lazzy,Bee,học tiếng anh,hoc tieng anh,từ vựng,tu vung, tra từ điển Anh Việt, tra tu dien Anh Viet">
-<meta content="<%=title%>"
-	itemprop="keywords" name="keywords">
+<meta content="<%=title%>">
 <link type="text/css" rel="stylesheet"
 	href="/mobile-resources/mobile.css">
 <link rel="stylesheet"
 	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
+<meta property="fb:app_id" content="754889477966743" />
+<meta property="fb:pages" content="1012100435467230" />
+<link rel="canonical" href="http://www.lazzybee.com/blog/<%=currentBlog.getTitle()%>">
 <link rel="icon" type="image/png" href="/favicon.png" />
 <script type="text/javascript"
 	src="/lazzybeemobile/lazzybeemobile.nocache.js" async></script>
@@ -138,22 +140,22 @@
 				<ul id="myList">
 					<%
 						List<Blog> blogs = new ArrayList<Blog>();
-																		List<Blog> blogs_exist = service.getListBlog(false);
-																		if(blogs_exist != null && ! blogs_exist.isEmpty())
-																			blogs.addAll(blogs_exist);
-																			SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
-																			String title_b = null;
-																			Picture picture = null;
-																			for (int i = 0; i < blogs.size(); i++) {
-																					Blog blog = blogs.get(i);
-																					if (blog != null) {
-																						title_b = blog.getShowTitle();
-																						picture = service.findPicture(blog.getAvatar());
-																						String urlPicture = "";
-																						if (picture != null)
-																								urlPicture = picture.getServeUrl() + "=s100";
-																						else
-																								urlPicture = "/mobile-resources/lazzybee_m.png";
+					    List<Blog> blogs_exist = service.getListBlog(false);
+					  if(blogs_exist != null && ! blogs_exist.isEmpty())
+						  blogs.addAll(blogs_exist);
+						SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
+						String title_b = null;
+						Picture picture = null;
+						for (int i = 0; i < blogs.size(); i++) {
+								Blog blog = blogs.get(i);
+								if (blog != null) {
+									title_b = blog.getShowTitle();
+									picture = service.findPicture(blog.getAvatar());
+									String urlPicture = "";
+									if (picture != null)
+											urlPicture = picture.getServeUrl() + "=s100";
+									else
+											urlPicture = "/mobile-resources/lazzybee_m.png";																			
 					%>
 					<li><a class="vdict_avatar"
 						href=<%="/blog/" + blog.getTitle()%> title=<%=title%>> <img
@@ -166,7 +168,7 @@
 					<%
 						}
 
-																																					}
+						}
 					%>
 
 
@@ -174,7 +176,7 @@
 			</div>
 			<%
 				}
-																		else{
+			else{
 			%>
 
 
@@ -210,7 +212,7 @@
 			<ul class="blogs_exist">
 				<%
 					for (int i = 0; i < blogs_exsist.size(); i++) {
-																																																					Blog blog_exist = blogs_exsist.get(i);
+																																																									Blog blog_exist = blogs_exsist.get(i);
 				%>
 				<li><a style="color: #004175; line-height: 2;"
 					href=<%="/blog/" + blog_exist.getTitle()%>><%=blog_exist.getShowTitle()%></a></li>

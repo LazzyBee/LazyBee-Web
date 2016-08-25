@@ -51,11 +51,10 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><%=title%></title>
 <meta content="<%=title%>"
-	itemprop="keywords" name="keywords">
+	 >
 <meta name="description"
 	content="Lazzy Bee cung cấp ứng dụng học tiếng Anh, từ vựng hiệu quả. Giúp bạn xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
-<meta name="keywords"
-	content="Lazzy,Bee,học tiếng anh,hoc tieng anh,từ vựng,tu vung">
+ 
 
 <link rel="icon" type="image/png" href="../favicon.png" />
 
@@ -95,6 +94,8 @@
 <meta property="og:url"
 	content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
 <meta property="fb:app_id" content="754889477966743" />
+<meta property="fb:pages" content="1012100435467230" />
+<link rel="canonical" href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>">
 <%
 	}
 %>
