@@ -110,6 +110,10 @@
 		<servlet-name>BlogJsp</servlet-name>
 		<url-pattern>/blog/*</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BlogJsp</servlet-name>
+		<url-pattern>/mblog/*</url-pattern>
+	</servlet-mapping>
 	
 	 <servlet>
 		<servlet-name>VdictJsp</servlet-name>
@@ -119,6 +123,10 @@
 		<servlet-name>VdictJsp</servlet-name>
 		<url-pattern>/vdict/*</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>VdictJsp</servlet-name>
+		<url-pattern>/mvdict/*</url-pattern>
+	</servlet-mapping>  
 	
 	<!--  <servlet>
 		<servlet-name>MvdictJsp</servlet-name>
