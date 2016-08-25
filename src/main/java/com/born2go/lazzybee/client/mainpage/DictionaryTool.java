@@ -333,7 +333,7 @@ public class DictionaryTool extends Composite {
 
 	@UiHandler("testSite")
 	void onTestSiteClick(ClickEvent e) {
-		String newURL = "/test/";
+		String newURL = "/testvocab/";
 		Window.Location.replace(newURL);
 	}
 
