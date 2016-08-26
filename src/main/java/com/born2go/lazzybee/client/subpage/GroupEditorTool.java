@@ -96,7 +96,8 @@ public class GroupEditorTool extends Composite {
 			GroupVoca g = new GroupVoca();
 			g.setCreator(LazzyBee.userName);
 			g.setDescription(txbDescription.getValue());
-			g.setListVoca(txbListVoca.getText());
+			String savetext = txbListVoca.getText().replaceAll("[\n\r]+", "\n");
+			g.setListVoca(savetext);
 			LazzyBee.data_service.insertGroupVoca(g,
 					new AsyncCallback<GroupVoca>() {
 
@@ -135,7 +136,8 @@ public class GroupEditorTool extends Composite {
 				LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 				group.setCreator(LazzyBee.userName);
 				group.setDescription(txbDescription.getValue());
-				group.setListVoca(txbListVoca.getText());
+				String savetext = txbListVoca.getText().replaceAll("[\n\r]+", "\n");
+				group.setListVoca(savetext);
 				LazzyBee.data_service.updateGroupVoca(group, LazzyBee.userId,
 						new AsyncCallback<GroupVoca>() {
 
