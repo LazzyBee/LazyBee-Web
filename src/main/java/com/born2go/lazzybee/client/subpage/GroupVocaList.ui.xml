@@ -90,6 +90,18 @@
 		border: 10px solid rgba(0, 150, 136, 0.6);
 		box-shadow: 2px 3px 5px #999;
 	}
+	.GroupList_Obj11 {
+    color: white !important;
+    background: #0e74af;
+    margin-left: 10px;
+    padding: 9px 12px;
+		}
+
+		.GroupList_Obj11:hover {
+		background: silver;
+		cursor: pointer;
+		color: #0e74af;
+		}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.GroupList_Obj1}">
 		<g:HTMLPanel styleName="{style.GroupList_Obj9}">
@@ -100,6 +112,7 @@
 				<g:Anchor ui:field="btnPreviousPage" title="Trang trước" styleName="{style.GroupList_Obj5}"><i class="fa fa-arrow-left fa-lg"></i></g:Anchor>
 				<g:Anchor ui:field="btnNextPage" title="Trang sau" styleName="{style.GroupList_Obj6}"><i class="fa fa-arrow-right fa-lg"></i></g:Anchor>
 				<g:Label ui:field="lbPageNumber" styleName="{style.GroupList_Obj8}"></g:Label>
+				<g:Anchor  title="Thêm nhóm từ" styleName="{style.GroupList_Obj11}" href="http://www.lazzybee.com/editor/#group"><i class="fa fa-pencil-square-o fa-lg"></i></g:Anchor>
 			</g:HTMLPanel>
 			<!-- <g:Label ui:field="lbTotal" styleName="{style.GroupList_Obj4}"></g:Label> -->
 		</g:HTMLPanel>

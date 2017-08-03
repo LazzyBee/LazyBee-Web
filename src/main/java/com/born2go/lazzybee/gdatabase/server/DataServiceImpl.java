@@ -245,6 +245,28 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		// saveSearchLog_API(q, result);
 		return result;
 	}
+	
+	// find Voca by id
+	public Voca findVoca(Long id) {
+		Voca result = null;
+		// find vocabulary in table Voca by id
+		Voca voca = ofy().load().type(Voca.class).id(id).now();
+		// if voca != null, return value
+		if (voca != null) {
+			result = voca;
+			result.setCheck(true);
+		}
+		// else find vocabulary in table VocaPreview
+		else {
+			VocaPreview voca_preview = ofy().load().type(VocaPreview.class).id(id).now();
+			if (voca_preview != null) {
+				result = new Voca();
+				result.getVocaPreviewContent(voca_preview);
+				result.setCheck(false);
+			}
+		}
+		return result;
+	}
 
 	/**
 	 * Find a vocabulary by question and insert question into table if question

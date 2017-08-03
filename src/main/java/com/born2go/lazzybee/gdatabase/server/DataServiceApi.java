@@ -40,12 +40,11 @@ public class DataServiceApi {
 	/** Get a vocabulary by id */
 	@ApiMethod(name = "getVocaById", path = "get_voca_byId")
 	public Voca getVocaById(@Named("id") Long id) throws NotFoundException {
-		Voca voca = ofy().load().type(Voca.class).id(id).now();
+		Voca voca = dataService.findVoca(id);
 		if (voca == null) {
 			String message = "No entity exists with ID: " + id;
 			throw new NotFoundException(message);
 		} else {
-			voca.setCheck(true);
 			return voca;
 		}
 	}
@@ -69,18 +68,14 @@ public class DataServiceApi {
 	// @Named("cursorStr") annote chi parameter
 	/** Get list all of vocabulary */
 	@ApiMethod(name = "listVoca")
-	public List<Voca> listVoca(@Named("cursorStr") String cursorStr) {
-		// List<Voca> list_voca = ofy().load().type(Voca.class)
-		// .filter("level <", 8).list();
+	public List<Voca> listVoca(@Named("cursorStr") String cursorStr, @Named("level") int level , @Named("size") int size) {
 		if (cursorStr.equals("LAZZYBEE"))
 			cursorStr = null;
 		List<Voca> result = new ArrayList<Voca>();
-		int size = 1000;
-		Query<Voca> query = ofy().load().type(Voca.class).filter("level <", 8)
+		Query<Voca> query = ofy().load().type(Voca.class).filter("level", level)
 				.limit(size);
 		if (cursorStr != null)
 			query = query.startAt(Cursor.fromWebSafeString(cursorStr));
-
 		boolean continu = false;
 		QueryResultIterator<Voca> iterator = query.iterator();
 		while (iterator.hasNext()) {
