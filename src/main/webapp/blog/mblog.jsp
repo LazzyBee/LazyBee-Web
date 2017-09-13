@@ -1,3 +1,5 @@
+<%@page import="java.io.Console"%>
+<%@page import="com.google.gwt.user.client.Window"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -24,19 +26,18 @@
    	String title = "";
    	Blog currentBlog = null;
    	boolean show_n = false;
-   	List<Blog> blogs_exsist = new ArrayList<Blog>();
 	if (request.getPathInfo() == null || request.getPathInfo().length() <= 1)
 	{
-		
+	
 	}
 	else {
 		String blogTitle = request.getPathInfo().replaceAll("/", "");
 	    currentBlog = service.findBlogByTitle(blogTitle);
 		if (currentBlog != null){
-	if (currentBlog.getAvatar() != null)
-	blog_avatar = service.findPicture(currentBlog.getAvatar());
-	title = currentBlog.getShowTitle();
-	blogs_exsist = service.getBlogsOlder(currentBlog);
+				if (currentBlog.getAvatar() != null)
+				blog_avatar = service.findPicture(currentBlog.getAvatar());
+				title = currentBlog.getShowTitle();
+   
 		}
 		  else{
 	  show_n = true;
@@ -45,6 +46,7 @@
 		}  
 		 
 	}
+	// System.out.print("vao day " + currentBlog);
 %>
 <!doctype html>
 <!-- The DOCTYPE declaration above will set the    -->
@@ -58,7 +60,6 @@
 <!-- for view mobile -->
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes"
 	name="viewport">
-<title><%=title%></title>
 <meta name="description"
 	content="Lazzy Bee cung cấp ứng dụng học tiếng Anh, từ vựng hiệu quả. Giúp bạn xây dựng vốn từ vựng mọi lúc, mọi nơi chỉ với 5 phút mỗi ngày.">
 <meta name="keywords"
@@ -68,9 +69,44 @@
 	href="/mobile-resources/mobile.css">
 <link rel="stylesheet"
 	href="/resources/font-awesome-4.2.0/css/font-awesome.min.css">
+ <%
+	if(currentBlog != null) {
+%>
+<title><%=title%></title>
+<%
+	} else {
+%>
+<title>LazzyBee - Học tiếng anh, từ vựng với flashcard</title>
+<%
+	}
+%>
+<%
+	if(currentBlog != null) {
+%>
+<meta property="og:type" content=website />
+<%
+	if(blog_avatar != null) {
+%>
+<meta property="og:image" content="<%=blog_avatar.getServeUrl()%>" />
+<%
+	}  else {
+%>
+<meta property="og:image"
+	content="http://www.lazzybee.com/resources/2015-11-01.png" />
+<%
+	}
+%>
+<meta property="og:title"
+	content="<%=currentBlog.getShowTitle().replaceAll("\"", "\'")%>" />
+<meta property="og:url"
+	content="http://www.lazzybee.com/blog/<%=title%>" />
 <meta property="fb:app_id" content="754889477966743" />
 <meta property="fb:pages" content="1012100435467230" />
+
 <link rel="canonical" href="http://www.lazzybee.com/blog/<%=currentBlog.getTitle()%>">
+<%
+	}
+%>
 <link rel="icon" type="image/png" href="/favicon.png" />
 <script type="text/javascript"
 	src="/lazzybeemobile/lazzybeemobile.nocache.js" async></script>
@@ -122,71 +158,25 @@
 	</div>
 	<div id="main">
 		<div id="content">
+		
+		
 			<%
-				if(currentBlog == null){
+			if(currentBlog != null){
 			%>
-			<div class="blogs" style="display: block;">
-				<%
-					if (show_n == true) {
-				%>
-				<div class="notice_u">Không tìm thấy dữ liệu</div>
-				<%
-					}
-				%>
-
-				<div class="fon39" style="border: none">
-					<h5>Tất cả các bài đã đăng</h5>
-				</div>
-				<ul id="myList">
-					<%
-						List<Blog> blogs = new ArrayList<Blog>();
-					    List<Blog> blogs_exist = service.getListBlog(false);
-					  if(blogs_exist != null && ! blogs_exist.isEmpty())
-						  blogs.addAll(blogs_exist);
-						SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
-						String title_b = null;
-						Picture picture = null;
-						for (int i = 0; i < blogs.size(); i++) {
-								Blog blog = blogs.get(i);
-								if (blog != null) {
-									title_b = blog.getShowTitle();
-									picture = service.findPicture(blog.getAvatar());
-									String urlPicture = "";
-									if (picture != null)
-											urlPicture = picture.getServeUrl() + "=s100";
-									else
-											urlPicture = "/mobile-resources/lazzybee_m.png";																			
-					%>
-					<li><a class="vdict_avatar"
-						href=<%="/blog/" + blog.getTitle()%> title=<%=title%>> <img
-							alt=<%=title_b%> src="<%=urlPicture%>">
-							<h3><%=title_b%></h3>
-							<div class="ovh time">
-								<i class="fa fa-clock-o">&nbsp;</i><i class="publishdate"><%=df.format(new Date(blog.getCreateDate()))%></i>
-							</div>
-					</a></li>
-					<%
-						}
-
-						}
-					%>
-
-
-				</ul>
-			</div>
-			<%
-				}
-			else{
-			%>
-
-
+			<article>
+			<header>
 			<div class="nameBlog">
 				<h1><%=title%></h1>
 			</div>
+			</header>
 			<%
 				SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
+			DateFormat dfFb = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss'Z'");
 			%>
 			<i class="fa fa-clock-o">&nbsp;</i><i class="publishdate"><%=df.format(new Date(currentBlog.getCreateDate()))%></i>
+			<div  style="float: left; margin-top: 3px;">Bài viết được tạo: 
+						<time class="op-published" datetime="<%=dfFb.format(new Date(currentBlog.getCreateDate()))%>"><%=df.format(new Date(currentBlog.getCreateDate()))%></time> 
+						</div>
 
 			<%
 				if (blog_avatar != null) {
@@ -202,8 +192,18 @@
 				<div><%=currentBlog.getContent()%></div>
 				<br />
 			</div>
+			 
+			<footer>
 
+       				<aside>LazzyBee Team</aside>
+
+       				<small>Born2Go © 2016</small>
+     		</footer>
+           </article>
 			<%
+			List<Blog> blogs_exsist = new ArrayList<Blog>();
+
+			blogs_exsist = service.getBlogsOlder(currentBlog);
 				if (blogs_exsist.size() > 0) {
 			%>
 			<div class="fon39">
@@ -212,7 +212,7 @@
 			<ul class="blogs_exist">
 				<%
 					for (int i = 0; i < blogs_exsist.size(); i++) {
-																																																									Blog blog_exist = blogs_exsist.get(i);
+				Blog blog_exist = blogs_exsist.get(i);
 				%>
 				<li><a style="color: #004175; line-height: 2;"
 					href=<%="/blog/" + blog_exist.getTitle()%>><%=blog_exist.getShowTitle()%></a></li>
@@ -262,8 +262,69 @@
 
 			<br /> <br />
 			<%
-				}
+				} else{
 			%>
+			 
+		
+		<%} %>
+			<%
+				if(currentBlog == null){
+			%>
+			<div class="blogs" style="display: block;">
+				<%
+					if (show_n == true) {
+				%>
+				<div class="notice_u">Không tìm thấy dữ liệu</div>
+				<%
+					}
+				%>
+
+				<div class="fon39" style="border: none">
+					<h5>Tất cả các bài đã đăng</h5>
+				</div>
+				<ul id="myList">
+					<%
+						List<Blog> blogs = new ArrayList<Blog>();
+					    List<Blog> blogs_exist = service.getListBlog(false);
+					  if(blogs_exist != null && ! blogs_exist.isEmpty())
+						  blogs.addAll(blogs_exist);
+						SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
+						String title_b = null;
+						Picture picture = null;
+						if(blogs != null && !blogs.isEmpty())
+						for (int i = 0; i < blogs.size(); i++) {
+								Blog blog = blogs.get(i);
+								if (blog != null) {
+									title_b = blog.getShowTitle();
+									picture = service.findPicture(blog.getAvatar());
+									String urlPicture = "";
+									if (picture != null)
+											urlPicture = picture.getServeUrl() + "=s100";
+									else
+											urlPicture = "/mobile-resources/lazzybee_m.png";																			
+					%>
+					<li><a class="vdict_avatar"
+						href=<%="/blog/" + blog.getTitle()%> title=<%=title%>> <img
+							alt=<%=title_b%> src="<%=urlPicture%>">
+							<h3><%=title_b%></h3>
+							<div class="ovh time">
+								<i class="fa fa-clock-o">&nbsp;</i><i class="publishdate"><%=df.format(new Date(blog.getCreateDate()))%></i>
+							</div>
+					</a></li>
+					<%
+						}
+
+						}
+					%>
+
+
+				</ul>
+			</div>
+			<%
+				} %>
+			
+			
+		
 		</div>
 	</div>
 	<div class="mfooter" id="mfooter">

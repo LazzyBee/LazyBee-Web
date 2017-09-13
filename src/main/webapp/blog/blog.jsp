@@ -14,7 +14,8 @@
 %>
 <%
 	//Global variable
-	DateFormat df = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+	DateFormat dfFb = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss'Z'");
+    SimpleDateFormat df = new SimpleDateFormat("d/MM/yyyy");
 	Picture blog_avatar = null;
 	Blog blog = null;
 	Blog previous_blog;
@@ -92,9 +93,10 @@
 <meta property="og:title"
 	content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
 <meta property="og:url"
-	content="http://www.lazzybee.com/blog/<%=blog.getTitle()%>" />
+	content="http://www.lazzybee.com/blog/<%=title%>" />
 <meta property="fb:app_id" content="754889477966743" />
 <meta property="fb:pages" content="1012100435467230" />
+
 <link rel="canonical" href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>">
 <%
 	}
@@ -245,7 +247,8 @@
 			%>
 			<div id="wt_dictionary"
 				style="padding: 20px 30px 30px 30px; width: 600px; float: left;">
-
+			<article>
+				<header>
 				<div style="text-align: left">
 					<h1><%=blog.getShowTitle()%></h1>
 					<%-- <% if(blog_avatar != null) { %>
@@ -253,8 +256,12 @@
 					<% } %> --%>
 					<div
 						style="overflow: hidden; margin-bottom: 20px; padding: 10px; margin-top: 15px; background: #f2f1f1; width: 100%; display: block; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
-						<span style="float: left; margin-top: 3px;">Bài viết được
-							tạo: <%=df.format(new Date(blog.getCreateDate()))%></span> <a
+						<div  style="float: left; margin-top: 3px;">Bài viết được tạo: 
+						<time class="op-published" datetime="<%=dfFb.format(new Date(blog.getCreateDate()))%>"><%=df.format(new Date(blog.getCreateDate()))%></time> 
+						</div>
+							 
+			 
+							<a
 							id="blogViewEdit" style="display: none;" title="Soạn thảo"
 							href="/editor/#blog/<%=blog.getId()%>"><i
 							class="fa fa-pencil-square-o fa-lg"></i></a>
@@ -266,8 +273,15 @@
 						</div>
 					</div>
 				</div>
+				</header>
 				<div style="margin-bottom: 30px"><%=blog.getContent()%></div>
+				<footer>
+						
+       				<aside>LazzyBee Team</aside>
 
+       				<small>Born2Go © 2016</small>
+     		  </footer>
+			   </article>
 				<%-- <div>
 					<%if(previous_blog != null) {%>
 					<a style="float: left; cursor: pointer;" href="/blog/<%= previous_blog.getTitle() %>"><i class="fa fa-angle-double-left"></i> Trang trước</a>
