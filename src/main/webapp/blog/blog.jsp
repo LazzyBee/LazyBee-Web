@@ -327,7 +327,7 @@
 				<div class="fb-comments" data-width="100%"
 					data-href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>"
 					data-numposts="5" data-colorscheme="light"
-					data-order-by="reverse_time" data-version="v2.3"></div>
+					data-order-by="reverse_time" data-version="v2.5"></div>
 				<br /> <br />
 			</div>
 			<%

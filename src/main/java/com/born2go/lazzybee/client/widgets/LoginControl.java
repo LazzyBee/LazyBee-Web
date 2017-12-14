@@ -195,7 +195,7 @@ public class LoginControl extends DialogBox {
 	      	appId      : clientId,
 	      	cookie	 : true,
 	      	xfbml      : true,
-	      	version    : 'v2.3'
+	      	version    : 'v2.5'
 	    });
 		
 		(function(d, s, id){

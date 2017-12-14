@@ -250,7 +250,7 @@
 				<div class="fb-comments" data-width="100%"
 					data-href="http://www.lazzybee.com/blog/<%=title%>"
 					data-numposts="5" data-colorscheme="light"
-					data-order-by="reverse_time" data-version="v2.3"></div>
+					data-order-by="reverse_time" data-version="v2.5"></div>
 			</div>
 			<h2 class="mblog_install_app">
 				Tải ứng dụng <a href="http://www.lazzybee.com/">Lazzybee</a> cho <a
