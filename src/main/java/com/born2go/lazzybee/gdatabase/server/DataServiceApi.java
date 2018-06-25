@@ -209,6 +209,44 @@ public class DataServiceApi {
 		}
 	}
 
+	/**update category into package and category in to anser verifyVoca */
+	@ApiMethod(name = "updateAPackage", path = "updateAPackage")
+	public void updateA_Package(Voca vocaUpdate) throws NotFoundException {
+		vocaUpdate.setQ(vocaUpdate.getQ().toLowerCase());
+		Voca v = getVoca_Update(vocaUpdate.getQ());
+		if(v != null){
+			v.setA(vocaUpdate.getA());
+			v.setPackages(vocaUpdate.getPackages());
+			ofy().save().entity(v);
+		}
+		else{
+			String message = vocaUpdate.getQ() + " not found";
+			throw new NotFoundException(message);
+		}
+		 
+			
+		 
+	}
+	// get voca by q, q can use by update
+	private Voca getVoca_Update(String Q){
+		Voca result = null;
+		VocaPreview vp = ofy().load().type(VocaPreview.class)
+				.filter("q", Q).first().now();
+		if (vp != null) {
+			result = new Voca();
+			result.getVocaPreviewContent(vp);
+			result.setGid(vp.getGid());
+			result.setCheck(false);
+		} else {
+			result = ofy().load().type(Voca.class).filter("q", Q).first()
+					.now();
+			if (result != null) {
+				result.setCheck(true);
+			} else
+				result = null;
+		}
+		return result;
+	}
 	/**
 	 * Find Voca by id
 	 * 

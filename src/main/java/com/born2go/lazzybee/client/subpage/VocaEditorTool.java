@@ -50,86 +50,127 @@ public class VocaEditorTool extends Composite {
 
 	interface VocaEditorToolUiBinder extends UiBinder<Widget, VocaEditorTool> {
 	}
-	
+
 	VocaEditorTool vet = this;
-	
-	@UiField HTMLPanel vocaEditorTool;
-	@UiField HTMLPanel topToolbar;
-	@UiField HTMLPanel htmlVocaNote;
-	@UiField TextBox txbVocaDefi;
-	@UiField Image checkVocaImg;
-	@UiField TextBox txbPronoun;
-	@UiField HTMLPanel defiTable;
-	@UiField HTMLPanel dictionaryTable;
-	@UiField ListBox lsbLevel;
-	@UiField Label lbType;
-	@UiField ListBox lsbType;
-	@UiField HTMLPanel htmlType;
-	@UiField TextArea txbMeaning;
-	@UiField TextArea txbExplain;
-	@UiField TextArea txbExam;
-	@UiField TextArea dictionaryEV;
-	@UiField TextArea dictionaryEE;
-	@UiField Anchor btnDelete;
-	@UiField Anchor btnVerifySaveB;
-	@UiField Anchor btnGoTop;
-	@UiField Anchor btnSaveB;
-	@UiField Anchor btnClose;
-	
-	@UiField CheckBox cbTypeCommon;
-	@UiField CheckBox cbType850Basic;
-	@UiField CheckBox cbTypeVoaEnglish;
-	@UiField CheckBox cbTypeIelts;
-	@UiField CheckBox cbTypeToefl;
-	@UiField CheckBox cbTypeEconomic;
-	@UiField CheckBox cbTypeIt;
-	@UiField CheckBox cbTypeScience;
-	@UiField CheckBox cbTypeMedicine;
-	@UiField CheckBox cbTypeToeic;
-	@UiField CheckBox cbTypeOther;
-	@UiField CheckBox cbTypeIdioms;
-	
+
+	@UiField
+	HTMLPanel vocaEditorTool;
+	@UiField
+	HTMLPanel topToolbar;
+	@UiField
+	HTMLPanel htmlVocaNote;
+	@UiField
+	TextBox txbVocaDefi;
+	@UiField
+	Image checkVocaImg;
+	@UiField
+	TextBox txbPronoun;
+	@UiField
+	TextBox txbImgUrl;
+	@UiField
+	HTMLPanel defiTable;
+	@UiField
+	HTMLPanel dictionaryTable;
+	@UiField
+	ListBox lsbLevel;
+	@UiField
+	Label lbType;
+	@UiField
+	ListBox lsbType;
+	@UiField
+	HTMLPanel htmlType;
+	@UiField
+	TextArea txbMeaning;
+	@UiField
+	TextArea txbExplain;
+	@UiField
+	TextArea txbExam;
+	@UiField
+	TextArea dictionaryEV;
+	@UiField
+	TextArea dictionaryEE;
+	@UiField
+	Anchor btnDelete;
+	@UiField
+	Anchor btnVerifySaveB;
+	@UiField
+	Anchor btnGoTop;
+	@UiField
+	Anchor btnSaveB;
+	@UiField
+	Anchor btnClose;
+
+	@UiField
+	CheckBox cbTypeCommon;
+	@UiField
+	CheckBox cbType850Basic;
+	@UiField
+	CheckBox cbTypeVoaEnglish;
+	@UiField
+	CheckBox cbTypeIelts;
+	@UiField
+	CheckBox cbTypeToefl;
+	@UiField
+	CheckBox cbTypeEconomic;
+	@UiField
+	CheckBox cbTypeIt;
+	@UiField
+	CheckBox cbTypeScience;
+	@UiField
+	CheckBox cbTypeMedicine;
+	@UiField
+	CheckBox cbTypeToeic;
+	@UiField
+	CheckBox cbTypeOther;
+	@UiField
+	CheckBox cbTypeIdioms;
+	@UiField
+	HorizontalPanel formCategory;
+	@UiField
+	TextBox txbCategory;
 	int defi_count = 1;
 	final String DEFI_TXBMEANING = "txbMeaning_";
 	final String DEFI_TXBEXPLAIN = "txbExplain_";
 	final String DEFI_TXBEXAM = "txbExam_";
-	
+
 	public static class DefiContainer {
 		List<String> types = new ArrayList<String>();
 		String txbMeaning_id;
 		String txbExplain_id;
 		String txbExam_id;
 	}
-	
+
 	private Voca voca = null;
 	private List<String> packages = new ArrayList<String>();
 	private List<DefiContainer> list_defi = new ArrayList<DefiContainer>();
 	private List<DefiContainer> list_defitranforms = new ArrayList<DefiContainer>();
 	private List<ListBox> listLbType = new ArrayList<ListBox>();
 	private boolean isPreviewMode = false;
-	
+
 	public interface EditorListener {
 		void onApproval(Voca v);
+
 		void onClose();
 	}
-	
+
 	private EditorListener listener;
-	
+
 	public void setListener(EditorListener listener) {
 		this.listener = listener;
 	}
 
 	public VocaEditorTool() {
 		initWidget(uiBinder.createAndBindUi(this));
-		
-		if(DOM.getElementById("right_panel") != null)
+
+		if (DOM.getElementById("right_panel") != null)
 			DOM.getElementById("right_panel").setAttribute("style", "display:");
-		
-//		if(LoginControl.user == null || !LoginControl.user.isAdmin())
-//			LazzyBee.noticeBox.setNotice("Tính năng này đang tạm khóa chỉ sử dụng cho admin!");
-		
+
+		// if(LoginControl.user == null || !LoginControl.user.isAdmin())
+		// LazzyBee.noticeBox.setNotice("Tính năng này đang tạm khóa chỉ sử dụng cho admin!");
+		formCategory.setVisible(false);
+
 		lsbType.addItem("- Chọn phân loại -");
-		
+
 		lsbLevel.addItem("1");
 		lsbLevel.addItem("2");
 		lsbLevel.addItem("3");
@@ -138,117 +179,128 @@ public class VocaEditorTool extends Composite {
 		lsbLevel.addItem("6");
 		lsbLevel.addItem("7");
 		lsbLevel.addItem("8");
-		
-		txbMeaning.getElement().setAttribute("id", DEFI_TXBMEANING + defi_count);
-		txbExplain.getElement().setAttribute("id", DEFI_TXBEXPLAIN + defi_count);
+
+		txbMeaning.getElement()
+				.setAttribute("id", DEFI_TXBMEANING + defi_count);
+		txbExplain.getElement()
+				.setAttribute("id", DEFI_TXBEXPLAIN + defi_count);
 		txbExam.getElement().setAttribute("id", DEFI_TXBEXAM + defi_count);
-		
+
 		dictionaryEV.getElement().setAttribute("id", "dictionaryEV");
 		dictionaryEE.getElement().setAttribute("id", "dictionaryEE");
-		
+
 		cbTypeCommon.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				checkTypeListEvent(cbTypeCommon.getValue(), Category.COMMON, true);
+				checkTypeListEvent(cbTypeCommon.getValue(), Category.COMMON,
+						true);
 			}
 		});
 		cbType850Basic.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				checkTypeListEvent(cbType850Basic.getValue(), Category.BASIC850, true);
+				checkTypeListEvent(cbType850Basic.getValue(),
+						Category.BASIC850, true);
 			}
 		});
-		cbTypeVoaEnglish.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
-			@Override
-			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				checkTypeListEvent(cbTypeVoaEnglish.getValue(), Category.VOAENGLISH, true);
-			}
-		});
+		cbTypeVoaEnglish
+				.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+					@Override
+					public void onValueChange(ValueChangeEvent<Boolean> event) {
+						checkTypeListEvent(cbTypeVoaEnglish.getValue(),
+								Category.VOAENGLISH, true);
+					}
+				});
 		cbTypeIelts.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				checkTypeListEvent(cbTypeIelts.getValue(), Category.IELTS, true);
 			}
 		});
 		cbTypeToefl.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				checkTypeListEvent(cbTypeToefl.getValue(), Category.TOEFL, true);
 			}
 		});
 		cbTypeEconomic.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				checkTypeListEvent(cbTypeEconomic.getValue(), Category.ECONOMIC, true);
+				checkTypeListEvent(cbTypeEconomic.getValue(),
+						Category.ECONOMIC, true);
 			}
 		});
 		cbTypeIt.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				checkTypeListEvent(cbTypeIt.getValue(), Category.IT, true);
 			}
 		});
 		cbTypeScience.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				checkTypeListEvent(cbTypeScience.getValue(), Category.SCIENCE, true);
+				checkTypeListEvent(cbTypeScience.getValue(), Category.SCIENCE,
+						true);
 			}
 		});
 		cbTypeMedicine.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				checkTypeListEvent(cbTypeMedicine.getValue(), Category.MEDICINE, true);
+				checkTypeListEvent(cbTypeMedicine.getValue(),
+						Category.MEDICINE, true);
 			}
 		});
 		cbTypeToeic.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				checkTypeListEvent(cbTypeToeic.getValue(), Category.TOEIC, true);
 			}
 		});
-       cbTypeIdioms.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+		cbTypeIdioms.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				checkTypeListEvent(cbTypeIdioms.getValue(), Category.IDIOMS, true);
+				checkTypeListEvent(cbTypeIdioms.getValue(), Category.IDIOMS,
+						true);
 			}
 		});
 		cbTypeOther.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-			
+
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				checkTypeListEvent(cbTypeOther.getValue(), Category.OTHER, true);
 			}
 		});
-		
+
 		DefiContainer dc = new DefiContainer();
 		dc.txbMeaning_id = DEFI_TXBMEANING + defi_count;
 		dc.txbExplain_id = DEFI_TXBEXPLAIN + defi_count;
 		dc.txbExam_id = DEFI_TXBEXAM + defi_count;
 		list_defi.add(dc);
-		
+
 		lsbType.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-				if(lsbType.getSelectedIndex() != 0) {
-					final String typeValue = lsbType.getItemText(lsbType.getSelectedIndex());
-					if(!list_defi.get(0).types.contains(typeValue)) {
+				if (lsbType.getSelectedIndex() != 0) {
+					final String typeValue = lsbType.getItemText(lsbType
+							.getSelectedIndex());
+					if (!list_defi.get(0).types.contains(typeValue)) {
 						list_defi.get(0).types.add(typeValue);
 						final Label type = new Label(typeValue);
 						type.setStyleName("VocaEditorTool_Obj11");
 						type.setTitle("Xóa phân loại này");
 						htmlType.add(type);
-						
+
 						type.addClickHandler(new ClickHandler() {
 							@Override
 							public void onClick(ClickEvent event) {
@@ -260,45 +312,62 @@ public class VocaEditorTool extends Composite {
 					lsbType.setSelectedIndex(0);
 				}
 			}
-		});		
-		
+		});
+
 		txbVocaDefi.addBlurHandler(new BlurHandler() {
 			@Override
 			public void onBlur(BlurEvent event) {
-				if(voca != null && !voca.getQ().toLowerCase().equals(txbVocaDefi.getText().toLowerCase())) {
+				if (voca != null
+						&& !voca.getQ().toLowerCase()
+								.equals(txbVocaDefi.getText().toLowerCase())) {
 					voca = null;
 					btnDelete.setVisible(false);
 					htmlVocaNote.setVisible(false);
 				}
-				if(voca == null && !txbVocaDefi.getText().isEmpty()) {
+				if (voca == null && !txbVocaDefi.getText().isEmpty()) {
 					checkVocaImg.setVisible(true);
-					LazzyBee.data_service.verifyVoca(txbVocaDefi.getText().toLowerCase().trim(), new AsyncCallback<Boolean>() {
-						@Override
-						public void onSuccess(Boolean result) {
-							checkVocaImg.setVisible(false);
-							if(!result) {
-								txbVocaDefi.getElement().setAttribute("style", "border: 1px solid red;");
-								LazzyBee.noticeBox.setNotice("");
-								LazzyBee.noticeBox.setRichNotice("- " + txbVocaDefi.getText() + " - Đã có trong từ điển", "/vdict/#"+txbVocaDefi.getText(), "/editor/#vocabulary/"+txbVocaDefi.getText());
-							}
-							else {
-								txbVocaDefi.getElement().setAttribute("style", "border: 1px solid #b6b6b6;");
-								LazzyBee.noticeBox.hide();
-							}
-						}
-						
-						@Override
-						public void onFailure(Throwable caught) {
-							checkVocaImg.setVisible(false);
-							txbVocaDefi.getElement().setAttribute("style", "border: 1px solid red;");
-							LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi kiểm tra - " + txbVocaDefi.getText());
-							LazzyBee.noticeBox.setAutoHide();
-						}
-					});
+					LazzyBee.data_service.verifyVoca(txbVocaDefi.getText()
+							.toLowerCase().trim(),
+							new AsyncCallback<Boolean>() {
+								@Override
+								public void onSuccess(Boolean result) {
+									checkVocaImg.setVisible(false);
+									if (!result) {
+										txbVocaDefi.getElement().setAttribute(
+												"style",
+												"border: 1px solid red;");
+										LazzyBee.noticeBox.setNotice("");
+										LazzyBee.noticeBox.setRichNotice(
+												"- "
+														+ txbVocaDefi.getText()
+														+ " - Đã có trong từ điển",
+												"/vdict/#"
+														+ txbVocaDefi.getText(),
+												"/editor/#vocabulary/"
+														+ txbVocaDefi.getText());
+									} else {
+										txbVocaDefi.getElement().setAttribute(
+												"style",
+												"border: 1px solid #b6b6b6;");
+										LazzyBee.noticeBox.hide();
+									}
+								}
+
+								@Override
+								public void onFailure(Throwable caught) {
+									checkVocaImg.setVisible(false);
+									txbVocaDefi.getElement().setAttribute(
+											"style", "border: 1px solid red;");
+									LazzyBee.noticeBox
+											.setNotice("! Đã có lỗi xảy ra khi kiểm tra - "
+													+ txbVocaDefi.getText());
+									LazzyBee.noticeBox.setAutoHide();
+								}
+							});
 				}
 			}
 		});
-		
+
 		txbVocaDefi.addAttachHandler(new Handler() {
 			@Override
 			public void onAttachOrDetach(AttachEvent event) {
@@ -306,7 +375,7 @@ public class VocaEditorTool extends Composite {
 			}
 		});
 	}
-	
+
 	public void replaceEditor() {
 		Timer t = new Timer() {
 			@Override
@@ -323,112 +392,133 @@ public class VocaEditorTool extends Composite {
 
 	public void setPreviewMode() {
 		Label header = new Label("---------- Verify Voca ----------");
-		header.getElement().setAttribute("style", "color: #0066cc; text-align: center; font-size: 20px; font-weight: bold;");
+		header.getElement()
+				.setAttribute("style",
+						"color: #0066cc; text-align: center; font-size: 20px; font-weight: bold;");
 		topToolbar.clear();
 		topToolbar.add(header);
 		topToolbar.getElement().setAttribute("style", "margin-top: 25px");
 		isPreviewMode = true;
 		topToolbar.setVisible(true);
 		btnGoTop.setVisible(false);
-//		btnSaveB.setVisible(false);
+		// btnSaveB.setVisible(false);
 		btnVerifySaveB.setVisible(true);
 		btnClose.setVisible(true);
 		txbVocaDefi.setEnabled(false);
 		htmlVocaNote.setVisible(false);
 		dictionaryTable.setVisible(false);
 	}
-	
+
 	public void setVoca(Voca voca) {
 		this.voca = voca;
 		btnDelete.setVisible(true);
-		if(!voca.isCheck()) {
+		if (!voca.isCheck()) {
 			htmlVocaNote.setVisible(true);
-			htmlVocaNote.getElement().setInnerHTML("<span style=\"font-weight: bold;\">- "+voca.getQ()+" -</span> chưa được đưa vào từ điển chính thức.");
+			htmlVocaNote
+					.getElement()
+					.setInnerHTML(
+							"<span style=\"font-weight: bold;\">- "
+									+ voca.getQ()
+									+ " -</span> chưa được đưa vào từ điển chính thức.");
 		}
-//		btnVerifySaveB.setVisible(true);
-		//-----
+		// btnVerifySaveB.setVisible(true);
+		// -----
 		txbVocaDefi.setText(voca.getQ());
-		//-----
+		// -----
 		lsbLevel.setSelectedIndex(voca.getLevel() - 1);
-		//-----
+		// -----
 		String[] packages = voca.getPackages().split(",");
-		if(packages.length > 1) 
-			for(int i = 1; i < packages.length; i++) {
-				if(packages[i].equals(Category.COMMON)) {
+		if (packages.length > 1)
+			for (int i = 1; i < packages.length; i++) {
+				if (packages[i].equals(Category.COMMON)) {
 					cbTypeCommon.setValue(true);
 					checkTypeListEvent(true, Category.COMMON, false);
 				}
-				if(packages[i].equals(Category.BASIC850)) {
+				if (packages[i].equals(Category.BASIC850)) {
 					cbType850Basic.setValue(true);
 					checkTypeListEvent(true, Category.BASIC850, false);
 				}
-				if(packages[i].equals(Category.VOAENGLISH)) {
+				if (packages[i].equals(Category.VOAENGLISH)) {
 					cbTypeVoaEnglish.setValue(true);
 					checkTypeListEvent(true, Category.VOAENGLISH, false);
 				}
-				if(packages[i].equals(Category.IELTS)) {
+				if (packages[i].equals(Category.IELTS)) {
 					cbTypeIelts.setValue(true);
 					checkTypeListEvent(true, Category.IELTS, false);
 				}
-				if(packages[i].equals(Category.TOEFL)) {
+				if (packages[i].equals(Category.TOEFL)) {
 					cbTypeToefl.setValue(true);
 					checkTypeListEvent(true, Category.TOEFL, false);
 				}
-				if(packages[i].equals(Category.ECONOMIC)) {
+				if (packages[i].equals(Category.ECONOMIC)) {
 					cbTypeEconomic.setValue(true);
 					checkTypeListEvent(true, Category.ECONOMIC, false);
 				}
-				if(packages[i].equals(Category.IT)) {
+				if (packages[i].equals(Category.IT)) {
 					cbTypeIt.setValue(true);
 					checkTypeListEvent(true, Category.IT, false);
 				}
-				if(packages[i].equals(Category.SCIENCE)) {
+				if (packages[i].equals(Category.SCIENCE)) {
 					cbTypeScience.setValue(true);
 					checkTypeListEvent(true, Category.SCIENCE, false);
 				}
-				if(packages[i].equals(Category.MEDICINE)) {
+				if (packages[i].equals(Category.MEDICINE)) {
 					cbTypeMedicine.setValue(true);
 					checkTypeListEvent(true, Category.MEDICINE, false);
 				}
-				if(packages[i].equals(Category.TOEIC)) {
+				if (packages[i].equals(Category.TOEIC)) {
 					cbTypeToeic.setValue(true);
 					checkTypeListEvent(true, Category.TOEIC, false);
 				}
-				if(packages[i].equals(Category.OTHER)) {
+				if (packages[i].equals(Category.OTHER)) {
 					cbTypeOther.setValue(true);
 					checkTypeListEvent(true, Category.OTHER, false);
 				}
-				if(packages[i].equals(Category.IDIOMS)) {
+				if (packages[i].equals(Category.IDIOMS)) {
 					cbTypeIdioms.setValue(true);
 					checkTypeListEvent(true, Category.IDIOMS, false);
 				}
 			}
-		//-----
+		// -- show category
+		String stCategory = getNameCategory(packages);
+		if (stCategory != null && stCategory.length() > 0) {
+			formCategory.setVisible(true);
+			txbCategory.setText(stCategory);
+		}
+		// --
+		txbImgUrl.setText(voca.getImg_url());
+		// -----
 		JSONValue a = JSONParser.parseStrict(voca.getA());
-		txbPronoun.setText(a.isObject().get("pronoun").toString().replaceAll("\"", ""));
+		txbPronoun.setText(a.isObject().get("pronoun").toString()
+				.replaceAll("\"", ""));
 		JSONValue pac = a.isObject().get("packages");
-		if(packages.length > 1) {
-			for(int i = 1; i < packages.length; i++) {
-				if(i == 1) {
-					if(pac.isObject().get(packages[i]) == null)
+		if (packages.length > 1) {
+			for (int i = 1; i < packages.length; i++) {
+				if (i == 1) {
+					if (pac.isObject().get(packages[i]) == null)
 						break;
 					DefiContainer dc = new DefiContainer();
 					dc.types.add(packages[i]);
 					JSONValue defi = pac.isObject().get(packages[i]);
-					dc.txbMeaning_id = defi.isObject().get("meaning").toString();
-					dc.txbExplain_id = defi.isObject().get("explain").toString();
+					dc.txbMeaning_id = defi.isObject().get("meaning")
+							.toString();
+					dc.txbExplain_id = defi.isObject().get("explain")
+							.toString();
 					dc.txbExam_id = defi.isObject().get("example").toString();
 					list_defitranforms.add(dc);
-				}
-				else {
-					if(pac.isObject().get(packages[i]) == null)
+				} else {
+					if (pac.isObject().get(packages[i]) == null)
 						break;
 					boolean isNewDc = true;
-					for(int j = i-1; j > 0; j--) {
-						if(pac.isObject().get(packages[i]).toString().equals(pac.isObject().get(packages[j]).toString())) {
+					for (int j = i - 1; j > 0; j--) {
+						if (pac.isObject()
+								.get(packages[i])
+								.toString()
+								.equals(pac.isObject().get(packages[j])
+										.toString())) {
 							isNewDc = false;
-							for(DefiContainer dc: list_defitranforms) {
-								if(dc.types.contains(packages[j])) {
+							for (DefiContainer dc : list_defitranforms) {
+								if (dc.types.contains(packages[j])) {
 									dc.types.add(packages[i]);
 									break;
 								}
@@ -436,13 +526,16 @@ public class VocaEditorTool extends Composite {
 							break;
 						}
 					}
-					if(isNewDc) {
+					if (isNewDc) {
 						DefiContainer dc = new DefiContainer();
 						dc.types.add(packages[i]);
 						JSONValue defi = pac.isObject().get(packages[i]);
-						dc.txbMeaning_id = defi.isObject().get("meaning").toString();
-						dc.txbExplain_id = defi.isObject().get("explain").toString();
-						dc.txbExam_id = defi.isObject().get("example").toString();
+						dc.txbMeaning_id = defi.isObject().get("meaning")
+								.toString();
+						dc.txbExplain_id = defi.isObject().get("explain")
+								.toString();
+						dc.txbExam_id = defi.isObject().get("example")
+								.toString();
 						list_defitranforms.add(dc);
 					}
 				}
@@ -450,34 +543,59 @@ public class VocaEditorTool extends Composite {
 			readDefiTranforms();
 		}
 	}
-	
+
+	private String getNameCategory(String[] packages) {
+		String stCategory = "";
+		if (packages.length >= 1)
+			for (int i = 0; i < packages.length; i++) {
+				if (packages[i].length() > 0
+						&& !packages[i].equals(Category.COMMON)
+						&& !packages[i].equals(Category.BASIC850)
+						&& !packages[i].equals(Category.VOAENGLISH)
+						&& !packages.equals(Category.IELTS)
+						&& !packages[i].equals(Category.TOEFL)
+						&& !packages[i].equals(Category.ECONOMIC)
+						&& !packages[i].equals(Category.IT)
+						&& !packages[i].equals(Category.SCIENCE)
+						&& !packages[i].equals(Category.MEDICINE)
+						&& !packages[i].equals(Category.OTHER)
+						&& !packages[i].equals(Category.IDIOMS)) {
+					stCategory = stCategory + "," + packages[i];
+				}
+			}
+		return stCategory;
+	}
+
 	private void readDefiTranforms() {
 		list_defi.clear();
-		//add first defi
+		// add first defi
 		final DefiContainer dc = new DefiContainer();
 		dc.txbMeaning_id = DEFI_TXBMEANING + defi_count;
 		dc.txbExplain_id = DEFI_TXBEXPLAIN + defi_count;
 		dc.txbExam_id = DEFI_TXBEXAM + defi_count;
 		list_defi.add(dc);
-		//read form first defi_tranforms
+		// read form first defi_tranforms
 		final DefiContainer firstDefi = list_defitranforms.get(0);
 		dc.types = firstDefi.types;
-//		Timer t = new Timer() {
-//			@Override
-//			public void run() {
-//				setDataCustomEditor(dc.txbMeaning_id, firstDefi.txbMeaning_id.replaceAll("\"", ""));
-//				setDataCustomEditor(dc.txbExplain_id, firstDefi.txbExplain_id.replaceAll("\"", ""));
-//				setDataCustomEditor(dc.txbExam_id, firstDefi.txbExam_id.replaceAll("\"", ""));
-//			}
-//		};
-//		t.schedule(800);
-		for(String pac: firstDefi.types) {
+		// Timer t = new Timer() {
+		// @Override
+		// public void run() {
+		// setDataCustomEditor(dc.txbMeaning_id,
+		// firstDefi.txbMeaning_id.replaceAll("\"", ""));
+		// setDataCustomEditor(dc.txbExplain_id,
+		// firstDefi.txbExplain_id.replaceAll("\"", ""));
+		// setDataCustomEditor(dc.txbExam_id,
+		// firstDefi.txbExam_id.replaceAll("\"", ""));
+		// }
+		// };
+		// t.schedule(800);
+		for (String pac : firstDefi.types) {
 			final String p = pac;
 			final Label type = new Label(p);
 			type.setStyleName("VocaEditorTool_Obj11");
 			type.setTitle("Xóa phân loại này");
 			htmlType.add(type);
-			//-----Event handler-----
+			// -----Event handler-----
 			type.addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
@@ -486,26 +604,27 @@ public class VocaEditorTool extends Composite {
 				}
 			});
 		}
-		//read all list defi_tranforms
-		for(int i = 1; i < list_defitranforms.size(); i++) {
+		// read all list defi_tranforms
+		for (int i = 1; i < list_defitranforms.size(); i++) {
 			defi_count++;
 			addDefiPanel(list_defitranforms.get(i));
 		}
 	}
-	
-	private void checkTypeListEvent(boolean isCheck, final String type, boolean isAutoAddPackage) {
-		if(isCheck) {
+
+	private void checkTypeListEvent(boolean isCheck, final String type,
+			boolean isAutoAddPackage) {
+		if (isCheck) {
 			lsbType.addItem(type);
-			for(ListBox lb: listLbType)
+			for (ListBox lb : listLbType)
 				lb.addItem(type);
 			packages.add(type);
-			if(isAutoAddPackage && list_defi.size() == 1) {
+			if (isAutoAddPackage && list_defi.size() == 1) {
 				list_defi.get(0).types.add(type);
 				final Label lbtype = new Label(type);
 				lbtype.setStyleName("VocaEditorTool_Obj11");
 				lbtype.setTitle("Xóa phân loại này");
 				htmlType.add(lbtype);
-				
+
 				lbtype.addClickHandler(new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -514,141 +633,145 @@ public class VocaEditorTool extends Composite {
 					}
 				});
 			}
-		}
-		else {
-			lsbType.removeItem(packages.indexOf(type)+ 1);
-			for(ListBox lb: listLbType)
-				lb.removeItem(packages.indexOf(type)+ 1);
+		} else {
+			lsbType.removeItem(packages.indexOf(type) + 1);
+			for (ListBox lb : listLbType)
+				lb.removeItem(packages.indexOf(type) + 1);
 			packages.remove(type);
-			for(DefiContainer dc: list_defi)
+			for (DefiContainer dc : list_defi)
 				dc.types.remove(type);
 		}
 	}
-	
-	public static native void replaceTxbNote(String txbNoteId, VocaEditorTool vet) /*-{
-	 	var noteId = txbNoteId;
-	  	var editor = $wnd.CKEDITOR.replace( noteId, {
-	  		width: '405px',
-	  		height: '50px',
-	  		contentsCss : '',
-	  		autoGrow_minHeight: 10,
-	  		autoGrow_maxHeight: 300,
-	  		toolbarStartupExpanded : false,
-	  		extraPlugins: 'autogrow,colorbutton',
-	  		removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,About',
-	  	});
-	  	
-	  	editor.on("instanceReady",function() {
-//  		$wnd.document.getElementById(editor.id+'_top').style.display = "none";
-  			vet.@com.born2go.lazzybee.client.subpage.VocaEditorTool::onCkEditorInstanceReady(Ljava/lang/String;)(noteId);
-		});
-	  	
-	  	editor.on('focus', function(){	 
-//	        $wnd.document.getElementById(editor.id+'_top').style.display = "block";
-	    });
-	   
-	    editor.on('blur', function(){	       
-//	        $wnd.document.getElementById(editor.id+'_top').style.display = "none";
-	    });
-	}-*/;
-	
-	public static native void replaceTxbNoteWithSourceEdit(String txbNoteId, VocaEditorTool vet) /*-{
-	 	var noteId = txbNoteId;
-	  	var editor = $wnd.CKEDITOR.replace( noteId, {
-	  		width: '405px',
-	  		height: '50px',
-	  		contentsCss : '',
-	  		autoGrow_minHeight: 10,
-	  		autoGrow_maxHeight: 300,
-	  		toolbarStartupExpanded : false,
-	  		extraPlugins: 'autogrow,colorbutton,sourcearea',
-	  		removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,About',
-	  	});
-	  	
-	  	editor.on("instanceReady",function() {
-	//		$wnd.document.getElementById(editor.id+'_top').style.display = "none";
-				vet.@com.born2go.lazzybee.client.subpage.VocaEditorTool::onCkEditorInstanceReady(Ljava/lang/String;)(noteId);
-		});
-	  	
-	  	editor.on('focus', function(){	 
-	//        $wnd.document.getElementById(editor.id+'_top').style.display = "block";
-	    });
-	   
-	    editor.on('blur', function(){	       
-	//        $wnd.document.getElementById(editor.id+'_top').style.display = "none";
-	    });
-	}-*/;
-	
+
+	public static native void replaceTxbNote(String txbNoteId,
+			VocaEditorTool vet) /*-{
+								var noteId = txbNoteId;
+								var editor = $wnd.CKEDITOR.replace( noteId, {
+								width: '405px',
+								height: '50px',
+								contentsCss : '',
+								autoGrow_minHeight: 10,
+								autoGrow_maxHeight: 300,
+								toolbarStartupExpanded : false,
+								extraPlugins: 'autogrow,colorbutton',
+								removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,About',
+								});
+								
+								editor.on("instanceReady",function() {
+								//  		$wnd.document.getElementById(editor.id+'_top').style.display = "none";
+								vet.@com.born2go.lazzybee.client.subpage.VocaEditorTool::onCkEditorInstanceReady(Ljava/lang/String;)(noteId);
+								});
+								
+								editor.on('focus', function(){	 
+								//	        $wnd.document.getElementById(editor.id+'_top').style.display = "block";
+								});
+								
+								editor.on('blur', function(){	       
+								//	        $wnd.document.getElementById(editor.id+'_top').style.display = "none";
+								});
+								}-*/;
+
+	public static native void replaceTxbNoteWithSourceEdit(String txbNoteId,
+			VocaEditorTool vet) /*-{
+								var noteId = txbNoteId;
+								var editor = $wnd.CKEDITOR.replace( noteId, {
+								width: '405px',
+								height: '50px',
+								contentsCss : '',
+								autoGrow_minHeight: 10,
+								autoGrow_maxHeight: 300,
+								toolbarStartupExpanded : false,
+								extraPlugins: 'autogrow,colorbutton,sourcearea',
+								removeButtons: 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,About',
+								});
+								
+								editor.on("instanceReady",function() {
+								//		$wnd.document.getElementById(editor.id+'_top').style.display = "none";
+								vet.@com.born2go.lazzybee.client.subpage.VocaEditorTool::onCkEditorInstanceReady(Ljava/lang/String;)(noteId);
+								});
+								
+								editor.on('focus', function(){	 
+								//        $wnd.document.getElementById(editor.id+'_top').style.display = "block";
+								});
+								
+								editor.on('blur', function(){	       
+								//        $wnd.document.getElementById(editor.id+'_top').style.display = "none";
+								});
+								}-*/;
+
 	public static native String getDataCustomEditor(String editorId) /*-{
-		var eid = editorId;
-		var editor = $wnd.document.getElementById("cke_"+ eid);
-		if(editor != null) {
-			var data = $wnd.CKEDITOR.instances[eid].getData();
-			return data;
-		}
-		else
-			return "";
-	}-*/;
-	
+																		var eid = editorId;
+																		var editor = $wnd.document.getElementById("cke_"+ eid);
+																		if(editor != null) {
+																		var data = $wnd.CKEDITOR.instances[eid].getData();
+																		return data;
+																		}
+																		else
+																		return "";
+																		}-*/;
+
 	public static native void setDataCustomEditor(String editorId, String data) /*-{
-		var eid = editorId;
-		var d = data;
-		var editor = $wnd.document.getElementById("cke_"+ eid);
-		if(editor != null) {
-			if(eid == 'dictionaryEV' || eid == 'dictionaryEE')
-				$wnd.CKEDITOR.instances[eid].loadSnapshot(d);
-			else
-				$wnd.CKEDITOR.instances[eid].setData(d);
-		}
-	}-*/;
-	
+																				var eid = editorId;
+																				var d = data;
+																				var editor = $wnd.document.getElementById("cke_"+ eid);
+																				if(editor != null) {
+																				if(eid == 'dictionaryEV' || eid == 'dictionaryEE')
+																				$wnd.CKEDITOR.instances[eid].loadSnapshot(d);
+																				else
+																				$wnd.CKEDITOR.instances[eid].setData(d);
+																				}
+																				}-*/;
+
 	public static native void destroyCustomEditor(String editorId) /*-{
-		var eid = editorId;
-		var editor = $wnd.document.getElementById("cke_"+ eid);
-		if(editor != null) {
-			$wnd.CKEDITOR.instances[eid].setData("");
-			$wnd.CKEDITOR.instances[eid].destroy();
-		}
-	}-*/;
-	
+																	var eid = editorId;
+																	var editor = $wnd.document.getElementById("cke_"+ eid);
+																	if(editor != null) {
+																	$wnd.CKEDITOR.instances[eid].setData("");
+																	$wnd.CKEDITOR.instances[eid].destroy();
+																	}
+																	}-*/;
+
 	void onCkEditorInstanceReady(String ckId) {
-		if(voca != null) {
-			if(ckId.equals("dictionaryEV"))
+		if (voca != null) {
+			if (ckId.equals("dictionaryEV"))
 				setDataCustomEditor(ckId, voca.getL_vn());
-			else if(ckId.equals("dictionaryEE"))
+			else if (ckId.equals("dictionaryEE"))
 				setDataCustomEditor(ckId, voca.getL_en());
 			else {
-				if(!list_defitranforms.isEmpty()) {
+				if (!list_defitranforms.isEmpty()) {
 					String ckIds[] = ckId.split("_");
 					int index = Integer.valueOf(ckIds[1]) - 1;
-					if(index < list_defitranforms.size()) {
-						if(ckIds[0].equals("txbMeaning")) {
+					if (index < list_defitranforms.size()) {
+						if (ckIds[0].equals("txbMeaning")) {
 							DefiContainer dc = list_defitranforms.get(index);
-							if(!dc.txbMeaning_id.equals("\"\""))
-								setDataCustomEditor(ckId, dc.txbMeaning_id.replaceAll("\"", ""));
+							if (!dc.txbMeaning_id.equals("\"\""))
+								setDataCustomEditor(ckId,
+										dc.txbMeaning_id.replaceAll("\"", ""));
 						}
-						if(ckIds[0].equals("txbExplain")) {
+						if (ckIds[0].equals("txbExplain")) {
 							DefiContainer dc = list_defitranforms.get(index);
-							if(!dc.txbExplain_id.equals("\"\""))
-								setDataCustomEditor(ckId, dc.txbExplain_id.replaceAll("\"", ""));
+							if (!dc.txbExplain_id.equals("\"\""))
+								setDataCustomEditor(ckId,
+										dc.txbExplain_id.replaceAll("\"", ""));
 						}
-						if(ckIds[0].equals("txbExam")) {
+						if (ckIds[0].equals("txbExam")) {
 							DefiContainer dc = list_defitranforms.get(index);
-							if(!dc.txbExam_id.equals("\"\""))
-								setDataCustomEditor(ckId, dc.txbExam_id.replaceAll("\"", ""));
+							if (!dc.txbExam_id.equals("\"\""))
+								setDataCustomEditor(ckId,
+										dc.txbExam_id.replaceAll("\"", ""));
 						}
 					}
 				}
 			}
 		}
 	}
-	
-	private void addDefiPanel( ) {
+
+	private void addDefiPanel() {
 		final HTML html = new HTML();
 		html.setHTML("<br/> <div style='border-top: 1px solid silver; margin-bottom: 25px; margin-top: 10px; width: 575px;'></div>");
 		defiTable.add(html);
 		final HTMLPanel htmlp = new HTMLPanel("");
-		//---
+		// ---
 		HorizontalPanel hor1 = new HorizontalPanel();
 		hor1.setStyleName("VocaEditorTool_Obj3");
 		Label lb1 = new Label("Giải nghĩa cho");
@@ -659,14 +782,14 @@ public class VocaEditorTool extends Composite {
 		lsbType.setSize("140px", "30px");
 		lsbType.setStyleName("VocaEditorTool_Obj4 VocaEditorTool_Obj10");
 		lsbType.addItem("- Chọn phân loại -");
-		for(String type: packages)
+		for (String type : packages)
 			lsbType.addItem(type);
 		htmlType.add(lsbType);
 		hor1.add(lb1);
 		hor1.add(htmlType);
 		htmlp.add(hor1);
 		listLbType.add(lsbType);
-		//---
+		// ---
 		HorizontalPanel hor2 = new HorizontalPanel();
 		hor2.setStyleName("VocaEditorTool_Obj3");
 		HTMLPanel html_mean = new HTMLPanel("");
@@ -674,16 +797,18 @@ public class VocaEditorTool extends Composite {
 		Label lb2 = new Label("Nghĩa");
 		lb2.setStyleName("VocaEditorTool_Obj2");
 		Label lb2note = new Label("(Tiếng Việt)");
-		lb2note.getElement().setAttribute("style", "font-weight: 500; position: relative; top: 6px;");
+		lb2note.getElement().setAttribute("style",
+				"font-weight: 500; position: relative; top: 6px;");
 		html_mean.add(lb2);
 		html_mean.add(lb2note);
 		TextArea txbMeaning = new TextArea();
 		txbMeaning.setStyleName("VocaEditorTool_Obj4");
-		txbMeaning.getElement().setAttribute("id", DEFI_TXBMEANING + defi_count);
+		txbMeaning.getElement()
+				.setAttribute("id", DEFI_TXBMEANING + defi_count);
 		hor2.add(html_mean);
 		hor2.add(txbMeaning);
 		htmlp.add(hor2);
-		//---
+		// ---
 		HorizontalPanel hor3 = new HorizontalPanel();
 		hor3.setStyleName("VocaEditorTool_Obj3");
 		HTMLPanel html_explain = new HTMLPanel("");
@@ -691,16 +816,18 @@ public class VocaEditorTool extends Composite {
 		Label lb3 = new Label("Giải thích");
 		lb3.setStyleName("VocaEditorTool_Obj2");
 		Label lb3note = new Label("(Tiếng Anh)");
-		lb3note.getElement().setAttribute("style", "font-weight: 500; position: relative; top: 6px;");
+		lb3note.getElement().setAttribute("style",
+				"font-weight: 500; position: relative; top: 6px;");
 		html_explain.add(lb3);
 		html_explain.add(lb3note);
 		TextArea txbExplain = new TextArea();
 		txbExplain.setStyleName("VocaEditorTool_Obj4");
-		txbExplain.getElement().setAttribute("id", DEFI_TXBEXPLAIN + defi_count);
+		txbExplain.getElement()
+				.setAttribute("id", DEFI_TXBEXPLAIN + defi_count);
 		hor3.add(html_explain);
 		hor3.add(txbExplain);
 		htmlp.add(hor3);
-		//---
+		// ---
 		HorizontalPanel hor4 = new HorizontalPanel();
 		hor4.setStyleName("VocaEditorTool_Obj3");
 		Label lb4 = new Label("Ví dụ");
@@ -711,7 +838,7 @@ public class VocaEditorTool extends Composite {
 		hor4.add(lb4);
 		hor4.add(txbExam);
 		htmlp.add(hor4);
-		//---
+		// ---
 		HorizontalPanel hor5 = new HorizontalPanel();
 		hor5.setStyleName("VocaEditorTool_Obj3");
 		Label lb5 = new Label("Hình ảnh minh họa");
@@ -719,38 +846,40 @@ public class VocaEditorTool extends Composite {
 		Anchor ac = new Anchor();
 		ac.setTitle("Upload");
 		ac.setStyleName("VocaEditorTool_Obj6");
-		ac.getElement().setInnerHTML("<i class='fa fa-upload fa-lg' style='color:silver'></i>");
+		ac.getElement().setInnerHTML(
+				"<i class='fa fa-upload fa-lg' style='color:silver'></i>");
 		hor5.add(lb5);
 		hor5.add(ac);
 		htmlp.add(hor5);
-		//---
+		// ---
 		Anchor deleteDefi = new Anchor("Xóa giải nghĩa này");
 		deleteDefi.setStyleName("VocaEditorTool_Obj5 VocaEditorTool_Obj6");
 		deleteDefi.getElement().setAttribute("style", "color:red");
 		htmlp.add(deleteDefi);
-		//---
+		// ---
 		defiTable.add(htmlp);
-		//-----Add Defi Container-----
+		// -----Add Defi Container-----
 		final DefiContainer dc = new DefiContainer();
 		dc.txbMeaning_id = DEFI_TXBMEANING + defi_count;
 		dc.txbExplain_id = DEFI_TXBEXPLAIN + defi_count;
 		dc.txbExam_id = DEFI_TXBEXAM + defi_count;
 		list_defi.add(dc);
-		//-----event handler-----
+		// -----event handler-----
 		lsbType.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-				if(lsbType.getSelectedIndex() != 0) {
-					final String typeValue = lsbType.getItemText(lsbType.getSelectedIndex());
-					if(!dc.types.contains(typeValue)) {
+				if (lsbType.getSelectedIndex() != 0) {
+					final String typeValue = lsbType.getItemText(lsbType
+							.getSelectedIndex());
+					if (!dc.types.contains(typeValue)) {
 						dc.types.add(typeValue);
 						final Label type = new Label(typeValue);
 						type.setStyleName("VocaEditorTool_Obj11");
 						type.setTitle("Xóa phân loại này");
 						htmlType.add(type);
-						
+
 						type.addClickHandler(new ClickHandler() {
-							
+
 							@Override
 							public void onClick(ClickEvent event) {
 								htmlType.remove(type);
@@ -761,7 +890,7 @@ public class VocaEditorTool extends Composite {
 					lsbType.setSelectedIndex(0);
 				}
 			}
-		});	
+		});
 		deleteDefi.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -772,7 +901,7 @@ public class VocaEditorTool extends Composite {
 				listLbType.remove(lsbType);
 			}
 		});
-		//-----timer-----
+		// -----timer-----
 		Timer t = new Timer() {
 			@Override
 			public void run() {
@@ -785,18 +914,19 @@ public class VocaEditorTool extends Composite {
 		Timer t2 = new Timer() {
 			@Override
 			public void run() {
-				DOM.getElementById("content").setScrollTop(0+340+((list_defi.size()-1)*450));
+				DOM.getElementById("content").setScrollTop(
+						0 + 340 + ((list_defi.size() - 1) * 450));
 			}
 		};
 		t2.schedule(150);
 	}
-	
+
 	private void addDefiPanel(final DefiContainer defiTranforms) {
 		final HTML html = new HTML();
 		html.setHTML("<br/> <div style='border-top: 1px solid silver; margin-bottom: 25px; margin-top: 10px; width: 575px;'></div>");
 		defiTable.add(html);
 		final HTMLPanel htmlp = new HTMLPanel("");
-		//---
+		// ---
 		HorizontalPanel hor1 = new HorizontalPanel();
 		hor1.setStyleName("VocaEditorTool_Obj3");
 		Label lb1 = new Label("Giải nghĩa cho");
@@ -807,14 +937,14 @@ public class VocaEditorTool extends Composite {
 		lsbType.setSize("140px", "30px");
 		lsbType.setStyleName("VocaEditorTool_Obj4 VocaEditorTool_Obj10");
 		lsbType.addItem("- Chọn phân loại -");
-		for(String type: packages)
+		for (String type : packages)
 			lsbType.addItem(type);
 		htmlType.add(lsbType);
 		hor1.add(lb1);
 		hor1.add(htmlType);
 		htmlp.add(hor1);
 		listLbType.add(lsbType);
-		//---
+		// ---
 		HorizontalPanel hor2 = new HorizontalPanel();
 		hor2.setStyleName("VocaEditorTool_Obj3");
 		HTMLPanel html_mean = new HTMLPanel("");
@@ -822,16 +952,18 @@ public class VocaEditorTool extends Composite {
 		Label lb2 = new Label("Nghĩa");
 		lb2.setStyleName("VocaEditorTool_Obj2");
 		Label lb2note = new Label("(Tiếng Việt)");
-		lb2note.getElement().setAttribute("style", "font-weight: 500; position: relative; top: 6px;");
+		lb2note.getElement().setAttribute("style",
+				"font-weight: 500; position: relative; top: 6px;");
 		html_mean.add(lb2);
 		html_mean.add(lb2note);
 		TextArea txbMeaning = new TextArea();
 		txbMeaning.setStyleName("VocaEditorTool_Obj4");
-		txbMeaning.getElement().setAttribute("id", DEFI_TXBMEANING + defi_count);
+		txbMeaning.getElement()
+				.setAttribute("id", DEFI_TXBMEANING + defi_count);
 		hor2.add(html_mean);
 		hor2.add(txbMeaning);
 		htmlp.add(hor2);
-		//---
+		// ---
 		HorizontalPanel hor3 = new HorizontalPanel();
 		hor3.setStyleName("VocaEditorTool_Obj3");
 		HTMLPanel html_explain = new HTMLPanel("");
@@ -839,16 +971,18 @@ public class VocaEditorTool extends Composite {
 		Label lb3 = new Label("Giải thích");
 		lb3.setStyleName("VocaEditorTool_Obj2");
 		Label lb3note = new Label("(Tiếng Anh)");
-		lb3note.getElement().setAttribute("style", "font-weight: 500; position: relative; top: 6px;");
+		lb3note.getElement().setAttribute("style",
+				"font-weight: 500; position: relative; top: 6px;");
 		html_explain.add(lb3);
 		html_explain.add(lb3note);
 		TextArea txbExplain = new TextArea();
 		txbExplain.setStyleName("VocaEditorTool_Obj4");
-		txbExplain.getElement().setAttribute("id", DEFI_TXBEXPLAIN + defi_count);
+		txbExplain.getElement()
+				.setAttribute("id", DEFI_TXBEXPLAIN + defi_count);
 		hor3.add(html_explain);
 		hor3.add(txbExplain);
 		htmlp.add(hor3);
-		//---
+		// ---
 		HorizontalPanel hor4 = new HorizontalPanel();
 		hor4.setStyleName("VocaEditorTool_Obj3");
 		Label lb4 = new Label("Ví dụ");
@@ -859,7 +993,7 @@ public class VocaEditorTool extends Composite {
 		hor4.add(lb4);
 		hor4.add(txbExam);
 		htmlp.add(hor4);
-		//---
+		// ---
 		HorizontalPanel hor5 = new HorizontalPanel();
 		hor5.setStyleName("VocaEditorTool_Obj3");
 		Label lb5 = new Label("Hình ảnh minh họa");
@@ -867,31 +1001,32 @@ public class VocaEditorTool extends Composite {
 		Anchor ac = new Anchor();
 		ac.setTitle("Upload");
 		ac.setStyleName("VocaEditorTool_Obj6");
-		ac.getElement().setInnerHTML("<i class='fa fa-upload fa-lg' style='color:silver'></i>");
+		ac.getElement().setInnerHTML(
+				"<i class='fa fa-upload fa-lg' style='color:silver'></i>");
 		hor5.add(lb5);
 		hor5.add(ac);
 		htmlp.add(hor5);
-		//---
+		// ---
 		Anchor deleteDefi = new Anchor("Xóa giải nghĩa này");
 		deleteDefi.setStyleName("VocaEditorTool_Obj5 VocaEditorTool_Obj6");
 		deleteDefi.getElement().setAttribute("style", "color:red");
 		htmlp.add(deleteDefi);
-		//---
+		// ---
 		defiTable.add(htmlp);
-		//-----Add Defi Container-----
+		// -----Add Defi Container-----
 		final DefiContainer dc = new DefiContainer();
 		dc.txbMeaning_id = DEFI_TXBMEANING + defi_count;
 		dc.txbExplain_id = DEFI_TXBEXPLAIN + defi_count;
 		dc.txbExam_id = DEFI_TXBEXAM + defi_count;
 		list_defi.add(dc);
 		dc.types = defiTranforms.types;
-		for(String pac: defiTranforms.types) {
+		for (String pac : defiTranforms.types) {
 			final String p = pac;
 			final Label type = new Label(p);
 			type.setStyleName("VocaEditorTool_Obj11");
 			type.setTitle("Xóa phân loại này");
 			htmlType.add(type);
-			//-----Event handler-----
+			// -----Event handler-----
 			type.addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
@@ -900,19 +1035,20 @@ public class VocaEditorTool extends Composite {
 				}
 			});
 		}
-		//-----event handler-----
+		// -----event handler-----
 		lsbType.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-				if(lsbType.getSelectedIndex() != 0) {
-					final String typeValue = lsbType.getItemText(lsbType.getSelectedIndex());
-					if(!dc.types.contains(typeValue)) {
+				if (lsbType.getSelectedIndex() != 0) {
+					final String typeValue = lsbType.getItemText(lsbType
+							.getSelectedIndex());
+					if (!dc.types.contains(typeValue)) {
 						dc.types.add(typeValue);
 						final Label type = new Label(typeValue);
 						type.setStyleName("VocaEditorTool_Obj11");
 						type.setTitle("Xóa phân loại này");
 						htmlType.add(type);
-						//-----Event handler-----
+						// -----Event handler-----
 						type.addClickHandler(new ClickHandler() {
 							@Override
 							public void onClick(ClickEvent event) {
@@ -924,7 +1060,7 @@ public class VocaEditorTool extends Composite {
 					lsbType.setSelectedIndex(0);
 				}
 			}
-		});	
+		});
 		deleteDefi.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -935,7 +1071,7 @@ public class VocaEditorTool extends Composite {
 				listLbType.remove(lsbType);
 			}
 		});
-		//-----timer-----
+		// -----timer-----
 		Timer t = new Timer() {
 			@Override
 			public void run() {
@@ -945,162 +1081,209 @@ public class VocaEditorTool extends Composite {
 			}
 		};
 		t.schedule(100);
-//		Timer t2 = new Timer() {
-//			@Override
-//			public void run() {
-//				setDataCustomEditor(dc.txbMeaning_id, defiTranforms.txbMeaning_id.replaceAll("\"", ""));
-//				setDataCustomEditor(dc.txbExplain_id, defiTranforms.txbExplain_id.replaceAll("\"", ""));
-//				setDataCustomEditor(dc.txbExam_id, defiTranforms.txbExam_id.replaceAll("\"", ""));
-//			}
-//		};
-//		t2.schedule(800);
+		// Timer t2 = new Timer() {
+		// @Override
+		// public void run() {
+		// setDataCustomEditor(dc.txbMeaning_id,
+		// defiTranforms.txbMeaning_id.replaceAll("\"", ""));
+		// setDataCustomEditor(dc.txbExplain_id,
+		// defiTranforms.txbExplain_id.replaceAll("\"", ""));
+		// setDataCustomEditor(dc.txbExam_id,
+		// defiTranforms.txbExam_id.replaceAll("\"", ""));
+		// }
+		// };
+		// t2.schedule(800);
 	}
-	
+
 	private String getJsonData() {
 		String data = "";
-		//Define answers
+		// Define answers
 		JSONObject a = new JSONObject();
 		a.put("q", new JSONString(txbVocaDefi.getText().trim().toLowerCase()));
 		a.put("pronoun", new JSONString(txbPronoun.getText()));
-		//Define package
+		// Define package
 		JSONObject pac = new JSONObject();
-		for(DefiContainer dc: list_defi) {
-			for(String pacName: dc.types) {
+		for (DefiContainer dc : list_defi) {
+			for (String pacName : dc.types) {
 				JSONObject category = new JSONObject();
-				category.put("meaning", new JSONString(getDataCustomEditor(dc.txbMeaning_id)));
-				category.put("explain", new JSONString(getDataCustomEditor(dc.txbExplain_id)));
-				category.put("example", new JSONString(getDataCustomEditor(dc.txbExam_id)));
+				category.put("meaning", new JSONString(
+						getDataCustomEditor(dc.txbMeaning_id)));
+				category.put("explain", new JSONString(
+						getDataCustomEditor(dc.txbExplain_id)));
+				category.put("example", new JSONString(
+						getDataCustomEditor(dc.txbExam_id)));
 				pac.put(pacName, category);
+			}
+		}
+		String stCategory = txbCategory.getText();
+		if (stCategory != null && stCategory.length() > 0) {
+			String arrayCate[] = stCategory.split(",");
+			for (String pacName : arrayCate) {
+				if (pacName != null && !pacName.isEmpty()) {
+					JSONObject category = new JSONObject();
+					category.put("meaning", new JSONString(""));
+					category.put("explain", new JSONString(""));
+					category.put("example", new JSONString(""));
+					pac.put(pacName, category);
+				}
+
 			}
 		}
 		a.put("packages", pac);
 		data = a.toString();
 		return data;
 	}
-	
+
 	private String getPackages() {
 		String spackages = "";
-		for(String pac: packages) {
+		for (String pac : packages) {
 			spackages = spackages + "," + pac;
 		}
 		spackages = spackages + ",";
+		String nameCategory = txbCategory.getText();
+		if (nameCategory != null && !nameCategory.isEmpty()) {
+			String[] categories = nameCategory.split(",");
+			for (String string : categories) {
+				if (string != null && !string.isEmpty())
+					spackages = spackages + "," + string;
+			}
+		}
 		return spackages;
 	}
-	
+
 	private void saveNewVoca() {
-		if(verifyField()) {
+		if (verifyField()) {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final VocaPreview v = new VocaPreview();
 			v.setQ(txbVocaDefi.getText().toLowerCase().trim());
-			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel.getSelectedIndex())));
+			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel
+					.getSelectedIndex())));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
 			v.setL_vn(getDataCustomEditor("dictionaryEV"));
 			v.setL_en(getDataCustomEditor("dictionaryEE"));
 			v.setCreator(LazzyBee.userName);
+			v.setImg_url(txbImgUrl.getText());
 			LazzyBee.data_service.insertVoca(v, new AsyncCallback<Voca>() {
 				@Override
 				public void onSuccess(Voca result) {
-					if(result != null) {
+					if (result != null) {
 						formClean();
 						DOM.getElementById("content").setScrollTop(0);
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được thêm vào từ điển", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
-					} 
-					else {
-						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+						LazzyBee.noticeBox.setRichNotice("- " + v.getQ()
+								+ " - đã được thêm vào từ điển",
+								"/vdict/#" + v.getQ(), "/editor/#vocabulary/"
+										+ v.getQ());
+					} else {
+						LazzyBee.noticeBox
+								.setNotice("! Đã có lỗi xảy ra khi tải lên");
 						LazzyBee.noticeBox.setAutoHide();
 					}
 				}
-				
+
 				@Override
 				public void onFailure(Throwable caught) {
-					LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
+					LazzyBee.noticeBox
+							.setNotice("! Đã có lỗi xảy ra khi tải lên");
 					LazzyBee.noticeBox.setAutoHide();
 				}
 			});
 		}
 	}
-	
+
 	private void updateVoca() {
-		if(verifyField()) {
+		if (verifyField()) {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final Voca v = voca;
-			/*v.setGid(voca.getGid());*/
+			/* v.setGid(voca.getGid()); */
 			v.setQ(txbVocaDefi.getText().trim());
-			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel.getSelectedIndex())));
+			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel
+					.getSelectedIndex())));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
-			if(!isPreviewMode) {
+			v.setImg_url(txbImgUrl.getText());
+			if (!isPreviewMode) {
 				v.setL_vn(getDataCustomEditor("dictionaryEV"));
 				v.setL_en(getDataCustomEditor("dictionaryEE"));
 			}
-			LazzyBee.data_service.updateVoca(v, LazzyBee.userId, new AsyncCallback<Voca>() {
-				@Override
-				public void onSuccess(Voca result) {
-					if(result != null) {
-						if(!isPreviewMode)
-							formClean();
-						else
-							if(listener != null)
-								listener.onApproval(result);
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
-					}
-					else {
-						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
-						LazzyBee.noticeBox.setAutoHide();
-					}
-				}
-				
-				@Override
-				public void onFailure(Throwable caught) {
-					LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
-					LazzyBee.noticeBox.setAutoHide();
-				}
-			});
+			LazzyBee.data_service.updateVoca(v, LazzyBee.userId,
+					new AsyncCallback<Voca>() {
+						@Override
+						public void onSuccess(Voca result) {
+							if (result != null) {
+								if (!isPreviewMode)
+									formClean();
+								else if (listener != null)
+									listener.onApproval(result);
+								LazzyBee.noticeBox.setRichNotice(
+										"- " + v.getQ() + " - đã được cập nhật",
+										"/vdict/#" + v.getQ(),
+										"/editor/#vocabulary/" + v.getQ());
+							} else {
+								LazzyBee.noticeBox
+										.setNotice("! Đã có lỗi xảy ra khi tải lên");
+								LazzyBee.noticeBox.setAutoHide();
+							}
+						}
+
+						@Override
+						public void onFailure(Throwable caught) {
+							LazzyBee.noticeBox
+									.setNotice("! Đã có lỗi xảy ra khi tải lên");
+							LazzyBee.noticeBox.setAutoHide();
+						}
+					});
 		}
 	}
-	
+
 	private void verifyUpdateVoca() {
-		if(verifyField()) {
+		if (verifyField()) {
 			LazzyBee.noticeBox.setNotice("Đang tải lên... ");
 			final Voca v = voca;
-			/*v.setGid(voca.getGid());*/
+			/* v.setGid(voca.getGid()); */
 			v.setQ(txbVocaDefi.getText().trim());
-			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel.getSelectedIndex())));
+			v.setLevel(Integer.valueOf(lsbLevel.getValue(lsbLevel
+					.getSelectedIndex())));
 			v.setA(getJsonData());
 			v.setPackages(getPackages());
-			if(!isPreviewMode) {
+			if (!isPreviewMode) {
 				v.setL_vn(getDataCustomEditor("dictionaryEV"));
 				v.setL_en(getDataCustomEditor("dictionaryEE"));
 			}
-			LazzyBee.data_service.verifyUpdateVoca(v, LazzyBee.userId, new AsyncCallback<Voca>() {
-				@Override
-				public void onSuccess(Voca result) {
-					if(result != null) {
-						if(!isPreviewMode)
-							formClean();
-						else
-							if(listener != null)
-								listener.onApproval(result);
-						LazzyBee.noticeBox.setRichNotice("- "+ v.getQ()+ " - đã được cập nhật", "/vdict/#" + v.getQ(), "/editor/#vocabulary/" + v.getQ());
-					}
-					else {
-						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
-						LazzyBee.noticeBox.setAutoHide();
-					}
-				}
-				
-				@Override
-				public void onFailure(Throwable caught) {
-					LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
-					LazzyBee.noticeBox.setAutoHide();
-				}
-			});
+			LazzyBee.data_service.verifyUpdateVoca(v, LazzyBee.userId,
+					new AsyncCallback<Voca>() {
+						@Override
+						public void onSuccess(Voca result) {
+							if (result != null) {
+								if (!isPreviewMode)
+									formClean();
+								else if (listener != null)
+									listener.onApproval(result);
+								LazzyBee.noticeBox.setRichNotice(
+										"- " + v.getQ() + " - đã được cập nhật",
+										"/vdict/#" + v.getQ(),
+										"/editor/#vocabulary/" + v.getQ());
+							} else {
+								LazzyBee.noticeBox
+										.setNotice("! Đã có lỗi xảy ra khi tải lên");
+								LazzyBee.noticeBox.setAutoHide();
+							}
+						}
+
+						@Override
+						public void onFailure(Throwable caught) {
+							LazzyBee.noticeBox
+									.setNotice("! Đã có lỗi xảy ra khi tải lên");
+							LazzyBee.noticeBox.setAutoHide();
+						}
+					});
 		}
 	}
-	
+
 	private void formClean() {
-		String newURL = Window.Location.createUrlBuilder().setHash("vocabulary").buildString();
+		formCategory.setVisible(false);
+		String newURL = Window.Location.createUrlBuilder()
+				.setHash("vocabulary").buildString();
 		Window.Location.replace(newURL);
 		DOM.getElementById("content").setScrollTop(0);
 		htmlVocaNote.setVisible(false);
@@ -1108,6 +1291,8 @@ public class VocaEditorTool extends Composite {
 		btnVerifySaveB.setVisible(false);
 		txbVocaDefi.setText("");
 		txbVocaDefi.getElement().setAttribute("style", "");
+		txbImgUrl.setText("");
+		txbImgUrl.getElement().setAttribute("style", "");
 		txbPronoun.setText("");
 		txbPronoun.getElement().setAttribute("style", "");
 		lbType.getElement().setAttribute("style", "");
@@ -1136,7 +1321,7 @@ public class VocaEditorTool extends Composite {
 		listLbType.clear();
 		list_defitranforms.clear();
 		voca = null;
-		//-----startup over-----
+		// -----startup over-----
 		lsbType.addItem("- Chọn phân loại -");
 		htmlType.add(lsbType);
 		replaceTxbNote(DEFI_TXBMEANING + 1, vet);
@@ -1151,51 +1336,54 @@ public class VocaEditorTool extends Composite {
 		dc.txbExam_id = DEFI_TXBEXAM + defi_count;
 		list_defi.add(dc);
 	}
-	
+
 	@UiHandler("btnSave")
 	void onBtnSaveClick(ClickEvent e) {
-		if(voca == null)
+		if (voca == null)
 			saveNewVoca();
 		else
 			updateVoca();
 	}
-	
+
 	@UiHandler("btnSaveB")
 	void onBtnSaveBClick(ClickEvent e) {
-		if(voca == null)
+		if (voca == null)
 			saveNewVoca();
 		else
 			updateVoca();
 	}
-	
+
 	@UiHandler("btnVerifySaveB")
 	void onBtnVerifySaveBClick(ClickEvent e) {
-		if(voca != null)
+		if (voca != null)
 			verifyUpdateVoca();
 	}
-	
+
 	@UiHandler("btnDelete")
 	void onBtnDeleteClick(ClickEvent e) {
 		if (verifyField()) {
-		if(Window.confirm("Bạn muốn xóa từ - " + voca.getQ() + " -?")) {
-			if(voca != null) {
-				final String voca_q = voca.getQ();
-				LazzyBee.data_service.removeVoca(voca, LazzyBee.userId, new AsyncCallback<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						formClean();
-						LazzyBee.noticeBox.setNotice("- "+ voca_q + " - đã bị xóa");
-						LazzyBee.noticeBox.setAutoHide();
-					}
-					
-					@Override
-					public void onFailure(Throwable caught) {
-						LazzyBee.noticeBox.setNotice("! Đã có lỗi xảy ra khi tải lên");
-						LazzyBee.noticeBox.setAutoHide();
-					}
-				});
+			if (Window.confirm("Bạn muốn xóa từ - " + voca.getQ() + " -?")) {
+				if (voca != null) {
+					final String voca_q = voca.getQ();
+					LazzyBee.data_service.removeVoca(voca, LazzyBee.userId,
+							new AsyncCallback<Void>() {
+								@Override
+								public void onSuccess(Void result) {
+									formClean();
+									LazzyBee.noticeBox.setNotice("- " + voca_q
+											+ " - đã bị xóa");
+									LazzyBee.noticeBox.setAutoHide();
+								}
+
+								@Override
+								public void onFailure(Throwable caught) {
+									LazzyBee.noticeBox
+											.setNotice("! Đã có lỗi xảy ra khi tải lên");
+									LazzyBee.noticeBox.setAutoHide();
+								}
+							});
+				}
 			}
-		}
 		}
 	}
 
@@ -1204,49 +1392,52 @@ public class VocaEditorTool extends Composite {
 		defi_count++;
 		addDefiPanel();
 	}
-	
+
 	@UiHandler("btnGoTop")
 	void onBtnGoTopClick(ClickEvent e) {
 		DOM.getElementById("content").setScrollTop(0);
 	}
-	
+
 	@UiHandler("btnClear")
 	void onBtnClearClick(ClickEvent e) {
 		formClean();
 	}
-	
+
 	@UiHandler("btnClose")
 	void onBtnCloseClick(ClickEvent e) {
-		if(listener != null)
+		if (listener != null)
 			listener.onClose();
 	}
-	
+
 	boolean verifyField() {
 		boolean verify = true;
-		if(LazzyBee.userName == null) {
+		if (LazzyBee.userName == null) {
 			verify = false;
 			DOM.getElementById("content").setScrollTop(0);
 			LazzyBee.noticeBox.setNotice("Bạn cần đăng nhập trước!");
 			LazzyBee.noticeBox.setAutoHide();
 		}
-		if(list_defi.get(0).types.isEmpty()) {
+		if (list_defi.get(0).types.isEmpty()) {
 			verify = false;
 			lbType.getElement().setAttribute("style", "border: 1px solid red;");
 			DOM.getElementById("content").setScrollTop(100);
 			LazzyBee.noticeBox.setNotice("");
-			LazzyBee.noticeBox.setNotice("Bạn cần chọn một phân loại cho phần giải nghĩa từ!");
+			LazzyBee.noticeBox
+					.setNotice("Bạn cần chọn một phân loại cho phần giải nghĩa từ!");
 			LazzyBee.noticeBox.setAutoHide();
 		}
-		if(txbVocaDefi.getText().equals("")) {
+		if (txbVocaDefi.getText().equals("")) {
 			verify = false;
-			txbVocaDefi.getElement().setAttribute("style", "border: 1px solid red;");
+			txbVocaDefi.getElement().setAttribute("style",
+					"border: 1px solid red;");
 			DOM.getElementById("content").setScrollTop(0);
 		}
-//		if(txbPronoun.getText().equals("")) {
-//			verify = false;
-//			txbPronoun.getElement().setAttribute("style", "border: 1px solid red;");
-//			DOM.getElementById("content").setScrollTop(0);
-//		}
+		// if(txbPronoun.getText().equals("")) {
+		// verify = false;
+		// txbPronoun.getElement().setAttribute("style",
+		// "border: 1px solid red;");
+		// DOM.getElementById("content").setScrollTop(0);
+		// }
 		return verify;
 	}
 

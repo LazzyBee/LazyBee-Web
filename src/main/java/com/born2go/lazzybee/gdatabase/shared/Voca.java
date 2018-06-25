@@ -30,6 +30,7 @@ public class Voca implements Serializable {
 	String note;
 	String creator;
 	String user_comment;
+	String img_url;
 	
 	//@Index
 	boolean isCheck = false;
@@ -126,6 +127,15 @@ public class Voca implements Serializable {
 		this.isCheck = isCheck;
 	}
 	
+	
+	public String getImg_url() {
+		return img_url;
+	}
+
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
+	}
+
 	public void getVocaPreviewContent(VocaPreview v) {
 		this.gid = v.getGid();
 		this.q = v.getQ();
@@ -137,6 +147,7 @@ public class Voca implements Serializable {
 		this.note = v.getNote();
 		this.creator = v.getCreator();
 		this.user_comment = v.getUser_comment();
+		this.img_url = v.getImg_url();
 	}
 
 	@Override

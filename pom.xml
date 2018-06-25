@@ -4,9 +4,10 @@
 	<artifactId>lazzybee</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	<groupId>com.born2go</groupId>
 
 	<properties>
-		<javaRuntime>1.8</javaRuntime>
+		<javaRuntime>1.7</javaRuntime>
 		<appengine.target.version>1.9.59</appengine.target.version>
 		<gwtVersion>2.7.0</gwtVersion>
 		<gcloud.plugin.version>0.9.58.v20150505</gcloud.plugin.version>

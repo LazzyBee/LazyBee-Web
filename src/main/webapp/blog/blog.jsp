@@ -372,7 +372,7 @@
 					<span style="font-size: 15px; font-weight: bold;">Connect
 						with LazzyBee!</span> <br /> <br />
 					<div style="float: left" class="fb-like"
-						data-href="http://www.lazzybee.com/" data-width="260"
+						data-href="https://www.facebook.com/lazzybees" data-width="260"
 						data-layout="button_count" data-action="like"
 						data-show-faces="true" data-share="false"></div>
 					<a target="_blank"
