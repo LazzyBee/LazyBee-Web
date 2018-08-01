@@ -29,7 +29,7 @@ import com.googlecode.objectify.cmd.Query;
 
 /** An endpoint class we are exposing */
 
-@Api(name = "dataServiceApi", version = "v1.1", title = "LazzyBee Backend Api", namespace = @ApiNamespace(ownerDomain = "server.gdatabase.lazzybee.born2go.com", ownerName = "server.gdatabase.lazzybee.born2go.com", packagePath = ""))
+@Api(name = "dataServiceApi", version = "v2.0", title = "LazzyBee Backend Api", namespace = @ApiNamespace(ownerDomain = "server.gdatabase.lazzybee.born2go.com", ownerName = "server.gdatabase.lazzybee.born2go.com", packagePath = ""))
 public class DataServiceApi {
 
 	private BlobstoreService blobStoreService = BlobstoreServiceFactory

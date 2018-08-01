@@ -96,7 +96,7 @@
 			<br/> <br/> <br/>
 			<g:Anchor ui:field="previewSite" visible="false" styleName="{style.DictionaryTool_Obj4}">Bảng từ mới</g:Anchor>
 			
-			<g:Label ui:field="trademarkLb" styleName="{style.DictionaryTool_Obj6}">Born2Go © 2016</g:Label>
+			<g:Label ui:field="trademarkLb" styleName="{style.DictionaryTool_Obj6}">Born2Go © 2018</g:Label>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

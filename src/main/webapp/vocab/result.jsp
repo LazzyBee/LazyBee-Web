@@ -136,6 +136,14 @@
 
 <script type="text/javascript"
 	src="/lazzybeemobile/lazzybeemobile.nocache.js" async></script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5245864792816840",
+    enable_page_level_ads: true
+  });
+</script>
+
 </head>
 <body>
 
