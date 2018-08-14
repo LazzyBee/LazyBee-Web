@@ -86,18 +86,18 @@
 	}  else {
 %>
 <meta property="og:image"
-	content="http://www.lazzybee.com/resources/2015-11-01.png" />
+	content="https://www.lazzybee.com/resources/2015-11-01.png" />
 <%
 	}
 %>
 <meta property="og:title"
 	content="<%=blog.getShowTitle().replaceAll("\"", "\'")%>" />
 <meta property="og:url"
-	content="http://www.lazzybee.com/blog/<%=title%>" />
+	content="https://www.lazzybee.com/blog/<%=title%>" />
 <meta property="fb:app_id" content="754889477966743" />
 <meta property="fb:pages" content="1012100435467230" />
 
-<link rel="canonical" href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>">
+<link rel="canonical" href="https://www.lazzybee.com/blog/<%=blog.getTitle()%>">
 <%
 	}
 %>
@@ -274,7 +274,7 @@
 							class="fa fa-pencil-square-o fa-lg"></i></a>
 						<div style="float: right">
 							<div class="fb-like"
-								data-href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>"
+								data-href="https://www.lazzybee.com/blog/<%=blog.getTitle()%>"
 								data-layout="button_count" data-action="like"
 								data-show-faces="true" data-share="true"></div>
 						</div>
@@ -332,7 +332,7 @@
 
 				<br /> <br />
 				<div class="fb-comments" data-width="100%"
-					data-href="http://www.lazzybee.com/blog/<%=blog.getTitle()%>"
+					data-href="https://www.lazzybee.com/blog/<%=blog.getTitle()%>"
 					data-numposts="5" data-colorscheme="light"
 					data-order-by="reverse_time" data-version="v2.5"></div>
 				<br /> <br />

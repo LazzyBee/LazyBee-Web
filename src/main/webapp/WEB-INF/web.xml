@@ -181,8 +181,16 @@
 	<servlet-mapping>
 		<servlet-name>appstats</servlet-name>
 		<url-pattern>/appstats/*</url-pattern>
-	</servlet-mapping>
-	
+	</servlet-mapping>	
 	 -->
-
+	
+	<!-- <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>secure</web-resource-name>
+            <url-pattern>*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint> -->
 </web-app>

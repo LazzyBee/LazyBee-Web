@@ -92,18 +92,18 @@
 	}  else {
 %>
 <meta property="og:image"
-	content="http://www.lazzybee.com/resources/2015-11-01.png" />
+	content="https://www.lazzybee.com/resources/2015-11-01.png" />
 <%
 	}
 %>
 <meta property="og:title"
 	content="<%=currentBlog.getShowTitle().replaceAll("\"", "\'")%>" />
 <meta property="og:url"
-	content="http://www.lazzybee.com/blog/<%=title%>" />
+	content="https://www.lazzybee.com/blog/<%=title%>" />
 <meta property="fb:app_id" content="754889477966743" />
 <meta property="fb:pages" content="1012100435467230" />
 
-<link rel="canonical" href="http://www.lazzybee.com/blog/<%=currentBlog.getTitle()%>">
+<link rel="canonical" href="https://www.lazzybee.com/blog/<%=currentBlog.getTitle()%>">
 <%
 	}
 %>
@@ -248,12 +248,12 @@
 				onclick="showmap('fb_comments', this.id);">Hiển thị comment</a>
 			<div id="fb_comments" style="display: none">
 				<div class="fb-comments" data-width="100%"
-					data-href="http://www.lazzybee.com/blog/<%=title%>"
+					data-href="https://www.lazzybee.com/blog/<%=title%>"
 					data-numposts="5" data-colorscheme="light"
 					data-order-by="reverse_time" data-version="v2.5"></div>
 			</div>
 			<h2 class="mblog_install_app">
-				Tải ứng dụng <a href="http://www.lazzybee.com/">Lazzybee</a> cho <a
+				Tải ứng dụng <a href="https://www.lazzybee.com/">Lazzybee</a> cho <a
 					href="https://itunes.apple.com/us/app/lazzy-bee/id1035545961?ls=1&mt=8"
 					style="cursor: none;">iOS</a> và <a
 					href="https://play.google.com/store/apps/details?id=com.born2go.lazzybee"

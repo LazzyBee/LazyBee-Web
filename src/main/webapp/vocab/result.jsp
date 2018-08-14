@@ -9,7 +9,7 @@
 	}%>
 <%
 	String url = request.getRequestURL().toString();
-	//url = "http://lazzybee.com/";
+	//url = "https://lazzybee.com/";
 	String score = null;
 	String url_image = null;
 	String data_title = null;
@@ -34,7 +34,7 @@
 				+ score.toString()
 				+ "|từ"
 				+ "&chts=0000FF,20&chf=bg,s,00000000"; */
-				url_image = "http://www.lazzybee.com/mobile-resources/fb_share.png";
+				url_image = "https://www.lazzybee.com/mobile-resources/fb_share.png";
 				data_title = "Vốn từ của bạn khoảng "
 						+ score.toString() + " từ";
 				int score_i = Integer.parseInt(score.replace(",", "")
@@ -49,7 +49,7 @@
 							+ "</li>"
 							+ "<li>"
 							+ "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững (2000 từ một năm) "
-							+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
+							+ "<a style='text-decoration: underline !important; color: blue;' href='https://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
 							+ " Bạn nên thiết lập ở level 1 trong ứng dụng LazzyBee. Chúc bạn thành công!"
 							+ "</li>";
 				} else if (score_i < 5000) {
@@ -61,7 +61,7 @@
 							+ "</li>"
 							+ "<li>"
 							+ "Việc sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững (2000 từ một năm) "
-							+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
+							+ "<a style='text-decoration: underline !important; color: blue;' href='https://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
 							+ " Bạn nên thiết lập ở level 2 trong ứng dụng LazzyBee. Chúc bạn thành công!"
 							+ "</li>";
 				} else if (score_i < 7500) {
@@ -73,7 +73,7 @@
 							+ "</li>"
 							+ "<li>"
 							+ "Sử dụng một ứng dụng học từ như LazzyBee sẽ giúp bạn tăng trưởng vốn từ vựng đều đặn và bền vững (2000 từ một năm) "
-							+ "<a style='text-decoration: underline !important; color: blue;' href='http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
+							+ "<a style='text-decoration: underline !important; color: blue;' href='https://www.lazzybee.com/blog/can_you_learn_2000_words_per_year'>chỉ với 5 phút mỗi ngày.</a>"
 							+ " Bạn nên thiết lập ở level 3 trong ứng dụng LazzyBee. Chúc bạn thành công";
 				} else if (score_i < 10000) {
 					data_desc = "<li>"
@@ -231,11 +231,11 @@
 				<p style="font-style: italic; font-size: inherit; margin: 0px 5px;">
 					(*)Bài kiểm tra này có sai số <a
 						style="text-decoration: underline !important; color: blue;"
-						href="http://www.lazzybee.com/blog/how_accurate_the_test_is">khoảng
+						href="https://www.lazzybee.com/blog/how_accurate_the_test_is">khoảng
 						10%</a> . Để tìm hiểu chi tiết về các hoạt động, bạn có thể tìm hiểu
 					bài viết chi tiết về cách thức kiểm tra <a
 						style="text-decoration: underline !important; color: blue;"
-						href="http://www.lazzybee.com/blog/how_the_test_works">ở đây</a>.
+						href="https://www.lazzybee.com/blog/how_the_test_works">ở đây</a>.
 				</p>
 
 				<br />
@@ -332,7 +332,7 @@
 						var obj = {
 							method : 'feed',
 							redirect_uri : 'localhost:8888/vocab/g/9XogRWLLj6rCFFISgStQ==',
-							link : 'http://www.lazzybee.com/vocab/pgEO5ow16ZxJKptu7gv1dg==',
+							link : 'https://www.lazzybee.com/vocab/pgEO5ow16ZxJKptu7gv1dg==',
 							picture : 'http://fbrell.com/f8.jpg',
 							name : 'Facebook Dialogs',
 							caption : 'Reference Documentation',
@@ -356,10 +356,10 @@
 					Lazzy Bee là ứng dụng học từ vựng chuyên nghiệp, MIỄN PHÍ, giúp bạn
 					tăng vốn từ vựng bền vững 2000 từ một năm <a
 						style="text-decoration: underline !important; color: blue;"
-						href="http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year">chỉ
+						href="https://www.lazzybee.com/blog/can_you_learn_2000_words_per_year">chỉ
 						với 5 phút mỗi ngày.</a>. Vui lòng đọc <a
 						style="text-decoration: underline !important; color: blue;"
-						href="http://www.lazzybee.com/blog/did_you_read_the_manual">hướng
+						href="https://www.lazzybee.com/blog/did_you_read_the_manual">hướng
 						dẫn sử dụng</a> và học theo đúng phương pháp học để đảm bảo hiệu quả
 					tối đa.
 				</p>
